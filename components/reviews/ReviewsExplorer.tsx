@@ -29,20 +29,11 @@ function ReviewCard({ review }: { review: Review }) {
 type Sort = '추천순' | '별점순'
 
 export default function ReviewsExplorer() {
-  const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('전체')
   const [sort, setSort] = useState<Sort>('추천순')
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    let list = reviews.filter(r => {
-      const matchCat = activeCategory === '전체' || r.category === activeCategory
-      const matchQuery = !q
-        || r.name.toLowerCase().includes(q)
-        || r.text.toLowerCase().includes(q)
-        || r.category.toLowerCase().includes(q)
-      return matchCat && matchQuery
-    })
+    let list = reviews.filter(r => activeCategory === '전체' || r.category === activeCategory)
     if (sort === '별점순') {
       // 동점은 원본 순서 유지 (안정 정렬)
       list = list
@@ -51,7 +42,7 @@ export default function ReviewsExplorer() {
         .map(x => x.r)
     }
     return list
-  }, [query, activeCategory, sort])
+  }, [activeCategory, sort])
 
   return (
     <section style={{
@@ -72,25 +63,11 @@ export default function ReviewsExplorer() {
           </div>
         </div>
 
-        {/* 검색 + 정렬 */}
+        {/* 정렬 */}
         <div style={{
           display: 'flex', gap: '0.6rem', flexWrap: 'wrap',
           alignItems: 'center', marginBottom: '0.9rem',
         }}>
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="업종·내용으로 검색"
-            className="footnote"
-            style={{
-              flex: '1 1 240px', minWidth: 0,
-              background: '#fff', border: '1px solid var(--border)',
-              borderRadius: 'var(--radius-lg)', padding: '0.65rem 0.9rem',
-              color: 'var(--text)', outline: 'none',
-            }}
-            onFocus={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59,130,246,0.15)' }}
-            onBlur={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none' }}
-          />
           <div style={{ display: 'inline-flex', background: '#fff', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '0.2rem', gap: '0.2rem' }}>
             {(['추천순', '별점순'] as Sort[]).map(s => {
               const isActive = s === sort

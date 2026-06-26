@@ -41,10 +41,10 @@ export default function PromoBanner() {
         >
           신규 런칭
         </span>
-        <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em' }}>
-          제작비 <span style={{ color: '#ebf2ff' }}>50% 할인</span> + 무료 전환 진단 제공!
+        <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em',color: '#D5D5D5' }}>
+          제작비 <span style={{ color: '#fff' }}>50% 할인</span> + 무료 전환 진단 제공!
         </strong>
-        <span className="hide-sm footnote medium" style={{ opacity: 0.85 }}>
+        <span className="hide-sm footnote medium" style={{ color: '#c7ccd6' }}>
           (선착순 마감 · 지금 바로 신청하세요)
         </span>
       </div>
