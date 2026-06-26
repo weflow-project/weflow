@@ -5,17 +5,19 @@ const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
 const INSTAGRAM_URL = 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2bWRt'
 
+/* 헤더(Navbar) 메뉴와 동일하게 맞춤 */
 const SERVICE_LINKS = [
-  { label: '홈페이지 제작 과정',    href: '/service' },
-  { label: '랜딩페이지 제작 과정',  href: '/service' },
-  { label: '광고 운영·관리 안내',   href: '/service' },
-  { label: 'WEFLOW 케어플랜',       href: '/pricing' },
+  { label: '회사소개',            href: '/about' },
+  { label: '서비스',              href: '/service' },
+  { label: 'WEFLOW 혜택',         href: '/benefits' },
+  { label: '제작 플랜 & 가격안내', href: '/pricing' },
 ]
 
 const CARE_LINKS = [
-  { label: 'WE 케어',      href: '/pricing' },
-  { label: 'FLOW 케어',    href: '/pricing' },
-  { label: 'WEFLOW 케어',  href: '/pricing' },
+  { label: '성공사례',   href: '/cases' },
+  { label: '예약',       href: '/booking' },
+  { label: '고객후기',   href: '/reviews' },
+  { label: '무료진단',   href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */
@@ -93,9 +95,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* WEFLOW 케어플랜 */}
+          {/* 바로가기 */}
           <div>
-            <p className="ft-col-title">WEFLOW 케어플랜</p>
+            <p className="ft-col-title">바로가기</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               {CARE_LINKS.map(l => (
                 <li key={l.label}>

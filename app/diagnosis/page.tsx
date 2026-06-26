@@ -28,6 +28,22 @@ export default function DiagnosisPage() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  // 맞춤 플랜 위젯에서 넘어온 경우 폼 자동 채움 (제작종류·업종·상황 메모)
+  useEffect(() => {
+    const raw = sessionStorage.getItem('weflow_quiz_prefill')
+    if (!raw) return
+    try {
+      const p = JSON.parse(raw)
+      setForm(f => ({
+        ...f,
+        type: p.type || f.type,
+        industry: p.industry || f.industry,
+        note: p.note || f.note,
+      }))
+    } catch {}
+    sessionStorage.removeItem('weflow_quiz_prefill')
+  }, [])
+
   // 작성 "중간"인 사람만 이탈 모달 대상: 뭔가 입력했지만 필수항목은 아직 미완성
   useEffect(() => {
     const touched = !!(form.name || form.phone || form.type || form.industry || form.note || form.agree)
@@ -190,7 +206,7 @@ export default function DiagnosisPage() {
                 <Phone size={16} color="var(--accent)" strokeWidth={2} />
                 <div>
                   <p className="subhead emphasized c-primary" style={{ margin: 0 }}>바로 전화 상담</p>
-                  <p className="footnote emphasized c-accent" style={{ margin: 0 }}>010-2971-7280</p>
+                  <p className="footnote emphasized c-accent" style={{ margin: 0 }}>탭하면 바로 연결됩니다</p>
                 </div>
                 <span className="footnote c-muted" style={{ marginLeft: 'auto' }}>연중무휴 24시간</span>
               </a>
