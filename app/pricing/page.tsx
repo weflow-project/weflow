@@ -73,32 +73,44 @@ export default function PricingPage() {
           <div className="pricing-grid-3">
             {makePlans.map((plan, i) => (
               <div key={plan.id}
-                className={`pcard${plan.highlight ? ' pcard--featured' : ''}${v1 ? ' pcard--in' : ''}`}
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`pcard-wrap${plan.highlight ? ' pcard-wrap--featured' : ''}`}
               >
+                {/* 인기 플랜: 왕관이 카드 상단 경계에 걸쳐 올라앉음 (카드와 함께 등장) */}
                 {plan.highlight && (
-                  <div className="pcard-badge"><Crown size={11} strokeWidth={2.5} /> 인기 플랜</div>
+                  <span className={`pcard-crown-wrap${v1 ? ' pcard-crown-wrap--in' : ''}`}
+                    style={{ animationDelay: `${i * 0.1 + 0.12}s` }}>
+                    <Image src={MAKE_ICONS[i]} alt="" width={120} height={120} className="pcard-crown" style={{ width: 120, height: 120 }} />
+                  </span>
                 )}
-                <div className="pcard-body">
-                  <h3 className="pcard-name">{plan.name}</h3>
-                  <p className="pcard-sub-text">{plan.sub}</p>
-                  <ul className="pcard-features">
-                    {plan.features.map(f => (
-                      <li key={f}><Check size={13} strokeWidth={2.5} /><span>{f}</span></li>
-                    ))}
-                  </ul>
-                  <Image src={MAKE_ICONS[i]} alt="" width={140} height={140} className="pcard-emoji" style={{ width: 140, height: 140 }} />
-                </div>
-                <div className="pcard-foot">
-                  <div className="pcard-orig-row">
-                    <span className="pcard-original">{plan.originalPrice}</span>
-                    <span className="pcard-discount">{plan.discount}↓</span>
+                <div className={`pcard${plan.highlight ? ' pcard--featured' : ''}${v1 ? ' pcard--in' : ''}`}
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  {plan.highlight && (
+                    <div className="pcard-badge"><Crown size={11} strokeWidth={2.5} /> 인기 플랜</div>
+                  )}
+                  <div className="pcard-body">
+                    <h3 className="pcard-name">{plan.name}</h3>
+                    <p className="pcard-sub-text">{plan.sub}</p>
+                    <ul className="pcard-features">
+                      {plan.features.map(f => (
+                        <li key={f}><Check size={13} strokeWidth={2.5} /><span>{f}</span></li>
+                      ))}
+                    </ul>
+                    {!plan.highlight && (
+                      <Image src={MAKE_ICONS[i]} alt="" width={140} height={140} className="pcard-emoji" style={{ width: 140, height: 140 }} />
+                    )}
                   </div>
-                  <p className="pcard-price">{plan.price}</p>
-                  <p className="pcard-note">{plan.note}</p>
-                  <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
-                    무료 진단 신청 →
-                  </Link>
+                  <div className="pcard-foot">
+                    <div className="pcard-orig-row">
+                      <span className="pcard-original">{plan.originalPrice}</span>
+                      <span className="pcard-discount">{plan.discount}↓</span>
+                    </div>
+                    <p className="pcard-price">{plan.price}</p>
+                    <p className="pcard-note">{plan.note}</p>
+                    <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
+                      무료 진단 신청 →
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
@@ -312,12 +324,62 @@ export default function PricingPage() {
         }
 
         /* ── 카드 ── */
+        .pcard-wrap {
+          position: relative;
+          display: flex;
+          /* 왕관이 카드 위로 걸쳐 올라앉을 공간 (카드 상단은 3개 모두 정렬) */
+          margin-top: 64px;
+          /* 카드+왕관을 한 세트로 함께 띄우기 위해 리프트는 래퍼에 건다 */
+          transition: transform 0.22s ease;
+        }
+        .pcard-wrap:hover {
+          transform: translateY(-6px);
+        }
         .pcard {
+          flex: 1; min-width: 0;
           background: #fff; border: 1.5px solid var(--border);
           border-radius: 16px; overflow: hidden;
           display: flex; flex-direction: column; position: relative;
           opacity: 0; transform: translateY(18px);
           transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        /* 왕관 위치 래퍼 — 카드 상단 경계에 걸침 + 카드와 함께 등장 */
+        .pcard-crown-wrap {
+          position: absolute;
+          top: 0;            /* 카드 상단 기준 */
+          left: 50%;
+          transform: translate(-50%, -64%);  /* 대부분 위로 걸쳐 올라앉음 */
+          z-index: 3;
+          pointer-events: none;
+          opacity: 0;        /* 카드와 함께 등장하기 전엔 숨김 */
+        }
+        .pcard-crown-wrap--in {
+          animation: crown-in 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+        }
+        @keyframes crown-in {
+          from { opacity: 0; transform: translate(-50%, -28%) scale(0.6); }
+          to   { opacity: 1; transform: translate(-50%, -64%) scale(1); }
+        }
+        /* 왕관 이미지 — 기울기 + hover wiggle (위치 래퍼와 분리되어 충돌 없음) */
+        .pcard-crown {
+          display: block;
+          transform: rotate(-6deg);
+          filter: drop-shadow(0 10px 14px rgba(15,23,42,0.22));
+        }
+        /* hover 마이크로 인터랙션: 왕관이 한 번 까딱 */
+        .pcard-wrap--featured:hover .pcard-crown {
+          animation: crown-wiggle 0.7s cubic-bezier(0.36,0.07,0.19,0.97);
+        }
+        @keyframes crown-wiggle {
+          0%   { transform: rotate(-6deg); }
+          30%  { transform: rotate(-13deg); }
+          60%  { transform: rotate(2deg); }
+          100% { transform: rotate(-6deg); }
+        }
+        @media (max-width: 900px) {
+          .pcard-wrap { margin-top: 58px; }
+          .pcard-crown { width: 104px !important; height: 104px !important; }
         }
         .pcard--in {
           animation: card-in 0.48s cubic-bezier(0.22,1,0.36,1) forwards;
@@ -325,15 +387,15 @@ export default function PricingPage() {
         @keyframes card-in {
           to { opacity: 1; transform: translateY(0); }
         }
-        .pcard:hover {
-          transform: translateY(-6px) !important;
+        /* 리프트는 .pcard-wrap 이 담당. 카드는 테두리/그림자만 강조 */
+        .pcard-wrap:hover .pcard {
           border-color: #cdddf9;
           box-shadow: 0 12px 32px rgba(51,115,223,0.1);
         }
         .pcard--featured {
           background: var(--accent); border-color: var(--accent);
         }
-        .pcard--featured:hover {
+        .pcard-wrap:hover .pcard--featured {
           box-shadow: 0 14px 36px rgba(51,115,223,0.32);
         }
 
@@ -357,6 +419,16 @@ export default function PricingPage() {
           bottom: 1.1rem;
           pointer-events: none;
           z-index: 1;
+          transform: translateY(0) rotate(0);
+        }
+        /* hover 마이크로 인터랙션: 로켓·차트 아이콘이 살짝 튀어오름 */
+        .pcard-wrap:hover .pcard-emoji {
+          animation: emoji-pop 0.6s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        @keyframes emoji-pop {
+          0%   { transform: translateY(0) rotate(0); }
+          40%  { transform: translateY(-7px) rotate(-5deg); }
+          100% { transform: translateY(0) rotate(0); }
         }
         .pcard-icon-wrap {
           width: 40px; height: 40px; border-radius: 10px;

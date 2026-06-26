@@ -7,19 +7,19 @@ import { caseDetails } from '@/data/cases'
 
 // 업종: 추천 로직엔 관여하지 않고 예시문구·아이콘·연결 성공사례만 바뀜
 const INDUSTRIES = [
-  { label: '뷰티·피부', emoji: '💅', example: '미용실·네일·피부·왁싱', caseSlug: 'skin' },
-  { label: '피트니스·PT', emoji: '🏋️', example: 'PT샵·필라테스·헬스장', caseSlug: 'pt-shop' },
-  { label: '요식업·카페', emoji: '☕', example: '카페·음식점·베이커리', caseSlug: 'cafe' },
-  { label: '인테리어', emoji: '🏠', example: '인테리어·시공·리모델링', caseSlug: 'interior' },
-  { label: '전문직·컨설팅', emoji: '📋', example: '법률·세무·보험·컨설팅', caseSlug: 'law' },
-  { label: '기타 업종', emoji: '✨', example: '다양한 업종', caseSlug: '' },
+  { label: '뷰티·피부', emoji: '💄', example: '미용실·네일·피부·왁싱', caseSlug: 'skin' },
+  { label: '피트니스·PT', emoji: '💪', example: 'PT샵·필라테스·헬스장', caseSlug: 'pt-shop' },
+  { label: '요식업·카페', emoji: '🍽️', example: '카페·음식점·베이커리', caseSlug: 'cafe' },
+  { label: '인테리어', emoji: '🛋️', example: '인테리어·시공·리모델링', caseSlug: 'interior' },
+  { label: '전문직·컨설팅', emoji: '💼', example: '법률·세무·보험·컨설팅', caseSlug: 'law' },
+  { label: '기타 업종', emoji: '🌐', example: '다양한 업종', caseSlug: '' },
 ]
 
 // 상황 → 추천 플랜 (업종과 무관, 상황만으로 결정)
 const SITUATIONS = [
-  { label: '홈페이지가 없어요', emoji: '❌', planId: 'start' },
-  { label: '있지만 문의가 없어요', emoji: '😓', planId: 'grow' },
-  { label: '검색 상위가 안 돼요', emoji: '🔍', planId: 'master' },
+  { label: '홈페이지가 없어요', emoji: '🚫', planId: 'start' },
+  { label: '있지만 문의가 없어요', emoji: '📉', planId: 'grow' },
+  { label: '검색 상위가 안 돼요', emoji: '🔝', planId: 'master' },
 ]
 
 // 플랜별 부가정보 (제작기간 / 무료진단 폼 제작종류 / 추천 이유)
@@ -92,7 +92,7 @@ export default function InquiryQuiz() {
           ;(e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 16px rgba(51,115,223,0.35)'
         }}
       >
-        <span>💡</span> 맞춤 플랜 알아보기
+        <span>🎯</span> 맞춤 플랜 알아보기
       </button>
 
       {/* 퀴즈 패널 */}
