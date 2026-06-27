@@ -31,7 +31,7 @@ export default function SocialProofToast() {
   const [idx, setIdx] = useState(0)
   const [timeLabel, setTimeLabel] = useState('방금 전')
   const [mounted, setMounted] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const idxRef = useRef(0)
 
   // 직전과 겹치지 않는 랜덤 항목을 골라 노출

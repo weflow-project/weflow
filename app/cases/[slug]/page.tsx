@@ -1,10 +1,11 @@
 import { cases, caseDetails, defaultCaseDetail, caseImagePath } from '@/data/cases'
 import CaseDetailContent from '@/components/cases/CaseDetailContent'
 
-export default function CaseDetailPage({ params }: { params: { slug: string } }) {
-  const c = caseDetails[params.slug] || defaultCaseDetail
-  const imageSrc = caseImagePath(params.slug)
-  return <CaseDetailContent c={c} imageSrc={imageSrc} slug={params.slug} />
+export default async function CaseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const c = caseDetails[slug] || defaultCaseDetail
+  const imageSrc = caseImagePath(slug)
+  return <CaseDetailContent c={c} imageSrc={imageSrc} slug={slug} />
 }
 
 export function generateStaticParams() {

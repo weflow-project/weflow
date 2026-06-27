@@ -27,7 +27,7 @@ export default function PricingPage() {
   }, [])
 
   useEffect(() => {
-    const pairs: [React.RefObject<HTMLElement>, (v: boolean) => void, (i: number) => void][] = [
+    const pairs: [React.RefObject<HTMLElement | null>, (v: boolean) => void, (i: number) => void][] = [
       [s1, setV1, setActiveSection],
       // [s2, setV2, setActiveSection], // 케어플랜 섹션 주석처리
       // [s3, setV3, setActiveSection], // 광고 세팅 섹션 주석처리
@@ -45,7 +45,7 @@ export default function PricingPage() {
     return () => observers.forEach(o => o.disconnect())
   }, [])
 
-  const scrollTo = (ref: React.RefObject<HTMLElement>) => {
+  const scrollTo = (ref: React.RefObject<HTMLElement | null>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
