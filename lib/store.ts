@@ -1,4 +1,4 @@
-import { supabase } from './supabase'
+import { getSupabase } from './supabase'
 
 export interface Booking {
   id: string
@@ -58,7 +58,7 @@ function toInquiry(row: Record<string, unknown>): Inquiry {
 
 export const bookingStore = {
   getAll: async (): Promise<Booking[]> => {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('bookings')
       .select('*')
       .order('created_at', { ascending: false })
@@ -67,7 +67,7 @@ export const bookingStore = {
   },
 
   create: async (input: Omit<Booking, 'id' | 'status' | 'createdAt'>): Promise<Booking> => {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('bookings')
       .insert({ ...input, status: 'pending' })
       .select()
@@ -78,7 +78,7 @@ export const bookingStore = {
 
   update: async (id: string, patch: Partial<Booking>): Promise<Booking | null> => {
     const { createdAt, ...rest } = patch as Partial<Booking> & { createdAt?: string }
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('bookings')
       .update(rest)
       .eq('id', id)
@@ -89,14 +89,14 @@ export const bookingStore = {
   },
 
   delete: async (id: string): Promise<boolean> => {
-    const { error } = await supabase.from('bookings').delete().eq('id', id)
+    const { error } = await getSupabase().from('bookings').delete().eq('id', id)
     return !error
   },
 }
 
 export const inquiryStore = {
   getAll: async (): Promise<Inquiry[]> => {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('inquiries')
       .select('*')
       .order('created_at', { ascending: false })
@@ -105,7 +105,7 @@ export const inquiryStore = {
   },
 
   create: async (input: Omit<Inquiry, 'id' | 'status' | 'createdAt'>): Promise<Inquiry> => {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('inquiries')
       .insert({ ...input, status: 'pending' })
       .select()
@@ -116,7 +116,7 @@ export const inquiryStore = {
 
   update: async (id: string, patch: Partial<Inquiry>): Promise<Inquiry | null> => {
     const { createdAt, ...rest } = patch as Partial<Inquiry> & { createdAt?: string }
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('inquiries')
       .update(rest)
       .eq('id', id)
@@ -127,7 +127,7 @@ export const inquiryStore = {
   },
 
   delete: async (id: string): Promise<boolean> => {
-    const { error } = await supabase.from('inquiries').delete().eq('id', id)
+    const { error } = await getSupabase().from('inquiries').delete().eq('id', id)
     return !error
   },
 }
