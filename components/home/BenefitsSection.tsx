@@ -49,7 +49,7 @@ export default function BenefitsSection() {
 
         {/* 혜택 카드 3개 */}
         <div className="benefit-grid">
-          {BENEFITS.map(b => (
+          {BENEFITS.map((b, i) => (
             <div
               key={b.no}
               className="benefit-card"
@@ -72,7 +72,7 @@ export default function BenefitsSection() {
                   right: '20px',
                   width: '84px',
                   height: '68px',
-                  backgroundImage: "url('/images/bookmark.svg')",
+                  backgroundImage: "url('/images/3d-icon/bookmark.svg')",
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'top center',
@@ -86,7 +86,7 @@ export default function BenefitsSection() {
               </span>
 
               {/* 3D 아이콘 */}
-              <Image src={b.icon} alt="" width={128} height={128} style={{ width: 128, height: 128, marginBottom: '1.5rem' }} />
+              <Image src={b.icon} alt="" width={128} height={128} style={{ width: i === 2 ? 156 : 128, height: i === 2 ? 156 : 128, marginBottom: '1.5rem' }} />
 
               {/* 제목 */}
               <h3 className="title-3 emphasized" style={{ margin: '0 0 0.6rem', wordBreak: 'keep-all' }}>

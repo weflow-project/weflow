@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { X, Check, PencilRuler, Workflow, ShieldCheck } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -54,8 +55,13 @@ export default function WhyWeflowSection() {
               <span style={{ width: 10, height: 10, borderRadius: '9999px', background: '#febc2e' }} />
               <span style={{ width: 10, height: 10, borderRadius: '9999px', background: '#28c840' }} />
             </div>
-            <div style={{ aspectRatio: '16 / 10', background: 'var(--surface-container)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span className="subhead c-muted">AI로만 만든 홈페이지 예시</span>
+            <div style={{ aspectRatio: '16 / 10', position: 'relative', overflow: 'hidden' }}>
+              <Image
+                src="/images/main/main-ai-homepage.png"
+                alt="AI로만 만든 홈페이지 예시"
+                fill
+                style={{ objectFit: 'cover' }}
+              />
             </div>
           </div>
 

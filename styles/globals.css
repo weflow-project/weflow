@@ -62,8 +62,12 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: var(--accent);
     border-radius: 3px;
+  }
+  * {
+    scrollbar-color: var(--accent) transparent;
+    scrollbar-width: thin;
   }
 }
 

@@ -2,17 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 
-// 3D 아이콘 (현재 3개 보유 — 6개로 늘리려면 feature004~006.svg 추가 후 아래 경로만 교체)
-const ICONS = [
-  '/images/3d-icon/feature001.svg',
-  '/images/3d-icon/feature002.svg',
-  '/images/3d-icon/feature003.svg',
-]
-
 type Benefit = {
   title: string
   points: string[]
-  imageLabel: string
+  image: string
+  icon: string
   cta?: { label: string; href: string }
 }
 
@@ -25,7 +19,8 @@ const BENEFITS: Benefit[] = [
       '유튜브 숏폼 — 짧은 영상으로 바이럴 확산',
       '제휴 채널 통합 운영으로 SEO 최적화까지',
     ],
-    imageLabel: '제휴 채널 노출 이미지',
+    image: '/images/benefits/benefit-01-partnership.png',
+    icon: '/images/3d-icon/benefit001.svg',
   },
   {
     title: '합리적 가성비',
@@ -33,7 +28,8 @@ const BENEFITS: Benefit[] = [
       '정가 대비 100만원 이내로 제작 가능',
       '필요한 기능만 구성한 합리적인 비용',
     ],
-    imageLabel: '가격 비교 이미지',
+    image: '/images/benefits/benefit-02-price.png',
+    icon: '/images/3d-icon/benefit002.svg',
     cta: { label: '제작 플랜 보기', href: '/pricing' },
   },
   {
@@ -42,7 +38,8 @@ const BENEFITS: Benefit[] = [
       '랜딩페이지 — 3~4일 이내 완성',
       '홈페이지 — 1~2주 이내 완성',
     ],
-    imageLabel: '빠른 제작 이미지',
+    image: '/images/benefits/benefit-03-fast.png',
+    icon: '/images/3d-icon/benefit003.svg',
   },
   {
     title: '고객의 소리 · 2:1 관리 시스템',
@@ -50,7 +47,8 @@ const BENEFITS: Benefit[] = [
       '충분한 소통으로 진짜 니즈를 먼저 듣습니다',
       '기획자·디자이너 2인이 고객 한 분을 전담',
     ],
-    imageLabel: '귀 기울이는 상담 이미지 (귀 모양 등)',
+    image: '/images/benefits/benefit-04-listen.png',
+    icon: '/images/3d-icon/benefit004.svg',
   },
   {
     title: '각 상품별 전용 유지보수',
@@ -59,7 +57,8 @@ const BENEFITS: Benefit[] = [
       '도메인·서버 관리 지원',
       '텍스트 문구 / 통이미지 수정 지원',
     ],
-    imageLabel: '유지보수 이미지',
+    image: '/images/benefits/benefit-05-maintain.png',
+    icon: '/images/3d-icon/benefit005.svg',
   },
   {
     title: '반응형 디자인 (PC / MO)',
@@ -67,7 +66,8 @@ const BENEFITS: Benefit[] = [
       'PC·모바일 등 모든 기기에서 최적화',
       '화면 잘림 없는 깔끔한 반응형 전환',
     ],
-    imageLabel: 'PC ↔ MO 전환 이미지',
+    image: '/images/benefits/benefit-06-responsive.png',
+    icon: '/images/3d-icon/benefit006.svg',
   },
 ]
 
@@ -88,7 +88,7 @@ export default function BenefitDetails() {
             <div key={b.title} className={`bd-row${i % 2 === 1 ? ' bd-row--rev' : ''}`}>
               {/* 텍스트 */}
               <div className="bd-text">
-                <Image src={ICONS[i % ICONS.length]} alt="" width={72} height={72} style={{ width: 72, height: 72, marginBottom: '1.1rem' }} />
+                <Image src={b.icon} alt="" width={72} height={72} style={{ width: 72, height: 72, marginBottom: '1.1rem' }} />
                 <h3 className="title-2 emphasized" style={{ margin: '0 0 1rem', wordBreak: 'keep-all' }}>{b.title}</h3>
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
                   {b.points.map(p => (
@@ -105,9 +105,9 @@ export default function BenefitDetails() {
                 )}
               </div>
 
-              {/* 이미지 자리 */}
+              {/* 이미지 */}
               <div className="bd-img">
-                <span className="subhead c-muted">{b.imageLabel}</span>
+                <Image src={b.image} alt={b.title} fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-2xl)' }} />
               </div>
             </div>
           ))}
@@ -133,10 +133,13 @@ export default function BenefitDetails() {
         <p className="callout" style={{ margin: '1rem 0 1.75rem', color: 'rgba(255,255,255,0.72)' }}>
           연중무휴 24시간, 언제 문의하셔도 빠르게 응답합니다.
         </p>
-        {/* 이미지 자리 (업무 중 / 행복해하는 모습 등) */}
         <div className="bd-band-imgs">
-          <div className="bd-band-img"><span className="footnote" style={{ color: 'rgba(255,255,255,0.5)' }}>업무 중인 모습 이미지</span></div>
-          <div className="bd-band-img"><span className="footnote" style={{ color: 'rgba(255,255,255,0.5)' }}>행복해하는 모습 이미지</span></div>
+          <div className="bd-band-img">
+            <Image src="/images/benefits/support/support-working.png" alt="업무 중인 모습" fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
+          </div>
+          <div className="bd-band-img">
+            <Image src="/images/benefits/support/support-happy.png" alt="행복해하는 모습" fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
+          </div>
         </div>
         <Link href="/diagnosis" className="btn-white" style={{ marginTop: '1.75rem', fontSize: '1rem' }}>
           무료진단 신청하기
@@ -155,14 +158,9 @@ export default function BenefitDetails() {
         .bd-row--rev .bd-img { order: 1; }
         .bd-img {
           aspect-ratio: 4 / 3;
-          background: var(--bg-secondary);
-          border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding: 1rem;
+          position: relative;
+          overflow: hidden;
         }
         .bd-band-imgs {
           display: grid;
@@ -173,14 +171,9 @@ export default function BenefitDetails() {
         }
         .bd-band-img {
           aspect-ratio: 16 / 10;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.12);
           border-radius: var(--radius-xl);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding: 0.75rem;
+          position: relative;
+          overflow: hidden;
         }
         @media (max-width: 768px) {
           .bd-row { grid-template-columns: 1fr; }

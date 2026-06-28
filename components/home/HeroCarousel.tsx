@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
-// 추후 실제 대표 이미지로 교체 (예: <Image src=... fill /> 로 배경 대체)
 const SLIDES = [
-  { label: '대표 이미지 1', bg: 'var(--accent-light)' },
-  { label: '대표 이미지 2', bg: '#eef2f8' },
-  { label: '대표 이미지 3', bg: '#e7ecf4' },
+  { label: '대표 이미지 1', src: '/images/main/main-hero-1.png' },
+  { label: '대표 이미지 2', src: '/images/main/main-hero-2.png' },
+  { label: '대표 이미지 3', src: '/images/main/main-hero-3.png' },
 ]
 const COUNT = SLIDES.length
 const INTERVAL = 3000
@@ -74,14 +74,17 @@ export default function HeroCarousel() {
             style={{
               flex: '0 0 100%',
               height: '100%',
-              background: s.bg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              position: 'relative',
             }}
-            className="subhead c-muted"
           >
-            {s.label}
+            <Image
+              src={s.src}
+              alt={s.label}
+              fill
+              sizes="(min-width: 960px) 960px, 100vw"
+              style={{ objectFit: 'cover' }}
+              priority={i === 0}
+            />
           </div>
         ))}
       </div>

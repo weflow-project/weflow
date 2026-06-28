@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { MessageCircle, PenLine, Users } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -36,7 +37,7 @@ export default function ListeningSection() {
         <div style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
           <span className="footnote emphasized c-accent">1줄소개</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left' }}>
-            고객의 소리에 <span className="c-accent">귀 기울이는</span>위플로우
+            고객의 소리에 <span className="c-accent">귀 기울이는</span> 위플로우
           </h2>
         </div>
 
@@ -48,14 +49,17 @@ export default function ListeningSection() {
             style={{
               aspectRatio: '1 / 1',
               borderRadius: 'var(--radius-2xl)',
-              background: 'var(--surface-container)',
+              overflow: 'hidden',
+              position: 'relative',
               border: '1px solid var(--border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
             }}
           >
-            <span className="subhead c-muted">귀 디자인 이미지</span>
+            <Image
+              src="/images/main/main-intro.jpeg"
+              alt="고객의 소리에 귀 기울이는 위플로우"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
           </div>
 
           {/* 3요소 */}
