@@ -64,6 +64,7 @@ export default function ComparisonCTA() {
               src="/images/main/main-character.png"
               alt="위플로우 캐릭터"
               fill
+              sizes="(max-width: 768px) 0px, 720px"
               style={{ objectFit: "contain", objectPosition: "bottom" }}
             />
           </div>

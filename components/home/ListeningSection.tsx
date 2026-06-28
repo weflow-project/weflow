@@ -58,6 +58,8 @@ export default function ListeningSection() {
               src="/images/main/main-intro.jpeg"
               alt="고객의 소리에 귀 기울이는 위플로우"
               fill
+              sizes="(max-width: 768px) 100vw, 360px"
+              priority
               style={{ objectFit: 'cover' }}
             />
           </div>

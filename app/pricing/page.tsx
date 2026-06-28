@@ -514,17 +514,7 @@ export default function PricingPage() {
           font-size: 0.8125rem; color: var(--text-muted); line-height: 1.7; word-break: keep-all;
         }
 
-        .pricing-dots {
-          position: fixed; right: 1.25rem; top: 50%;
-          transform: translateY(-50%); z-index: 50;
-          display: flex; flex-direction: column; gap: 0.5rem;
-        }
-        .pdot {
-          width: 6px; height: 6px; border-radius: 9999px;
-          background: #d1d5db; border: none; cursor: pointer; padding: 0;
-          transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-        }
-        .pdot--active { height: 22px; background: var(--accent); }
+        .pricing-dots { display: none; }
         @media (max-width: 640px) {
           .pricing-dots { display: none; }
           .pricing-section { min-height: auto; padding: 2rem 1.25rem; }

@@ -83,7 +83,7 @@ export default function HeroCarousel() {
               fill
               sizes="(min-width: 960px) 960px, 100vw"
               style={{ objectFit: 'cover' }}
-              priority={i === 0}
+              priority={i <= 1}
             />
           </div>
         ))}

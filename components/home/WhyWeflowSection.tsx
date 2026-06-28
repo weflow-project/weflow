@@ -60,6 +60,7 @@ export default function WhyWeflowSection() {
                 src="/images/main/main-ai-homepage.png"
                 alt="AI로만 만든 홈페이지 예시"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
               />
             </div>

@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {},
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
     ],
-  },
-  webpack: (config) => {
-    config.cache = { type: 'memory' }
-    return config
   },
 }
 

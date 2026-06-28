@@ -107,7 +107,7 @@ export default function BenefitDetails() {
 
               {/* 이미지 */}
               <div className="bd-img">
-                <Image src={b.image} alt={b.title} fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-2xl)' }} />
+                <Image src={b.image} alt={b.title} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover', borderRadius: 'var(--radius-2xl)' }} />
               </div>
             </div>
           ))}
@@ -135,10 +135,10 @@ export default function BenefitDetails() {
         </p>
         <div className="bd-band-imgs">
           <div className="bd-band-img">
-            <Image src="/images/benefits/support/support-working.png" alt="업무 중인 모습" fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
+            <Image src="/images/benefits/support/support-working.png" alt="업무 중인 모습" fill sizes="(max-width: 768px) 100vw, 360px" style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
           </div>
           <div className="bd-band-img">
-            <Image src="/images/benefits/support/support-happy.png" alt="행복해하는 모습" fill style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
+            <Image src="/images/benefits/support/support-happy.png" alt="행복해하는 모습" fill sizes="(max-width: 768px) 100vw, 360px" style={{ objectFit: 'cover', borderRadius: 'var(--radius-xl)' }} />
           </div>
         </div>
         <Link href="/diagnosis" className="btn-white" style={{ marginTop: '1.75rem', fontSize: '1rem' }}>

@@ -65,7 +65,7 @@
     background: var(--accent);
     border-radius: 3px;
   }
-  * {
+  html {
     scrollbar-color: var(--accent) transparent;
     scrollbar-width: thin;
   }

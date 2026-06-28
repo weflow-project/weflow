@@ -9,7 +9,7 @@ export interface Step {
 export const steps: Step[] = [
   { num: '01', title: '상담·진단', desc: '업종 및 제작 방향 확인', detail: '고객의 업종, 타겟 고객, 경쟁사 분석을 통해 최적의 제작 방향을 설정합니다.', image: '/images/process/process-01-consult.png' },
   { num: '02', title: '기획·설계', desc: '문의 구조 및 전략 설계', detail: '고객이 문의로 이어지는 동선을 설계하고, 버튼 위치와 CTA 구조를 최적화합니다.', image: '/images/process/process-02-plan.png' },
-  { num: '03', title: '디자인', desc: '브랜드 맞춤 화면 구성', detail: '업종별 특성에 맞는 컬러, 레이아웃, 폰트를 선정하여 브랜드 아이덴티티를 구현합니다.', image: '/images/process/process-03-design.jpeg' },
+  { num: '03', title: '디자인', desc: '브랜드 맞춤 화면 구성', detail: '업종별 특성에 맞는 컬러, 레이아웃, 폰트를 선정하여 브랜드 아이덴티티를 구현합니다.', image: '/images/process/process-03-design.png' },
   { num: '04', title: '개발', desc: '필요한 기능 구현 및 페이지 개발', detail: '설계안을 바탕으로 페이지와 기능을 안정적으로 개발합니다.', image: '/images/process/process-04-dev.png' },
   { num: '05', title: '반응형 제작 (PC/MO) 및 최종 점검', desc: 'PC·모바일 반응형 + 최종 검수', detail: 'PC·모바일 등 모든 기기에 맞춘 반응형으로 제작하고, 속도·오류·크로스브라우저까지 최종 점검합니다.', image: '/images/process/process-05-responsive.png' },
   { num: '06', title: 'WEFLOW만의 제휴마케팅 연결', desc: '블로그·인스타·유튜브 숏폼 제휴 연결', detail: '위플로우만의 제휴 채널(블로그·인스타그램·유튜브 숏폼)에 연결해, 제작 이후에도 노출과 유입을 만듭니다.', image: '/images/process/process-06-marketing.png' },
