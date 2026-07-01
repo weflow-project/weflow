@@ -99,7 +99,7 @@ export default function HeroBanner() {
           </Link>
         </div>
 
-        {/* 대표 이미지 캐러셀 (3장 · 3초 자동 좌우 슬라이드) */}
+        {/* 대표 이미지 캐러셀 (10장 · 3초 자동 좌우 슬라이드) */}
         <HeroCarousel />
       </div>
     </section>

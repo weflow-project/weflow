@@ -14,10 +14,10 @@ const SERVICE_LINKS = [
 ]
 
 const CARE_LINKS = [
-  { label: '성공사례',   href: '/cases' },
-  { label: '예약',       href: '/booking' },
-  { label: '고객후기',   href: '/reviews' },
-  { label: '무료진단',   href: '/diagnosis' },
+  { label: '성공 사례 포트폴리오',    href: '/cases' },
+  { label: '실제 고객 인터뷰 & 후기', href: '/reviews' },
+  { label: '예약',                   href: '/booking' },
+  { label: '무료진단',               href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */
@@ -42,17 +42,17 @@ const InstagramIcon = () => (
   </svg>
 )
 const NaverIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="14" height="14" viewBox="-3.5 -3.5 31 31" fill="currentColor">
     <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
   </svg>
 )
 
 const CONTACT_LINKS = [
-  { label: '전화문의',          href: 'tel:010-2971-7280',              Icon: PhoneIcon,    external: false },
-  { label: '이메일 문의',       href: 'mailto:contact@weflowlab.kr',    Icon: MailIcon,     external: false },
-  { label: '카카오 채널 문의',  href: KAKAO_URL,                         Icon: KakaoIcon,    external: true },
-  { label: '인스타 문의',       href: INSTAGRAM_URL,                     Icon: InstagramIcon, external: true },
-  { label: '블로그',            href: BLOG_URL,                          Icon: NaverIcon,    external: true },
+  { label: '전화문의',          href: 'tel:010-2971-7280',              Icon: PhoneIcon,    external: false, color: '#94a3b8' },
+  { label: '이메일 문의',       href: 'mailto:contact@weflowlab.kr',    Icon: MailIcon,     external: false, color: '#94a3b8' },
+  { label: '카카오 채널 문의',  href: KAKAO_URL,                         Icon: KakaoIcon,    external: true,  color: '#FEE500' },
+  { label: '인스타 문의',       href: INSTAGRAM_URL,                     Icon: InstagramIcon, external: true, color: '#E4405F' },
+  { label: '블로그',            href: BLOG_URL,                          Icon: NaverIcon,    external: true,  color: '#03C75A' },
 ]
 
 export default function Footer() {
@@ -113,13 +113,15 @@ export default function Footer() {
           <div>
             <p className="ft-col-title">상담문의</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-              {CONTACT_LINKS.map(({ label, href, Icon, external }) => (
+              {CONTACT_LINKS.map(({ label, href, Icon, external, color }) => (
                 <li key={label}>
                   <a href={href}
                     target={external ? '_blank' : undefined}
                     rel={external ? 'noopener noreferrer' : undefined}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: '#94a3b8', textDecoration: 'none' }} className="footnote">
-                    <Icon />
+                    <span style={{ display: 'inline-flex', color }}>
+                      <Icon />
+                    </span>
                     {label}
                   </a>
                 </li>

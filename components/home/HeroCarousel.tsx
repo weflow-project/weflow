@@ -1,13 +1,10 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
 
-const SLIDES = [
-  { label: '대표 이미지 1', src: '/images/main/main-hero-1.png' },
-  { label: '대표 이미지 2', src: '/images/main/main-hero-2.png' },
-  { label: '대표 이미지 3', src: '/images/main/main-hero-3.png' },
-]
+const SLIDES = Array.from({ length: 10 }, (_, i) => ({
+  label: `대표 이미지 ${i + 1}`,
+}))
 const COUNT = SLIDES.length
 const INTERVAL = 3000
 
@@ -75,16 +72,16 @@ export default function HeroCarousel() {
               flex: '0 0 100%',
               height: '100%',
               position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'var(--bg-secondary)',
+              color: 'var(--text-secondary)',
+              fontSize: 'clamp(1rem, 3vw, 1.5rem)',
+              fontWeight: 600,
             }}
           >
-            <Image
-              src={s.src}
-              alt={s.label}
-              fill
-              sizes="(min-width: 960px) 960px, 100vw"
-              style={{ objectFit: 'cover' }}
-              priority={i <= 1}
-            />
+            {s.label}
           </div>
         ))}
       </div>
@@ -109,36 +106,35 @@ export default function HeroCarousel() {
         <ChevronRight size={20} />
       </button>
 
-      {/* 하단 도트 */}
+      {/* 하단 진행 바 — 슬라이드 위치에 따라 인디케이터 이동 (개수 비노출) */}
       <div
+        role="progressbar"
+        aria-valuemin={1}
+        aria-valuemax={COUNT}
+        aria-valuenow={index + 1}
+        aria-label="이미지 진행 상태"
         style={{
           position: 'absolute',
           bottom: '0.9rem',
           left: '50%',
           transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: '0.45rem',
+          width: 'clamp(120px, 30%, 200px)',
+          height: '6px',
+          borderRadius: '9999px',
+          background: 'rgba(11,18,32,0.18)',
+          overflow: 'hidden',
         }}
       >
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => go(i)}
-            aria-label={`${i + 1}번 이미지로 이동`}
-            aria-current={i === index}
-            style={{
-              width: i === index ? '22px' : '8px',
-              height: '8px',
-              borderRadius: '9999px',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              background: i === index ? 'var(--accent)' : 'rgba(11,18,32,0.22)',
-              transition: 'width 0.25s, background 0.25s',
-            }}
-          />
-        ))}
+        <div
+          style={{
+            width: `${100 / COUNT}%`,
+            height: '100%',
+            borderRadius: '9999px',
+            background: 'var(--accent)',
+            transform: `translateX(${index * 100}%)`,
+            transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1)',
+          }}
+        />
       </div>
     </div>
   )

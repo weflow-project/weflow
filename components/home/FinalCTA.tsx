@@ -73,7 +73,7 @@ export default function FinalCTA() {
           <a href="tel:010-2971-7280" className="fcta-btn subhead emphasized">
             전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
           </a>
-          <Link href="/diagnosis" className="fcta-btn subhead emphasized">
+          <Link href="/diagnosis" className="fcta-btn fcta-btn--solid subhead emphasized">
             무료체험하기 <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </div>
@@ -97,15 +97,23 @@ export default function FinalCTA() {
           align-items: center;
           gap: 0.6rem;
           color: #fff;
-          background: transparent;
-          border: 1.5px solid rgba(255,255,255,0.55);
+          background: rgba(255,255,255,0.14);
+          border: 1.5px solid rgba(255,255,255,0.9);
           border-radius: 9999px;
           padding: 0.85rem 2rem;
           text-decoration: none;
-          transition: background 0.18s, border-color 0.18s, transform 0.12s;
+          transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
         }
-        .fcta-btn:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+        .fcta-btn:hover { background: rgba(255,255,255,0.24); border-color: #fff; }
         .fcta-btn:active { transform: scale(0.97); }
+        /* 주 버튼 — 흰색 채움 (강조) */
+        .fcta-btn--solid {
+          background: #fff;
+          color: var(--accent);
+          border-color: #fff;
+          box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+        }
+        .fcta-btn--solid:hover { background: #eef2ff; border-color: #eef2ff; }
         @media (max-width: 480px) {
           .fcta-btns { flex-direction: column; align-items: stretch; }
           .fcta-btn { justify-content: center; }

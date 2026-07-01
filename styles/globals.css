@@ -312,9 +312,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "lead ch1"
-      "lead ch2"
-      "sub  ch3";
+      "lead lead"
+      "sub  ch1"
+      "ch2  ch3";
     gap: 1.1rem;
   }
   .bento-lead {
