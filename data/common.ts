@@ -1,8 +1,8 @@
 export const projectTypes = [
   '랜딩페이지 제작',
+  '랜딩형 홈페이지 제작',
   '홈페이지 제작',
-  '랜딩&홈페이지 제작',
-  '기타(WEFLOW 케어플랜)',
+  '기타(관리자 페이지)',
 ]
 
 export const diagnosisItems = [

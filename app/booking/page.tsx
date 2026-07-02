@@ -1,7 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, Check, CalendarDays, Clock, User } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Check, CalendarDays, Clock, User, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
+import Reveal from '@/components/Reveal'
+import SplitText from '@/components/SplitText'
 
 const AM_SLOTS = ['09:00','09:30','10:00','10:30','11:00','11:30']
 const PM_SLOTS = ['12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30']
@@ -22,6 +24,8 @@ export default function BookingPage() {
   const [form, setForm] = useState({ name: '', phone: '', type: '', industry: '', note: '', agree: false })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [showErrors, setShowErrors] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   // 작성 "중간"인 사람만 이탈 모달 대상: 뭔가 건드렸지만 필수항목은 아직 미완성
   useEffect(() => {
@@ -68,20 +72,40 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!selectedDay || (!selectedSlot && !customTime) || !form.name || !form.phone || !form.type || !form.agree) {
-      alert('모든 필수 항목을 입력하고 개인정보 수집에 동의해 주세요.')
+      setShowErrors(true)
+      const firstId =
+        !selectedDay ? 'bk-date'
+        : (!selectedSlot && !customTime) ? 'bk-time'
+        : !form.name ? 'bk-name'
+        : !form.phone ? 'bk-phone'
+        : !form.type ? 'bk-type'
+        : 'bk-agree'
+      const el = document.getElementById(firstId)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) {
+        el.focus({ preventScroll: true })
+      }
       return
     }
     setLoading(true)
+    setSubmitError(false)
     const date = `${year}-${pad(month + 1)}-${pad(selectedDay)}`
     const time = customTime || selectedSlot
-    await fetch('/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: form.name, phone: form.phone, type: form.type, industry: form.industry, note: form.note, date, time }),
-    })
-    setLoading(false)
-    setSubmitted(true)
-    sessionStorage.removeItem('weflow_form_intent')
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, phone: form.phone, type: form.type, industry: form.industry, note: form.note, date, time }),
+      })
+      if (!res.ok) throw new Error('request failed')
+      setLoading(false)
+      setShowErrors(false)
+      setSubmitted(true)
+      sessionStorage.removeItem('weflow_form_intent')
+    } catch {
+      setLoading(false)
+      setSubmitError(true)
+    }
   }
 
   if (submitted) {
@@ -91,29 +115,37 @@ export default function BookingPage() {
           <div style={{
             width: 72, height: 72, borderRadius: '50%', background: '#dcfce7',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 1.25rem',
+            margin: '0 auto 1.75rem',
           }}>
             <Check size={34} color="#16a34a" strokeWidth={2.5} />
           </div>
-          <h2 className="title-2 emphasized" style={{ marginBottom: '0.5rem' }}>예약이 접수되었습니다</h2>
-          <p className="callout c-muted" style={{ lineHeight: 1.8, marginBottom: '0.5rem' }}>
+          <h2 className="title-1 emphasized" style={{ marginBottom: '1rem' }}>예약이 접수되었습니다</h2>
+          <p className="c-muted" style={{ lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '1.1rem' }}>
             담당자가 확인 후 빠르게 연락드리겠습니다.
           </p>
           {dateStr && timeStr && (
             <div style={{
-              background: '#f0f7ff', border: '1px solid #cdddf9',
-              borderRadius: '10px', padding: '0.85rem 1.25rem', marginBottom: '1.5rem',
+              background: '#f0f7ff', border: '1.5px solid #cdddf9',
+              borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '2.25rem',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem 1.25rem', flexWrap: 'wrap',
             }}>
-              <p className="footnote semibold c-secondary" style={{ margin: '0 0 0.2rem' }}>{dateStr}</p>
-              <p className="footnote emphasized c-accent" style={{ margin: 0 }}>{timeStr}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <CalendarDays size={17} color="var(--accent)" strokeWidth={2} />
+                <span className="subhead semibold c-primary" style={{ fontSize: '1.1rem' }}>{dateStr}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Clock size={17} color="var(--accent)" strokeWidth={2} />
+                <span className="subhead emphasized c-accent" style={{ fontSize: '1.1rem' }}>{timeStr}</span>
+              </div>
             </div>
           )}
           <button
             onClick={() => {
               setSubmitted(false); setSelectedDay(null); setSelectedSlot(''); setCustomTime('')
               setForm({ name: '', phone: '', type: '', industry: '', note: '', agree: false })
+              setShowErrors(false)
             }}
-            className="btn-primary" style={{ fontSize: '0.9rem' }}
+            className="btn-primary" style={{ fontSize: '1.05rem', padding: '0.9rem 1.75rem' }}
           >
             다른 예약 하기
           </button>
@@ -134,7 +166,7 @@ export default function BookingPage() {
           borderRadius: '8px', cursor: disabled ? 'not-allowed' : 'pointer',
           background: active ? '#ebf2ff' : disabled ? '#f9fafb' : '#fff',
           color: active ? 'var(--accent)' : disabled ? '#d1d5db' : 'var(--text-secondary)',
-          fontSize: '0.78rem', fontWeight: active ? 700 : 500,
+          fontSize: '0.9rem', fontWeight: active ? 700 : 500,
           fontFamily: 'inherit', transition: 'all 0.15s', textAlign: 'center',
         }}>
         {slot}
@@ -148,11 +180,21 @@ export default function BookingPage() {
       {/* ── 헤더 ── */}
       <section style={{ background: '#fff', borderBottom: '1px solid var(--border)', padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 2vw, 2rem)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>BOOKING</p>
-          <h1 className="title-1" style={{ margin: '0 0 0.4rem' }}>
-            상담 예약
-          </h1>
-          <p className="subhead c-muted" style={{ margin: 0 }}>날짜와 시간을 선택하고 정보를 입력해 주세요</p>
+          <Reveal variant="up">
+            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>BOOKING</span>
+          </Reveal>
+          <SplitText
+            as="h1"
+            className="title-1 bk-heading"
+            style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
+            segments={[
+              { text: '상담 ' },
+              { text: '예약', className: 'c-accent' },
+            ]}
+          />
+          <Reveal variant="up" delay={0.1}>
+            <p className="subhead c-muted" style={{ margin: 0 }}>날짜와 시간을 선택하고 정보를 입력해 주세요</p>
+          </Reveal>
         </div>
       </section>
 
@@ -165,16 +207,16 @@ export default function BookingPage() {
 
             {/* ── 왼쪽: 달력 ── */}
             <div className="booking-left">
-            <div className="booking-card">
+            <div className="booking-card" id="bk-date">
               <p className="bk-section-title"><CalendarDays size={15} color="var(--accent)" strokeWidth={2} /> 날짜 선택 <span style={{ color: '#ef4444' }}>*</span></p>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <button type="button" onClick={prevMonth} className="cal-nav-btn"><ChevronLeft size={16} strokeWidth={2.5} /></button>
-                <p className="callout emphasized c-primary" style={{ margin: 0 }}>{year}년 {MONTHS[month]}</p>
+                <p className="callout emphasized c-primary" style={{ margin: 0, fontSize: '1.15rem' }}>{year}년 {MONTHS[month]}</p>
                 <button type="button" onClick={nextMonth} className="cal-nav-btn"><ChevronRight size={16} strokeWidth={2.5} /></button>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', marginBottom: '0.35rem' }}>
                 {WEEKDAYS.map((d, i) => (
-                  <div key={d} className="caption-1 emphasized" style={{ textAlign: 'center', padding: '0.35rem 0', color: i === 0 ? '#ef4444' : i === 6 ? '#3373df' : 'var(--text-muted)' }}>{d}</div>
+                  <div key={d} className="emphasized" style={{ textAlign: 'center', padding: '0.35rem 0', fontSize: '0.92rem', color: i === 0 ? '#ef4444' : i === 6 ? '#3373df' : 'var(--text-muted)' }}>{d}</div>
                 ))}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
@@ -191,7 +233,7 @@ export default function BookingPage() {
                       style={{
                         border: isToday && !selected ? '1.5px solid var(--accent)' : '1.5px solid transparent',
                         borderRadius: '10px', padding: '0.7rem 0',
-                        fontSize: '0.98rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
+                        fontSize: '1.1rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
                         cursor: past ? 'not-allowed' : 'pointer',
                         background: selected ? 'var(--accent)' : 'transparent',
                         color: selected ? '#fff' : past ? '#d1d5db' : dow === 0 ? '#ef4444' : dow === 6 ? '#3373df' : 'var(--text)',
@@ -202,6 +244,9 @@ export default function BookingPage() {
                   )
                 })}
               </div>
+              {showErrors && !selectedDay && (
+                <p className="field-error">날짜를 선택해 주세요</p>
+              )}
             </div>
 
             {/* 선택 요약 바 */}
@@ -213,13 +258,13 @@ export default function BookingPage() {
                 marginTop: '1.1rem', flexWrap: 'wrap',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <CalendarDays size={15} color="var(--accent)" strokeWidth={2} />
-                  <span className="subhead semibold c-primary">{dateStr}</span>
+                  <CalendarDays size={17} color="var(--accent)" strokeWidth={2} />
+                  <span className="subhead semibold c-primary" style={{ fontSize: '1.1rem' }}>{dateStr}</span>
                 </div>
                 {timeStr && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Clock size={15} color="var(--accent)" strokeWidth={2} />
-                    <span className="subhead emphasized c-accent">{timeStr}</span>
+                    <Clock size={17} color="var(--accent)" strokeWidth={2} />
+                    <span className="subhead emphasized c-accent" style={{ fontSize: '1.1rem' }}>{timeStr}</span>
                   </div>
                 )}
               </div>
@@ -230,7 +275,7 @@ export default function BookingPage() {
             <div className="booking-right">
 
             {/* 2. 시간 선택 */}
-            <div className="booking-card">
+            <div className="booking-card" id="bk-time">
               <p className="bk-section-title">
                 <Clock size={15} color="var(--accent)" strokeWidth={2} /> 시간 선택 <span style={{ color: '#ef4444' }}>*</span>
                 {!selectedDay && <span className="caption-1 medium c-muted" style={{ marginLeft: '0.3rem' }}>날짜를 먼저 선택해주세요</span>}
@@ -245,14 +290,16 @@ export default function BookingPage() {
                   {PM_SLOTS.map(s => <SlotButton key={s} slot={s} />)}
                 </div>
               </div>
+              {showErrors && selectedDay && !selectedSlot && !customTime && (
+                <p className="field-error">시간을 선택해 주세요</p>
+              )}
             </div>
 
             {/* 3. 시간 직접입력 */}
             <div className="booking-card">
               <p className="bk-section-title"><Clock size={15} color="var(--accent)" strokeWidth={2} /> 시간 직접 입력</p>
               <input type="text" className="form-input" placeholder="예: 19:00, 오후 2시 반 (위 시간표에 없는 경우)"
-                value={customTime} onChange={e => { setCustomTime(e.target.value); setSelectedSlot('') }}
-                style={{ fontSize: '0.9rem' }} />
+                value={customTime} onChange={e => { setCustomTime(e.target.value); setSelectedSlot('') }} />
             </div>
 
             {/* 4-8. 예약 정보 */}
@@ -261,18 +308,21 @@ export default function BookingPage() {
 
               <div>
                 <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
-                <input className="form-input" placeholder="홍길동" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                <input id="bk-name" className="form-input" placeholder="홍길동" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                {showErrors && !form.name && <p className="field-error">이름을 입력해 주세요</p>}
               </div>
               <div>
                 <label className="form-label">연락처 <span style={{ color: '#ef4444' }}>*</span></label>
-                <input className="form-input" placeholder="010-0000-0000" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
+                <input id="bk-phone" className="form-input" placeholder="010-0000-0000" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
+                {showErrors && !form.phone && <p className="field-error">연락처를 입력해 주세요</p>}
               </div>
               <div>
                 <label className="form-label">제작종류 <span style={{ color: '#ef4444' }}>*</span></label>
-                <select className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
+                <select id="bk-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                   <option value="">선택해 주세요</option>
                   {projectTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
+                {showErrors && !form.type && <p className="field-error">제작종류를 선택해 주세요</p>}
               </div>
               <div>
                 <label className="form-label">업종</label>
@@ -282,22 +332,31 @@ export default function BookingPage() {
                 <label className="form-label">추가 요청사항</label>
                 <textarea className="form-input" rows={4} placeholder="자유롭게 적어주세요."
                   value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                  style={{ resize: 'vertical', fontSize: '0.9rem' }} />
+                  style={{ resize: 'vertical' }} />
               </div>
             </div>
 
             {/* 동의 + 제출 */}
             <div className="booking-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', lineHeight: 1.5 }}>
-                <input type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
-                  style={{ marginTop: '2px', width: '15px', height: '15px', accentColor: 'var(--accent)', flexShrink: 0 }} />
+              <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
+                <input id="bk-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
+                  style={{ marginTop: '3px', width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
                 개인정보 수집 및 상담 동의 <span style={{ color: '#ef4444' }}>*</span>
               </label>
+              {showErrors && !form.agree && (
+                <p className="field-error" style={{ marginTop: '-0.5rem' }}>개인정보 수집에 동의해 주세요</p>
+              )}
               <button type="submit" className="btn-primary" disabled={loading}
-                style={{ fontSize: '1rem', padding: '1rem', justifyContent: 'center', width: '100%' }}>
+                style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
                 {loading ? '접수 중...' : '예약 신청하기'}
               </button>
-              <p className="caption-1 c-muted" style={{ textAlign: 'center', margin: 0 }}>
+              {submitError && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <XCircle size={17} strokeWidth={2.2} style={{ flexShrink: 0 }} />
+                  전송에 실패했어요. 잠시 후 다시 시도해 주세요.
+                </div>
+              )}
+              <p className="c-muted" style={{ textAlign: 'center', margin: 0, fontSize: '0.95rem' }}>
                 연중무휴 24시간 · 담당자가 직접 확인 후 연락드립니다
               </p>
             </div>
@@ -309,6 +368,13 @@ export default function BookingPage() {
       </section>
 
       <style>{`
+        .bk-heading { font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.2; }
+        .field-error {
+          color: #ef4444;
+          font-size: 0.9rem;
+          font-weight: 500;
+          margin: 0.4rem 0 0;
+        }
         .booking-layout {
           display: grid;
           grid-template-columns: 460px minmax(0, 1fr);
@@ -324,10 +390,13 @@ export default function BookingPage() {
           .booking-left { position: static; }
         }
         .bk-section-title {
-          font-weight: 600; font-size: 1.0625rem; color: var(--text);
+          font-weight: 600; font-size: 1.28rem; color: var(--text);
           letter-spacing: -0.01em;
           margin: 0 0 1rem; display: flex; align-items: center; gap: 0.4rem;
         }
+        /* 폼 내부 글씨 키우기 (booking 페이지 전용) */
+        .booking-card .form-input { font-size: 1.08rem; }
+        .booking-card .form-label { font-size: 1.02rem; }
         .booking-card {
           background: #fff;
           border: 1.5px solid var(--border);
