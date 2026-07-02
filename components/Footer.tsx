@@ -10,7 +10,7 @@ const SERVICE_LINKS = [
   { label: '회사소개',            href: '/about' },
   { label: '서비스',              href: '/service' },
   { label: 'WEFLOW 혜택',         href: '/benefits' },
-  { label: '제작 플랜 & 가격안내', href: '/pricing' },
+  { label: '제작 플랜 & 가격 안내', href: '/pricing' },
 ]
 
 const CARE_LINKS = [

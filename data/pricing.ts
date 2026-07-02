@@ -11,7 +11,11 @@ export interface Plan {
 export interface MakePlan extends Plan {
   id: string
   emoji: string
+  tagline: string
   discount: string
+  maintenance: string
+  adminPrice: string
+  adminMaintenance: string
 }
 
 export const makePlans: MakePlan[] = [
@@ -19,58 +23,66 @@ export const makePlans: MakePlan[] = [
     id: 'start',
     name: 'START',
     sub: '랜딩페이지',
+    tagline: '한 페이지 집중형',
     emoji: '🚀',
     highlight: false,
-    discount: '51%',
+    discount: '50%',
     features: [
       '랜딩페이지 1P',
-      '3~4일 빠른 제작기간',
       '반응형 제작 (PC/모바일)',
       '문의폼 연동',
       '기본 SEO 설정',
     ],
-    originalPrice: '790,000원',
+    originalPrice: '780,000원',
     price: '390,000원',
-    note: '월 유지보수 39,000원 · VAT 별도',
+    maintenance: '39,000원',
+    adminPrice: '190,000원',
+    adminMaintenance: '19,000원',
+    note: 'VAT 별도',
   },
   {
     id: 'grow',
     name: 'GROW',
-    sub: '홈페이지',
+    sub: '랜딩형 홈페이지',
+    tagline: '원페이지 홈페이지',
     emoji: '🌱',
     highlight: false,
     discount: '50%',
     features: [
-      '홈페이지 2P~',
-      '1주 빠른 제작기간',
+      '랜딩형 홈페이지',
       '반응형 제작 (PC/모바일)',
       '문의폼 연동',
       '카카오톡 상담연동',
       '기본 SEO 설정',
     ],
-    originalPrice: '1,990,000원',
-    price: '990,000원',
-    note: '월 유지보수 69,000원 · VAT 별도',
+    originalPrice: '1,180,000원',
+    price: '590,000원',
+    maintenance: '59,000원',
+    adminPrice: '290,000원',
+    adminMaintenance: '29,000원',
+    note: 'VAT 별도',
   },
   {
     id: 'master',
     name: 'MASTER',
-    sub: '랜딩 + 홈페이지',
+    sub: '홈페이지',
+    tagline: '다중 페이지',
     emoji: '👑',
     highlight: true,
-    discount: '57%',
+    discount: '50%',
     features: [
-      '홈페이지 + 랜딩페이지',
-      '1~2주 빠른 제작기간',
+      '홈페이지 2P~',
       '반응형 제작 (PC/모바일)',
       '프리미엄 디자인',
       '예약·문의 시스템',
       'SEO 최적화',
-      '광고 전환 구조 설계',
     ],
-    originalPrice: '2,760,000원',
-    price: '1,190,000원',
-    note: '월 유지보수 89,000원 · VAT 별도',
+    originalPrice: '1,980,000원',
+    price: '990,000원',
+    maintenance: '99,000원',
+    adminPrice: '390,000원',
+    adminMaintenance: '39,000원',
+    note: 'VAT 별도',
   },
 ]
 
