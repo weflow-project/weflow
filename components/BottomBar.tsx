@@ -9,7 +9,7 @@ const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
 
 const ITEMS = [
   { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, external: false, tel: true, color: '#2563eb' },
-  { href: KAKAO_URL, label: '카카오톡문의', icon: MessageCircle, external: true, color: '#f5a623' },
+  { href: KAKAO_URL, label: '카카오톡 문의', icon: MessageCircle, external: true, color: '#f5a623' },
   { href: BLOG_URL, label: '블로그', icon: Newspaper, external: true, color: '#03c75a' },
   { href: '/diagnosis', label: '무료 진단', icon: ClipboardCheck, external: false, color: '#7c3aed' },
 ]
@@ -23,7 +23,7 @@ export default function BottomBar() {
         const isActive = !external && !tel && pathname === href
         const cls = `bottom-action-item${isActive ? ' active' : ''}`
         const itemStyle = { '--item-color': color } as CSSProperties
-        const content = <><Icon size={20} />{label}</>
+        const content = <><Icon size={20} fill="currentColor" fillOpacity={0.18} />{label}</>
 
         if (external || tel) {
           return (
