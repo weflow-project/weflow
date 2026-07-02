@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { FileEdit, Camera, AtSign, BarChart2, Globe, Map } from "lucide-react";
+import { FileEdit, Camera, PlaySquare, BarChart2, Globe, Map } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
   { Icon: FileEdit, title: "블로그 업로드", desc: "네이버 블로그 정기 업로드" },
   { Icon: Camera, title: "인스타 업로드", desc: "인스타그램 피드·릴스 운영" },
-  { Icon: AtSign, title: "스레드 업로드", desc: "스레드 계정 운영 관리" },
+  { Icon: PlaySquare, title: "유튜브 숏폼", desc: "유튜브 숏폼 제작·업로드 운영" },
   {
     Icon: BarChart2,
     title: "네이버 서치어드바이저",

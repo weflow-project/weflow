@@ -1,36 +1,41 @@
-import Reveal from '@/components/Reveal'
-import SplitText from '@/components/SplitText'
+import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 
 export default function ServiceSwitch() {
   return (
     <section
       style={{
-        background: '#fff',
-        padding: 'clamp(4rem, 9vw, 7rem) 1.25rem',
-        textAlign: 'center',
+        background: "#fff",
+        padding: "clamp(4rem, 9vw, 7rem) 1.25rem",
+        textAlign: "center",
       }}
     >
-      <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+      <div style={{ maxWidth: "860px", margin: "0 auto" }}>
         <Reveal variant="up">
-          <p className="footnote emphasized c-accent" style={{ margin: '0 0 0.85rem' }}>여기서 하나 더</p>
+          <p
+            className="footnote emphasized c-accent"
+            style={{ margin: "0 0 0.85rem" }}
+          >
+            여기서 하나 더
+          </p>
         </Reveal>
         <SplitText
           as="h2"
           className="title-1 svc-switch-title"
-          style={{ margin: 0, wordBreak: 'keep-all', lineHeight: 1.4 }}
+          style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.4 }}
           step={0.024}
           segments={[
-            { text: '타 서비스에서 전환하신다면?\n' },
-            { text: '추가혜택', className: 'c-accent emphasized' },
-            { text: '까지 받아가세요!' },
+            { text: "타 서비스에서 전환하신다면?\n" },
+            { text: "고민 전 " },
+            { text: "문의 요망!", className: "c-accent emphasized" },
           ]}
         />
 
-        {/* 가로 박스 2개 */}
+        {/* 이미지 박스 2개 */}
         <Reveal as="div" stagger className="svc-switch-boxes">
-          {['텍스트1', '텍스트2'].map((t) => (
-            <div key={t} className="svc-switch-box">
-              <p className="headline" style={{ margin: 0, wordBreak: 'keep-all' }}>{t}</p>
+          {[0, 1].map((i) => (
+            <div key={i} className="svc-switch-img">
+              이미지
             </div>
           ))}
         </Reveal>
@@ -46,22 +51,24 @@ export default function ServiceSwitch() {
           gap: 1.1rem;
           margin-top: clamp(2rem, 4vw, 3rem);
         }
-        .svc-switch-box {
-          background: #fff;
-          border: 1px solid var(--border);
+        .svc-switch-img {
+          width: 100%;
+          aspect-ratio: 16 / 9;
           border-radius: var(--radius-2xl);
-          padding: clamp(1.75rem, 4vw, 2.5rem) 1.5rem;
-          transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-        }
-        .svc-switch-box:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          background: #e6eaf1;
+          border: 1px dashed rgba(11,18,32,0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
         @media (max-width: 560px) {
           .svc-switch-boxes { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>
-  )
+  );
 }
