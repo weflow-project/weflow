@@ -101,7 +101,7 @@ export default function HeroBanner() {
                 padding: "0.95rem 2.2rem",
               }}
             >
-              무료진단하기
+              무료 진단하기
             </Link>
           </span>
 

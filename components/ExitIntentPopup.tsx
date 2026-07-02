@@ -118,7 +118,7 @@ export default function ExitIntentPopup() {
         <p className="subhead c-muted" style={{
           lineHeight: 1.75, marginBottom: '1.5rem', wordBreak: 'keep-all',
         }}>
-          5분 무료진단으로 우리 업종에 맞는<br />제작 방향을 먼저 확인해보세요.
+          5분 무료 진단으로 우리 업종에 맞는<br />제작 방향을 먼저 확인해보세요.
           <br />
           <span className="footnote semibold c-accent">
             ✓ 비용 없음 &nbsp;✓ 부담 없음 &nbsp;✓ 전문가 1:1 안내
@@ -137,7 +137,7 @@ export default function ExitIntentPopup() {
           }}
           className="subhead emphasized"
         >
-          5분 무료진단 신청하기 →
+          5분 무료 진단 신청하기 →
         </Link>
 
         <button

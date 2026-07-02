@@ -110,17 +110,17 @@ export default function Navbar() {
 
           <Link
             href="/diagnosis"
-            aria-label="무료진단 신청"
+            aria-label="무료 진단 신청"
             className="btn-primary cta-marquee hide-mobile"
             style={{
               width: "132px",
               height: "40px",
-              fontSize: "0.875rem",
+              fontSize: "0.95rem",
               flexShrink: 0,
             }}
           >
             <span className="cta-marquee-track">
-              {["무료진단", "무료진단", "무료진단", "무료진단"].map((t, i) => (
+              {["무료 진단", "무료 진단", "무료 진단", "무료 진단"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>
@@ -268,7 +268,7 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료진단 신청
+            무료 진단 신청
           </Link>
         </div>
       </div>

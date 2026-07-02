@@ -56,7 +56,7 @@ const SITUATIONS = [
   { label: '검색 상위가 안 돼요', emoji: '🔝', planId: 'home' },
 ]
 
-// 플랜별 부가정보 (무료진단 폼 제작종류 / 추천 이유)
+// 플랜별 부가정보 (무료 진단 폼 제작 종류 / 추천 이유)
 const PLAN_EXTRA: Record<string, { type: string; why: string }> = {
   landing: { type: '랜딩페이지 제작', why: '처음 홈페이지를 빠르게 시작하고 기본 SEO까지 세팅합니다.' },
   'landing-home': { type: '랜딩형 홈페이지 제작', why: '한 페이지 흐름으로 문의 전환에 집중하는 홈페이지를 만듭니다.' },
@@ -87,7 +87,7 @@ export default function InquiryQuiz() {
   const caseSlug = industry?.caseSlug
   const successCase = caseSlug ? caseDetails[caseSlug] : null
 
-  // 결과 → 무료진단 폼 자동 채움 후 이동
+  // 결과 → 무료 진단 폼 자동 채움 후 이동
   const goDiagnosis = () => {
     if (plan && extra) {
       sessionStorage.setItem('weflow_quiz_prefill', JSON.stringify({
@@ -323,7 +323,7 @@ export default function InquiryQuiz() {
                 }}
                 className="subhead emphasized"
               >
-                이 플랜으로 무료진단 받기 →
+                이 플랜으로 무료 진단 받기 →
               </button>
               <div style={{ display: 'flex', gap: '0.4rem' }}>
                 <button onClick={() => { close(); router.push('/pricing') }} className="footnote c-muted" style={{

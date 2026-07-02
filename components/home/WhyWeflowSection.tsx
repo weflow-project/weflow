@@ -340,7 +340,7 @@ export default function WhyWeflowSection() {
             className="btn-primary"
             style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
           >
-            무료진단 신청하기
+            무료 진단 신청하기
           </Link>
         </div>
       </div>

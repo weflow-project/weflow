@@ -352,7 +352,7 @@ export default function AboutPage() {
             className="btn-white"
             style={{ fontSize: "1.15rem", padding: "0.9rem 2rem" }}
           >
-            무료진단 신청하기
+            무료 진단 신청하기
           </Link>
         </Reveal>
       </section>

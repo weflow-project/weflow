@@ -77,7 +77,7 @@ function RequestTable({
         <table style={{ width: '100%', minWidth: '760px', borderCollapse: 'separate', borderSpacing: 0, fontSize: '0.85rem', textAlign: 'left' }}>
           <thead>
             <tr>
-              {['접수일', '이름', '연락처', '제작종류', ...(showSchedule ? ['희망 일시'] : []), '상태', '관리', ''].map((h, i, arr) => {
+              {['접수일', '이름', '연락처', '제작 종류', ...(showSchedule ? ['희망 일시'] : []), '상태', '관리', ''].map((h, i, arr) => {
                 const isAction = i >= arr.length - 3
                 return (
                   <th key={h} className="caption-1 emphasized" style={{ padding: '0.75rem 1rem', color: '#9ca3af', whiteSpace: 'nowrap', borderBottom: '1px solid #f3f4f6', background: isAction ? ACT_BG : undefined }}>

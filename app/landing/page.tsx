@@ -83,7 +83,7 @@ export default function LandingPage() {
         <div className="l-inner" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <p className="l-eyebrow">FREE · 무료</p>
-            <h2 className="l-h2">무료진단 신청</h2>
+            <h2 className="l-h2">무료 진단 신청</h2>
             <p className="callout c-muted">2분이면 충분합니다</p>
           </div>
           <LandingForm floating={false} />
@@ -200,7 +200,7 @@ export default function LandingPage() {
       <section className="l-snap">
         <div className="l-inner l-inner-center">
           <p className="l-eyebrow">FREE · 무료</p>
-          <h2 className="l-h2">무료진단에서 이런 걸<br />확인해드립니다</h2>
+          <h2 className="l-h2">무료 진단에서 이런 걸<br />확인해드립니다</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem', alignItems: 'center' }}>
             {['문의 구조 진단', '디자인 점검', '검색 노출 분석', '맞춤 제작 방향 제안'].map(t => (
               <div key={t} className="body c-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -209,7 +209,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="l-btn-row" style={{ justifyContent: 'center' }}>
-            <Link href="/diagnosis" className="btn-primary">무료진단 신청하기 →</Link>
+            <Link href="/diagnosis" className="btn-primary">무료 진단 신청하기 →</Link>
             <a href="tel:010-2971-7280" className="btn-ghost">
               <Phone size={13} strokeWidth={2} /> 010-2971-7280
             </a>

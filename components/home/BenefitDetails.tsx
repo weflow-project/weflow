@@ -241,7 +241,7 @@ export default function BenefitDetails() {
               className="btn-white"
               style={{ marginTop: "3rem", fontSize: "1rem" }}
             >
-              무료진단 신청하기
+              무료 진단 신청하기
             </Link>
           </Reveal>
         </div>

@@ -72,7 +72,7 @@ export default function LandingForm({ floating = true }: Props) {
               onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} style={{ fontSize: '0.85rem' }} />
           </div>
           <div>
-            <label className="form-label">제작종류 <span style={{ color: '#ef4444' }}>*</span></label>
+            <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
             <select className="form-input" value={form.type}
               onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer', fontSize: '0.85rem' }}>
               <option value="">선택해 주세요</option>
@@ -98,7 +98,7 @@ export default function LandingForm({ floating = true }: Props) {
           </label>
           <button type="submit" className="btn-primary" disabled={loading}
             style={{ justifyContent: 'center', fontSize: '0.88rem', padding: '0.65rem' }}>
-            {loading ? '제출 중...' : '무료진단 신청하기 →'}
+            {loading ? '제출 중...' : '무료 진단 신청하기 →'}
           </button>
         </form>
       )}
@@ -111,7 +111,7 @@ export default function LandingForm({ floating = true }: Props) {
       <div style={{ background: '#fff', border: '1.5px solid var(--border)', borderRadius: 16, overflow: 'hidden', maxWidth: 480, margin: '0 auto', width: '100%' }}>
         <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border)', background: '#f9fafb' }}>
           <p className="caption-2 emphasized c-accent" style={{ margin: 0, letterSpacing: '0.1em', textTransform: 'uppercase' }}>FREE · 무료</p>
-          <p className="headline emphasized c-primary" style={{ margin: '0.15rem 0 0' }}>무료진단 신청</p>
+          <p className="headline emphasized c-primary" style={{ margin: '0.15rem 0 0' }}>무료 진단 신청</p>
         </div>
         {formBody}
       </div>
@@ -139,7 +139,7 @@ export default function LandingForm({ floating = true }: Props) {
     >
       {/* 헤더 */}
       <div style={{ padding: '0.65rem 1rem', background: '#f9fafb', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
-        <p className="caption-1 emphasized c-primary" style={{ margin: 0 }}>무료진단 신청</p>
+        <p className="caption-1 emphasized c-primary" style={{ margin: 0 }}>무료 진단 신청</p>
         <p className="caption-2 c-muted" style={{ margin: 0 }}>2분이면 충분합니다</p>
       </div>
       {formBody}

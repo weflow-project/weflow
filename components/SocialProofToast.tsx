@@ -4,15 +4,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const ITEMS = [
-  { area: '강남', biz: '필라테스 센터', action: '무료진단을 신청했습니다' },
+  { area: '강남', biz: '필라테스 센터', action: '무료 진단을 신청했습니다' },
   { area: '홍대', biz: '카페', action: '홈페이지 제작을 의뢰했습니다' },
-  { area: '분당', biz: '공인중개사', action: '무료진단을 신청했습니다' },
+  { area: '분당', biz: '공인중개사', action: '무료 진단을 신청했습니다' },
   { area: '인천', biz: '네일샵', action: '제작 상담을 문의했습니다' },
-  { area: '수원', biz: '인테리어 업체', action: '무료진단을 신청했습니다' },
+  { area: '수원', biz: '인테리어 업체', action: '무료 진단을 신청했습니다' },
   { area: '마포', biz: '피부관리샵', action: '제작 상담을 문의했습니다' },
   { area: '강서', biz: '보험 설계사', action: '홈페이지 제작을 의뢰했습니다' },
-  { area: '송파', biz: '웨딩스냅 작가', action: '무료진단을 신청했습니다' },
-  { area: '부천', biz: 'PT 트레이너', action: '무료진단을 신청했습니다' },
+  { area: '송파', biz: '웨딩스냅 작가', action: '무료 진단을 신청했습니다' },
+  { area: '부천', biz: 'PT 트레이너', action: '무료 진단을 신청했습니다' },
   { area: '일산', biz: '입시학원', action: '제작 상담을 문의했습니다' },
 ]
 

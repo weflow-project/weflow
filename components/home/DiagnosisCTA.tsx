@@ -75,7 +75,7 @@ export default function DiagnosisCTA() {
         }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)', flexShrink: 0 }} />
           <span className="footnote emphasized c-accent">
-            이번 달 <strong>{signupCount}</strong>명 무료진단 신청완료
+            이번 달 <strong>{signupCount}</strong>명 무료 진단 신청완료
           </span>
         </div>
 

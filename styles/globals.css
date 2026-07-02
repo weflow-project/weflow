@@ -437,7 +437,7 @@
     filter: drop-shadow(0 1px 0 var(--border));
   }
 
-  /* ── 무료진단 CTA 마퀴 버튼 ── */
+  /* ── 무료 진단 CTA 마퀴 버튼 ── */
   .cta-marquee {
     padding: 0 !important;
     overflow: hidden;

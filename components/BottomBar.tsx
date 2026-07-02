@@ -11,7 +11,7 @@ const ITEMS = [
   { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, external: false, tel: true, color: '#2563eb' },
   { href: KAKAO_URL, label: '카카오톡문의', icon: MessageCircle, external: true, color: '#f5a623' },
   { href: BLOG_URL, label: '블로그', icon: Newspaper, external: true, color: '#03c75a' },
-  { href: '/diagnosis', label: '무료진단', icon: ClipboardCheck, external: false, color: '#7c3aed' },
+  { href: '/diagnosis', label: '무료 진단', icon: ClipboardCheck, external: false, color: '#7c3aed' },
 ]
 
 export default function BottomBar() {

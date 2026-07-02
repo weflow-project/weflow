@@ -259,7 +259,7 @@ export default function CaseDetailContent({ c, imageSrc, slug }: Props) {
             textDecoration: 'none',
             boxShadow: '0 4px 14px rgba(51,115,223,0.35)',
           }}>
-            무료진단 후 견적받기 →
+            무료 진단 후 견적받기 →
           </Link>
         </div>
 
