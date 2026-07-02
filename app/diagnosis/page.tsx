@@ -114,16 +114,16 @@ export default function DiagnosisPage() {
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="tel:010-2971-7280" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-              background: 'var(--accent)', color: '#fff',
+              flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+              background: 'var(--accent)', color: '#fff', border: '1.5px solid var(--accent)',
               padding: '0.8rem 1.5rem', borderRadius: '8px', fontSize: '1rem',
-              textDecoration: 'none',
+              textDecoration: 'none', whiteSpace: 'nowrap',
             }} className="emphasized">
               <Phone size={16} strokeWidth={2.5} /> 바로 전화하기
             </a>
             <button onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', type: '', industry: '', note: '', agree: false }); setShowErrors(false); setSubmitError(false) }}
-              className="semibold c-secondary"
-              style={{ background: '#f3f4f6', border: 'none', borderRadius: '8px', padding: '0.8rem 1.5rem', fontSize: '1rem', cursor: 'pointer' }}>
+              className="semibold"
+              style={{ flex: 1, background: '#fff', border: '1.5px solid var(--accent)', color: 'var(--accent)', borderRadius: '8px', padding: '0.8rem 1.5rem', fontSize: '1rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
               다시 신청하기
             </button>
           </div>
