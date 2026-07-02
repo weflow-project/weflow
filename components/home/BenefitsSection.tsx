@@ -53,7 +53,7 @@ export default function BenefitsSection() {
             WEFLOW만의 혜택
           </span>
           <h2
-            className="title-1"
+            className="title-1 benefit-heading"
             style={{
               margin: "0.7rem 0 0.9rem",
               color: "#fff",
@@ -200,6 +200,7 @@ export default function BenefitsSection() {
       </div>
 
       <style>{`
+        .benefit-heading { font-size: clamp(2rem, 4.5vw, 3rem); }
         .benefit-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
