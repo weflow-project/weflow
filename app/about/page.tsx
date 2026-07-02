@@ -119,6 +119,7 @@ export default function AboutPage() {
                 {line}
               </p>
             ))}
+            <div className="about-img" style={{ aspectRatio: '16 / 9', marginTop: '0.5rem' }}>이미지</div>
             <p className="emphasized" style={{ margin: '1rem 0 0', wordBreak: 'keep-all', fontSize: 'clamp(1.9rem, 5vw, 3rem)', lineHeight: 1.3 }}>
               그래서 이름은{' '}
               <span className="c-accent" style={{ fontWeight: 800 }}>WEFLOW</span>

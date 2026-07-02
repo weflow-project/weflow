@@ -1,113 +1,158 @@
-'use client'
-import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Crown, Check } from 'lucide-react'
-import { makePlans } from '@/data/pricing'
+"use client";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Crown, Check } from "lucide-react";
+import { makePlans } from "@/data/pricing";
 
 const MAKE_ICONS = [
-  '/images/3d-icon/image-3.svg',
-  '/images/3d-icon/image-4.svg',
-  '/images/3d-icon/image-5.svg',
-]
+  "/images/3d-icon/image-3.svg",
+  "/images/3d-icon/image-4.svg",
+  "/images/3d-icon/image-5.svg",
+];
 
 export default function PricingPage() {
-  const s1 = useRef<HTMLElement>(null)
-  // const s2 = useRef<HTMLElement>(null) // 케어플랜 섹션 주석처리
+  const s1 = useRef<HTMLElement>(null);
+  // const s2 = useRef<HTMLElement>(null) // 플랜 섹션 주석처리
   // const s3 = useRef<HTMLElement>(null) // 광고 세팅 섹션 주석처리
 
-  const [activeSection, setActiveSection] = useState(0)
-  const [v1, setV1] = useState(false)
+  const [activeSection, setActiveSection] = useState(0);
+  const [v1, setV1] = useState(false);
   // const [v2, setV2] = useState(false) // 케어플랜 섹션 주석처리
   // const [v3, setV3] = useState(false) // 광고 세팅 섹션 주석처리
 
   useEffect(() => {
-    document.body.classList.add('snap-home')
-    return () => document.body.classList.remove('snap-home')
-  }, [])
+    document.body.classList.add("snap-home");
+    return () => document.body.classList.remove("snap-home");
+  }, []);
 
   useEffect(() => {
-    const pairs: [React.RefObject<HTMLElement | null>, (v: boolean) => void, (i: number) => void][] = [
+    const pairs: [
+      React.RefObject<HTMLElement | null>,
+      (v: boolean) => void,
+      (i: number) => void,
+    ][] = [
       [s1, setV1, setActiveSection],
       // [s2, setV2, setActiveSection], // 케어플랜 섹션 주석처리
       // [s3, setV3, setActiveSection], // 광고 세팅 섹션 주석처리
-    ]
+    ];
     const observers = pairs.map(([ref, setVisible, setActive], i) => {
-      const obs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          setActive(i)
-          setVisible(true)
-        }
-      }, { threshold: 0.2 })
-      if (ref.current) obs.observe(ref.current)
-      return obs
-    })
-    return () => observers.forEach(o => o.disconnect())
-  }, [])
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(i);
+            setVisible(true);
+          }
+        },
+        { threshold: 0.2 },
+      );
+      if (ref.current) obs.observe(ref.current);
+      return obs;
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   const scrollTo = (ref: React.RefObject<HTMLElement | null>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
       {/* 우측 섹션 닷 네비 */}
       <div className="pricing-dots">
-        {(['제작 플랜'] as const).map((label, i) => {
-          const refs = [s1]
+        {(["제작 플랜"] as const).map((label, i) => {
+          const refs = [s1];
           return (
-            <button key={i} onClick={() => scrollTo(refs[i])} title={label}
-              className={`pdot${activeSection === i ? ' pdot--active' : ''}`} />
-          )
+            <button
+              key={i}
+              onClick={() => scrollTo(refs[i])}
+              title={label}
+              className={`pdot${activeSection === i ? " pdot--active" : ""}`}
+            />
+          );
         })}
       </div>
 
       {/* ─── SECTION 1: 제작 플랜 ─── */}
-      <section ref={s1} className="pricing-section" style={{ background: '#fff' }}>
+      <section
+        ref={s1}
+        className="pricing-section"
+        style={{ background: "#fff" }}
+      >
         <div className="pricing-inner">
           <div className="pricing-header">
             {/* <p className="pricing-eyebrow">STEP 1 · 필수 선택</p> */}
             <h2 className="pricing-heading">제작 플랜</h2>
-            <p className="pricing-sub">홈페이지 규모에 맞는 플랜을 선택하세요</p>
+            <p className="pricing-sub">
+              홈페이지 규모에 맞는 플랜을 선택하세요
+            </p>
           </div>
           <div className="pricing-grid-3">
             {makePlans.map((plan, i) => (
-              <div key={plan.id}
-                className={`pcard-wrap${plan.highlight ? ' pcard-wrap--featured' : ''}`}
+              <div
+                key={plan.id}
+                className={`pcard-wrap${plan.highlight ? " pcard-wrap--featured" : ""}`}
               >
                 {/* 인기 플랜: 왕관이 카드 상단 경계에 걸쳐 올라앉음 (카드와 함께 등장) */}
                 {plan.highlight && (
-                  <span className={`pcard-crown-wrap${v1 ? ' pcard-crown-wrap--in' : ''}`}
-                    style={{ animationDelay: `${i * 0.1 + 0.12}s` }}>
-                    <Image src={MAKE_ICONS[i]} alt="" width={120} height={120} className="pcard-crown" style={{ width: 120, height: 120 }} />
+                  <span
+                    className={`pcard-crown-wrap${v1 ? " pcard-crown-wrap--in" : ""}`}
+                    style={{ animationDelay: `${i * 0.1 + 0.12}s` }}
+                  >
+                    <Image
+                      src={MAKE_ICONS[i]}
+                      alt=""
+                      width={120}
+                      height={120}
+                      className="pcard-crown"
+                      style={{ width: 120, height: 120 }}
+                    />
                   </span>
                 )}
-                <div className={`pcard${plan.highlight ? ' pcard--featured' : ''}${v1 ? ' pcard--in' : ''}`}
+                <div
+                  className={`pcard${plan.highlight ? " pcard--featured" : ""}${v1 ? " pcard--in" : ""}`}
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   {plan.highlight && (
-                    <div className="pcard-badge"><Crown size={11} strokeWidth={2.5} /> 인기 플랜</div>
+                    <div className="pcard-badge">
+                      <Crown size={11} strokeWidth={2.5} /> 인기 플랜
+                    </div>
                   )}
                   <div className="pcard-body">
                     <h3 className="pcard-name">{plan.name}</h3>
                     <p className="pcard-sub-text">{plan.sub}</p>
                     <ul className="pcard-features">
-                      {plan.features.map(f => (
-                        <li key={f}><Check size={13} strokeWidth={2.5} /><span>{f}</span></li>
+                      {plan.features.map((f) => (
+                        <li key={f}>
+                          <Check size={13} strokeWidth={2.5} />
+                          <span>{f}</span>
+                        </li>
                       ))}
                     </ul>
                     {!plan.highlight && (
-                      <Image src={MAKE_ICONS[i]} alt="" width={140} height={140} className="pcard-emoji" style={{ width: 140, height: 140 }} />
+                      <Image
+                        src={MAKE_ICONS[i]}
+                        alt=""
+                        width={140}
+                        height={140}
+                        className="pcard-emoji"
+                        style={{ width: 140, height: 140 }}
+                      />
                     )}
                   </div>
                   <div className="pcard-foot">
                     <div className="pcard-orig-row">
-                      <span className="pcard-original">{plan.originalPrice}</span>
+                      <span className="pcard-original">
+                        {plan.originalPrice}
+                      </span>
                       <span className="pcard-discount">{plan.discount}↓</span>
                     </div>
                     <p className="pcard-price">{plan.price}</p>
                     <p className="pcard-note">{plan.note}</p>
-                    <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
+                    <Link
+                      href="/diagnosis"
+                      className={`pcard-cta${plan.highlight ? " pcard-cta--inv" : ""}`}
+                    >
                       무료 진단 신청 →
                     </Link>
                   </div>
@@ -119,37 +164,116 @@ export default function PricingPage() {
       </section>
 
       {/* ─── 유지보수 & 운영 ─── */}
-      <section style={{ background: '#f9fafb', padding: 'clamp(3rem, 6vw, 4.5rem) 1.5rem', borderTop: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
+      <section
+        style={{
+          background: "#f9fafb",
+          padding: "clamp(3rem, 6vw, 4.5rem) 1.5rem",
+          borderTop: "1px solid var(--border)",
+        }}
+      >
+        <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "clamp(1.75rem, 4vw, 2.5rem)",
+            }}
+          >
             <p className="footnote emphasized c-accent">유지보수 &amp; 운영</p>
-            <h2 className="title-1" style={{ margin: '0.7rem 0 0.5rem', wordBreak: 'keep-all' }}>제작 이후에도 안심하고 운영하세요</h2>
-            <p className="callout c-muted">상품별 월 유지보수로 꾸준히 관리해 드립니다.</p>
+            <h2
+              className="title-1"
+              style={{ margin: "0.7rem 0 0.5rem", wordBreak: "keep-all" }}
+            >
+              제작 이후에도 안심하고 운영하세요
+            </h2>
+            <p className="callout c-muted">
+              상품별 월 유지보수로 꾸준히 관리해 드립니다.
+            </p>
           </div>
 
           {/* 상품별 월 유지보수 */}
           <div className="maint-grid">
             {[
-              { name: '랜딩페이지', fee: '39,000원' },
-              { name: '홈페이지', fee: '69,000원' },
-              { name: '랜딩 + 홈페이지', fee: '89,000원' },
-            ].map(m => (
-              <div key={m.name} style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 'var(--radius-2xl)', padding: '1.5rem 1.6rem', textAlign: 'center' }}>
-                <p className="subhead emphasized c-primary" style={{ margin: '0 0 0.5rem' }}>{m.name}</p>
-                <p className="price-main" style={{ margin: 0 }}>월 {m.fee}</p>
-                <p className="caption-1 c-muted" style={{ margin: '0.35rem 0 0' }}>VAT 별도</p>
+              { name: "랜딩페이지", fee: "39,000원" },
+              { name: "홈페이지", fee: "69,000원" },
+              { name: "랜딩 + 홈페이지", fee: "89,000원" },
+            ].map((m) => (
+              <div
+                key={m.name}
+                style={{
+                  background: "#fff",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-2xl)",
+                  padding: "1.5rem 1.6rem",
+                  textAlign: "center",
+                }}
+              >
+                <p
+                  className="subhead emphasized c-primary"
+                  style={{ margin: "0 0 0.5rem" }}
+                >
+                  {m.name}
+                </p>
+                <p className="price-main" style={{ margin: 0 }}>
+                  월 {m.fee}
+                </p>
+                <p
+                  className="caption-1 c-muted"
+                  style={{ margin: "0.35rem 0 0" }}
+                >
+                  VAT 별도
+                </p>
               </div>
             ))}
           </div>
 
           {/* 포함 내역 */}
-          <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 'var(--radius-2xl)', padding: 'clamp(1.5rem, 4vw, 2rem)', marginTop: '1.1rem' }}>
-            <p className="headline" style={{ margin: '0 0 1rem' }}>유지보수 포함 내역</p>
-            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
-              {['텍스트·이미지·링크 등 경미한 수정', '도메인·서버 관리 지원', '정기 점검 및 오류 대응'].map(t => (
-                <li key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem' }}>
-                  <Check size={16} strokeWidth={2.5} color="var(--accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span className="callout c-secondary" style={{ wordBreak: 'keep-all' }}>{t}</span>
+          <div
+            style={{
+              background: "#fff",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius-2xl)",
+              padding: "clamp(1.5rem, 4vw, 2rem)",
+              marginTop: "1.1rem",
+            }}
+          >
+            <p className="headline" style={{ margin: "0 0 1rem" }}>
+              유지보수 포함 내역
+            </p>
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                gap: "0.75rem",
+              }}
+            >
+              {[
+                "텍스트·이미지·링크 등 경미한 수정",
+                "도메인·서버 관리 지원",
+                "정기 점검 및 오류 대응",
+              ].map((t) => (
+                <li
+                  key={t}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "0.55rem",
+                  }}
+                >
+                  <Check
+                    size={16}
+                    strokeWidth={2.5}
+                    color="var(--accent)"
+                    style={{ flexShrink: 0, marginTop: "2px" }}
+                  />
+                  <span
+                    className="callout c-secondary"
+                    style={{ wordBreak: "keep-all" }}
+                  >
+                    {t}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -158,18 +282,23 @@ export default function PricingPage() {
       </section>
 
       {/* ─── 안내사항 ─── */}
-      <section style={{ background: '#fff', padding: 'clamp(2.5rem, 5vw, 4rem) 1.5rem' }}>
-        <div style={{ maxWidth: '820px', margin: '0 auto', width: '100%' }}>
+      <section
+        style={{
+          background: "#fff",
+          padding: "clamp(2.5rem, 5vw, 4rem) 1.5rem",
+        }}
+      >
+        <div style={{ maxWidth: "820px", margin: "0 auto", width: "100%" }}>
           <div className="pricing-notice">
             <p className="pricing-notice-title">📋 안내사항</p>
             <ul>
               {[
-                '도메인은 고객님 명의로 등록되며 비용은 별도입니다.',
-                '위플로우에서 등록 및 연결 세팅은 무료 지원해 드립니다.',
-                '도메인 연결 지원 / 도메인 등록 대행 가능 / 도메인 비용 별도',
-                '광고비는 고객 계정에서 고객 결제수단으로 직접 결제되며, 위플로우는 운영 및 세팅만 합니다.',
-                '유지보수는 텍스트, 이미지, 링크 등 경미한 수정 기준입니다.',
-                '페이지 추가 및 기능 개발은 별도 비용이 발생할 수 있습니다.',
+                "도메인은 고객님 명의로 등록되며 비용은 별도입니다.",
+                "위플로우에서 등록 및 연결 세팅은 무료 지원해 드립니다.",
+                "도메인 연결 지원 / 도메인 등록 대행 가능 / 도메인 비용 별도",
+                "광고비는 고객 계정에서 고객 결제수단으로 직접 결제되며, 위플로우는 운영 및 세팅만 합니다.",
+                "유지보수는 텍스트, 이미지, 링크 등 경미한 수정 기준입니다.",
+                "페이지 추가 및 기능 개발은 별도 비용이 발생할 수 있습니다.",
               ].map((n, i) => (
                 <li key={i}>{n}</li>
               ))}
@@ -521,5 +650,5 @@ export default function PricingPage() {
         }
       `}</style>
     </>
-  )
+  );
 }

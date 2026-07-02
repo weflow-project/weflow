@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { MessageSquare, FileText, Palette, Code2, Monitor, Share2 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { steps } from '@/data/service'
+import Reveal from '@/components/Reveal'
 
 const STEP_ICONS: LucideIcon[] = [MessageSquare, FileText, Palette, Code2, Monitor, Share2]
 
@@ -10,10 +11,10 @@ export default function ServiceSteps() {
     <section style={{ background: '#fff', padding: 'clamp(3rem, 6vw, 5rem) 1.25rem' }}>
       <div style={{ maxWidth: '880px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
-        <div style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
+        <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">6-STEP PROCESS</span>
-          <h2 className="title-1" style={{ marginTop: '0.75rem', wordBreak: 'keep-all' }}>제작 진행과정</h2>
-        </div>
+          <h2 className="title-1 pt-heading" style={{ marginTop: '0.75rem', wordBreak: 'keep-all' }}>제작 진행과정</h2>
+        </Reveal>
 
         {/* 세로 타임라인 */}
         <div className="pt-timeline">
@@ -21,7 +22,7 @@ export default function ServiceSteps() {
             const Icon = STEP_ICONS[i] ?? MessageSquare
             const isLast = i === steps.length - 1
             return (
-              <div key={s.num} className="pt-row">
+              <Reveal key={s.num} variant="up" className="pt-row">
                 {/* 좌: 번호 + 커넥터 */}
                 <div className="pt-rail">
                   <div className="pt-num">
@@ -55,13 +56,14 @@ export default function ServiceSteps() {
                     />
                   </div>
                 </div>
-              </div>
+              </Reveal>
             )
           })}
         </div>
       </div>
 
       <style>{`
+        .pt-heading { font-size: clamp(2rem, 4.5vw, 3rem); }
         .pt-timeline { display: flex; flex-direction: column; }
         .pt-row { display: grid; grid-template-columns: 44px 1fr; gap: 1.25rem; }
         .pt-rail { display: flex; flex-direction: column; align-items: center; }

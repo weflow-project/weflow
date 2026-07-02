@@ -47,6 +47,7 @@ export default function SplitText({
       {segments.map((seg, si) => (
         <span key={si} className={seg.className}>
           {Array.from(seg.text.replace(/ /g, ' ')).map((ch, i) => {
+            if (ch === '\n') return <br key={i} />
             const delay = idx * step
             idx += 1
             return (
