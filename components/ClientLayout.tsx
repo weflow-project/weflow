@@ -16,19 +16,17 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return <>{children}</>
   }
 
-  const isLanding = pathname === '/landing'
-
   return (
     <>
       <div style={{ position: 'sticky', top: 0, zIndex: 201 }}>
         <PromoBanner />
         <Navbar />
       </div>
-      <main style={{ paddingBottom: isLanding ? '0' : '56px' }}>{children}</main>
+      <main style={{ paddingBottom: '56px' }}>{children}</main>
       <Footer />
       <BottomBar />
       <SocialProofToast />
-      {!isLanding && <InquiryQuiz />}
+      <InquiryQuiz />
       <ExitIntentPopup />
     </>
   )
