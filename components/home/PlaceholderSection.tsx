@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import Reveal from '@/components/Reveal'
 
 function ImageBox({ aspectRatio, style }: { aspectRatio: string; style?: CSSProperties }) {
   return (
@@ -35,12 +36,16 @@ export default function PlaceholderSection({
   body,
   background = '#fff',
   imageCount = 1,
+  imageCols,
+  imageAspect = '1 / 1',
 }: {
   eyebrow: string
   title: ReactNode
   body?: string
   background?: string
   imageCount?: number
+  imageCols?: number
+  imageAspect?: string
 }) {
   return (
     <section
@@ -51,7 +56,7 @@ export default function PlaceholderSection({
     >
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 (좌측 정렬) */}
-        <div style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
+        <Reveal variant="up" style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
           <span className="footnote emphasized c-accent">{eyebrow}</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
             {title}
@@ -61,17 +66,27 @@ export default function PlaceholderSection({
               {body}
             </p>
           )}
-        </div>
+        </Reveal>
 
         {/* 이미지 자리 (텍스트 아래 · 추후 교체) */}
         {imageCount > 1 ? (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.1rem' }}>
-            {Array.from({ length: imageCount }, (_, i) => (
-              <ImageBox key={i} aspectRatio="1 / 1" style={{ flex: '1 1 160px' }} />
-            ))}
-          </div>
+          imageCols ? (
+            <Reveal as="div" stagger style={{ display: 'grid', gridTemplateColumns: `repeat(${imageCols}, minmax(0, 1fr))`, gap: '1.1rem' }}>
+              {Array.from({ length: imageCount }, (_, i) => (
+                <ImageBox key={i} aspectRatio={imageAspect} />
+              ))}
+            </Reveal>
+          ) : (
+            <Reveal as="div" stagger style={{ display: 'flex', flexWrap: 'wrap', gap: '1.1rem' }}>
+              {Array.from({ length: imageCount }, (_, i) => (
+                <ImageBox key={i} aspectRatio={imageAspect} style={{ flex: '1 1 160px' }} />
+              ))}
+            </Reveal>
+          )
         ) : (
-          <ImageBox aspectRatio="16 / 9" />
+          <Reveal variant="up">
+            <ImageBox aspectRatio="16 / 9" />
+          </Reveal>
         )}
       </div>
     </section>

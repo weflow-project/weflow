@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import { X, PencilRuler, Workflow, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -38,7 +40,8 @@ export default function WhyWeflowSection() {
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* Beat 1 — 질문 던지기 */}
-        <div
+        <Reveal
+          variant="up"
           style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto" }}
         >
           <span
@@ -65,7 +68,7 @@ export default function WhyWeflowSection() {
           >
             누구나 한 번쯤 하는 생각입니다. 그런데 막상 만들어 보면—
           </p>
-        </div>
+        </Reveal>
 
         {/* Beat 2 — AI 결과물 + 단점 */}
         <div
@@ -199,7 +202,8 @@ export default function WhyWeflowSection() {
         </div>
 
         {/* Beat 3 — 전환점 (핵심 강조) */}
-        <div
+        <Reveal
+          variant="fade"
           style={{
             textAlign: "center",
             maxWidth: "820px",
@@ -210,33 +214,66 @@ export default function WhyWeflowSection() {
             className="title-1"
             style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.35 }}
           >
-            우리가 원한 건{" "}
-            <br className="wf-br-m" />
-            <span className="c-accent emphasized">홈페이지다운 홈페이지</span>,
+            우리가 원한 건 <br className="wf-br-m" />
+            <span
+              className="c-accent emphasized hl"
+              style={{ transitionDelay: "0.35s" }}
+            >
+              홈페이지 다운 홈페이지
+            </span>
+            ,
             <br />
-            고객이 <span className="c-accent emphasized">
+            고객이{" "}
+            <span
+              className="c-accent emphasized hl"
+              style={{ transitionDelay: "0.75s" }}
+            >
               신뢰할 수 있는
             </span>{" "}
             <br className="wf-br-m" />
             홈페이지였습니다.
           </h2>
-        </div>
+          <div
+            style={{
+              marginTop: "clamp(2rem, 5vw, 3rem)",
+              width: "100%",
+              aspectRatio: "16 / 9",
+              borderRadius: "var(--radius-2xl)",
+              background: "#e6eaf1",
+              border: "1px dashed rgba(11,18,32,0.14)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--text-secondary)",
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              letterSpacing: "0.02em",
+            }}
+          >
+            이미지
+          </div>
+        </Reveal>
 
         {/* Beat 4 — 그래서 위플로우 */}
         <div style={{ marginTop: 0 }}>
-          <p
-            className="title-2 emphasized"
-            style={{ textAlign: "center", margin: "0 0 0.9rem" }}
-          >
-            그래서, <span className="c-accent">WEFLOW</span>입니다.
-          </p>
+          <SplitText
+            as="p"
+            className="title-1 emphasized"
+            style={{ textAlign: "center", margin: "0 0 1rem" }}
+            segments={[
+              { text: "그래서, " },
+              { text: "WEFLOW", className: "c-accent" },
+              { text: "입니다." },
+            ]}
+          />
           <p
             className="body c-muted"
             style={{
               textAlign: "center",
-              maxWidth: "600px",
+              maxWidth: "620px",
               margin: "0 auto clamp(2.5rem, 6vw, 3.5rem)",
               wordBreak: "keep-all",
+              fontSize: "clamp(1.05rem, 2.4vw, 1.25rem)",
             }}
           >
             AI가 채우지 못한 자리를, 사람이 전략으로 채웁니다.
@@ -281,6 +318,7 @@ export default function WhyWeflowSection() {
                 >
                   {desc}
                 </p>
+                <div className="why-diff-img">이미지</div>
               </div>
             ))}
           </div>
@@ -291,8 +329,8 @@ export default function WhyWeflowSection() {
           style={{ textAlign: "center", marginTop: "clamp(2.5rem, 6vw, 4rem)" }}
         >
           <p
-            className="title-3"
-            style={{ margin: "0 0 1.25rem", wordBreak: "keep-all" }}
+            className="title-2"
+            style={{ margin: "0 0 1.5rem", wordBreak: "keep-all" }}
           >
             보기 좋은 페이지가 아니라,{" "}
             <span className="c-accent emphasized">성과를 내는 페이지</span>.
@@ -300,7 +338,7 @@ export default function WhyWeflowSection() {
           <Link
             href="/diagnosis"
             className="btn-primary"
-            style={{ fontSize: "1rem" }}
+            style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
           >
             무료진단 신청하기
           </Link>
@@ -318,6 +356,21 @@ export default function WhyWeflowSection() {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 1.1rem;
+        }
+        .why-diff-img {
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          margin-top: 1.25rem;
+          border-radius: var(--radius-xl);
+          background: #e6eaf1;
+          border: 1px dashed rgba(11,18,32,0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
         .wf-br-m { display: none; }
         @media (max-width: 768px) {

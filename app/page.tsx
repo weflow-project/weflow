@@ -50,7 +50,10 @@ export default function HomePage() {
           </>
         }
         body="WEFLOW가 직접 제작한 홈페이지·랜딩형 홈페이지·랜딩페이지 사례를 소개합니다."
-        imageCount={3}
+        background="var(--bg-secondary)"
+        imageCount={4}
+        imageCols={2}
+        imageAspect="4 / 3"
       />
       <PlaceholderSection
         eyebrow="고객 인터뷰"
@@ -60,7 +63,6 @@ export default function HomePage() {
           </>
         }
         body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 인터뷰 & 후기를 담았습니다."
-        background="var(--bg-secondary)"
         imageCount={3}
       />
       <HomepageDefinitionSection />
@@ -72,13 +74,15 @@ export default function HomePage() {
       <PartnershipSection />
       <ListeningSection />
       <WhyWeflowSection />
-      <ComparisonCTA />
 
       {/* 13. WEFLOW 혜택 (기존) */}
       <BenefitsSection />
 
       {/* 14. 제작 플랜 & 가격 */}
       <PricingSection />
+
+      {/* 15. 타사 비교 배너 (가격 아래) */}
+      <ComparisonCTA />
 
       {/* 14~15. 서비스 · 회사소개 (임시 문구) */}
       <HomeServiceSection />

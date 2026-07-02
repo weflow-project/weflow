@@ -1,121 +1,199 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
+import Reveal from "@/components/Reveal";
 
 const BENEFITS = [
   {
-    no: '혜택 01',
-    icon: '/images/3d-icon/feature001.svg',
-    title: ['랜딩 & 홈페이지', '50% 특별 프로모션'],
-    desc: '랜딩페이지 & 홈페이지까지 190,000원 할인!',
+    no: "혜택 01",
+    icon: "/images/3d-icon/feature001.svg",
+    title: ["랜딩 & 홈페이지", "50% 특별 프로모션"],
+    desc: "랜딩페이지 & 홈페이지까지 190,000원 할인!",
   },
   {
-    no: '혜택 02',
-    icon: '/images/3d-icon/feature002.svg',
-    title: ['도메인 걱정 없는', '유지보수'],
-    desc: '따로 도메인 등록 NO · 서버 도메인까지 제공!',
+    no: "혜택 02",
+    icon: "/images/3d-icon/feature002.svg",
+    title: ["도메인 걱정 없는", "유지보수"],
+    desc: "따로 도메인 등록 NO · 서버 도메인까지 제공!",
   },
   {
-    no: '혜택 03',
-    icon: '/images/3d-icon/feature003.svg',
-    title: ['제휴 마케팅 협업', 'SEO 최적화까지'],
-    desc: '제휴 마케팅 협업으로 SEO 최적화까지 한번에',
+    no: "혜택 03",
+    icon: "/images/3d-icon/feature003.svg",
+    title: ["제휴 마케팅 협업", "SEO 최적화까지"],
+    desc: "제휴 마케팅 협업으로 SEO 최적화까지 한번에",
   },
-]
+];
 
 export default function BenefitsSection() {
   return (
     <section
       id="benefits"
       style={{
-        position: 'relative',
-        background: 'var(--accent-dim)',
-        padding: 'clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem)',
+        position: "relative",
+        background: "var(--accent-dim)",
+        padding: "clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem)",
       }}
     >
       {/* 우측 사이드 탭 — 혜택 더보기 (넓은 화면에서만 노출) */}
       <Link href="/pricing" className="benefit-more footnote emphasized">
         혜택 더보기 ›
       </Link>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-          <span className="caption-1 emphasized" style={{ color: '#9dbff6', letterSpacing: '0.06em' }}>
-            위플로우만의 혜택
+        <Reveal
+          variant="up"
+          style={{
+            textAlign: "center",
+            marginBottom: "clamp(2rem, 4vw, 3rem)",
+          }}
+        >
+          <span
+            className="caption-1 emphasized"
+            style={{ color: "#9dbff6", letterSpacing: "0.06em" }}
+          >
+            WEFLOW만의 혜택
           </span>
-          <h2 className="title-1" style={{ margin: '0.7rem 0 0', color: '#fff', wordBreak: 'keep-all' }}>
-            이 모든 혜택을 한번에!
+          <h2
+            className="title-1"
+            style={{
+              margin: "0.7rem 0 0.9rem",
+              color: "#fff",
+              wordBreak: "keep-all",
+            }}
+          >
+            지금 시작하면, <span style={{ color: "#8fb4ff" }}>3가지 혜택</span>
+            을 한 번에
           </h2>
-        </div>
+          <p
+            className="body"
+            style={{
+              margin: "0 auto",
+              maxWidth: "600px",
+              color: "#9dbff6",
+              wordBreak: "keep-all",
+            }}
+          >
+            50% 프로모션부터 도메인·유지보수, 관리자 페이지까지 — WEFLOW가 한
+            번에 챙겨드립니다.
+          </p>
+        </Reveal>
 
         {/* 혜택 카드 3개 */}
-        <div className="benefit-grid">
-          {BENEFITS.map((b, i) => (
+        <Reveal as="div" stagger className="benefit-grid">
+          {BENEFITS.map(b => (
             <div
               key={b.no}
               className="benefit-card"
               style={{
-                position: 'relative',
-                background: '#fff',
-                borderRadius: 'var(--radius-2xl)',
-                padding: 'clamp(2rem, 4vw, 2.75rem) clamp(1.6rem, 3vw, 2rem)',
-                minHeight: 'clamp(360px, 38vw, 440px)',
-                display: 'flex',
-                flexDirection: 'column',
+                position: "relative",
+                background: "#fff",
+                borderRadius: "var(--radius-2xl)",
+                padding: "clamp(2rem, 4vw, 2.75rem) clamp(1.6rem, 3vw, 2rem)",
+                minHeight: "clamp(360px, 38vw, 440px)",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {/* 번호 북마크 리본 */}
               <span
                 aria-label={b.no}
                 style={{
-                  position: 'absolute',
-                  top: '-6px',
-                  right: '20px',
-                  width: '84px',
-                  height: '68px',
+                  position: "absolute",
+                  top: "-6px",
+                  right: "20px",
+                  width: "104px",
+                  height: "84px",
                   backgroundImage: "url('/images/3d-icon/bookmark.svg')",
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'top center',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'center',
-                  paddingTop: '13px',
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "top center",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  paddingTop: "16px",
                 }}
               >
-                <span className="footnote emphasized" style={{ color: 'var(--accent-dim)' }}>{b.no}</span>
+                <span
+                  className="subhead emphasized"
+                  style={{ color: "var(--accent-dim)", fontSize: "1.15rem" }}
+                >
+                  {b.no}
+                </span>
               </span>
 
-              {/* 3D 아이콘 */}
-              <Image src={b.icon} alt="" width={128} height={128} style={{ width: i === 2 ? 156 : 128, height: i === 2 ? 156 : 128, marginBottom: '1.5rem' }} />
+              {/* 3D 아이콘 (고정 높이 슬롯 — 아이콘 크기 달라도 텍스트 시작선 정렬) */}
+              <div
+                style={{
+                  height: 128,
+                  display: "flex",
+                  alignItems: "flex-end",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                <Image
+                  src={b.icon}
+                  alt=""
+                  width={128}
+                  height={128}
+                  style={{ width: 128, height: 128 }}
+                />
+              </div>
 
               {/* 제목 */}
-              <h3 className="title-3 emphasized" style={{ margin: '0 0 0.6rem', wordBreak: 'keep-all' }}>
+              <h3
+                className="title-2 emphasized"
+                style={{ margin: "0 0 0.6rem", wordBreak: "keep-all" }}
+              >
                 {b.title[0]}
                 <br />
                 {b.title[1]}
               </h3>
 
               {/* 설명 */}
-              <p className="callout" style={{ margin: '0 0 1.25rem', wordBreak: 'keep-all' }}>{b.desc}</p>
+              <p
+                className="body"
+                style={{ margin: "0 0 1.25rem", wordBreak: "keep-all" }}
+              >
+                {b.desc}
+              </p>
 
               {/* 자세히 보기 */}
               <Link
                 href="/pricing"
-                className="footnote semibold c-accent"
-                style={{ marginTop: 'auto', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                className="callout semibold c-accent"
+                style={{
+                  marginTop: "auto",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.3rem",
+                  fontSize: "1rem",
+                }}
               >
                 자세히 보기 ›
               </Link>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         {/* 안내 + CTA */}
-        <p className="footnote" style={{ textAlign: 'center', color: '#9dbff6', margin: 'clamp(1.75rem, 4vw, 2.5rem) 0 1.25rem', wordBreak: 'keep-all' }}>
-          * 프로모션은 선착순으로 조기 마감될 수 있습니다. 지금 부담 없이 시작하세요!
+        <p
+          className="callout"
+          style={{
+            textAlign: "center",
+            color: "#9dbff6",
+            margin: "clamp(1.75rem, 4vw, 2.5rem) 0 1.5rem",
+            wordBreak: "keep-all",
+          }}
+        >
+          * 프로모션은 선착순으로 조기 마감될 수 있습니다. 지금 부담 없이
+          시작하세요!
         </p>
-        <div style={{ textAlign: 'center' }}>
-          <Link href="/diagnosis" className="btn-white" style={{ fontSize: '1rem' }}>
+        <div style={{ textAlign: "center" }}>
+          <Link
+            href="/diagnosis"
+            className="btn-white"
+            style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+          >
             혜택 신청하기 →
           </Link>
         </div>
@@ -141,7 +219,8 @@ export default function BenefitsSection() {
           gap: 0.3rem;
           background: #fff;
           color: var(--accent);
-          padding: 0.85rem 1.1rem;
+          font-size: 1rem;
+          padding: 1.05rem 1.4rem;
           border-radius: var(--radius-xl) 0 0 var(--radius-xl);
           box-shadow: 0 6px 20px rgba(11,18,32,0.22);
           text-decoration: none;
@@ -159,5 +238,5 @@ export default function BenefitsSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }

@@ -1,9 +1,43 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Check } from 'lucide-react'
-import { makePlans } from '@/data/pricing'
 import { caseDetails } from '@/data/cases'
+
+// 메인 가격 섹션과 동일한 플랜 정보 (실제 가격 반영)
+const PLANS = [
+  {
+    id: 'landing',
+    name: '랜딩페이지',
+    sub: '한 페이지 집중형',
+    img: '/images/3d-icon/image-3.svg',
+    originalPrice: '780,000원',
+    price: '390,000원',
+    note: '월 유지보수 39,000원 · VAT 별도',
+    features: ['랜딩페이지 1P', '반응형 (PC/모바일)', '문의폼 연동', '기본 SEO 설정'],
+  },
+  {
+    id: 'landing-home',
+    name: '랜딩형 홈페이지',
+    sub: '원페이지 홈페이지',
+    img: '/images/3d-icon/image-4.svg',
+    originalPrice: '1,180,000원',
+    price: '590,000원',
+    note: '월 유지보수 59,000원 · VAT 별도',
+    features: ['원페이지 홈페이지', '헤더 앵커 이동 구성', '반응형 (PC/모바일)', '문의폼·카톡 연동', '기본 SEO 설정'],
+  },
+  {
+    id: 'home',
+    name: '홈페이지',
+    sub: '다중 페이지',
+    img: '/images/3d-icon/image-5.svg',
+    originalPrice: '1,980,000원',
+    price: '990,000원',
+    note: '월 유지보수 99,000원 · VAT 별도',
+    features: ['홈페이지 2P~', '반응형 (PC/모바일)', '문의폼·카톡 상담 연동', 'SEO 최적화'],
+  },
+]
 
 // 업종: 추천 로직엔 관여하지 않고 예시문구·아이콘·연결 성공사례만 바뀜
 const INDUSTRIES = [
@@ -17,16 +51,16 @@ const INDUSTRIES = [
 
 // 상황 → 추천 플랜 (업종과 무관, 상황만으로 결정)
 const SITUATIONS = [
-  { label: '홈페이지가 없어요', emoji: '🚫', planId: 'start' },
-  { label: '있지만 문의가 없어요', emoji: '📉', planId: 'grow' },
-  { label: '검색 상위가 안 돼요', emoji: '🔝', planId: 'master' },
+  { label: '홈페이지가 없어요', emoji: '🚫', planId: 'landing' },
+  { label: '있지만 문의가 없어요', emoji: '📉', planId: 'landing-home' },
+  { label: '검색 상위가 안 돼요', emoji: '🔝', planId: 'home' },
 ]
 
-// 플랜별 부가정보 (제작기간 / 무료진단 폼 제작종류 / 추천 이유)
-const PLAN_EXTRA: Record<string, { duration: string; type: string; why: string }> = {
-  start: { duration: '3~4일', type: '랜딩페이지 제작', why: '처음 홈페이지를 빠르게 만들고 기본 SEO까지 세팅합니다.' },
-  grow: { duration: '1주', type: '홈페이지 제작', why: '문의 전환에 최적화된 구조로 전면 리뉴얼합니다.' },
-  master: { duration: '1~2주', type: '랜딩&홈페이지 제작', why: '검색 상위노출 + 광고 연동까지 풀패키지로 운영합니다.' },
+// 플랜별 부가정보 (무료진단 폼 제작종류 / 추천 이유)
+const PLAN_EXTRA: Record<string, { type: string; why: string }> = {
+  landing: { type: '랜딩페이지 제작', why: '처음 홈페이지를 빠르게 시작하고 기본 SEO까지 세팅합니다.' },
+  'landing-home': { type: '랜딩형 홈페이지 제작', why: '한 페이지 흐름으로 문의 전환에 집중하는 홈페이지를 만듭니다.' },
+  home: { type: '홈페이지 제작', why: '여러 페이지 + SEO 최적화로 검색 유입까지 잡습니다.' },
 }
 
 type Industry = typeof INDUSTRIES[number]
@@ -48,7 +82,7 @@ export default function InquiryQuiz() {
     setStep(2)
   }
 
-  const plan = makePlans.find(p => p.id === planId)
+  const plan = PLANS.find(p => p.id === planId)
   const extra = PLAN_EXTRA[planId]
   const caseSlug = industry?.caseSlug
   const successCase = caseSlug ? caseDetails[caseSlug] : null
@@ -72,12 +106,12 @@ export default function InquiryQuiz() {
       <button
         onClick={() => setOpen(o => !o)}
         aria-label="내 업종 맞춤 플랜 알아보기"
-        className="caption-1 emphasized"
+        className="subhead emphasized"
         style={{
-          position: 'fixed', bottom: '72px', right: '1rem', zIndex: 190,
+          position: 'fixed', bottom: '104px', right: '1rem', zIndex: 190,
           background: 'var(--accent)', color: '#fff',
           border: 'none', borderRadius: '9999px',
-          padding: '0.6rem 1rem',
+          padding: '0.9rem 1.6rem', fontSize: '1rem',
           cursor: 'pointer', whiteSpace: 'nowrap',
           boxShadow: '0 4px 16px rgba(51,115,223,0.35)',
           display: 'flex', alignItems: 'center', gap: '0.4rem',
@@ -98,9 +132,9 @@ export default function InquiryQuiz() {
       {/* 퀴즈 패널 */}
       {open && (
         <div style={{
-          position: 'fixed', bottom: '118px', right: '1rem', zIndex: 190,
+          position: 'fixed', bottom: '150px', right: '1rem', zIndex: 190,
           width: 'min(300px, calc(100vw - 2rem))',
-          maxHeight: 'min(78vh, 640px)', overflowY: 'auto',
+          maxHeight: 'min(84vh, 680px)', overflowY: 'auto',
           background: '#fff', border: '1px solid var(--border)',
           borderRadius: '16px', padding: '1.25rem',
           boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
@@ -208,9 +242,10 @@ export default function InquiryQuiz() {
                 <p className="caption-2 emphasized c-accent" style={{ margin: '0 0 0.35rem', letterSpacing: '0.06em', textAlign: 'center' }}>
                   {industry?.label} 맞춤 추천 플랜
                 </p>
-                <p className="headline emphasized c-primary" style={{ margin: '0 0 0.15rem', textAlign: 'center' }}>
-                  {plan.emoji} {plan.name}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', margin: '0 0 0.15rem' }}>
+                  <Image src={plan.img} alt="" width={26} height={26} style={{ width: 26, height: 26, objectFit: 'contain' }} />
+                  <p className="headline emphasized c-primary" style={{ margin: 0 }}>{plan.name}</p>
+                </div>
                 <p className="caption-1 c-secondary" style={{ margin: '0 0 0.75rem', textAlign: 'center' }}>
                   {plan.sub}
                 </p>
@@ -222,7 +257,7 @@ export default function InquiryQuiz() {
                   </span>
                   <span className="title-3 emphasized c-accent">{plan.price}</span>
                   <p className="caption-2 c-muted" style={{ margin: '0.2rem 0 0' }}>
-                    제작기간 {extra.duration} · {plan.note}
+                    {plan.note}
                   </p>
                 </div>
 

@@ -1,6 +1,23 @@
 import Link from "next/link";
 import HeroCarousel from "./HeroCarousel";
 
+// 글자 단위 등장 — 자리는 유지하고 투명→나타남 (start: 앞선 글자 수, step: 글자 간격)
+function Chars({ text, start = 0, step = 0.03 }: { text: string; start?: number; step?: number }) {
+  return (
+    <>
+      {Array.from(text.replace(/ /g, " ")).map((ch, i) => (
+        <span key={i} className="hero-char" style={{ animationDelay: `${(start + i) * step}s` }}>
+          {ch === " " ? " " : ch}
+        </span>
+      ))}
+    </>
+  );
+}
+
+const LINE1 = "내가 진짜 원하는 페이지로";
+const LINE2A = "우리만의 플로우를 담다, ";
+const LINE2B = "WEFLOW";
+
 export default function HeroBanner() {
   return (
     <section
@@ -33,13 +50,15 @@ export default function HeroBanner() {
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
         <h1 style={{ margin: 0, wordBreak: "keep-all" }}>
           <span className="title-2 c-secondary" style={{ display: "block" }}>
-            내가 진짜 원하는 페이지로
+            <Chars text={LINE1} start={0} />
           </span>
           <span style={{ display: "block", marginTop: "0.4rem" }}>
             <span className="large-title c-secondary">
-              우리만의 플로우를 담다,{" "}
+              <Chars text={LINE2A} start={LINE1.length} />
             </span>
-            <span className="large-title c-accent">WEFLOW</span>
+            <span className="large-title c-accent">
+              <Chars text={LINE2B} start={LINE1.length + LINE2A.length} />
+            </span>
           </span>
         </h1>
 

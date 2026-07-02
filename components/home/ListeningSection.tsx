@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { MessageCircle, PenLine, Users } from "lucide-react";
+import Reveal from "@/components/Reveal";
 import type { LucideIcon } from "lucide-react";
 
 const POINTS: { Icon: LucideIcon; title: string; desc: string }[] = [
@@ -34,7 +34,7 @@ export default function ListeningSection() {
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 (좌측 정렬) */}
-        <div style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+        <Reveal variant="up" style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
           <span className="footnote emphasized c-accent">한 줄 소개</span>
           <h2
             className="title-1"
@@ -50,102 +50,70 @@ export default function ListeningSection() {
               wordBreak: "keep-all",
             }}
           >
-            위플로우의 일하는 방식
+            WEFLOW의 일하는 방식
           </p>
-        </div>
+        </Reveal>
 
-        {/* 분할: 좌 이미지 · 우 3요소 */}
-        <div className="listen-split">
-          {/* 이미지 자리 (추후 교체) — 너비 확정 + 정사각형 */}
-          <div
-            className="listen-img"
-            style={{
-              aspectRatio: "1 / 1",
-              borderRadius: "var(--radius-2xl)",
-              overflow: "hidden",
-              position: "relative",
-              border: "1px solid var(--border)",
-            }}
-          >
-            <Image
-              src="/images/main/main-intro.jpeg"
-              alt="고객의 소리에 귀 기울이는 위플로우"
-              fill
-              sizes="(max-width: 768px) 100vw, 360px"
-              priority
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-
-          {/* 3요소 */}
-          <div
-            style={{
-              flex: 1,
-              minWidth: 0,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              gap: "1rem",
-            }}
-          >
-            {POINTS.map(({ Icon, title, desc }) => (
-              <div
-                key={title}
-                style={{
-                  display: "flex",
-                  gap: "1.1rem",
-                  alignItems: "flex-start",
-                  background: "#fff",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-2xl)",
-                  padding: "1.5rem 1.6rem",
-                }}
+        {/* 3개 카드 (각 카드에 이미지) */}
+        <Reveal as="div" stagger className="listen-list">
+          {POINTS.map(({ Icon, title, desc }) => (
+            <div key={title} className="listen-card">
+              <span className="listen-card-icon">
+                <Icon size={22} strokeWidth={2} />
+              </span>
+              <h3 className="headline" style={{ margin: "0.9rem 0 0.35rem" }}>
+                {title}
+              </h3>
+              <p
+                className="callout"
+                style={{ margin: 0, wordBreak: "keep-all" }}
               >
-                <span
-                  style={{
-                    width: "46px",
-                    height: "46px",
-                    flexShrink: 0,
-                    borderRadius: "var(--radius-xl)",
-                    background: "var(--accent-light)",
-                    color: "var(--accent)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Icon size={22} strokeWidth={2} />
-                </span>
-                <div>
-                  <h3 className="headline" style={{ margin: "0 0 0.35rem" }}>
-                    {title}
-                  </h3>
-                  <p
-                    className="callout"
-                    style={{ margin: 0, wordBreak: "keep-all" }}
-                  >
-                    {desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                {desc}
+              </p>
+              <div className="listen-card-img">이미지</div>
+            </div>
+          ))}
+        </Reveal>
       </div>
 
       <style>{`
-        .listen-split {
+        .listen-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+        .listen-card {
           display: flex;
-          align-items: stretch;
-          gap: clamp(1.5rem, 4vw, 3rem);
+          flex-direction: column;
+          background: #fff;
+          border: 1px solid var(--border);
+          border-radius: var(--radius-2xl);
+          padding: 1.5rem 1.6rem;
         }
-        .listen-img {
-          flex: 0 0 auto;
-          width: clamp(260px, 30vw, 360px);
+        .listen-card-icon {
+          width: 46px;
+          height: 46px;
+          flex-shrink: 0;
+          border-radius: var(--radius-xl);
+          background: var(--accent-light);
+          color: var(--accent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        @media (max-width: 768px) {
-          .listen-split { flex-direction: column; }
-          .listen-img { width: 100%; max-width: 280px; }
+        .listen-card-img {
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          margin-top: 1.25rem;
+          border-radius: var(--radius-xl);
+          background: #e6eaf1;
+          border: 1px dashed rgba(11,18,32,0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+        }
+        @media (max-width: 860px) {
+          .listen-list { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>

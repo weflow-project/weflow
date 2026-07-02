@@ -148,10 +148,13 @@ export default function Footer() {
 
       <style>{`
         .ft-col-title {
-          font-size: 0.875rem; font-weight: 600; color: #f1f5f9;
+          font-size: 1.05rem; font-weight: 600; color: #f1f5f9;
           letter-spacing: -0.01em;
-          margin: 0 0 0.85rem;
+          margin: 0 0 0.95rem;
         }
+        /* 푸터 내부 글씨 키우기 */
+        footer .footnote { font-size: 0.95rem; }
+        footer .caption-2 { font-size: 0.82rem; }
         .ft-main {
           display: grid;
           grid-template-columns: 1.2fr 1fr 1fr 1fr;

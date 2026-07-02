@@ -1,16 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 
 export default function ComparisonCTA() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--bg-secondary)",
         padding: "clamp(2rem, 5vw, 3.5rem) 1.25rem",
       }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
-        <div
+        <Reveal
+          as="div"
+          variant="zoom"
           className="cmp-banner"
           style={{
             position: "relative",
@@ -68,7 +71,7 @@ export default function ComparisonCTA() {
               style={{ objectFit: "contain", objectPosition: "bottom" }}
             />
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <style>{`

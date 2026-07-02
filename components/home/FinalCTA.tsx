@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 
 const WORDS = [
   '반응형 홈페이지',
+  '랜딩형 홈페이지',
   '랜딩페이지',
   '기업 홈페이지',
   '브랜드 홈페이지',
@@ -97,10 +98,11 @@ export default function FinalCTA() {
           align-items: center;
           gap: 0.6rem;
           color: #fff;
+          font-size: 1.1rem;
           background: rgba(255,255,255,0.14);
           border: 1.5px solid rgba(255,255,255,0.9);
           border-radius: 9999px;
-          padding: 0.85rem 2rem;
+          padding: 0.95rem 2.2rem;
           text-decoration: none;
           transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
         }

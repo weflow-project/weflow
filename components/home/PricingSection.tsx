@@ -1,28 +1,81 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Check } from 'lucide-react'
-import { makePlans } from '@/data/pricing'
+import Reveal from '@/components/Reveal'
+
+type Plan = {
+  id: string
+  name: string
+  sub: string
+  img: string
+  highlight: boolean
+  discount: string
+  originalPrice: string
+  price: string
+  note: string
+  features: string[]
+}
+
+const PLANS: Plan[] = [
+  {
+    id: 'landing',
+    name: '랜딩페이지',
+    sub: '한 페이지 집중형',
+    img: '/images/3d-icon/image-3.svg',
+    highlight: false,
+    discount: '50%',
+    originalPrice: '780,000원',
+    price: '390,000원',
+    note: '월 유지보수 39,000원 · VAT 별도',
+    features: ['랜딩페이지 1P', '반응형 (PC/모바일)', '문의폼 연동', '기본 SEO 설정'],
+  },
+  {
+    id: 'landing-home',
+    name: '랜딩형 홈페이지',
+    sub: '원페이지 홈페이지',
+    img: '/images/3d-icon/image-4.svg',
+    highlight: false,
+    discount: '50%',
+    originalPrice: '1,180,000원',
+    price: '590,000원',
+    note: '월 유지보수 59,000원 · VAT 별도',
+    features: ['원페이지 홈페이지', '헤더 앵커 이동 구성', '반응형 (PC/모바일)', '문의폼·카톡 연동', '기본 SEO 설정'],
+  },
+  {
+    id: 'home',
+    name: '홈페이지',
+    sub: '다중 페이지',
+    img: '/images/3d-icon/image-5.svg',
+    highlight: true,
+    discount: '50%',
+    originalPrice: '1,980,000원',
+    price: '990,000원',
+    note: '월 유지보수 99,000원 · VAT 별도',
+    features: ['홈페이지 2P~', '반응형 (PC/모바일)', '문의폼·카톡 상담 연동', 'SEO 최적화'],
+  },
+]
 
 export default function PricingSection() {
   return (
     <section style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
-        <div style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
+        <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">제작 플랜 &amp; 가격</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
             목표에 맞는 <span className="c-accent">플랜</span>을 골라보세요
           </h2>
-        </div>
+        </Reveal>
 
         {/* 플랜 카드 */}
-        <div className="pricing-grid">
-          {makePlans.map(plan => (
+        <Reveal as="div" stagger className="pricing-grid">
+          {PLANS.map(plan => (
             <div key={plan.id} className={`pricing-card${plan.highlight ? ' is-highlight' : ''}`}>
               {plan.highlight && <span className="pricing-tag">가장 인기</span>}
 
-              {/* 상단: 이름 */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.4rem' }}>{plan.emoji}</span>
+              {/* 상단: 아이콘 + 이름 */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                <Image src={plan.img} alt="" width={48} height={48} style={{ width: 48, height: 48, objectFit: 'contain' }} />
                 <div>
                   <h3 className="headline emphasized" style={{ margin: 0 }}>{plan.name}</h3>
                   <span className="caption-1 c-muted">{plan.sub}</span>
@@ -64,12 +117,12 @@ export default function PricingSection() {
               </Link>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         {/* 전체 플랜 링크 */}
         <div style={{ marginTop: '1.75rem', textAlign: 'center' }}>
-          <Link href="/pricing" className="subhead emphasized c-accent" style={{ textDecoration: 'none' }}>
-            케어플랜·광고 세팅 등 전체 플랜 보기 ›
+          <Link href="/pricing" className="subhead emphasized c-accent" style={{ textDecoration: 'none', fontSize: '1.1rem' }}>
+            플랜 전체 보기 ›
           </Link>
         </div>
       </div>

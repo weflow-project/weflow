@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons";
+import Reveal from "@/components/Reveal";
 import { SiNaver } from "react-icons/si";
 import { FaInstagram, FaYoutube } from "react-icons/fa";
 import { TrendingUp } from "lucide-react";
@@ -69,12 +70,12 @@ function ImagePlaceholder({
         aspectRatio,
         flexShrink: 0,
         borderRadius: "var(--radius-xl)",
-        background: "#e6eaf1",
-        border: "1px dashed rgba(11,18,32,0.14)",
+        background: "rgba(0,0,0,0.18)",
+        border: "1px dashed rgba(255,255,255,0.18)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "var(--text-secondary)",
+        color: "#9fb0c8",
         fontSize: "0.82rem",
         fontWeight: 600,
         letterSpacing: "0.02em",
@@ -136,7 +137,7 @@ export default function PartnershipSection() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--accent-dim)",
         minHeight: "calc(100vh - 64px)",
         display: "flex",
         flexDirection: "column",
@@ -147,13 +148,13 @@ export default function PartnershipSection() {
       <InstagramGradientDef />
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 (좌측 정렬) */}
-        <div style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-          <span className="footnote emphasized c-accent">
+        <Reveal variant="up" style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+          <span className="footnote emphasized" style={{ color: "#9dbff6" }}>
             제휴 마케팅과의 협약
           </span>
           <h2
             className="title-1"
-            style={{ marginTop: "0.75rem", textAlign: "left" }}
+            style={{ marginTop: "0.75rem", textAlign: "left", color: "#fff" }}
           >
             <span style={{ display: "block" }}>
               홈페이지 제작에서 끝나지 않습니다
@@ -166,7 +167,7 @@ export default function PartnershipSection() {
                   <span
                     key={i}
                     className="c-accent"
-                    style={{ position: "relative", display: "inline-block" }}
+                    style={{ position: "relative", display: "inline-block", color: "#8fb4ff" }}
                   >
                     <span
                       aria-hidden
@@ -178,7 +179,7 @@ export default function PartnershipSection() {
                         width: "5px",
                         height: "5px",
                         borderRadius: "9999px",
-                        background: "var(--accent)",
+                        background: "#8fb4ff",
                       }}
                     />
                     {ch}
@@ -188,10 +189,10 @@ export default function PartnershipSection() {
               까지 함께 키웁니다
             </span>
           </h2>
-        </div>
+        </Reveal>
 
         {/* 벤토 그리드 */}
-        <div className="bento-grid">
+        <Reveal as="div" stagger className="bento-grid">
           {/* ① 대형 개요 카드 (가로 전체 · 상단 텍스트+로고 · 하단 이미지 2개) */}
           <div className="bento-card bento-lead">
             {/* 브랜드 로고 (왼쪽 상단) */}
@@ -256,8 +257,8 @@ export default function PartnershipSection() {
           <div className="bento-card bento-sub">
             <IconChip
               Icon={TrendingUp}
-              color="var(--accent-hover)"
-              background="rgba(51,115,223,0.16)"
+              color="#8fb4ff"
+              background="rgba(143,180,255,0.16)"
             />
             <div
               style={{
@@ -333,7 +334,7 @@ export default function PartnershipSection() {
               />
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -75,7 +75,7 @@ export default function WhatIsHomepageSection() {
   }, [])
 
   return (
-    <section ref={ref} style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
+    <section ref={ref} style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>

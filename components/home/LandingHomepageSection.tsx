@@ -1,3 +1,4 @@
+import Reveal from '@/components/Reveal'
 import { Rows3, Anchor, Target } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -9,27 +10,27 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
 
 export default function LandingHomepageSection() {
   return (
-    <section style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
+    <section style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
-        <div style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
+        <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">03 · 랜딩형 홈페이지란</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
             랜딩형 홈페이지가 <span className="c-accent">무엇</span>인가요?
           </h2>
-        </div>
+        </Reveal>
 
         {/* 좌 텍스트 · 우 이미지 */}
         <div className="lhd-split">
           {/* 왼쪽 */}
-          <div className="lhd-text">
+          <Reveal as="div" variant="left" className="lhd-text">
             {/* 한 줄 정의 (인용) */}
             <div
               style={{
                 width: 'fit-content',
                 maxWidth: '100%',
                 borderLeft: '3px solid var(--accent)',
-                background: 'var(--bg-secondary)',
+                background: '#fff',
                 borderRadius: '0 var(--radius-xl) var(--radius-xl) 0',
                 padding: '0.75rem 1.1rem',
                 marginBottom: '1.75rem',
@@ -81,10 +82,10 @@ export default function LandingHomepageSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* 오른쪽 이미지 (추후 교체) */}
-          <div className="lhd-img">
+          <Reveal as="div" variant="right" className="lhd-img">
             <div
               style={{
                 width: '100%',
@@ -103,7 +104,7 @@ export default function LandingHomepageSection() {
             >
               이미지
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
 
