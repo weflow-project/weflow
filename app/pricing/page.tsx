@@ -634,12 +634,9 @@ export default function PricingPage() {
 
       <style>{`
         .pricing-section {
-          scroll-snap-align: start;
-          min-height: calc(100vh - 64px);
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          padding: 2.5rem 1.5rem;
+          padding: clamp(3rem, 6vw, 5rem) 1.5rem;
         }
         .pricing-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
         .pricing-header { text-align: center; margin-bottom: 1.75rem; }
