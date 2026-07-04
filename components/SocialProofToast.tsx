@@ -33,6 +33,8 @@ export default function SocialProofToast() {
   const [mounted, setMounted] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const idxRef = useRef(0)
+  const [side, setSide] = useState<'left' | 'right'>('left')
+  const sideRef = useRef<'left' | 'right'>('right') // 첫 노출 시 'left'가 되도록 반대로 시작
 
   // 직전과 겹치지 않는 랜덤 항목을 골라 노출
   const showRandom = () => {
@@ -42,6 +44,9 @@ export default function SocialProofToast() {
     }
     idxRef.current = next
     setIdx(next)
+    // 나타날 때마다 좌우 번갈아
+    sideRef.current = sideRef.current === 'left' ? 'right' : 'left'
+    setSide(sideRef.current)
     setTimeLabel(randomTimeLabel())
     setVisible(true)
   }
@@ -78,7 +83,7 @@ export default function SocialProofToast() {
       style={{
         position: 'fixed',
         bottom: '72px',
-        left: '1rem',
+        ...(side === 'left' ? { left: '1rem' } : { right: '1rem' }),
         zIndex: 190,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.96)',
         opacity: visible ? 1 : 0,

@@ -31,6 +31,14 @@ export default function Navbar() {
 
   const close = () => setOpen(false);
 
+  // 홈에서 로고 클릭 시 이동 대신 맨 위로 부드럽게 스크롤
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <header
@@ -55,6 +63,7 @@ export default function Navbar() {
         >
           <Link
             href="/"
+            onClick={handleLogoClick}
             style={{
               display: "flex",
               alignItems: "center",
@@ -189,7 +198,10 @@ export default function Navbar() {
         >
           <Link
             href="/"
-            onClick={close}
+            onClick={(e) => {
+              close();
+              handleLogoClick(e);
+            }}
             style={{
               display: "flex",
               alignItems: "center",

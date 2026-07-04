@@ -49,7 +49,7 @@ const FEATURES: {
   {
     Icon: LayoutDashboard,
     title: "관리자 페이지 제공",
-    desc: "통계를 통해 문의·예약을 관리하고 관리자 데이터베이스를 확보합니다.",
+    desc: "통계를 통해 문의·예약을 관리하고 관리자 DB를 확보합니다.",
   },
   {
     Icon: Wrench,

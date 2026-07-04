@@ -11,6 +11,7 @@ export interface Plan {
 export interface MakePlan extends Plan {
   id: string
   emoji: string
+  img: string
   tagline: string
   discount: string
   maintenance: string
@@ -25,12 +26,13 @@ export const makePlans: MakePlan[] = [
     sub: '랜딩페이지',
     tagline: '한 페이지 집중형',
     emoji: '🚀',
+    img: '/images/3d-icon/image-3.svg',
     highlight: false,
     discount: '50%',
     features: [
-      '랜딩페이지 1P',
-      '반응형 제작 (PC/모바일)',
-      '문의폼 연동',
+      '랜딩페이지 1섹션 ~',
+      '반응형 PC & 모바일 최적화',
+      '희망 SNS 문의폼 연동',
       '기본 SEO 설정',
     ],
     originalPrice: '780,000원',
@@ -46,13 +48,14 @@ export const makePlans: MakePlan[] = [
     sub: '랜딩형 홈페이지',
     tagline: '원페이지 홈페이지',
     emoji: '🌱',
+    img: '/images/3d-icon/image-4.svg',
     highlight: false,
     discount: '50%',
     features: [
-      '랜딩형 홈페이지',
-      '반응형 제작 (PC/모바일)',
-      '문의폼 연동',
-      '카카오톡 상담연동',
+      '원페이지 형식 홈페이지 1섹션 & 페이지 ~',
+      '반응형 PC & 모바일 최적화',
+      '희망 SNS 문의폼 연동',
+      '헤더 앵커 이동 구성',
       '기본 SEO 설정',
     ],
     originalPrice: '1,180,000원',
@@ -68,14 +71,16 @@ export const makePlans: MakePlan[] = [
     sub: '홈페이지',
     tagline: '다중 페이지',
     emoji: '👑',
+    img: '/images/3d-icon/image-5.svg',
     highlight: true,
     discount: '50%',
     features: [
-      '홈페이지 2P~',
-      '반응형 제작 (PC/모바일)',
-      '프리미엄 디자인',
-      '예약·문의 시스템',
-      'SEO 최적화',
+      '홈페이지 1페이지 ~',
+      '반응형 PC & 모바일 최적화',
+      '희망 SNS 문의폼 연동',
+      '페이지 로딩 속도 최적화',
+      '각 페이지별 URL 생성',
+      'SEO 상위 노출 증가',
     ],
     originalPrice: '1,980,000원',
     price: '990,000원',

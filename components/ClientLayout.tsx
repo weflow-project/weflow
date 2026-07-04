@@ -5,7 +5,6 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import BottomBar from './BottomBar'
 import SocialProofToast from './SocialProofToast'
-import InquiryQuiz from './InquiryQuiz'
 import ExitIntentPopup from './ExitIntentPopup'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
@@ -26,7 +25,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <Footer />
       <BottomBar />
       <SocialProofToast />
-      <InquiryQuiz />
       <ExitIntentPopup />
     </>
   )

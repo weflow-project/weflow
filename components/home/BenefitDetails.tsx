@@ -29,7 +29,7 @@ const BENEFITS: Benefit[] = [
     points: [
       "문의·예약 접수 내역을 한곳에서 관리",
       "통계로 유입·전환 추이를 한눈에 파악",
-      "관리자 데이터베이스로 고객 정보 자산화",
+      "관리자 DB로 고객 정보 자산화",
     ],
     image: "/images/benefits/benefit-03-fast.png",
     icon: "/images/3d-icon/benefit003.svg",

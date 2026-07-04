@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
+import { ArrowUp, Crown } from 'lucide-react'
 
 type Point = {
   order: string
@@ -13,6 +14,19 @@ type Point = {
 const POINTS: Point[] = [
   {
     order: '첫째',
+    title: '방문이 그대로 고객 DB가 됩니다',
+    stat: '99.9%',
+    desc: (
+      <>
+        홈페이지로 들어온 문의·예약을 <strong>빠짐없이 기록</strong>해 관리자 페이지에 쌓습니다.
+        <br />
+        흩어지던 고객 정보가 통계로 관리되는 온전한 내 자산이 됩니다.
+      </>
+    ),
+    source: '* WEFLOW 관리자 페이지에서 문의·예약·통계 기본 제공',
+  },
+  {
+    order: '둘째',
     title: '홈페이지는 실제 매출로 이어집니다',
     stat: '15~50%',
     desc: (
@@ -25,7 +39,7 @@ const POINTS: Point[] = [
     source: '출처: BusinessDasher (2026), LeadsAgent · Google 소비자 조사 인용',
   },
   {
-    order: '둘째',
+    order: '셋째',
     title: '인스타·블로그만으로는 부족합니다',
     stat: '84%',
     desc: (
@@ -38,19 +52,43 @@ const POINTS: Point[] = [
     source: '출처: BusinessDasher, "Statistics About Website" (2026)',
   },
   {
-    order: '셋째',
+    order: '넷째',
     title: '고객이 먼저 홈페이지를 찾습니다',
     stat: '81%',
     desc: (
       <>
-        소비자의 <strong>81%</strong>가 구매 전 온라인 조사를 합니다.
+        소비자의 <strong>81%</strong>가 구매 전 온라인으로 정보를 찾아봅니다.
         <br />
-        그리고 <strong>39%</strong>(젊은층 45%)는,
-        <br />
-        홈페이지가 없다는 이유만으로 그 사업체를 포기한 경험이 있습니다.
+        홈페이지가 없으면 이 탐색 단계에서 선택지에조차 오르지 못합니다.
       </>
     ),
-    source: '출처: GE Capital Retail Bank 조사 (81%), DreamHost 2026 Local Business Trust Index (39%)',
+    source: '출처: BusinessDasher (2026) 웹사이트 통계',
+  },
+  {
+    order: '다섯째',
+    title: 'SEO 상위 노출 증가',
+    stat: '50%',
+    desc: (
+      <>
+        각 페이지별 <strong>고유 URL</strong>과 메타·구조화 정보를 최적화하면, 검색 결과에서 <strong>클릭률(CTR)이 20~80%</strong>까지 높아집니다.
+        <br />
+        노출 기회가 늘어 상위 노출과 유입 확대에 유리해집니다.
+      </>
+    ),
+    source: '출처: Wellows (2026) 스키마마크업 리치 결과 CTR 분석',
+  },
+  {
+    order: '여섯째',
+    title: '전문성과 체계성을 증명합니다',
+    stat: '75%',
+    desc: (
+      <>
+        목적에 맞게 구조화된 홈페이지는 그 자체로 <strong>전문성과 체계성</strong>을 보여줍니다.
+        <br />
+        실제로 소비자의 <strong>75%</strong>가 웹사이트 디자인으로 비즈니스의 신뢰도를 판단합니다.
+      </>
+    ),
+    source: '출처: BusinessDasher (2026) "Statistics About Website"',
   },
 ]
 
@@ -90,20 +128,40 @@ export default function WhatIsHomepageSection() {
           <div key={p.order} className={`wih-row${i % 2 === 0 ? ' reverse' : ''}`}>
             {/* 텍스트 */}
             <div className="wih-text">
+              {i === 0 && (
+                <Crown
+                  strokeWidth={2}
+                  color="#f5b301"
+                  fill="#f5b301"
+                  style={{ width: '1.625rem', height: '1.625rem', display: 'block', marginBottom: '0.2rem', marginLeft: '-0.15rem' }}
+                />
+              )}
               <span className="footnote emphasized c-accent">{p.order}</span>
               <h3 className="title-2 emphasized" style={{ margin: '0.5rem 0 1rem', wordBreak: 'keep-all' }}>
                 {p.title}
               </h3>
               <div style={{ marginBottom: '0.9rem' }}>
                 <span
-                  className={`large-title emphasized c-accent wih-stat${inView ? ' go' : ''}`}
-                  style={{
-                    lineHeight: 1,
-                    fontSize: 'clamp(2.75rem, 7vw, 4.5rem)',
-                    display: 'inline-block',
-                  }}
+                  className={`wih-stat${inView ? ' go' : ''}`}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
                 >
-                  {p.stat}
+                  <span
+                    className="large-title emphasized c-accent"
+                    style={{
+                      lineHeight: 1,
+                      fontSize: 'clamp(2.75rem, 7vw, 4.5rem)',
+                      display: 'inline-block',
+                    }}
+                  >
+                    {p.stat}
+                  </span>
+                  {i >= 1 && (
+                    <ArrowUp
+                      strokeWidth={2.6}
+                      color="var(--accent)"
+                      style={{ width: 'clamp(2rem, 5vw, 3.25rem)', height: 'clamp(2rem, 5vw, 3.25rem)', flexShrink: 0 }}
+                    />
+                  )}
                 </span>
               </div>
               <p className="body c-muted" style={{ margin: 0, wordBreak: 'keep-all' }}>

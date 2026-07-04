@@ -3,7 +3,7 @@ import { Database, BarChart3, Bell } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
-  { Icon: Database, label: '데이터베이스 확보', desc: '문의·예약 정보를 자동으로 수집·보관' },
+  { Icon: Database, label: 'DB 확보', desc: '안 할 때보다 더 확실한 고객 DB가 차곡차곡' },
   { Icon: BarChart3, label: '통계 & 인사이트', desc: '유입·전환·상태 추이를 한눈에 파악' },
   { Icon: Bell, label: '실시간 관리', desc: '접수 확인부터 상태 변경까지 바로바로' },
 ]
@@ -14,9 +14,9 @@ export default function AdminPageSection() {
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
-          <span className="footnote emphasized c-accent">05 · 관리자페이지란</span>
+          <span className="footnote emphasized c-accent">05 · 관리자 페이지란</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            관리자페이지가 <span className="c-accent">무엇</span>인가요?
+            관리자 페이지가 <span className="c-accent">무엇</span>인가요?
           </h2>
         </Reveal>
 
@@ -49,7 +49,7 @@ export default function AdminPageSection() {
             <p className="body" style={{ margin: '0.5rem 0 1.75rem', wordBreak: 'keep-all' }}>
               홈페이지로 들어온 문의·예약과 방문자 활동을 <strong>자동으로 모아</strong> 보여줘요.
               <br />
-              통계를 통해 <strong>관리자 데이터베이스를 확보</strong>하고, 흩어진 고객 정보를 자산으로 쌓아갈 수 있습니다.
+              통계를 통해 <strong>관리자 DB를 확보</strong>하고, 흩어진 고객 정보를 자산으로 쌓아갈 수 있습니다.
             </p>
 
             {/* 핵심 포인트 3개 */}

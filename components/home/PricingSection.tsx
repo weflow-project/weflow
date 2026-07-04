@@ -1,59 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Check } from 'lucide-react'
+import { Check, Sparkles, Star } from 'lucide-react'
 import Reveal from '@/components/Reveal'
-
-type Plan = {
-  id: string
-  name: string
-  sub: string
-  img: string
-  highlight: boolean
-  discount: string
-  originalPrice: string
-  price: string
-  note: string
-  features: string[]
-}
-
-const PLANS: Plan[] = [
-  {
-    id: 'landing',
-    name: '랜딩페이지',
-    sub: '한 페이지 집중형',
-    img: '/images/3d-icon/image-3.svg',
-    highlight: false,
-    discount: '50%',
-    originalPrice: '780,000원',
-    price: '390,000원',
-    note: '월 유지보수 39,000원 · VAT 별도',
-    features: ['랜딩페이지 1P', '반응형 (PC/모바일)', '문의폼 연동', '기본 SEO 설정'],
-  },
-  {
-    id: 'landing-home',
-    name: '랜딩형 홈페이지',
-    sub: '원페이지 홈페이지',
-    img: '/images/3d-icon/image-4.svg',
-    highlight: false,
-    discount: '50%',
-    originalPrice: '1,180,000원',
-    price: '590,000원',
-    note: '월 유지보수 59,000원 · VAT 별도',
-    features: ['원페이지 홈페이지', '헤더 앵커 이동 구성', '반응형 (PC/모바일)', '문의폼·카톡 연동', '기본 SEO 설정'],
-  },
-  {
-    id: 'home',
-    name: '홈페이지',
-    sub: '다중 페이지',
-    img: '/images/3d-icon/image-5.svg',
-    highlight: true,
-    discount: '50%',
-    originalPrice: '1,980,000원',
-    price: '990,000원',
-    note: '월 유지보수 99,000원 · VAT 별도',
-    features: ['홈페이지 2P~', '반응형 (PC/모바일)', '문의폼·카톡 상담 연동', 'SEO 최적화'],
-  },
-]
+import { makePlans } from '@/data/pricing'
 
 export default function PricingSection() {
   return (
@@ -69,16 +18,29 @@ export default function PricingSection() {
 
         {/* 플랜 카드 */}
         <Reveal as="div" stagger className="pricing-grid">
-          {PLANS.map(plan => (
+          {makePlans.map(plan => (
             <div key={plan.id} className={`pricing-card${plan.highlight ? ' is-highlight' : ''}`}>
-              {plan.highlight && <span className="pricing-tag">가장 인기</span>}
+              {plan.highlight && (
+                <>
+                  <span className="pricing-tag" aria-label="가장 인기">
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} size={11} fill="#ffd23f" strokeWidth={0} />
+                    ))}
+                  </span>
+                  <span className="hl-sparkle-layer" aria-hidden="true">
+                    <Sparkles className="hl-sparkle hl-sparkle-1" size={150} strokeWidth={1.25} />
+                    <Sparkles className="hl-sparkle hl-sparkle-2" size={110} strokeWidth={1.25} />
+                    <Sparkles className="hl-sparkle hl-sparkle-3" size={130} strokeWidth={1.25} />
+                  </span>
+                </>
+              )}
 
               {/* 상단: 아이콘 + 이름 */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
                 <Image src={plan.img} alt="" width={48} height={48} style={{ width: 48, height: 48, objectFit: 'contain' }} />
                 <div>
-                  <h3 className="headline emphasized" style={{ margin: 0 }}>{plan.name}</h3>
-                  <span className="caption-1 c-muted">{plan.sub}</span>
+                  <h3 className="headline emphasized" style={{ margin: 0 }}>{plan.sub}</h3>
+                  <span className="caption-1 c-muted">{plan.tagline}</span>
                 </div>
               </div>
 
@@ -94,7 +56,7 @@ export default function PricingSection() {
                   <span className="title-2 emphasized">{plan.price}</span>
                   <span className="caption-1 c-muted">부터</span>
                 </div>
-                <p className="caption-1 c-muted" style={{ margin: '0.4rem 0 0' }}>{plan.note}</p>
+                <p className="caption-1 c-muted" style={{ margin: '0.4rem 0 0' }}>{`월 유지보수 ${plan.maintenance} · ${plan.note}`}</p>
               </div>
 
               {/* 기능 */}
@@ -145,18 +107,60 @@ export default function PricingSection() {
         }
         .pricing-card.is-highlight {
           border: 2px solid var(--accent);
-          box-shadow: 0 12px 32px rgba(51,115,223,0.14);
+          z-index: 0; /* 반짝이 레이어를 담는 스태킹 컨텍스트 */
+          box-shadow: 0 16px 42px rgba(51,115,223,0.18);
+        }
+        .pricing-card.is-highlight:hover {
+          box-shadow: 0 20px 50px rgba(51,115,223,0.26);
+        }
+        /* 반짝이 레이어 — 카드 안쪽으로만 보이게(클립), 텍스트·버튼 뒤 */
+        .hl-sparkle-layer {
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          overflow: hidden;
+          z-index: -1;
+          pointer-events: none;
+        }
+        .hl-sparkle {
+          position: absolute;
+          color: #ffd23f;
+          pointer-events: none;
+          opacity: 0;
+          animation: hl-twinkle 2.6s ease-in-out infinite;
+        }
+        .hl-sparkle-1 { top: 2rem; right: -0.5rem; animation-delay: 0s; }
+        .hl-sparkle-2 { top: 9rem; left: -1rem; animation-delay: 0.9s; }
+        .hl-sparkle-3 { bottom: 3rem; right: 0rem; animation-delay: 1.7s; }
+        @keyframes hl-twinkle {
+          0%, 100% { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+          50%      { opacity: 0.28; transform: scale(1) rotate(8deg); }
         }
         .pricing-tag {
           position: absolute;
           top: -12px;
           left: 1.6rem;
-          background: var(--accent);
+          display: inline-flex;
+          align-items: center;
+          gap: 2px;
+          background: linear-gradient(120deg, #2f66cf, #4f8ff5, #7db0ff, #4f8ff5, #2f66cf);
+          background-size: 250% 100%;
+          animation: tag-flow 3.5s ease infinite;
           color: #fff;
           font-size: 0.72rem;
           font-weight: 700;
-          padding: 3px 11px;
+          padding: 4px 11px;
           border-radius: 9999px;
+          box-shadow: 0 4px 10px rgba(51,115,223,0.28);
+        }
+        @keyframes tag-flow {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hl-sparkle { animation: none; opacity: 0.2; }
+          .pricing-tag { animation: none; }
         }
         @media (max-width: 860px) {
           .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }

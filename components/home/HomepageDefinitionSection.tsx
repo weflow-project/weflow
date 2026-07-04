@@ -1,5 +1,5 @@
 import Reveal from '@/components/Reveal'
-import { Home, Clock, Search } from 'lucide-react'
+import { Home, Clock, Search, Database } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
@@ -46,14 +46,38 @@ export default function HomepageDefinitionSection() {
 
             {/* 쉬운 풀이 */}
             <span className="footnote emphasized c-accent">쉽게 말하면</span>
-            <p className="body" style={{ margin: '0.5rem 0 1.75rem', wordBreak: 'keep-all' }}>
+            <p className="body" style={{ margin: '0.5rem 0 0.9rem', wordBreak: 'keep-all' }}>
               온라인에 있는 우리 가게의 <strong>대문이자 24시간 영업사원</strong>이에요.
               <br />
               방문자가 브랜드를 처음 만나고, 신뢰하고, 문의로 이어지는 출발점이죠.
             </p>
-
-            {/* 핵심 포인트 3개 */}
+            {/* 핵심 포인트 3개 (첫 행은 고객 DB 강조) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
+                <span
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    flexShrink: 0,
+                    borderRadius: 'var(--radius-xl)',
+                    background: 'var(--accent-light)',
+                    color: 'var(--accent)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Database size={20} strokeWidth={2} />
+                </span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span className="headline" style={{ margin: 0 }}>
+                    확실한 고객 DB
+                  </span>
+                  <span className="callout c-muted" style={{ wordBreak: 'keep-all' }}>
+                    문의가 이어질수록 차곡차곡 쌓이는 데이터
+                  </span>
+                </div>
+              </div>
               {POINTS.map(({ Icon, label, desc }) => (
                 <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
                   <span

@@ -52,9 +52,7 @@ export default function HomePage() {
         }
         body="WEFLOW가 직접 제작한 홈페이지·랜딩형 홈페이지·랜딩페이지 사례를 소개합니다."
         background="var(--bg-secondary)"
-        imageCount={4}
-        imageAspect="16 / 9"
-        carousel
+        imageCount={1}
       />
       <PlaceholderSection
         eyebrow="고객 인터뷰"
@@ -64,9 +62,7 @@ export default function HomePage() {
           </>
         }
         body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 인터뷰 & 후기를 담았습니다."
-        imageCount={3}
-        imageAspect="16 / 9"
-        carousel
+        imageCount={1}
       />
       <HomepageDefinitionSection />
       <WhatIsHomepageSection />

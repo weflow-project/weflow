@@ -18,7 +18,7 @@ export default function ComparisonCTA() {
           style={{
             position: "relative",
             borderRadius: "clamp(20px, 3vw, 28px)",
-            background: "linear-gradient(100deg, #5b8fe6 0%, #a9dcf2 100%)",
+            background: "linear-gradient(100deg, #3f74d6 0%, #83c4e8 100%)",
             padding: "clamp(2rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3.5rem)",
             minHeight: "220px",
             display: "flex",
@@ -67,7 +67,7 @@ export default function ComparisonCTA() {
               src="/images/main/main-character.png"
               alt="위플로우 캐릭터"
               fill
-              sizes="(max-width: 768px) 0px, 720px"
+              sizes="(max-width: 768px) 240px, 720px"
               style={{ objectFit: "contain", objectPosition: "bottom" }}
             />
           </div>
@@ -84,8 +84,17 @@ export default function ComparisonCTA() {
           height: 155%;
         }
         @media (max-width: 768px) {
-          .cmp-text { max-width: 100%; }
-          .cmp-char { display: none; }
+          .cmp-text { max-width: 70%; }
+          .cmp-char {
+            right: -4rem;
+            bottom: 0;
+            width: 230px;
+            height: 118%;
+          }
+        }
+        @media (max-width: 420px) {
+          .cmp-text { max-width: 62%; }
+          .cmp-char { right: -4.5rem; width: 200px; }
         }
       `}</style>
     </section>

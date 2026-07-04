@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Check, Info, BadgePercent, Sparkles } from "lucide-react";
+import { Check, Info, BadgePercent, Sparkles, Star } from "lucide-react";
 import { makePlans } from "@/data/pricing";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
@@ -105,7 +105,11 @@ export default function PricingPage() {
               >
                 {plan.highlight && (
                   <>
-                    <span className="pricing-tag">가장 인기</span>
+                    <span className="pricing-tag" aria-label="가장 인기">
+                      {Array.from({ length: 5 }).map((_, s) => (
+                        <Star key={s} size={11} fill="#ffd23f" strokeWidth={0} />
+                      ))}
+                    </span>
                     <span className="hl-sparkle-layer" aria-hidden="true">
                       <Sparkles
                         className="hl-sparkle hl-sparkle-1"
@@ -702,7 +706,7 @@ export default function PricingPage() {
         /* 작은 반짝이 — 카드 곳곳에서 깜빡깜빡 */
         .hl-sparkle {
           position: absolute;
-          color: #a9c9ff;
+          color: #ffd23f;
           pointer-events: none;
           opacity: 0;
           animation: hl-twinkle 2.6s ease-in-out infinite;
@@ -722,13 +726,16 @@ export default function PricingPage() {
           position: absolute;
           top: -12px;
           left: 1.6rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 2px;
           background: linear-gradient(120deg, #2f66cf, #4f8ff5, #7db0ff, #4f8ff5, #2f66cf);
           background-size: 250% 100%;
           animation: tag-flow 3.5s ease infinite;
           color: #fff;
           font-size: 0.72rem;
           font-weight: 700;
-          padding: 3px 11px;
+          padding: 4px 11px;
           border-radius: 9999px;
           box-shadow: 0 4px 10px rgba(51,115,223,0.28);
         }
