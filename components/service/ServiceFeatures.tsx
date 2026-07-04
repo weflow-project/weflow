@@ -7,6 +7,8 @@ import {
   Users,
   Wrench,
   MonitorSmartphone,
+  LayoutDashboard,
+  Link2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -41,8 +43,13 @@ const FEATURES: {
   },
   {
     Icon: Users,
-    title: "2:1 관리 시스템",
-    desc: "기획자·디자이너 2인이 고객 한 분을 전담 케어합니다.",
+    title: "1:1 맞춤 시스템",
+    desc: "전담 담당자가 고객 한 분을 1:1로 전담 케어합니다.",
+  },
+  {
+    Icon: LayoutDashboard,
+    title: "관리자 페이지 제공",
+    desc: "통계를 통해 문의·예약을 관리하고 관리자 데이터베이스를 확보합니다.",
   },
   {
     Icon: Wrench,
@@ -53,6 +60,11 @@ const FEATURES: {
     Icon: MonitorSmartphone,
     title: "반응형 디자인 (PC/MO)",
     desc: "PC·모바일 등 모든 기기에서 최적화된 화면을 보여줍니다.",
+  },
+  {
+    Icon: Link2,
+    title: "SNS 연동",
+    desc: "카카오톡, 인스타그램 등 원하는 플랫폼을 자유롭게 연동합니다.",
   },
 ];
 
@@ -147,7 +159,7 @@ export default function ServiceFeatures() {
               {/* 설명 */}
               <p
                 className="callout"
-                style={{ margin: 0, wordBreak: "keep-all" }}
+                style={{ margin: "0 0 1.1rem", wordBreak: "keep-all" }}
               >
                 {desc}
               </p>
@@ -171,6 +183,8 @@ export default function ServiceFeatures() {
         }
         .svc-feat-card {
           position: relative;
+          display: flex;
+          flex-direction: column;
           background: #f4f6fa;
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
@@ -186,7 +200,7 @@ export default function ServiceFeatures() {
         .svc-feat-img {
           width: 100%;
           aspect-ratio: 16 / 9;
-          margin-top: 1.1rem;
+          margin-top: auto;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
           border: 1px dashed rgba(11,18,32,0.14);

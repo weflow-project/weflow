@@ -6,6 +6,7 @@ import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSecti
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
 import LandingPageSection from "@/components/home/LandingPageSection";
+import AdminPageSection from "@/components/home/AdminPageSection";
 import PartnershipSection from "@/components/home/PartnershipSection";
 import ListeningSection from "@/components/home/ListeningSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
@@ -52,8 +53,8 @@ export default function HomePage() {
         body="WEFLOW가 직접 제작한 홈페이지·랜딩형 홈페이지·랜딩페이지 사례를 소개합니다."
         background="var(--bg-secondary)"
         imageCount={4}
-        imageCols={2}
-        imageAspect="4 / 3"
+        imageAspect="16 / 9"
+        carousel
       />
       <PlaceholderSection
         eyebrow="고객 인터뷰"
@@ -64,11 +65,14 @@ export default function HomePage() {
         }
         body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 인터뷰 & 후기를 담았습니다."
         imageCount={3}
+        imageAspect="16 / 9"
+        carousel
       />
       <HomepageDefinitionSection />
       <WhatIsHomepageSection />
       <LandingHomepageSection />
       <LandingPageSection />
+      <AdminPageSection />
 
       {/* 8~12. 원래 있던 섹션들 */}
       <PartnershipSection />

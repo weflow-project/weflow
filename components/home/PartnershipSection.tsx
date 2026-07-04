@@ -1,7 +1,7 @@
 import type { IconType } from "react-icons";
 import Reveal from "@/components/Reveal";
 import { SiNaver } from "react-icons/si";
-import { FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaMapMarkerAlt } from "react-icons/fa";
 import { TrendingUp } from "lucide-react";
 
 function IconChip({
@@ -131,6 +131,14 @@ const CHANNELS: {
     desc: "짧고 강한 숏폼 영상으로 빠르게 브랜드 인지도를 확산시킵니다.",
     brand: BRAND.youtube,
   },
+  {
+    area: "bento-ch4",
+    Icon: FaMapMarkerAlt,
+    name: "네이버 플레이스",
+    tag: "지역 노출",
+    desc: "지역 검색·지도에서 우리 매장을 먼저 노출해 방문과 문의로 연결합니다.",
+    brand: BRAND.naver,
+  },
 ];
 
 export default function PartnershipSection() {
@@ -202,6 +210,7 @@ export default function PartnershipSection() {
               <IconChip Icon={SiNaver} {...BRAND.naver} />
               <IconChip Icon={FaInstagram} {...BRAND.instagram} />
               <IconChip Icon={FaYoutube} {...BRAND.youtube} />
+              <IconChip Icon={FaMapMarkerAlt} {...BRAND.naver} />
             </div>
 
             {/* 제목 + 협약 혜택 뱃지 (나란히) */}
@@ -218,7 +227,7 @@ export default function PartnershipSection() {
                 className="title-3 emphasized"
                 style={{ margin: 0, wordBreak: "keep-all" }}
               >
-                협약 한 번으로 <span className="c-accent">3개 채널</span>에 동시
+                협약 한 번으로 <span className="c-accent">4개 채널</span>에 동시
                 노출
               </h3>
               <span
@@ -236,20 +245,13 @@ export default function PartnershipSection() {
               className="callout"
               style={{ margin: 0, maxWidth: "420px", wordBreak: "keep-all" }}
             >
-              블로그·인스타그램·유튜브 숏폼까지, 제작 이후에도 새 고객을
-              데려오는 마케팅 채널이 함께 작동합니다.
+              블로그·인스타그램·유튜브 숏폼·네이버 플레이스까지, 제작 이후에도
+              새 고객을 데려오는 마케팅 채널이 함께 작동합니다.
             </p>
 
-            {/* 하단: 이미지 2개 (카드 전체 폭 · 하단 다른 카드와 동일 크기) */}
-            <div
-              style={{
-                display: "flex",
-                gap: "1.1rem",
-                marginTop: "clamp(1.25rem, 3vw, 1.75rem)",
-              }}
-            >
-              <ImagePlaceholder aspectRatio="16 / 9" style={{ flex: 1 }} />
-              <ImagePlaceholder aspectRatio="16 / 9" style={{ flex: 1 }} />
+            {/* 하단: 이미지 1개 */}
+            <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
+              <ImagePlaceholder aspectRatio="16 / 9" />
             </div>
           </div>
 
@@ -290,10 +292,9 @@ export default function PartnershipSection() {
               콘텐츠가 쌓일수록 검색·추천 유입이 누적되어, 시간이 지날수록 더
               강해집니다.
             </p>
-            <ImagePlaceholder
-              aspectRatio="16 / 9"
-              style={{ marginTop: "clamp(1rem, 3vw, 1.5rem)" }}
-            />
+            <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
+              <ImagePlaceholder aspectRatio="16 / 9" />
+            </div>
           </div>
 
           {/* ③④⑤ 채널 카드 (아이콘 상단 · 텍스트 · 하단 이미지 — 지속 유입 카드와 동일 구조) */}

@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import Reveal from '@/components/Reveal'
+import SlideCarousel from './SlideCarousel'
 
 function ImageBox({ aspectRatio, style }: { aspectRatio: string; style?: CSSProperties }) {
   return (
@@ -38,6 +39,7 @@ export default function PlaceholderSection({
   imageCount = 1,
   imageCols,
   imageAspect = '1 / 1',
+  carousel = false,
 }: {
   eyebrow: string
   title: ReactNode
@@ -46,6 +48,8 @@ export default function PlaceholderSection({
   imageCount?: number
   imageCols?: number
   imageAspect?: string
+  /** true면 이미지를 나란히 놓지 않고 히어로처럼 슬라이드로 전환 */
+  carousel?: boolean
 }) {
   return (
     <section
@@ -69,7 +73,11 @@ export default function PlaceholderSection({
         </Reveal>
 
         {/* 이미지 자리 (텍스트 아래 · 추후 교체) */}
-        {imageCount > 1 ? (
+        {carousel ? (
+          <Reveal variant="up">
+            <SlideCarousel count={Math.max(imageCount, 1)} aspectRatio={imageAspect} />
+          </Reveal>
+        ) : imageCount > 1 ? (
           imageCols ? (
             <Reveal as="div" stagger style={{ display: 'grid', gridTemplateColumns: `repeat(${imageCols}, minmax(0, 1fr))`, gap: '1.1rem' }}>
               {Array.from({ length: imageCount }, (_, i) => (

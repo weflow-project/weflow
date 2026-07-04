@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { FileEdit, Camera, PlaySquare, BarChart2, Globe, Map } from "lucide-react";
+import { FileEdit, Camera, PlaySquare, MapPin, BarChart2, Globe } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
@@ -13,8 +13,8 @@ const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
     title: "네이버 서치어드바이저",
     desc: "상단 등록 및 최적화",
   },
+  { Icon: MapPin, title: "네이버 플레이스", desc: "지역 검색·지도 노출 등록·관리" },
   { Icon: Globe, title: "구글 콘솔", desc: "구글 검색 상단 등록" },
-  { Icon: Map, title: "사이트맵 등록", desc: "XML 사이트맵 생성 및 등록" },
 ];
 
 function AdCard({

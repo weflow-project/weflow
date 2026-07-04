@@ -15,8 +15,8 @@ const POINTS: { Icon: LucideIcon; title: string; desc: string }[] = [
   },
   {
     Icon: Users,
-    title: "2:1 맞춤 시스템",
-    desc: "기획자·디자이너 2인이 고객 한 분을 전담하는 2:1 케어로 디테일까지 챙깁니다.",
+    title: "1:1 맞춤 시스템",
+    desc: "전담 담당자가 고객 한 분을 전담하는 1:1 케어로 디테일까지 챙깁니다.",
   },
 ];
 

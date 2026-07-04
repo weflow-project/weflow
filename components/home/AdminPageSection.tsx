@@ -1,36 +1,36 @@
 import Reveal from '@/components/Reveal'
-import { Target, Rocket, TrendingUp } from 'lucide-react'
+import { Database, BarChart3, Bell } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
-  { Icon: Target, label: '단일 목표', desc: '오직 하나의 전환에만 집중' },
-  { Icon: Rocket, label: '빠른 실행', desc: '광고·이벤트에 맞춰 빠르게 오픈' },
-  { Icon: TrendingUp, label: '전환 극대화', desc: '군더더기 없이 행동만 유도' },
+  { Icon: Database, label: '데이터베이스 확보', desc: '문의·예약 정보를 자동으로 수집·보관' },
+  { Icon: BarChart3, label: '통계 & 인사이트', desc: '유입·전환·상태 추이를 한눈에 파악' },
+  { Icon: Bell, label: '실시간 관리', desc: '접수 확인부터 상태 변경까지 바로바로' },
 ]
 
-export default function LandingPageSection() {
+export default function AdminPageSection() {
   return (
-    <section style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
+    <section style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
-          <span className="footnote emphasized c-accent">04 · 랜딩페이지란</span>
+          <span className="footnote emphasized c-accent">05 · 관리자페이지란</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            랜딩페이지가 <span className="c-accent">무엇</span>인가요?
+            관리자페이지가 <span className="c-accent">무엇</span>인가요?
           </h2>
         </Reveal>
 
         {/* 좌 텍스트 · 우 이미지 */}
-        <div className="lps-split">
+        <div className="aps-split">
           {/* 왼쪽 */}
-          <Reveal as="div" variant="right" className="lps-text">
+          <Reveal as="div" variant="left" className="aps-text">
             {/* 한 줄 정의 (인용) */}
             <div
               style={{
                 width: 'fit-content',
                 maxWidth: '100%',
                 borderLeft: '3px solid var(--accent)',
-                background: 'var(--bg-secondary)',
+                background: '#fff',
                 borderRadius: '0 var(--radius-xl) var(--radius-xl) 0',
                 padding: '0.75rem 1.1rem',
                 marginBottom: '1.75rem',
@@ -40,16 +40,16 @@ export default function LandingPageSection() {
                 한마디로
               </span>
               <p className="callout" style={{ margin: '0.4rem 0 0', wordBreak: 'keep-all' }}>
-                “광고·링크를 타고 들어온 방문자가 도착하는 단 하나의 목표 페이지”
+                “홈페이지로 들어온 고객 정보와 활동을 한곳에서 관리하는 나만의 데이터 관제 센터”
               </p>
             </div>
 
             {/* 쉬운 풀이 */}
             <span className="footnote emphasized c-accent">쉽게 말하면</span>
             <p className="body" style={{ margin: '0.5rem 0 1.75rem', wordBreak: 'keep-all' }}>
-              여러 정보를 담는 홈페이지와 달리, <strong>오직 하나의 행동</strong>만을 목표로 만든 페이지예요.
+              홈페이지로 들어온 문의·예약과 방문자 활동을 <strong>자동으로 모아</strong> 보여줘요.
               <br />
-              방문자가 딴 데로 새지 않고 문의·구매·신청까지 집중하도록 설계됩니다.
+              통계를 통해 <strong>관리자 데이터베이스를 확보</strong>하고, 흩어진 고객 정보를 자산으로 쌓아갈 수 있습니다.
             </p>
 
             {/* 핵심 포인트 3개 */}
@@ -85,7 +85,7 @@ export default function LandingPageSection() {
           </Reveal>
 
           {/* 오른쪽 이미지 (추후 교체) */}
-          <Reveal as="div" variant="left" className="lps-img">
+          <Reveal as="div" variant="right" className="aps-img">
             <div
               style={{
                 width: '100%',
@@ -109,17 +109,16 @@ export default function LandingPageSection() {
       </div>
 
       <style>{`
-        .lps-split {
+        .aps-split {
           display: flex;
-          flex-direction: row-reverse;
           align-items: flex-start;
           gap: clamp(1.75rem, 4vw, 3.5rem);
         }
-        .lps-text { flex: 1; min-width: 0; }
-        .lps-img { flex: 1; min-width: 0; }
+        .aps-text { flex: 1; min-width: 0; }
+        .aps-img { flex: 1; min-width: 0; }
         @media (max-width: 768px) {
-          .lps-split { flex-direction: column; align-items: stretch; }
-          .lps-img { max-width: 360px; }
+          .aps-split { flex-direction: column; align-items: stretch; }
+          .aps-img { max-width: 360px; }
         }
       `}</style>
     </section>

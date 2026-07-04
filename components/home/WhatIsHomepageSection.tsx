@@ -87,7 +87,7 @@ export default function WhatIsHomepageSection() {
 
         {/* 지그재그 포인트 */}
         {POINTS.map((p, i) => (
-          <div key={p.order} className={`wih-row${i % 2 === 1 ? ' reverse' : ''}`}>
+          <div key={p.order} className={`wih-row${i % 2 === 0 ? ' reverse' : ''}`}>
             {/* 텍스트 */}
             <div className="wih-text">
               <span className="footnote emphasized c-accent">{p.order}</span>
