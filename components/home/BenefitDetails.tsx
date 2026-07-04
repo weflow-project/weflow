@@ -25,6 +25,25 @@ const BENEFITS: Benefit[] = [
     icon: "/images/3d-icon/benefit001.svg",
   },
   {
+    title: "통계 관리자 페이지",
+    points: [
+      "문의·예약 접수 내역을 한곳에서 관리",
+      "통계로 유입·전환 추이를 한눈에 파악",
+      "관리자 데이터베이스로 고객 정보 자산화",
+    ],
+    image: "/images/benefits/benefit-03-fast.png",
+    icon: "/images/3d-icon/benefit003.svg",
+  },
+  {
+    title: "반응형 디자인 (PC / MO)",
+    points: [
+      "PC·모바일 등 모든 기기에서 최적화",
+      "화면 잘림 없는 깔끔한 반응형 전환",
+    ],
+    image: "/images/benefits/benefit-06-responsive.png",
+    icon: "/images/3d-icon/benefit006.svg",
+  },
+  {
     title: "합리적 가성비",
     points: [
       "정가 대비 100만원 이내로 제작 가능",
@@ -35,10 +54,10 @@ const BENEFITS: Benefit[] = [
     cta: { label: "제작 플랜 보기", href: "/pricing" },
   },
   {
-    title: "고객의 소리 · 2:1 관리 시스템",
+    title: "고객의 소리 · 1:1 관리 시스템",
     points: [
       "충분한 소통으로 고객의 니즈 파악",
-      "기획자·디자이너 2인이 고객 한 분을 전담",
+      "전담 담당자가 고객 한 분을 1:1로 전담",
     ],
     image: "/images/benefits/benefit-04-listen.png",
     icon: "/images/3d-icon/benefit004.svg",
@@ -52,15 +71,6 @@ const BENEFITS: Benefit[] = [
     ],
     image: "/images/benefits/benefit-05-maintain.png",
     icon: "/images/3d-icon/benefit005.svg",
-  },
-  {
-    title: "반응형 디자인 (PC / MO)",
-    points: [
-      "PC·모바일 등 모든 기기에서 최적화",
-      "화면 잘림 없는 깔끔한 반응형 전환",
-    ],
-    image: "/images/benefits/benefit-06-responsive.png",
-    icon: "/images/3d-icon/benefit006.svg",
   },
 ];
 
