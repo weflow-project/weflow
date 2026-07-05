@@ -64,8 +64,6 @@ export default function HomePage() {
         }
         body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 후기를 담았습니다."
         imageCount={1}
-        image="/images/KakaoTalk_20260705_191827052.jpg"
-        imageAlt="고객 후기 이미지 (테스트)"
       />
       <HomepageDefinitionSection />
       <WhatIsHomepageSection />

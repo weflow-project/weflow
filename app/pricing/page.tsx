@@ -92,13 +92,6 @@ export default function PricingPage() {
                 { text: "가격 안내", className: "c-accent" },
               ]}
             />
-            <Star
-              size={28}
-              fill="#f5b301"
-              color="#f5b301"
-              strokeWidth={0}
-              style={{ transform: "rotate(-18deg)", display: "inline-block", marginTop: "0.5rem" }}
-            />
             <Reveal variant="up" delay={0.1}>
               <p className="pricing-sub">
                 홈페이지 규모에 맞는 플랜을 선택하세요
@@ -535,13 +528,14 @@ export default function PricingPage() {
             </p>
             <ul>
               {[
-                "섹션은 랜딩페이지 1개 분량을, 페이지는 홈페이지 1개 분량을 의미합니다.\n※ 제작 완료 이후에 섹션·페이지를 추가하실 경우, 해당 업종별 페이지 기준에 따라 별도로 견적이 산정되오니 참고 부탁드립니다.",
+                "섹션은 랜딩페이지 1개 분량을, 페이지는 홈페이지 1개 분량을 의미합니다.",
+                "※ 제작 완료 이후에 섹션·페이지를 추가하실 경우, 해당 업종별 페이지 기준에 따라 별도로 견적이 산정되오니 참고 부탁드립니다.",
                 "도메인은 고객 요청 시 언제든 소유권을 이전해 드립니다.",
                 "WEFLOW에서 등록 및 연결 세팅은 무료 지원해 드립니다.",
                 "도메인 연결 지원 · 도메인 등록 대행 가능 · 도메인 비용 별도",
                 "유지보수는 텍스트, 이미지, 링크 등 경미한 수정 기준입니다.",
               ].map((n, i) => (
-                <li key={i} style={{ whiteSpace: "pre-line" }}>{n}</li>
+                <li key={i} className={n.startsWith("※") ? "note-sub" : undefined}>{n}</li>
               ))}
             </ul>
           </Reveal>
@@ -1001,6 +995,9 @@ export default function PricingPage() {
           content: "·"; position: absolute; left: 0.15rem;
           color: var(--text-muted); font-weight: 700;
         }
+        /* ※ 보조 안내 — 불릿(·)들과 같은 왼쪽 시작선에 맞춤 */
+        .pricing-notice li.note-sub { padding-left: 0.15rem; }
+        .pricing-notice li.note-sub::before { content: none; }
 
         .pricing-dots { display: none; }
         @media (max-width: 640px) {

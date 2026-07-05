@@ -288,16 +288,40 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }
         .cta-gradient {
-          background: linear-gradient(120deg, #2f66cf, #4f8ff5, #7db0ff, #4f8ff5, #2f66cf) !important;
+          background: linear-gradient(120deg, #1560c9, #1e93d6, #14c1c8, #1e93d6, #1560c9) !important;
           background-size: 250% 100% !important;
-          animation: cta-flow 3.5s ease infinite;
+          animation: cta-flow 2.4s linear infinite, cta-glow 1.9s ease-in-out infinite;
+        }
+        .cta-gradient::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -70%;
+          width: 48%;
+          height: 100%;
+          background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+          transform: skewX(-20deg);
+          animation: cta-shine 2.4s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 2;
         }
         @keyframes cta-flow {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @media (prefers-reduced-motion: reduce) { .cta-gradient { animation: none; } }
+        @keyframes cta-shine {
+          0% { left: -70%; }
+          55% { left: 130%; }
+          100% { left: 130%; }
+        }
+        @keyframes cta-glow {
+          0%, 100% { box-shadow: 0 3px 12px rgba(23,160,205,0.45); }
+          50% { box-shadow: 0 6px 22px rgba(20,193,200,0.85); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cta-gradient, .cta-gradient::after { animation: none; }
+        }
       `}</style>
     </>
   );

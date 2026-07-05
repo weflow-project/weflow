@@ -161,12 +161,12 @@ export default function BookingPage() {
     return (
       <button type="button" disabled={disabled} onClick={() => { setSelectedSlot(slot); setCustomTime('') }}
         style={{
-          padding: '0.42rem 0',
+          padding: '0.32rem 0',
           border: `1.5px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-          borderRadius: '8px', cursor: disabled ? 'not-allowed' : 'pointer',
+          borderRadius: '7px', cursor: disabled ? 'not-allowed' : 'pointer',
           background: active ? '#ebf2ff' : disabled ? '#f9fafb' : '#fff',
           color: active ? 'var(--accent)' : disabled ? '#d1d5db' : 'var(--text-secondary)',
-          fontSize: '0.9rem', fontWeight: active ? 700 : 500,
+          fontSize: '0.92rem', fontWeight: active ? 700 : 500,
           fontFamily: 'inherit', transition: 'all 0.15s', textAlign: 'center',
         }}>
         {slot}
@@ -256,13 +256,8 @@ export default function BookingPage() {
                 {!selectedDay && <span className="caption-1 medium c-muted" style={{ marginLeft: '0.3rem' }}>날짜를 먼저 선택해주세요</span>}
               </p>
               <div style={{ opacity: selectedDay ? 1 : 0.4, pointerEvents: selectedDay ? 'auto' : 'none', transition: 'opacity 0.2s' }}>
-                <p className="caption-1 emphasized c-muted" style={{ letterSpacing: '0.05em', marginBottom: '0.5rem' }}>오전</p>
-                <div className="slot-grid" style={{ marginBottom: '1rem' }}>
-                  {AM_SLOTS.map(s => <SlotButton key={s} slot={s} />)}
-                </div>
-                <p className="caption-1 emphasized c-muted" style={{ letterSpacing: '0.05em', marginBottom: '0.5rem' }}>오후</p>
                 <div className="slot-grid">
-                  {PM_SLOTS.map(s => <SlotButton key={s} slot={s} />)}
+                  {[...AM_SLOTS, ...PM_SLOTS].map(s => <SlotButton key={s} slot={s} />)}
                 </div>
               </div>
               {showErrors && selectedDay && !selectedSlot && !customTime && (
@@ -330,7 +325,7 @@ export default function BookingPage() {
               </div>
               <div>
                 <label className="form-label">추가 요청사항</label>
-                <textarea className="form-input" rows={4} placeholder="자유롭게 적어주세요."
+                <textarea className="form-input" rows={2} placeholder="자유롭게 적어주세요."
                   value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
                   style={{ resize: 'vertical' }} />
               </div>
@@ -382,12 +377,15 @@ export default function BookingPage() {
           align-items: start;
         }
         .booking-left { display: flex; flex-direction: column; gap: 1.1rem; }
+        /* 오른쪽 컬럼 — 스크롤 시 따라다니고 하단이 왼쪽 끝에 맞음 */
         .booking-right {
           display: flex; flex-direction: column; gap: 1.1rem;
+          position: sticky; top: 96px;
         }
         @media (max-width: 880px) {
           .booking-layout { grid-template-columns: 1fr; }
           .booking-left { position: static; }
+          .booking-right { position: static; }
         }
         .bk-section-title {
           font-weight: 600; font-size: 1.28rem; color: var(--text);
@@ -415,8 +413,8 @@ export default function BookingPage() {
         .cal-nav-btn:hover { background: #e5e7eb; }
         .slot-grid {
           display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          gap: 0.4rem;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 0.35rem;
         }
         @media (max-width: 480px) {
           .slot-grid { grid-template-columns: repeat(4, 1fr); }
