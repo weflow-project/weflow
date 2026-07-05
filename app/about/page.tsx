@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PencilRuler, Workflow, Wrench } from "lucide-react";
+import { PencilRuler, Workflow, Wrench, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
@@ -197,16 +197,10 @@ export default function AboutPage() {
                 {line}
               </p>
             ))}
-            <div
-              className="about-img"
-              style={{ aspectRatio: "16 / 9", marginTop: "0.5rem" }}
-            >
-              이미지
-            </div>
             <p
               className="emphasized"
               style={{
-                margin: "1rem 0 0",
+                margin: "1.5rem 0 0",
                 wordBreak: "keep-all",
                 fontSize: "clamp(1.9rem, 5vw, 3rem)",
                 lineHeight: 1.3,
@@ -221,13 +215,18 @@ export default function AboutPage() {
           </Reveal>
           <Reveal variant="up" delay={0.1}>
             <div
-              className="about-img"
               style={{
-                aspectRatio: "16 / 9",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                gap: "1rem",
                 marginTop: "clamp(2rem, 4vw, 3rem)",
               }}
             >
-              이미지
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="about-img" style={{ aspectRatio: "4 / 3" }}>
+                  이미지
+                </div>
+              ))}
             </div>
           </Reveal>
         </div>
@@ -347,13 +346,34 @@ export default function AboutPage() {
           >
             함께 흐르고, 더 크게 성장하다
           </p>
-          <Link
-            href="/diagnosis"
-            className="btn-white"
-            style={{ fontSize: "1.15rem", padding: "0.9rem 2rem" }}
-          >
-            무료 진단 신청하기
-          </Link>
+          <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <a
+              href="tel:010-2971-7280"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontSize: "1.15rem",
+                fontWeight: 700,
+                padding: "0.9rem 2rem",
+                borderRadius: "var(--radius-xl)",
+                border: "1.5px solid rgba(255,255,255,0.85)",
+                background: "rgba(255,255,255,0.12)",
+                color: "#fff",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            </a>
+            <Link
+              href="/diagnosis"
+              className="btn-white"
+              style={{ fontSize: "1.15rem", padding: "0.9rem 2rem" }}
+            >
+              무료 진단 신청하기
+            </Link>
+          </div>
         </Reveal>
       </section>
 

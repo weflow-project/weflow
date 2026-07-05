@@ -17,6 +17,7 @@ const ADMIN_FEATURES = [
   "문의·예약 확인",
   "회원 관리",
   "실시간 사이트 반영",
+  "방문·유입 통계 제공",
 ];
 
 export default function PricingPage() {
@@ -90,6 +91,13 @@ export default function PricingPage() {
                 { text: "제작 플랜 & " },
                 { text: "가격 안내", className: "c-accent" },
               ]}
+            />
+            <Star
+              size={28}
+              fill="#f5b301"
+              color="#f5b301"
+              strokeWidth={0}
+              style={{ transform: "rotate(-18deg)", display: "inline-block", marginTop: "0.5rem" }}
             />
             <Reveal variant="up" delay={0.1}>
               <p className="pricing-sub">
@@ -281,7 +289,14 @@ export default function PricingPage() {
 
           <Reveal as="div" stagger className="pricing-grid">
             {makePlans.map((plan, i) => (
-              <div key={plan.id} className="pricing-card">
+              <div key={plan.id} className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}>
+                {plan.highlight && (
+                  <span className="hl-sparkle-layer" aria-hidden="true">
+                    <Sparkles className="hl-sparkle hl-sparkle-1" size={150} strokeWidth={1.25} />
+                    <Sparkles className="hl-sparkle hl-sparkle-2" size={110} strokeWidth={1.25} />
+                    <Sparkles className="hl-sparkle hl-sparkle-3" size={130} strokeWidth={1.25} />
+                  </span>
+                )}
                 {/* 상단: 아이콘 + 이름 */}
                 <div
                   style={{
@@ -513,12 +528,12 @@ export default function PricingPage() {
             </p>
             <ul>
               {[
-                "도메인은 고객님 명의로 등록되며 비용은 별도입니다.",
+                "1섹션은 랜딩페이지 1개 분량을 뜻하며, 섹션·페이지가 늘어나면 견적이 조정됩니다.",
+                "도메인은 고객 요청 시 언제든 소유권을 이전해 드립니다.",
                 "WEFLOW에서 등록 및 연결 세팅은 무료 지원해 드립니다.",
-                "도메인 연결 지원 / 도메인 등록 대행 가능 / 도메인 비용 별도",
-                "광고비는 고객 계정에서 고객 결제수단으로 직접 결제되며, WEFLOW는 운영 및 세팅만 합니다.",
+                "도메인 연결 지원 · 도메인 등록 대행 가능 · 도메인 비용 별도",
                 "유지보수는 텍스트, 이미지, 링크 등 경미한 수정 기준입니다.",
-                "페이지 추가 및 기능 개발은 별도 비용이 발생할 수 있습니다.",
+                "페이지 추가 및 섹션 추가, 기능 개발은 별도 비용이 발생할 수 있습니다.",
               ].map((n, i) => (
                 <li key={i}>{n}</li>
               ))}
@@ -707,6 +722,7 @@ export default function PricingPage() {
         .hl-sparkle {
           position: absolute;
           color: #ffd23f;
+          fill: currentColor;
           pointer-events: none;
           opacity: 0;
           animation: hl-twinkle 2.6s ease-in-out infinite;

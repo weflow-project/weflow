@@ -12,7 +12,14 @@ export default function PricingSection() {
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">제작 플랜 &amp; 가격</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            목표에 맞는 <span className="c-accent">플랜</span>을 골라보세요
+            목표에 맞는 <span className="c-accent tilt-hl">플랜</span>을 골라보세요
+            <Star
+              size={26}
+              fill="#f5b301"
+              color="#f5b301"
+              strokeWidth={0}
+              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
+            />
           </h2>
         </Reveal>
 
@@ -125,6 +132,7 @@ export default function PricingSection() {
         .hl-sparkle {
           position: absolute;
           color: #ffd23f;
+          fill: currentColor;
           pointer-events: none;
           opacity: 0;
           animation: hl-twinkle 2.6s ease-in-out infinite;

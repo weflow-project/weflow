@@ -22,39 +22,14 @@ const FEATURES: {
 }[] = [
   {
     Icon: Share2,
-    title: "제휴 마케팅 연결",
-    desc: "블로그·인스타·유튜브 숏폼까지 제휴 채널로 동시 노출합니다.",
+    title: "제휴 마케팅 연결 (선택형)",
+    desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스까지, 제휴 채널에 월 정기 업로드로 동시 노출합니다.",
     only: true,
   },
   {
-    Icon: BadgePercent,
-    title: "합리적 가성비",
-    desc: "필요한 기능만 구성해 부담 없는 합리적인 비용으로 시작합니다.",
-  },
-  {
-    Icon: Clock,
-    title: "24시간 상담 대기",
-    desc: "연중무휴 24시간, 언제 문의하셔도 빠르게 응답합니다.",
-  },
-  {
-    Icon: MessageCircle,
-    title: "고객의 소리",
-    desc: "충분한 소통으로 고객이 진짜 원하는 것을 먼저 반영합니다.",
-  },
-  {
-    Icon: Users,
-    title: "1:1 맞춤 시스템",
-    desc: "전담 담당자가 고객 한 분을 1:1로 전담 케어합니다.",
-  },
-  {
     Icon: LayoutDashboard,
-    title: "관리자 페이지 제공",
+    title: "관리자 페이지 제공 (선택형)",
     desc: "통계를 통해 문의·예약을 관리하고 관리자 DB를 확보합니다.",
-  },
-  {
-    Icon: Wrench,
-    title: "각 상품별 전용 유지보수",
-    desc: "도메인·수정·운영까지 상품에 맞춘 유지보수를 제공합니다.",
   },
   {
     Icon: MonitorSmartphone,
@@ -65,6 +40,31 @@ const FEATURES: {
     Icon: Link2,
     title: "SNS 연동",
     desc: "카카오톡, 인스타그램 등 원하는 플랫폼을 자유롭게 연동합니다.",
+  },
+  {
+    Icon: Users,
+    title: "1:1 맞춤 시스템",
+    desc: "전담 담당자가 고객 한 분을 1:1로 전담 케어합니다.",
+  },
+  {
+    Icon: MessageCircle,
+    title: "고객의 소리",
+    desc: "충분한 소통으로 고객이 진짜 원하는 것을 먼저 반영합니다.",
+  },
+  {
+    Icon: Wrench,
+    title: "각 상품별 전용 유지보수",
+    desc: "도메인·수정·운영까지 상품에 맞춘 유지보수를 제공합니다.",
+  },
+  {
+    Icon: BadgePercent,
+    title: "합리적 가성비",
+    desc: "필요한 기능만 구성해 부담 없는 합리적인 비용으로 시작합니다.",
+  },
+  {
+    Icon: Clock,
+    title: "24시간 상담 대기",
+    desc: "연중무휴 24시간, 언제 문의하셔도 빠르게 응답합니다.",
   },
 ];
 

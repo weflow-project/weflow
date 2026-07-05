@@ -200,7 +200,7 @@ export default function BookingPage() {
 
       {/* ── 본문 ── */}
       <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) 5rem' }}>
-        <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
 
           <form onSubmit={handleSubmit}>
             <div className="booking-layout">
@@ -216,7 +216,7 @@ export default function BookingPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', marginBottom: '0.35rem' }}>
                 {WEEKDAYS.map((d, i) => (
-                  <div key={d} className="emphasized" style={{ textAlign: 'center', padding: '0.35rem 0', fontSize: '0.92rem', color: i === 0 ? '#ef4444' : i === 6 ? '#3373df' : 'var(--text-muted)' }}>{d}</div>
+                  <div key={d} className="emphasized" style={{ textAlign: 'center', padding: '0.45rem 0', fontSize: '1.05rem', color: i === 0 ? '#ef4444' : i === 6 ? '#3373df' : 'var(--text-muted)' }}>{d}</div>
                 ))}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
@@ -232,8 +232,8 @@ export default function BookingPage() {
                       onClick={() => { setSelectedDay(day); setSelectedSlot(''); setCustomTime('') }}
                       style={{
                         border: isToday && !selected ? '1.5px solid var(--accent)' : '1.5px solid transparent',
-                        borderRadius: '10px', padding: '0.7rem 0',
-                        fontSize: '1.1rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
+                        borderRadius: '12px', padding: '0.95rem 0',
+                        fontSize: '1.3rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
                         cursor: past ? 'not-allowed' : 'pointer',
                         background: selected ? 'var(--accent)' : 'transparent',
                         color: selected ? '#fff' : past ? '#d1d5db' : dow === 0 ? '#ef4444' : dow === 6 ? '#3373df' : 'var(--text)',
@@ -249,32 +249,7 @@ export default function BookingPage() {
               )}
             </div>
 
-            {/* 선택 요약 바 */}
-            {(dateStr || timeStr) && (
-              <div style={{
-                background: '#fff', border: '1.5px solid var(--accent)',
-                borderRadius: '12px', padding: '0.85rem 1.25rem',
-                display: 'flex', alignItems: 'center', gap: '1.5rem',
-                marginTop: '1.1rem', flexWrap: 'wrap',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <CalendarDays size={17} color="var(--accent)" strokeWidth={2} />
-                  <span className="subhead semibold c-primary" style={{ fontSize: '1.1rem' }}>{dateStr}</span>
-                </div>
-                {timeStr && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Clock size={17} color="var(--accent)" strokeWidth={2} />
-                    <span className="subhead emphasized c-accent" style={{ fontSize: '1.1rem' }}>{timeStr}</span>
-                  </div>
-                )}
-              </div>
-            )}
-            </div>
-
-            {/* ── 오른쪽: 시간·정보·제출 ── */}
-            <div className="booking-right">
-
-            {/* 2. 시간 선택 */}
+            {/* 2. 시간 선택 (달력 아래) */}
             <div className="booking-card" id="bk-time">
               <p className="bk-section-title">
                 <Clock size={15} color="var(--accent)" strokeWidth={2} /> 시간 선택 <span style={{ color: '#ef4444' }}>*</span>
@@ -302,7 +277,32 @@ export default function BookingPage() {
                 value={customTime} onChange={e => { setCustomTime(e.target.value); setSelectedSlot('') }} />
             </div>
 
-            {/* 4-8. 예약 정보 */}
+            {/* 선택 요약 바 */}
+            {(dateStr || timeStr) && (
+              <div style={{
+                background: '#fff', border: '1.5px solid var(--accent)',
+                borderRadius: '12px', padding: '0.85rem 1.25rem',
+                display: 'flex', alignItems: 'center', gap: '1.5rem',
+                flexWrap: 'wrap',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <CalendarDays size={17} color="var(--accent)" strokeWidth={2} />
+                  <span className="subhead semibold c-primary" style={{ fontSize: '1.1rem' }}>{dateStr}</span>
+                </div>
+                {timeStr && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Clock size={17} color="var(--accent)" strokeWidth={2} />
+                    <span className="subhead emphasized c-accent" style={{ fontSize: '1.1rem' }}>{timeStr}</span>
+                  </div>
+                )}
+              </div>
+            )}
+            </div>
+
+            {/* ── 오른쪽: 예약 정보·제출 ── */}
+            <div className="booking-right">
+
+            {/* 예약 정보 */}
             <div className="booking-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <p className="bk-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 예약 정보</p>
 
@@ -377,11 +377,11 @@ export default function BookingPage() {
         }
         .booking-layout {
           display: grid;
-          grid-template-columns: 460px minmax(0, 1fr);
-          gap: 1.1rem;
+          grid-template-columns: 1.05fr 1fr;
+          gap: 1.25rem;
           align-items: start;
         }
-        .booking-left { position: sticky; top: 140px; }
+        .booking-left { display: flex; flex-direction: column; gap: 1.1rem; }
         .booking-right {
           display: flex; flex-direction: column; gap: 1.1rem;
         }

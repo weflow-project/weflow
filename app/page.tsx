@@ -55,13 +55,13 @@ export default function HomePage() {
         imageCount={1}
       />
       <PlaceholderSection
-        eyebrow="고객 인터뷰"
+        eyebrow="고객 후기"
         title={
           <>
-            실제 <span className="c-accent">고객 인터뷰 & 후기</span>
+            실제 <span className="c-accent">고객 후기</span>
           </>
         }
-        body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 인터뷰 & 후기를 담았습니다."
+        body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 후기를 담았습니다."
         imageCount={1}
       />
       <HomepageDefinitionSection />

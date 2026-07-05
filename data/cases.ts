@@ -233,33 +233,5 @@ export function caseImagePath(slug: string): string {
   return `/images/cases/cases_${imageSlug}.jpg`
 }
 
-export const cases: Case[] = [
-  { slug: 'pt-shop', name: 'PT샵', category: '피트니스', color: '#6366f1', emoji: '💪' },
-  { slug: 'pilates', name: '필라테스', category: '피트니스', color: '#ec4899', emoji: '🧘' },
-  { slug: 'fitness', name: '헬스장', category: '피트니스', color: '#8b5cf6', emoji: '🏋️' },
-  { slug: 'insurance', name: '보험 설계', category: '금융', color: '#f59e0b', emoji: '📋' },
-  { slug: 'law', name: '법률 사무소', category: '법률', color: '#1e40af', emoji: '⚖️' },
-  { slug: 'car-detailing', name: '자동차 디테일링', category: '자동차', color: '#0891b2', emoji: '🚗' },
-  { slug: 'rental-car', name: '렌터카 업체', category: '자동차', color: '#059669', emoji: '🚙' },
-  { slug: 'wedding', name: '웨딩/스냅 업체', category: '웨딩', color: '#f43f5e', emoji: '💒' },
-  { slug: 'tax', name: '세무사 사무소', category: '금융', color: '#d97706', emoji: '📊' },
-  { slug: 'realestate', name: '공인중개사', category: '부동산', color: '#16a34a', emoji: '🏠' },
-  { slug: 'cafe', name: '카페', category: '식음료', color: '#92400e', emoji: '☕' },
-  { slug: 'beauty', name: '미용실', category: '뷰티', color: '#db2777', emoji: '✂️' },
-  { slug: 'nail', name: '네일샵', category: '뷰티', color: '#7c3aed', emoji: '💅' },
-  { slug: 'sme', name: '소상공인 기업형 홈페이지', category: '기업', color: '#2563eb', emoji: '🏢' },
-  { slug: 'skin', name: '피부관리샵', category: '뷰티', color: '#be185d', emoji: '✨' },
-  { slug: 'waxing', name: '왁싱샵', category: '뷰티', color: '#9333ea', emoji: '🌸' },
-  { slug: 'semiperm', name: '반영구샵', category: '뷰티', color: '#c2410c', emoji: '💋' },
-  { slug: 'petgrooming', name: '애견미용', category: '반려동물', color: '#65a30d', emoji: '🐶' },
-  { slug: 'petshop', name: '반려동물 용품점', category: '반려동물', color: '#16a34a', emoji: '🐾' },
-  { slug: 'interior', name: '인테리어 업체', category: '인테리어', color: '#b45309', emoji: '🛋️' },
-  { slug: 'moving', name: '이사 업체', category: '생활서비스', color: '#0369a1', emoji: '📦' },
-  { slug: 'kidscafe', name: '키즈카페', category: '엔터테인먼트', color: '#ea580c', emoji: '🎡' },
-  { slug: 'studycafe', name: '스터디카페', category: '교육', color: '#7c3aed', emoji: '📚' },
-  { slug: 'english', name: '영어학원', category: '교육', color: '#0891b2', emoji: '🔤' },
-  { slug: 'math', name: '수학학원', category: '교육', color: '#1d4ed8', emoji: '🔢' },
-  { slug: 'entrance', name: '입시학원', category: '교육', color: '#dc2626', emoji: '🎓' },
-  { slug: 'tutoring', name: '개인과외', category: '교육', color: '#059669', emoji: '📖' },
-  { slug: 'cleaning', name: '청소업체', category: '생활서비스', color: '#0e7490', emoji: '🧹' },
-]
+// 포트폴리오 준비 중 — 실제 제작 사례 확정 시 여기에 추가 (더미 데이터는 git 이력에 보존)
+export const cases: Case[] = []

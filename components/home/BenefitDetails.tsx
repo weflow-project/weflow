@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
@@ -14,12 +14,13 @@ type Benefit = {
 
 const BENEFITS: Benefit[] = [
   {
-    title: "제휴 마케팅 연결",
+    title: "제휴 마케팅 연결 (선택형)",
     points: [
       "네이버 블로그 — 검색 상단 노출용 정보성 콘텐츠",
-      "인스타그램 — 피드·릴스로 브랜드 도달",
+      "인스타그램 — 메타 광고로 브랜드 도달",
       "유튜브 숏폼 — 짧은 영상으로 바이럴 확산",
-      "제휴 채널 통합 운영으로 SEO 최적화까지",
+      "네이버 플레이스 — 지역 검색·지도 노출",
+      "제휴 채널 통합 운영으로 검색 상단 관리까지",
     ],
     image: "/images/benefits/benefit-01-partnership.png",
     icon: "/images/3d-icon/benefit001.svg",
@@ -246,13 +247,34 @@ export default function BenefitDetails() {
             </div>
           </Reveal>
           <Reveal variant="up">
-            <Link
-              href="/diagnosis"
-              className="btn-white"
-              style={{ marginTop: "3rem", fontSize: "1rem" }}
-            >
-              무료 진단 신청하기
-            </Link>
+            <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap", marginTop: "3rem" }}>
+              <a
+                href="tel:010-2971-7280"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                  padding: "0.75rem 1.75rem",
+                  borderRadius: "var(--radius-xl)",
+                  border: "1.5px solid rgba(255,255,255,0.85)",
+                  background: "rgba(255,255,255,0.12)",
+                  color: "#fff",
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              </a>
+              <Link
+                href="/diagnosis"
+                className="btn-white"
+                style={{ fontSize: "1rem" }}
+              >
+                무료 진단 신청하기
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>

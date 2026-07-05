@@ -120,7 +120,7 @@ const CHANNELS: {
     Icon: FaInstagram,
     name: "인스타그램",
     tag: "브랜드 도달",
-    desc: "피드·릴스로 브랜드 분위기를 전하고 팔로워를 잠재 고객으로 전환합니다.",
+    desc: "메타 광고로 브랜드 분위기를 전하고 팔로워를 잠재 고객으로 전환합니다.",
     brand: BRAND.instagram,
   },
   {

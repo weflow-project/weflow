@@ -18,7 +18,7 @@ export default function ComparisonCTA() {
           style={{
             position: "relative",
             borderRadius: "clamp(20px, 3vw, 28px)",
-            background: "linear-gradient(100deg, #3f74d6 0%, #83c4e8 100%)",
+            background: "linear-gradient(100deg, #2a4f9e 0%, #5b9ccb 100%)",
             padding: "clamp(2rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3.5rem)",
             minHeight: "220px",
             display: "flex",
@@ -29,14 +29,14 @@ export default function ComparisonCTA() {
           <div className="cmp-text" style={{ position: "relative", zIndex: 1 }}>
             <h2
               className="title-2 emphasized"
-              style={{ color: "#15336b", margin: 0, wordBreak: "keep-all" }}
+              style={{ color: "#fff", margin: 0, wordBreak: "keep-all" }}
             >
               혹시, 타사와 고민 중이신가요?
             </h2>
             <p
               className="callout"
               style={{
-                color: "rgba(21,51,107,0.78)",
+                color: "rgba(255,255,255,0.85)",
                 margin: "0.6rem 0 1.4rem",
                 wordBreak: "keep-all",
               }}

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { ArrowUp, Crown } from 'lucide-react'
+import { ArrowUp, Crown, Star } from 'lucide-react'
 
 type Point = {
   order: string
@@ -14,13 +14,13 @@ type Point = {
 const POINTS: Point[] = [
   {
     order: '첫째',
-    title: '방문이 그대로 고객 DB가 됩니다',
+    title: '홈페이지로 유입되는 순간, 고객 DB가 쌓입니다',
     stat: '99.9%',
     desc: (
       <>
-        홈페이지로 들어온 문의·예약을 <strong>빠짐없이 기록</strong>해 관리자 페이지에 쌓습니다.
+        카톡·SNS 폼보다 요청사항까지 남기고 들어와, <strong>니즈가 명확한 고객</strong>이 데이터로 남습니다.
         <br />
-        흩어지던 고객 정보가 통계로 관리되는 온전한 내 자산이 됩니다.
+        유입되는 순간부터 기록돼, 명확한 고객 DB 유입량이 늘어납니다.
       </>
     ),
     source: '* WEFLOW 관리자 페이지에서 문의·예약·통계 기본 제공',
@@ -40,13 +40,13 @@ const POINTS: Point[] = [
   },
   {
     order: '셋째',
-    title: '인스타·블로그만으로는 부족합니다',
+    title: 'SNS(네이버·인스타 등) 유입만으로는 부족합니다',
     stat: '84%',
     desc: (
       <>
-        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰합니다.
+        SNS를 하지 말라는 게 아니에요. 내 <strong>홈페이지를 가진 상태</strong>로 SNS를 운영하라는 뜻입니다.
         <br />
-        플랫폼 알고리즘 변화에 휘둘리지 않는, 온전히 내 것인 공간이 필요합니다.
+        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰하니, 함께 굴릴수록 광고·유입 효과가 커집니다.
       </>
     ),
     source: '출처: BusinessDasher, "Statistics About Website" (2026)',
@@ -66,7 +66,7 @@ const POINTS: Point[] = [
   },
   {
     order: '다섯째',
-    title: 'SEO 상위 노출 증가',
+    title: 'SEO 상단 관리·상위 노출',
     stat: '50%',
     desc: (
       <>
@@ -119,7 +119,14 @@ export default function WhatIsHomepageSection() {
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>
           <span className="footnote emphasized c-accent">02 · 홈페이지가 필요한 이유</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            홈페이지가 <span className="c-accent">왜 필요할까요?</span>
+            홈페이지가 <span className="c-accent tilt-hl">왜 필요할까요?</span>
+            <Star
+              size={26}
+              fill="#f5b301"
+              color="#f5b301"
+              strokeWidth={0}
+              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
+            />
           </h2>
         </div>
 
@@ -127,7 +134,7 @@ export default function WhatIsHomepageSection() {
         {POINTS.map((p, i) => (
           <div key={p.order} className={`wih-row${i % 2 === 0 ? ' reverse' : ''}`}>
             {/* 텍스트 */}
-            <div className="wih-text">
+            <div className={`wih-text${i < 3 ? ' wih-text--key' : ''}`}>
               {i === 0 && (
                 <Crown
                   strokeWidth={2}
@@ -137,6 +144,7 @@ export default function WhatIsHomepageSection() {
                 />
               )}
               <span className="footnote emphasized c-accent">{p.order}</span>
+              {i < 3 && <span className="wih-badge">핵심</span>}
               <h3 className="title-2 emphasized" style={{ margin: '0.5rem 0 1rem', wordBreak: 'keep-all' }}>
                 {p.title}
               </h3>
@@ -207,6 +215,38 @@ export default function WhatIsHomepageSection() {
         .wih-row + .wih-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
         .wih-text { flex: 1; min-width: 0; }
         .wih-img { flex: 1; min-width: 0; }
+        /* 타이틀 사선 하이라이트(형광펜) */
+        .tilt-hl { position: relative; z-index: 0; }
+        .tilt-hl::before {
+          content: '';
+          position: absolute;
+          z-index: -1;
+          left: -4px; right: -4px; bottom: 0.06em;
+          height: 42%;
+          background: rgba(245,179,1,0.30);
+          transform: rotate(-2.5deg);
+          border-radius: 3px;
+        }
+        /* 핵심 뱃지 */
+        .wih-badge {
+          display: inline-block;
+          margin-left: 0.5rem;
+          vertical-align: middle;
+          background: var(--accent);
+          color: #fff;
+          font-size: 0.66rem;
+          font-weight: 700;
+          padding: 2px 9px;
+          border-radius: 9999px;
+          letter-spacing: 0.02em;
+        }
+        /* 1·2·3 핵심 강조 패널 */
+        .wih-text--key {
+          background: rgba(51,115,223,0.05);
+          border: 1px solid var(--accent-light);
+          border-radius: var(--radius-2xl);
+          padding: clamp(1.25rem, 3vw, 2rem);
+        }
         @media (max-width: 768px) {
           .wih-row, .wih-row.reverse { flex-direction: column; }
         }

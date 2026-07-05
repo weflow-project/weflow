@@ -1,11 +1,11 @@
 import Reveal from '@/components/Reveal'
-import { Database, BarChart3, Bell } from 'lucide-react'
+import { Database, Route, BarChart3, Star } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
-  { Icon: Database, label: 'DB 확보', desc: '안 할 때보다 더 확실한 고객 DB가 차곡차곡' },
-  { Icon: BarChart3, label: '통계 & 인사이트', desc: '유입·전환·상태 추이를 한눈에 파악' },
-  { Icon: Bell, label: '실시간 관리', desc: '접수 확인부터 상태 변경까지 바로바로' },
+  { Icon: Database, label: '확실한 고객 DB 확보', desc: '카톡·SNS 폼보다 요청사항까지 입력받아 니즈가 명확한 고객이 들어옵니다' },
+  { Icon: Route, label: '유입 경로 확인', desc: '고객이 어떤 채널·광고를 보고 들어왔는지 유입 경로를 파악합니다' },
+  { Icon: BarChart3, label: '통계로 쌓이는 DB', desc: '문의·예약이 통계와 함께 한 줄씩 차곡차곡 쌓입니다' },
 ]
 
 export default function AdminPageSection() {
@@ -16,7 +16,14 @@ export default function AdminPageSection() {
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">05 · 관리자 페이지란</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            관리자 페이지가 <span className="c-accent">무엇</span>인가요?
+            관리자 페이지가 <span className="c-accent tilt-hl">무엇</span>인가요?
+            <Star
+              size={26}
+              fill="#f5b301"
+              color="#f5b301"
+              strokeWidth={0}
+              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
+            />
           </h2>
         </Reveal>
 
@@ -47,7 +54,7 @@ export default function AdminPageSection() {
             {/* 쉬운 풀이 */}
             <span className="footnote emphasized c-accent">쉽게 말하면</span>
             <p className="body" style={{ margin: '0.5rem 0 1.75rem', wordBreak: 'keep-all' }}>
-              홈페이지로 들어온 문의·예약과 방문자 활동을 <strong>자동으로 모아</strong> 보여줘요.
+              홈페이지를 보고 들어온 고객은 <strong>진짜 DB에 들어올 확률</strong>이 높아요.
               <br />
               통계를 통해 <strong>관리자 DB를 확보</strong>하고, 흩어진 고객 정보를 자산으로 쌓아갈 수 있습니다.
             </p>

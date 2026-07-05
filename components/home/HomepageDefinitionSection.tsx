@@ -1,5 +1,5 @@
 import Reveal from '@/components/Reveal'
-import { Home, Clock, Search, Database } from 'lucide-react'
+import { Home, Clock, Search, Database, ArrowUp } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
@@ -69,12 +69,12 @@ export default function HomepageDefinitionSection() {
                 >
                   <Database size={20} strokeWidth={2} />
                 </span>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <span className="headline" style={{ margin: 0 }}>
-                    확실한 고객 DB
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span className="headline" style={{ margin: 0, display: 'inline-flex', alignItems: 'center', gap: '0.15rem' }}>
+                    고객 DB <ArrowUp size={18} strokeWidth={2.6} color="var(--accent)" />
                   </span>
                   <span className="callout c-muted" style={{ wordBreak: 'keep-all' }}>
-                    문의가 이어질수록 차곡차곡 쌓이는 데이터
+                    명확한 고객 DB 유입량 증가
                   </span>
                 </div>
               </div>

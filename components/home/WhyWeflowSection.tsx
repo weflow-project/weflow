@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
-import { X, PencilRuler, Workflow, ShieldCheck } from "lucide-react";
+import { X, PencilRuler, Workflow, ShieldCheck, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const AI_CONS = [
@@ -335,13 +335,22 @@ export default function WhyWeflowSection() {
             보기 좋은 페이지가 아니라,{" "}
             <span className="c-accent emphasized">성과를 내는 페이지</span>.
           </p>
-          <Link
-            href="/diagnosis"
-            className="btn-primary"
-            style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
-          >
-            무료 진단 신청하기
-          </Link>
+          <div style={{ display: "flex", gap: "0.9rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <a
+              href="tel:010-2971-7280"
+              className="btn-outline"
+              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+            >
+              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            </a>
+            <Link
+              href="/diagnosis"
+              className="btn-primary"
+              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+            >
+              무료 진단 신청하기
+            </Link>
+          </div>
         </div>
       </div>
 

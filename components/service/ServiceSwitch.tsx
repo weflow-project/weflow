@@ -31,9 +31,9 @@ export default function ServiceSwitch() {
           ]}
         />
 
-        {/* 이미지 박스 2개 */}
+        {/* 이미지 박스 3개 */}
         <Reveal as="div" stagger className="svc-switch-boxes">
-          {[0, 1].map((i) => (
+          {[0, 1, 2].map((i) => (
             <div key={i} className="svc-switch-img">
               이미지
             </div>
@@ -47,7 +47,7 @@ export default function ServiceSwitch() {
         }
         .svc-switch-boxes {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(3, 1fr);
           gap: 1.1rem;
           margin-top: clamp(2rem, 4vw, 3rem);
         }
@@ -65,8 +65,8 @@ export default function ServiceSwitch() {
           font-weight: 600;
           letter-spacing: 0.02em;
         }
-        @media (max-width: 560px) {
-          .svc-switch-boxes { grid-template-columns: 1fr; }
+        @media (max-width: 760px) {
+          .svc-switch-boxes { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
         }
       `}</style>
     </section>

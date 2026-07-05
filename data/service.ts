@@ -40,25 +40,25 @@ export const steps: Step[] = [
   },
   {
     num: "05",
-    title: "반응형 제작 (PC/MO) 및 최종 점검",
-    desc: "PC·모바일 반응형 + 최종 검수",
+    title: "최종 점검 및 배포",
+    desc: "반응형 검수 · 실제 배포",
     detail:
-      "PC·모바일 등 모든 기기에 맞춘 반응형으로 제작하고, 속도·오류·크로스브라우저까지 최종 점검합니다.",
+      "PC·모바일 반응형과 속도·오류·크로스브라우저까지 최종 점검한 뒤, 실제 도메인에 배포해 사이트를 오픈합니다.",
     image: "/images/process/process-05-responsive.png",
   },
   {
     num: "06",
-    title: "WEFLOW만의 제휴마케팅 연결",
-    desc: "블로그·인스타·유튜브 숏폼 제휴 연결",
+    title: "제휴 마케팅·상단 관리 (선택형)",
+    desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스",
     detail:
-      "WEFLOW만의 제휴 채널(블로그·인스타그램·유튜브 숏폼)에 연결해, 제작 이후에도 노출과 유입을 만듭니다.",
+      "WEFLOW만의 제휴 채널(블로그·인스타그램·유튜브 숏폼·네이버 플레이스)에 연결하고 검색 상단 노출까지 관리해, 제작 이후에도 노출과 유입을 만듭니다.",
     image: "/images/process/process-06-marketing.png",
   },
 ];
 
 export const adServices = [
   { icon: "📝", title: "블로그 업로드", desc: "네이버 블로그 정기 업로드" },
-  { icon: "📸", title: "인스타 업로드", desc: "인스타그램 피드·릴스 운영" },
+  { icon: "📸", title: "인스타 업로드", desc: "인스타그램·메타 광고 운영" },
   { icon: "🧵", title: "스레드 업로드", desc: "스레드 계정 운영 관리" },
   { icon: "🔍", title: "네이버 키워드", desc: "네이버 키워드 광고 세팅·운영" },
   { icon: "🥕", title: "당근플레이스", desc: "당근플레이스 키워드 업로드" },

@@ -66,6 +66,19 @@ export default function ServiceCTA() {
             flexWrap: "wrap",
           }}
         >
+          <a
+            href="tel:010-2971-7280"
+            className="btn-outline"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.45rem",
+              fontSize: "1.1rem",
+              padding: "1rem 2.1rem",
+            }}
+          >
+            전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+          </a>
           <Link
             href="/diagnosis"
             className="btn-primary"

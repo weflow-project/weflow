@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { href: "/benefits", label: "WEFLOW 혜택" },
   { href: "/pricing", label: "제작 플랜 & 가격 안내" },
   { href: "/cases", label: "성공 사례 포트폴리오" },
-  { href: "/reviews", label: "실제 고객 인터뷰 & 후기" },
+  { href: "/reviews", label: "실제 고객 후기" },
   { href: "/booking", label: "예약" },
 ];
 
@@ -120,7 +120,7 @@ export default function Navbar() {
           <Link
             href="/diagnosis"
             aria-label="무료 진단 신청"
-            className="btn-primary cta-marquee hide-mobile"
+            className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
               height: "40px",
@@ -285,7 +285,20 @@ export default function Navbar() {
         </div>
       </div>
 
-      <style>{`@media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }`}</style>
+      <style>{`
+        @media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }
+        .cta-gradient {
+          background: linear-gradient(120deg, #2f66cf, #4f8ff5, #7db0ff, #4f8ff5, #2f66cf) !important;
+          background-size: 250% 100% !important;
+          animation: cta-flow 3.5s ease infinite;
+        }
+        @keyframes cta-flow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @media (prefers-reduced-motion: reduce) { .cta-gradient { animation: none; } }
+      `}</style>
     </>
   );
 }
