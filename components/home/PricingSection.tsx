@@ -13,13 +13,6 @@ export default function PricingSection() {
           <span className="footnote emphasized c-accent">제작 플랜 &amp; 가격</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
             목표에 맞는 <span className="c-accent tilt-hl">플랜</span>을 골라보세요
-            <Star
-              size={26}
-              fill="#f5b301"
-              color="#f5b301"
-              strokeWidth={0}
-              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
-            />
           </h2>
         </Reveal>
 
@@ -31,7 +24,7 @@ export default function PricingSection() {
                 <>
                   <span className="pricing-tag" aria-label="가장 인기">
                     {Array.from({ length: 5 }).map((_, s) => (
-                      <Star key={s} size={11} fill="#ffd23f" strokeWidth={0} />
+                      <Star key={s} size={16} fill="#ffd23f" strokeWidth={0} />
                     ))}
                   </span>
                   <span className="hl-sparkle-layer" aria-hidden="true">

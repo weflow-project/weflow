@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import { Home, Clock, Search, Database, ArrowUp } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -112,21 +113,22 @@ export default function HomepageDefinitionSection() {
           <Reveal as="div" variant="right" className="def-img">
             <div
               style={{
+                position: 'relative',
                 width: '100%',
                 aspectRatio: '4 / 3',
                 borderRadius: 'var(--radius-2xl)',
+                overflow: 'hidden',
+                border: '1px solid var(--border)',
                 background: '#e6eaf1',
-                border: '1px dashed rgba(11,18,32,0.14)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--text-secondary)',
-                fontSize: '0.9rem',
-                fontWeight: 600,
-                letterSpacing: '0.02em',
               }}
             >
-              이미지
+              <Image
+                src="/images/KakaoTalk_20260705_191827052.jpg"
+                alt="노트북으로 WEFLOW 홈페이지를 보고 있는 모습"
+                fill
+                sizes="(max-width: 768px) 100vw, 520px"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
           </Reveal>
         </div>

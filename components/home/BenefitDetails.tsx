@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Check, ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
@@ -28,9 +27,9 @@ const BENEFITS: Benefit[] = [
   {
     title: "통계 관리자 페이지",
     points: [
+      "관리자 DB로 고객 정보 자산화",
       "문의·예약 접수 내역을 한곳에서 관리",
       "통계로 유입·전환 추이를 한눈에 파악",
-      "관리자 DB로 고객 정보 자산화",
     ],
     image: "/images/benefits/benefit-03-fast.png",
     icon: "/images/3d-icon/benefit003.svg",
@@ -120,13 +119,25 @@ export default function BenefitDetails() {
               >
                 {/* 텍스트 */}
                 <div className="bd-text">
-                  <Image
-                    src={b.icon}
-                    alt=""
-                    width={72}
-                    height={72}
-                    style={{ width: 72, height: 72, marginBottom: "1.1rem" }}
-                  />
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      marginBottom: "1.1rem",
+                      borderRadius: "var(--radius-xl)",
+                      background: "#e6eaf1",
+                      border: "1px dashed rgba(11,18,32,0.14)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--text-secondary)",
+                      fontSize: "0.72rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    아이콘
+                  </div>
                   <h3
                     className="title-2 emphasized"
                     style={{ margin: "0 0 1rem", wordBreak: "keep-all" }}
@@ -227,24 +238,8 @@ export default function BenefitDetails() {
             </p>
           </Reveal>
           <Reveal as="div" stagger className="bd-band-imgs">
-            <div className="bd-band-img">
-              <Image
-                src="/images/benefits/support/support-working.png"
-                alt="업무 중인 모습"
-                fill
-                sizes="(max-width: 768px) 100vw, 360px"
-                style={{ objectFit: "cover", borderRadius: "var(--radius-xl)" }}
-              />
-            </div>
-            <div className="bd-band-img">
-              <Image
-                src="/images/benefits/support/support-happy.png"
-                alt="행복해하는 모습"
-                fill
-                sizes="(max-width: 768px) 100vw, 360px"
-                style={{ objectFit: "cover", borderRadius: "var(--radius-xl)" }}
-              />
-            </div>
+            <div className="bd-band-img bd-band-ph">이미지</div>
+            <div className="bd-band-img bd-band-ph">이미지</div>
           </Reveal>
           <Reveal variant="up">
             <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap", marginTop: "3rem" }}>
@@ -317,6 +312,17 @@ export default function BenefitDetails() {
           border-radius: var(--radius-xl);
           position: relative;
           overflow: hidden;
+        }
+        .bd-band-ph {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255,255,255,0.08);
+          border: 1px dashed rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.6);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
         @media (max-width: 768px) {
           .bd-row { grid-template-columns: 1fr; }

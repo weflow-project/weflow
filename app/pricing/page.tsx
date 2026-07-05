@@ -115,7 +115,7 @@ export default function PricingPage() {
                   <>
                     <span className="pricing-tag" aria-label="가장 인기">
                       {Array.from({ length: 5 }).map((_, s) => (
-                        <Star key={s} size={11} fill="#ffd23f" strokeWidth={0} />
+                        <Star key={s} size={16} fill="#ffd23f" strokeWidth={0} />
                       ))}
                     </span>
                     <span className="hl-sparkle-layer" aria-hidden="true">
@@ -291,11 +291,18 @@ export default function PricingPage() {
             {makePlans.map((plan, i) => (
               <div key={plan.id} className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}>
                 {plan.highlight && (
-                  <span className="hl-sparkle-layer" aria-hidden="true">
-                    <Sparkles className="hl-sparkle hl-sparkle-1" size={150} strokeWidth={1.25} />
-                    <Sparkles className="hl-sparkle hl-sparkle-2" size={110} strokeWidth={1.25} />
-                    <Sparkles className="hl-sparkle hl-sparkle-3" size={130} strokeWidth={1.25} />
-                  </span>
+                  <>
+                    <span className="pricing-tag" aria-label="가장 인기">
+                      {Array.from({ length: 5 }).map((_, s) => (
+                        <Star key={s} size={16} fill="#ffd23f" strokeWidth={0} />
+                      ))}
+                    </span>
+                    <span className="hl-sparkle-layer" aria-hidden="true">
+                      <Sparkles className="hl-sparkle hl-sparkle-1" size={150} strokeWidth={1.25} />
+                      <Sparkles className="hl-sparkle hl-sparkle-2" size={110} strokeWidth={1.25} />
+                      <Sparkles className="hl-sparkle hl-sparkle-3" size={130} strokeWidth={1.25} />
+                    </span>
+                  </>
                 )}
                 {/* 상단: 아이콘 + 이름 */}
                 <div
@@ -528,14 +535,13 @@ export default function PricingPage() {
             </p>
             <ul>
               {[
-                "1섹션은 랜딩페이지 1개 분량을 뜻하며, 섹션·페이지가 늘어나면 견적이 조정됩니다.",
+                "섹션은 랜딩페이지 1개 분량을, 페이지는 홈페이지 1개 분량을 의미합니다.\n※ 제작 완료 이후에 섹션·페이지를 추가하실 경우, 해당 업종별 페이지 기준에 따라 별도로 견적이 산정되오니 참고 부탁드립니다.",
                 "도메인은 고객 요청 시 언제든 소유권을 이전해 드립니다.",
                 "WEFLOW에서 등록 및 연결 세팅은 무료 지원해 드립니다.",
                 "도메인 연결 지원 · 도메인 등록 대행 가능 · 도메인 비용 별도",
                 "유지보수는 텍스트, 이미지, 링크 등 경미한 수정 기준입니다.",
-                "페이지 추가 및 섹션 추가, 기능 개발은 별도 비용이 발생할 수 있습니다.",
               ].map((n, i) => (
-                <li key={i}>{n}</li>
+                <li key={i} style={{ whiteSpace: "pre-line" }}>{n}</li>
               ))}
             </ul>
           </Reveal>

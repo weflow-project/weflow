@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
 const BENEFITS = [
@@ -120,7 +119,7 @@ export default function BenefitsSection() {
                 </span>
               </span>
 
-              {/* 3D 아이콘 (고정 높이 슬롯 — 아이콘 크기 달라도 텍스트 시작선 정렬) */}
+              {/* 아이콘 자리 (고정 높이 슬롯 — 텍스트 시작선 정렬) */}
               <div
                 style={{
                   height: 128,
@@ -129,13 +128,24 @@ export default function BenefitsSection() {
                   marginBottom: "1.25rem",
                 }}
               >
-                <Image
-                  src={b.icon}
-                  alt=""
-                  width={128}
-                  height={128}
-                  style={{ width: 128, height: 128 }}
-                />
+                <div
+                  style={{
+                    width: 110,
+                    height: 110,
+                    borderRadius: "var(--radius-xl)",
+                    background: "#eef1f6",
+                    border: "1px dashed rgba(11,18,32,0.14)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--text-secondary)",
+                    fontSize: "0.78rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  아이콘
+                </div>
               </div>
 
               {/* 제목 */}

@@ -222,7 +222,7 @@ export default function AboutPage() {
                 marginTop: "clamp(2rem, 4vw, 3rem)",
               }}
             >
-              {[0, 1, 2].map((i) => (
+              {[0, 1].map((i) => (
                 <div key={i} className="about-img" style={{ aspectRatio: "4 / 3" }}>
                   이미지
                 </div>

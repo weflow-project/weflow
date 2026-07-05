@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import SlideCarousel from './SlideCarousel'
 
@@ -40,6 +41,8 @@ export default function PlaceholderSection({
   imageCols,
   imageAspect = '1 / 1',
   carousel = false,
+  image,
+  imageAlt = '',
 }: {
   eyebrow: string
   title: ReactNode
@@ -50,6 +53,9 @@ export default function PlaceholderSection({
   imageAspect?: string
   /** true면 이미지를 나란히 놓지 않고 히어로처럼 슬라이드로 전환 */
   carousel?: boolean
+  /** 단일 이미지 자리에 넣을 실제 이미지 경로 (테스트/실제 교체용) */
+  image?: string
+  imageAlt?: string
 }) {
   return (
     <section
@@ -91,6 +97,12 @@ export default function PlaceholderSection({
               ))}
             </Reveal>
           )
+        ) : image ? (
+          <Reveal variant="up">
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: 'var(--radius-2xl)', overflow: 'hidden', border: '1px solid var(--border)', background: '#e6eaf1' }}>
+              <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: 'cover' }} />
+            </div>
+          </Reveal>
         ) : (
           <Reveal variant="up">
             <ImageBox aspectRatio="16 / 9" />
