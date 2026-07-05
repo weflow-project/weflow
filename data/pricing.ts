@@ -16,6 +16,7 @@ export interface MakePlan extends Plan {
   discount: string
   maintenance: string
   adminPrice: string
+  adminOriginalPrice: string
   adminMaintenance: string
 }
 
@@ -39,6 +40,7 @@ export const makePlans: MakePlan[] = [
     price: '390,000원',
     maintenance: '39,000원',
     adminPrice: '190,000원',
+    adminOriginalPrice: '380,000원',
     adminMaintenance: '19,000원',
     note: 'VAT 별도',
   },
@@ -62,6 +64,7 @@ export const makePlans: MakePlan[] = [
     price: '590,000원',
     maintenance: '59,000원',
     adminPrice: '290,000원',
+    adminOriginalPrice: '580,000원',
     adminMaintenance: '29,000원',
     note: 'VAT 별도',
   },
@@ -86,6 +89,7 @@ export const makePlans: MakePlan[] = [
     price: '990,000원',
     maintenance: '99,000원',
     adminPrice: '390,000원',
+    adminOriginalPrice: '780,000원',
     adminMaintenance: '39,000원',
     note: 'VAT 별도',
   },

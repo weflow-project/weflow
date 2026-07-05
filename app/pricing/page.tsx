@@ -322,6 +322,17 @@ export default function PricingPage() {
 
                 {/* 가격 */}
                 <div style={{ margin: "1.1rem 0 1.25rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                    <span
+                      className="caption-1 emphasized c-accent"
+                      style={{ background: "var(--accent-light)", padding: "2px 8px", borderRadius: "9999px" }}
+                    >
+                      {plan.discount} 할인
+                    </span>
+                    <span className="footnote c-muted" style={{ textDecoration: "line-through" }}>
+                      {plan.adminOriginalPrice}
+                    </span>
+                  </div>
                   <div
                     style={{
                       display: "flex",
@@ -721,7 +732,7 @@ export default function PricingPage() {
         /* 작은 반짝이 — 카드 곳곳에서 깜빡깜빡 */
         .hl-sparkle {
           position: absolute;
-          color: #ffd23f;
+          color: #ffe6a3;
           fill: currentColor;
           pointer-events: none;
           opacity: 0;

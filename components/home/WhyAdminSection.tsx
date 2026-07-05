@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Star } from 'lucide-react'
+import { Star, Crown } from 'lucide-react'
 
 type Point = { order: string; title: string; kw: string; desc: ReactNode }
 
@@ -90,6 +90,14 @@ export default function WhyAdminSection() {
           <div key={p.order} className={`wa-row${i % 2 === 0 ? ' reverse' : ''}`}>
             {/* 텍스트 */}
             <div className={`wa-text${i === 0 ? ' wa-text--key' : ''}`}>
+              {i === 0 && (
+                <Crown
+                  strokeWidth={2}
+                  color="#f5b301"
+                  fill="#f5b301"
+                  style={{ width: '1.625rem', height: '1.625rem', display: 'block', marginBottom: '0.2rem', marginLeft: '-0.15rem' }}
+                />
+              )}
               <span className="footnote emphasized c-accent">{p.order}</span>
               {i === 0 && <span className="wa-badge">핵심</span>}
               <h3 className="title-2 emphasized" style={{ margin: '0.5rem 0 1rem', wordBreak: 'keep-all' }}>

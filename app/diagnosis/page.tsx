@@ -14,9 +14,9 @@ const CHECKS = [
 ]
 
 const PROCESS = [
-  { num: '01', text: '신청서 작성 (2분)' },
-  { num: '02', text: '전문가 사이트 분석' },
-  { num: '03', text: '24시간 내 결과 연락' },
+  { num: '01', text: '간편한 신청서 작성' },
+  { num: '02', text: '전문가의 정밀 사이트 진단' },
+  { num: '03', text: '24시간 이내, 진단 결과 안내' },
 ]
 
 const TRUST = [

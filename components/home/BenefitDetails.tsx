@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Crown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
@@ -67,7 +67,7 @@ const BENEFITS: Benefit[] = [
     points: [
       "3가지 상품별 맞춤 유지보수 제공",
       "도메인·서버 관리 지원",
-      "텍스트 문구 / 통이미지 수정 지원",
+      "텍스트 문구 / 이미지 수정 지원",
     ],
     image: "/images/benefits/benefit-05-maintain.png",
     icon: "/images/3d-icon/benefit005.svg",
@@ -119,6 +119,14 @@ export default function BenefitDetails() {
               >
                 {/* 텍스트 */}
                 <div className="bd-text">
+                  <div style={{ width: 72, display: "flex", justifyContent: "center", marginBottom: "0.3rem" }}>
+                    <Crown
+                      strokeWidth={2}
+                      color="#f5b301"
+                      fill="#f5b301"
+                      style={{ width: "1.7rem", height: "1.7rem" }}
+                    />
+                  </div>
                   <div
                     style={{
                       width: 72,
@@ -242,7 +250,15 @@ export default function BenefitDetails() {
             <div className="bd-band-img bd-band-ph">이미지</div>
           </Reveal>
           <Reveal variant="up">
-            <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap", marginTop: "3rem" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "0.8rem",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                marginTop: "3rem",
+              }}
+            >
               <a
                 href="tel:010-2971-7280"
                 style={{
@@ -280,6 +296,13 @@ export default function BenefitDetails() {
           grid-template-columns: 1fr 1fr;
           gap: clamp(1.5rem, 4vw, 3.5rem);
           align-items: center;
+        }
+        /* 텍스트 측 푸른 박스 패널 */
+        .bd-text {
+          background: rgba(51,115,223,0.05);
+          border: 1px solid var(--accent-light);
+          border-radius: var(--radius-2xl);
+          padding: clamp(1.5rem, 3vw, 2.25rem);
         }
         .bd-row--rev .bd-text { order: 2; }
         .bd-row--rev .bd-img { order: 1; }

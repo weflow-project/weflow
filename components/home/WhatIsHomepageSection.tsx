@@ -134,7 +134,7 @@ export default function WhatIsHomepageSection() {
           <div key={p.order} className={`wih-row${i % 2 === 0 ? ' reverse' : ''}`}>
             {/* 텍스트 */}
             <div className={`wih-text${i < 3 ? ' wih-text--key' : ''}`}>
-              {i === 0 && (
+              {i < 3 && (
                 <Crown
                   strokeWidth={2}
                   color="#f5b301"

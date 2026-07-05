@@ -124,7 +124,7 @@ export default function PricingSection() {
         }
         .hl-sparkle {
           position: absolute;
-          color: #ffd23f;
+          color: #ffe6a3;
           fill: currentColor;
           pointer-events: none;
           opacity: 0;

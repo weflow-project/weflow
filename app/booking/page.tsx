@@ -372,7 +372,7 @@ export default function BookingPage() {
         }
         .booking-layout {
           display: grid;
-          grid-template-columns: 1.05fr 1fr;
+          grid-template-columns: 1.4fr 1fr;
           gap: 1.25rem;
           align-items: start;
         }

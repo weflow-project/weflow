@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { MessageSquare, FileText, Palette, Code2, Monitor, Share2, ChevronRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { steps } from '@/data/service'
@@ -44,16 +43,8 @@ export default function ServiceSteps() {
                 {/* 설명 */}
                 <p className="callout" style={{ margin: '0 0 1.1rem', wordBreak: 'keep-all' }}>{s.detail}</p>
 
-                {/* 이미지 */}
-                <div className="pt-img">
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 900px) 100vw, 340px"
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
+                {/* 이미지 자리 */}
+                <div className="pt-img">이미지</div>
 
                 {/* 카드 사이 화살표 (행 마지막 카드에선 CSS로 숨김) */}
                 <span className="pt-arrow" aria-hidden="true">
@@ -114,14 +105,19 @@ export default function ServiceSteps() {
           display: flex; align-items: center; justify-content: center;
         }
         .pt-img {
-          position: relative;
           margin-top: auto;
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-xl);
-          overflow: hidden;
-          border: 1px solid var(--border);
-          background: var(--bg-secondary);
+          background: #e6eaf1;
+          border: 1px dashed rgba(11,18,32,0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
         @media (max-width: 900px) {
           .pt-grid { grid-template-columns: repeat(2, 1fr); }

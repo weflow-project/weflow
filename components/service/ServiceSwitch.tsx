@@ -31,9 +31,9 @@ export default function ServiceSwitch() {
           ]}
         />
 
-        {/* 이미지 박스 3개 */}
+        {/* 이미지 박스 2개 */}
         <Reveal as="div" stagger className="svc-switch-boxes">
-          {[0, 1, 2].map((i) => (
+          {[0, 1].map((i) => (
             <div key={i} className="svc-switch-img">
               이미지
             </div>
@@ -47,7 +47,7 @@ export default function ServiceSwitch() {
         }
         .svc-switch-boxes {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: 1fr 1fr;
           gap: 1.1rem;
           margin-top: clamp(2rem, 4vw, 3rem);
         }
