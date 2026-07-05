@@ -166,6 +166,8 @@
     transform: rotate(-2.5deg);
     border-radius: 3px;
   }
+  /* 형광펜 직선 변형 */
+  .tilt-hl-red::before { background: rgba(245, 179, 1, 0.4); transform: none; }
 
   /* ── 카드 ── */
   .card {

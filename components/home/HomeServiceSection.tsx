@@ -41,7 +41,7 @@ const STEPS: { num: string; Icon: LucideIcon; title: string; desc: string }[] =
       num: "06",
       Icon: Share2,
       title: "제휴 마케팅 연결 (선택형)",
-      desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스",
+      desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스 정기 업로드",
     },
   ];
 

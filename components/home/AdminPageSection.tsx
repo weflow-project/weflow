@@ -1,5 +1,5 @@
 import Reveal from '@/components/Reveal'
-import { Database, Route, BarChart3, Star } from 'lucide-react'
+import { Database, Route, BarChart3 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
@@ -16,14 +16,7 @@ export default function AdminPageSection() {
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
           <span className="footnote emphasized c-accent">05 · 관리자 페이지란</span>
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            관리자 페이지가 <span className="c-accent tilt-hl">무엇</span>인가요?
-            <Star
-              size={26}
-              fill="#f5b301"
-              color="#f5b301"
-              strokeWidth={0}
-              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
-            />
+            관리자 페이지가 <span className="c-accent">무엇</span>인가요?
           </h2>
         </Reveal>
 

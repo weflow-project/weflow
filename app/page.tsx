@@ -7,6 +7,7 @@ import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
 import LandingPageSection from "@/components/home/LandingPageSection";
 import AdminPageSection from "@/components/home/AdminPageSection";
+import WhyAdminSection from "@/components/home/WhyAdminSection";
 import PartnershipSection from "@/components/home/PartnershipSection";
 import ListeningSection from "@/components/home/ListeningSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
@@ -69,6 +70,7 @@ export default function HomePage() {
       <LandingHomepageSection />
       <LandingPageSection />
       <AdminPageSection />
+      <WhyAdminSection />
 
       {/* 8~12. 원래 있던 섹션들 */}
       <PartnershipSection />

@@ -27,19 +27,6 @@ const POINTS: Point[] = [
   },
   {
     order: '둘째',
-    title: '홈페이지는 실제 매출로 이어집니다',
-    stat: '15~50%',
-    desc: (
-      <>
-        웹사이트를 활용하면 매출이 <strong>15~50%</strong> 늘어납니다.
-        <br />
-        반대로 홈페이지가 없으면 소개로 찾아온 고객의 <strong>20~35%</strong>가 그대로 새어나갑니다.
-      </>
-    ),
-    source: '출처: BusinessDasher (2026), LeadsAgent · Google 소비자 조사 인용',
-  },
-  {
-    order: '셋째',
     title: 'SNS(네이버·인스타 등) 유입만으로는 부족합니다',
     stat: '84%',
     desc: (
@@ -52,20 +39,7 @@ const POINTS: Point[] = [
     source: '출처: BusinessDasher, "Statistics About Website" (2026)',
   },
   {
-    order: '넷째',
-    title: '고객이 먼저 홈페이지를 찾습니다',
-    stat: '81%',
-    desc: (
-      <>
-        소비자의 <strong>81%</strong>가 구매 전 온라인으로 정보를 찾아봅니다.
-        <br />
-        홈페이지가 없으면 이 탐색 단계에서 선택지에조차 오르지 못합니다.
-      </>
-    ),
-    source: '출처: BusinessDasher (2026) 웹사이트 통계',
-  },
-  {
-    order: '다섯째',
+    order: '셋째',
     title: 'SEO 상단 관리·상위 노출',
     stat: '50%',
     desc: (
@@ -76,6 +50,32 @@ const POINTS: Point[] = [
       </>
     ),
     source: '출처: Wellows (2026) 스키마마크업 리치 결과 CTR 분석',
+  },
+  {
+    order: '넷째',
+    title: '홈페이지는 실제 매출로 이어집니다',
+    stat: '15~50%',
+    desc: (
+      <>
+        웹사이트를 활용하면 매출이 <strong>15~50%</strong> 늘어납니다.
+        <br />
+        반대로 홈페이지가 없으면 소개로 찾아온 고객의 <strong>20~35%</strong>가 그대로 새어나갑니다.
+      </>
+    ),
+    source: '출처: BusinessDasher (2026), LeadsAgent · Google 소비자 조사 인용',
+  },
+  {
+    order: '다섯째',
+    title: '고객이 먼저 홈페이지를 찾습니다',
+    stat: '81%',
+    desc: (
+      <>
+        소비자의 <strong>81%</strong>가 구매 전 온라인으로 정보를 찾아봅니다.
+        <br />
+        홈페이지가 없으면 이 탐색 단계에서 선택지에조차 오르지 못합니다.
+      </>
+    ),
+    source: '출처: BusinessDasher (2026) 웹사이트 통계',
   },
   {
     order: '여섯째',
@@ -118,15 +118,14 @@ export default function WhatIsHomepageSection() {
         {/* 헤더 */}
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>
           <span className="footnote emphasized c-accent">02 · 홈페이지가 필요한 이유</span>
-          <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            홈페이지가 <span className="c-accent tilt-hl">왜 필요할까요?</span>
-            <Star
-              size={26}
-              fill="#f5b301"
-              color="#f5b301"
-              strokeWidth={0}
-              style={{ transform: 'rotate(-18deg)', verticalAlign: 'middle', marginLeft: '0.4rem' }}
-            />
+          {/* 별 5개 (배경 없이) */}
+          <div aria-hidden="true" style={{ display: 'flex', gap: '1px', margin: '0.9rem 0 0.5rem' }}>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
+            ))}
+          </div>
+          <h2 className="title-1" style={{ marginTop: 0, textAlign: 'left', wordBreak: 'keep-all' }}>
+            <span className="tilt-hl tilt-hl-red">홈페이지가 <span className="c-accent">왜 필요할까요?</span></span>
           </h2>
         </div>
 
@@ -215,18 +214,6 @@ export default function WhatIsHomepageSection() {
         .wih-row + .wih-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
         .wih-text { flex: 1; min-width: 0; }
         .wih-img { flex: 1; min-width: 0; }
-        /* 타이틀 사선 하이라이트(형광펜) */
-        .tilt-hl { position: relative; z-index: 0; }
-        .tilt-hl::before {
-          content: '';
-          position: absolute;
-          z-index: -1;
-          left: -4px; right: -4px; bottom: 0.06em;
-          height: 42%;
-          background: rgba(245,179,1,0.30);
-          transform: rotate(-2.5deg);
-          border-radius: 3px;
-        }
         /* 핵심 뱃지 */
         .wih-badge {
           display: inline-block;
