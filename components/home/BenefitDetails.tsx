@@ -299,7 +299,7 @@ export default function BenefitDetails() {
         }
         /* 텍스트 측 푸른 박스 패널 */
         .bd-text {
-          background: rgba(51,115,223,0.05);
+          background: #eef3fd;
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.5rem, 3vw, 2.25rem);

@@ -105,7 +105,7 @@ export default function AdManagement() {
             AD MANAGEMENT
           </p>
           <h2 className="title-1 ad-title" style={{ margin: "0 0 0.5rem" }}>
-            제휴 마케팅 업체 연결·기본제공 시스템
+            제휴 마케팅 업체 연결 · 기본제공 시스템
           </h2>
           <p className="body c-muted" style={{ margin: 0 }}>
             제작 후에도 꾸준히 성장할 수 있도록 전방위 운영을 지원합니다

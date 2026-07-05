@@ -29,19 +29,19 @@ export default function ServiceSteps() {
                   <p className="footnote emphasized c-accent" style={{ margin: 0, letterSpacing: '0.06em' }}>STEP {s.num}</p>
                 </div>
 
-                {/* 제목 + 배지 */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+                {/* 제목 + 배지 (짧으면 옆에, 길면 다음 줄 · 넘어가면 글자 시작점 맞춤) */}
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', columnGap: '1.15rem', rowGap: '0.4rem', marginBottom: '0.5rem' }}>
                   <h3 className="title-3 emphasized" style={{ margin: 0, wordBreak: 'keep-all' }}>{s.title}</h3>
                   <span
                     className="caption-1 emphasized c-accent"
-                    style={{ background: 'var(--accent-light)', padding: '2px 10px', borderRadius: '9999px' }}
+                    style={{ background: 'var(--accent-light)', padding: '2px 10px', borderRadius: '9999px', marginLeft: '-10px' }}
                   >
                     {s.desc}
                   </span>
                 </div>
 
                 {/* 설명 */}
-                <p className="callout" style={{ margin: '0 0 1.1rem', wordBreak: 'keep-all' }}>{s.detail}</p>
+                <p className="callout" style={{ margin: '0 0 1.1rem', wordBreak: 'keep-all', whiteSpace: 'pre-line' }}>{s.detail}</p>
 
                 {/* 이미지 자리 */}
                 <div className="pt-img">이미지</div>

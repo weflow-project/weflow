@@ -166,8 +166,14 @@
     transform: rotate(-2.5deg);
     border-radius: 3px;
   }
-  /* 형광펜 직선 변형 */
-  .tilt-hl-red::before { background: rgba(245, 179, 1, 0.4); transform: none; }
+  /* 형광펜 직선 변형 — 글자 전체 높이를 채움 */
+  .tilt-hl-red::before {
+    background: rgba(245, 179, 1, 0.4);
+    transform: none;
+    top: 0.05em;
+    bottom: 0.05em;
+    height: auto;
+  }
 
   /* ── 카드 ── */
   .card {
