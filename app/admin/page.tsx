@@ -684,13 +684,15 @@ function AnalyticsView({
 }) {
   // 기간 선택
   const [period, setPeriod] = useState("14d");
+  // 마운트 시각을 한 번만 캡처 (렌더 중 Date.now() 직접 호출 금지 규칙 대응)
+  const [now] = useState(() => Date.now());
   const periodDays =
     ANALYTICS_PERIODS.find((p) => p.key === period)?.days ?? 14;
   const periodLabel =
     ANALYTICS_PERIODS.find((p) => p.key === period)?.label ?? "최근 14일";
 
   // 선택 기간만 집계
-  const cutoff = periodDays != null ? Date.now() - periodDays * 86400000 : 0;
+  const cutoff = periodDays != null ? now - periodDays * 86400000 : 0;
   const bookings = cutoff
     ? allB.filter((b) => new Date(b.createdAt).getTime() >= cutoff)
     : allB;
@@ -708,7 +710,7 @@ function AnalyticsView({
       );
       DAYS = Math.min(
         90,
-        Math.max(14, Math.ceil((Date.now() - earliest) / 86400000) + 1),
+        Math.max(14, Math.ceil((now - earliest) / 86400000) + 1),
       );
     }
   }
@@ -1678,7 +1680,7 @@ function TrafficView({
           <section style={card}>
             <SectionHead
               Icon={Clock}
-              tint="#f59e0b"
+              tint="#3373df"
               title="언제 많이 오나요?"
               desc="하루 중 방문이 몰리는 시간대 (0~23시)"
             />
@@ -1708,7 +1710,7 @@ function TrafficView({
                       height: `${(h / maxHour) * 100}%`,
                       minHeight: h ? 3 : 0,
                       background:
-                        i >= 9 && i <= 18 ? "#f59e0b" : "#fcd9a3",
+                        i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
                       borderRadius: "3px 3px 0 0",
                     }}
                   />
@@ -1772,7 +1774,7 @@ function TrafficView({
           <section style={card}>
             <SectionHead
               Icon={Clock}
-              tint="#f59e0b"
+              tint="#3373df"
               title="언제 많이 오나요?"
               desc="하루 중 방문이 몰리는 시간대 (0~23시)"
             />
@@ -1802,7 +1804,7 @@ function TrafficView({
                       height: `${(h / maxHour) * 100}%`,
                       minHeight: h ? 3 : 0,
                       background:
-                        i >= 9 && i <= 18 ? "#f59e0b" : "#fcd9a3",
+                        i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
                       borderRadius: "3px 3px 0 0",
                     }}
                   />
