@@ -6,12 +6,12 @@ const CARDS: { Icon: LucideIcon; title: string; desc: string }[] = [
   {
     Icon: Wrench,
     title: "타 서비스 전환 고객",
-    desc: "지금 홈페이지가 마음에 안 들거나, 점검·개선을 받고 싶은 분",
+    desc: "현재 홈페이지에 아쉬움이 있어 점검과 개선이 필요한 분",
   },
   {
     Icon: Rocket,
     title: "신규 고객",
-    desc: "이제 막 업종을 오픈했는데, 어떤 방식으로 시작할지 막막한 분",
+    desc: "업종을 준비 중이거나 이미 운영 중이지만, 아직 홈페이지 방향을 잡지 못한 분",
   },
 ];
 
@@ -28,9 +28,18 @@ export default function TargetCustomerSection() {
         <Reveal variant="up" style={{ marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
           <span className="footnote emphasized c-accent">WEFLOW의 고객</span>
           {/* 별 5개 (배경 없이) */}
-          <div aria-hidden="true" style={{ display: "flex", gap: "1px", margin: "0.9rem 0 0.5rem" }}>
+          <div
+            aria-hidden="true"
+            style={{ display: "flex", gap: "1px", margin: "0.9rem 0 0.5rem" }}
+          >
             {[0, 1, 2, 3, 4].map((i) => (
-              <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
+              <Star
+                key={i}
+                size={19}
+                fill="#f5b301"
+                color="#f5b301"
+                strokeWidth={0}
+              />
             ))}
           </div>
           <h2
@@ -41,8 +50,11 @@ export default function TargetCustomerSection() {
               wordBreak: "keep-all",
             }}
           >
-            어떤 분들이 <span className="c-accent tilt-hl tilt-hl-red">위플로우의 고객</span>이 될
-            수 있을까요?
+            어떤 분들이{" "}
+            <span className="c-accent tilt-hl tilt-hl-red">
+              위플로우의 고객
+            </span>
+            이 될 수 있을까요?
           </h2>
         </Reveal>
 
@@ -93,9 +105,23 @@ export default function TargetCustomerSection() {
         </Reveal>
 
         {/* 하단 안내 */}
-        <div aria-hidden="true" style={{ display: "flex", justifyContent: "center", gap: "1px", margin: "clamp(2rem, 4vw, 3rem) 0 0.6rem" }}>
+        <div
+          aria-hidden="true"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "1px",
+            margin: "clamp(2rem, 4vw, 3rem) 0 0.6rem",
+          }}
+        >
           {[0, 1, 2, 3, 4].map((i) => (
-            <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
+            <Star
+              key={i}
+              size={19}
+              fill="#f5b301"
+              color="#f5b301"
+              strokeWidth={0}
+            />
           ))}
         </div>
         <p
@@ -110,8 +136,10 @@ export default function TargetCustomerSection() {
           }}
         >
           어느 쪽에 해당하셔도 괜찮아요.{" "}
-          <strong className="c-accent tilt-hl tilt-hl-red">누구나 WEFLOW의 고객</strong>이 될 수
-          있습니다.
+          <strong className="c-accent tilt-hl tilt-hl-red">
+            누구나 WEFLOW의 고객
+          </strong>
+          이 될 수 있습니다.
         </p>
       </div>
 
