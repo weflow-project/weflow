@@ -19,7 +19,6 @@ import {
   DoorOpen,
   TrendingUp,
   ChevronsDown,
-  RotateCcw,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -105,16 +104,6 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "traffic", label: "유입 관리" },
 ];
 
-// 제작 종류별 막대 — 항목마다 다른 색 (순서대로 순환)
-const TYPE_COLORS = [
-  "#0ea5e9",
-  "#6366f1",
-  "#ec4899",
-  "#22c55e",
-  "#8b5cf6",
-  "#ef4444",
-];
-
 // 통계 기간 선택 (days=null 이면 전체)
 const ANALYTICS_PERIODS: { key: string; label: string; days: number | null }[] =
   [
@@ -168,6 +157,16 @@ function PeriodSelect({
     </select>
   );
 }
+
+// 제작 종류별 막대 — 항목마다 다른 색 (순서대로 순환)
+const TYPE_COLORS = [
+  "#0ea5e9",
+  "#6366f1",
+  "#ec4899",
+  "#22c55e",
+  "#8b5cf6",
+  "#ef4444",
+];
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -679,13 +678,9 @@ function Legend({ color, label }: { color: string; label: string }) {
 function AnalyticsView({
   bookings: allB,
   inquiries: allI,
-  since,
-  onReset,
 }: {
   bookings: Booking[];
   inquiries: Inquiry[];
-  since: string | null;
-  onReset: () => void;
 }) {
   // 기간 선택
   const [period, setPeriod] = useState("14d");
@@ -694,11 +689,8 @@ function AnalyticsView({
   const periodLabel =
     ANALYTICS_PERIODS.find((p) => p.key === period)?.label ?? "최근 14일";
 
-  // 리셋 기준일(since) + 선택 기간을 함께 적용 — 원본 데이터는 보존
-  const sinceMs = since ? new Date(since).getTime() : 0;
-  const periodStart =
-    periodDays != null ? Date.now() - periodDays * 86400000 : 0;
-  const cutoff = Math.max(sinceMs, periodStart);
+  // 선택 기간만 집계
+  const cutoff = periodDays != null ? Date.now() - periodDays * 86400000 : 0;
   const bookings = cutoff
     ? allB.filter((b) => new Date(b.createdAt).getTime() >= cutoff)
     : allB;
@@ -751,6 +743,10 @@ function AnalyticsView({
     const k = dkey(r.createdAt);
     if (k in bidx) buckets[bidx[k]].i++;
   });
+  // '오늘'처럼 하루만 볼 때: 선이 0에서 올라가도록 맨 앞에 0 기준점 추가
+  if (buckets.length === 1) {
+    buckets.unshift({ key: "__start", label: "", b: 0, i: 0 });
+  }
   const maxDaily = Math.max(1, ...buckets.map((x) => Math.max(x.b, x.i)));
 
   // ── 상태 분포 ──
@@ -783,10 +779,13 @@ function AnalyticsView({
     padB = 26;
   const plotW = W - padL - padR,
     plotH = H - padT - padB;
-  const slotW = plotW / DAYS;
   const baseY = padT + plotH;
   const y = (v: number) => baseY - (v / maxDaily) * plotH;
-  const cx = (n: number) => padL + n * slotW + slotW / 2;
+  // 첫 점은 왼쪽 끝, 마지막 점은 오른쪽 끝까지 펼침
+  const cx = (n: number) =>
+    buckets.length <= 1
+      ? padL + plotW / 2
+      : padL + (n / (buckets.length - 1)) * plotW;
   const gridVals = Array.from(new Set([0, Math.round(maxDaily / 2), maxDaily]));
   const C_B = "#0ea5e9";
   const C_I = "#ec4899";
@@ -806,59 +805,9 @@ function AnalyticsView({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-      {/* 상단 바 — 왼쪽: 기간 선택 · 오른쪽: 전체 리셋 */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "0.75rem",
-        }}
-      >
-        {/* 왼쪽: 기간 드롭다운 */}
+      {/* 상단 바 — 기간 선택 */}
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
         <PeriodSelect value={period} onChange={setPeriod} />
-
-        {/* 오른쪽: 리셋 상태 + 전체 리셋 */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "0.75rem",
-          }}
-        >
-          {since && (
-            <span style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-              {new Date(since).toLocaleDateString("ko-KR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-              부터 집계 중
-            </span>
-          )}
-          <button
-            onClick={onReset}
-            title="이 시점 이후만 집계합니다 (데이터는 삭제되지 않아요)"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.35rem",
-              background: "#fff",
-              border: "1px solid var(--border)",
-              borderRadius: "999px",
-              padding: "0.45rem 1rem",
-              fontSize: "0.85rem",
-              fontWeight: 700,
-              color: "var(--text-secondary)",
-              cursor: "pointer",
-              fontFamily: "inherit",
-            }}
-          >
-            <RotateCcw size={14} /> 전체 리셋
-          </button>
-        </div>
       </div>
 
       {/* 최근 14일 접수 추이 */}
@@ -1120,10 +1069,10 @@ const SOURCE_KO: Record<string, string> = {
 const SOURCE_COLOR: Record<string, string> = {
   kakao: "#fae100",
   naver: "#03c75a",
-  instagram: "#e1306c",
+  instagram: "#f06595",
   facebook: "#1877f2",
   google: "#ea4335",
-  daum: "#4263eb",
+  daum: "#06b6d4",
   twitter: "#111",
   youtube: "#ff0000",
   direct: "#94a3b8",
@@ -1151,7 +1100,7 @@ const DEVICE_KO: Record<string, string> = {
 };
 const DEVICE_COLOR: Record<string, string> = {
   mobile: "var(--accent)",
-  tablet: "#8b5cf6",
+  tablet: "#f59e0b",
   desktop: "#22c55e",
 };
 
@@ -1517,22 +1466,22 @@ function TrafficView({
           tint="#3373df"
           label="방문자 수"
           value={`${totalSessions}명`}
-          sub="선택 기간 방문 손님"
+          sub="선택 기간 방문 고객"
         />
         <TrafficMetric
           Icon={Eye}
           tint="#8b5cf6"
           label="본 페이지 수"
           value={`${totalViews}회`}
-          sub="손님들이 열어본 페이지"
+          sub="고객들이 열어본 페이지"
         />
         {SITE_TYPE === "multi" ? (
           <TrafficMetric
             Icon={MousePointerClick}
             tint="#f59e0b"
-            label="바로 나간 비율"
+            label="즉시 이탈률"
             value={`${bounceRate}%`}
-            sub={`한 페이지만 보고 나감 (${bounced}명)`}
+            sub={`한 페이지만 보고 이탈 (${bounced}명)`}
           />
         ) : (
           <TrafficMetric
@@ -1589,7 +1538,7 @@ function TrafficView({
               lineHeight: 1.45,
             }}
           >
-            손님이 가장 많이 들어온 곳은{" "}
+            고객이 가장 많이 들어온 곳은{" "}
             <strong
               style={{
                 color:
@@ -1618,7 +1567,7 @@ function TrafficView({
             Icon={LogIn}
             tint="#3373df"
             title="어디서 들어왔나요?"
-            desc="손님들이 우리 사이트를 찾은 경로"
+            desc="고객들이 우리 사이트를 찾은 경로"
           />
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
@@ -1723,44 +1672,7 @@ function TrafficView({
         </div>
       </section>
 
-      {/* 스크롤 도달률 — 페이지를 얼마나 깊이 봤나 (모든 유형 공통) */}
-      <section style={card}>
-        <SectionHead
-          Icon={ChevronsDown}
-          tint="#0ea5e9"
-          title="어디까지 봤나요?"
-          desc={
-            SITE_TYPE === "landing"
-              ? "손님이 페이지를 얼마나 아래까지 내려봤는지 — 뚝 떨어지는 구간이 이탈 지점이에요"
-              : "각 페이지를 얼마나 아래까지 내려봤는지 (몰입도)"
-          }
-        />
-        {scrollTotal === 0 ? (
-          <p className="c-muted" style={{ margin: 0, fontSize: "0.9rem" }}>
-            아직 스크롤 데이터가 없습니다.
-          </p>
-        ) : (
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
-          >
-            {scrollReach.map(({ t, n }) => {
-              const pct = Math.round((n / scrollTotal) * 100);
-              return (
-                <BarRow
-                  key={t}
-                  label={`${t}% 지점`}
-                  color="#0ea5e9"
-                  value={n}
-                  max={scrollTotal}
-                  right={`${pct}%`}
-                />
-              );
-            })}
-          </div>
-        )}
-      </section>
-
-      {/* 시간대별 + (다중 페이지일 때만) 이탈 페이지 */}
+      {/* 시간대별 + 오른쪽: (다중)이탈 페이지 / (랜딩)스크롤 도달률 */}
       {SITE_TYPE === "multi" ? (
         <div className="analytics-2col">
           <section style={card}>
@@ -1796,7 +1708,7 @@ function TrafficView({
                       height: `${(h / maxHour) * 100}%`,
                       minHeight: h ? 3 : 0,
                       background:
-                        i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
+                        i >= 9 && i <= 18 ? "#f59e0b" : "#fcd9a3",
                       borderRadius: "3px 3px 0 0",
                     }}
                   />
@@ -1825,7 +1737,7 @@ function TrafficView({
               Icon={DoorOpen}
               tint="#ef4444"
               title="어느 페이지에서 나갔나요?"
-              desc="손님이 마지막으로 보고 떠난 페이지"
+              desc="고객이 마지막으로 보고 떠난 페이지"
             />
             <div
               style={{
@@ -1846,7 +1758,7 @@ function TrafficView({
                 <BarRow
                   key={path}
                   label={pageName(path)}
-                  color="#f59e0b"
+                  color="#f87171"
                   value={cnt}
                   max={maxExit}
                   right={`${cnt}회`}
@@ -1856,61 +1768,100 @@ function TrafficView({
           </section>
         </div>
       ) : (
-        <section style={card}>
-          <SectionHead
-            Icon={Clock}
-            tint="#f59e0b"
-            title="언제 많이 오나요?"
-            desc="하루 중 방문이 몰리는 시간대 (0~23시)"
-          />
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: "2px",
-              height: 130,
-            }}
-          >
-            {hours.map((h, i) => (
+        <div className="analytics-2col">
+          <section style={card}>
+            <SectionHead
+              Icon={Clock}
+              tint="#f59e0b"
+              title="언제 많이 오나요?"
+              desc="하루 중 방문이 몰리는 시간대 (0~23시)"
+            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                gap: "2px",
+                height: 130,
+              }}
+            >
+              {hours.map((h, i) => (
+                <div
+                  key={i}
+                  title={`${i}시 · ${h}회`}
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      height: `${(h / maxHour) * 100}%`,
+                      minHeight: h ? 3 : 0,
+                      background:
+                        i >= 9 && i <= 18 ? "#f59e0b" : "#fcd9a3",
+                      borderRadius: "3px 3px 0 0",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "0.4rem",
+                fontSize: "0.68rem",
+                color: "var(--text-muted)",
+              }}
+            >
+              <span>0시</span>
+              <span>6시</span>
+              <span>12시</span>
+              <span>18시</span>
+              <span>23시</span>
+            </div>
+          </section>
+
+          <section style={card}>
+            <SectionHead
+              Icon={ChevronsDown}
+              tint="#0ea5e9"
+              title="어디까지 봤나요?"
+              desc="고객이 페이지를 얼마나 아래까지 내려봤는지 — 뚝 떨어지는 구간이 이탈 지점이에요"
+            />
+            {scrollTotal === 0 ? (
+              <p className="c-muted" style={{ margin: 0, fontSize: "0.9rem" }}>
+                아직 스크롤 데이터가 없습니다.
+              </p>
+            ) : (
               <div
-                key={i}
-                title={`${i}시 · ${h}회`}
                 style={{
-                  flex: 1,
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "flex-end",
-                  height: "100%",
+                  gap: "0.85rem",
                 }}
               >
-                <div
-                  style={{
-                    width: "100%",
-                    height: `${(h / maxHour) * 100}%`,
-                    minHeight: h ? 3 : 0,
-                    background: i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
-                    borderRadius: "3px 3px 0 0",
-                  }}
-                />
+                {scrollReach.map(({ t, n }) => {
+                  const pct = Math.round((n / scrollTotal) * 100);
+                  return (
+                    <BarRow
+                      key={t}
+                      label={`${t}% 지점`}
+                      color="#0ea5e9"
+                      value={n}
+                      max={scrollTotal}
+                      right={`${pct}%`}
+                    />
+                  );
+                })}
               </div>
-            ))}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "0.4rem",
-              fontSize: "0.68rem",
-              color: "var(--text-muted)",
-            }}
-          >
-            <span>0시</span>
-            <span>6시</span>
-            <span>12시</span>
-            <span>18시</span>
-            <span>23시</span>
-          </div>
-        </section>
+            )}
+          </section>
+        </div>
       )}
     </div>
   );
@@ -1926,7 +1877,6 @@ export default function AdminPage() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
   const [pvLoading, setPvLoading] = useState(false);
-  const [analyticsSince, setAnalyticsSince] = useState<string | null>(null);
   const [listPeriod, setListPeriod] = useState("all");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -1937,21 +1887,7 @@ export default function AdminPage() {
       localStorage.getItem("weflow_admin_auth") === "true"
     )
       setAuthed(true);
-    if (typeof window !== "undefined")
-      setAnalyticsSince(localStorage.getItem("weflow_analytics_since"));
   }, []);
-
-  const resetAnalytics = () => {
-    if (
-      !confirm(
-        "지금까지의 통계를 리셋할까요?\n예약·문의 데이터는 삭제되지 않고, 이 시점 이후 접수만 통계에 집계됩니다. (언제든 해제 가능)",
-      )
-    )
-      return;
-    const now = new Date().toISOString();
-    localStorage.setItem("weflow_analytics_since", now);
-    setAnalyticsSince(now);
-  };
 
   const load = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
@@ -2608,12 +2544,7 @@ export default function AdminPage() {
 
           {/* 통계 탭 */}
           {tab === "analytics" && (
-            <AnalyticsView
-              bookings={bookings}
-              inquiries={inquiries}
-              since={analyticsSince}
-              onReset={resetAnalytics}
-            />
+            <AnalyticsView bookings={bookings} inquiries={inquiries} />
           )}
 
           {/* 유입 통계 탭 */}
