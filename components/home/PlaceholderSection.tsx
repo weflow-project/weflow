@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import Image from 'next/image'
+import { Star } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import SlideCarousel from './SlideCarousel'
 
@@ -43,11 +44,14 @@ export default function PlaceholderSection({
   carousel = false,
   image,
   imageAlt = '',
+  stars = false,
 }: {
   eyebrow: string
   title: ReactNode
   body?: string
   background?: string
+  /** true면 아이브로우와 제목 사이에 별 5개 노출 */
+  stars?: boolean
   imageCount?: number
   imageCols?: number
   imageAspect?: string
@@ -68,6 +72,13 @@ export default function PlaceholderSection({
         {/* 헤더 (좌측 정렬) */}
         <Reveal variant="up" style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
           <span className="footnote emphasized c-accent">{eyebrow}</span>
+          {stars && (
+            <div aria-hidden="true" style={{ display: 'flex', gap: '1px', margin: '0.75rem 0 0' }}>
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
+              ))}
+            </div>
+          )}
           <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
             {title}
           </h2>

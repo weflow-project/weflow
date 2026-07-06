@@ -47,11 +47,12 @@ export default function HomePage() {
       {/* 2~7. 새 섹션 (임시 문구 · 텍스트 아래 이미지) */}
       <PlaceholderSection
         eyebrow="포트폴리오"
+        stars
         title={
           <>
             WEFLOW의 실력,{" "}
             <span className="c-accent">
-              <span className="tilt-hl">결과</span>가 대신 말합니다
+              <span className="tilt-hl tilt-hl-red">결과가 대신 말합니다</span>
             </span>
           </>
         }
@@ -61,11 +62,12 @@ export default function HomePage() {
       />
       <PlaceholderSection
         eyebrow="고객 후기"
+        stars
         title={
           <>
             결과보다 확실한 건,{" "}
             <span className="c-accent">
-              고객의 <span className="tilt-hl">실제</span> 목소리
+              <span className="tilt-hl tilt-hl-red">고객의 실제 목소리</span>
             </span>
             입니다
           </>
