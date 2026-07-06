@@ -5,7 +5,6 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import BottomBar from './BottomBar'
 import SocialProofToast from './SocialProofToast'
-import ExitIntentPopup from './ExitIntentPopup'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -25,7 +24,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <Footer />
       <BottomBar />
       <SocialProofToast />
-      <ExitIntentPopup />
     </>
   )
 }
