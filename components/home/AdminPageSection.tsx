@@ -3,14 +3,14 @@ import { Database, Route, BarChart3 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
-  { Icon: Database, label: '확실한 고객 DB 확보', desc: '카톡·SNS 폼보다 요청사항까지 입력받아 니즈가 명확한 고객이 들어옵니다' },
-  { Icon: Route, label: '유입 경로 확인', desc: '고객이 어떤 채널·광고를 보고 들어왔는지 유입 경로를 파악합니다' },
-  { Icon: BarChart3, label: '통계로 쌓이는 DB', desc: '문의·예약이 통계와 함께 한 줄씩 차곡차곡 쌓입니다' },
+  { Icon: Database, label: '확실한 고객 DB 확보', desc: '카톡·SNS 폼보다 요청사항까지 입력받아 니즈가 명확한 고객 유입' },
+  { Icon: Route, label: '유입 경로 확인', desc: '고객이 어떤 채널·광고를 보고 들어왔는지 유입 경로 파악' },
+  { Icon: BarChart3, label: '통계로 쌓이는 DB', desc: '문의·예약이 통계와 함께 한 줄씩 차곡차곡 쌓임' },
 ]
 
 export default function AdminPageSection() {
   return (
-    <section style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
+    <section style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>

@@ -14,7 +14,7 @@ type Point = {
 const POINTS: Point[] = [
   {
     order: '첫째',
-    title: '홈페이지로 유입되는 순간, 고객 DB가 쌓입니다',
+    title: '홈페이지로 유입되는 순간, 고객 DB 확보',
     stat: '99.9%',
     desc: (
       <>
@@ -27,7 +27,7 @@ const POINTS: Point[] = [
   },
   {
     order: '둘째',
-    title: 'SNS(네이버·인스타 등) 유입만으로는 부족합니다',
+    title: 'SNS(네이버·인스타 등) 유입만으로는 부족',
     stat: '84%',
     desc: (
       <>
@@ -53,7 +53,7 @@ const POINTS: Point[] = [
   },
   {
     order: '넷째',
-    title: '홈페이지는 실제 매출로 이어집니다',
+    title: '홈페이지로 이어지는 실제 매출',
     stat: '15~50%',
     desc: (
       <>
@@ -66,7 +66,7 @@ const POINTS: Point[] = [
   },
   {
     order: '다섯째',
-    title: '고객이 먼저 홈페이지를 찾습니다',
+    title: '고객이 먼저 찾는 홈페이지',
     stat: '81%',
     desc: (
       <>
@@ -79,7 +79,7 @@ const POINTS: Point[] = [
   },
   {
     order: '여섯째',
-    title: '전문성과 체계성을 증명합니다',
+    title: '전문성과 체계성의 증명',
     stat: '75%',
     desc: (
       <>
@@ -113,7 +113,7 @@ export default function WhatIsHomepageSection() {
   }, [])
 
   return (
-    <section ref={ref} style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
+    <section ref={ref} style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>

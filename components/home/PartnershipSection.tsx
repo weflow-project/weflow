@@ -267,12 +267,12 @@ export default function PartnershipSection() {
                 display: "flex",
                 alignItems: "center",
                 flexWrap: "wrap",
-                gap: "0.5rem",
+                gap: "0.6rem",
                 margin: "1rem 0 0.5rem",
               }}
             >
               <h3
-                className="headline"
+                className="title-3 emphasized"
                 style={{ margin: 0, wordBreak: "keep-all" }}
               >
                 제작 이후에도 지속되는 유입
@@ -281,7 +281,7 @@ export default function PartnershipSection() {
                 className="caption-1 emphasized c-accent"
                 style={{
                   background: "var(--accent-light)",
-                  padding: "2px 8px",
+                  padding: "3px 11px",
                   borderRadius: "9999px",
                 }}
               >
@@ -305,18 +305,18 @@ export default function PartnershipSection() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.5rem",
+                  gap: "0.6rem",
                   margin: "1rem 0 0.5rem",
                 }}
               >
-                <h3 className="headline" style={{ margin: 0 }}>
+                <h3 className="title-3 emphasized" style={{ margin: 0 }}>
                   {name}
                 </h3>
                 <span
                   className="caption-1 emphasized c-accent"
                   style={{
                     background: "var(--accent-light)",
-                    padding: "2px 8px",
+                    padding: "3px 11px",
                     borderRadius: "9999px",
                   }}
                 >

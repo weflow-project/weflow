@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
 import PlaceholderSection from "@/components/home/PlaceholderSection";
+import TargetCustomerSection from "@/components/home/TargetCustomerSection";
 import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
@@ -48,10 +49,13 @@ export default function HomePage() {
         eyebrow="포트폴리오"
         title={
           <>
-            실제 <span className="c-accent">성공 사례 포트폴리오</span>
+            WEFLOW의 실력,{" "}
+            <span className="c-accent">
+              <span className="tilt-hl">결과</span>가 대신 말합니다
+            </span>
           </>
         }
-        body="WEFLOW가 직접 제작한 홈페이지·랜딩형 홈페이지·랜딩페이지 사례를 소개합니다."
+        body="WEFLOW가 직접 제작한 결과물, 실제 성과로 확인하세요."
         background="var(--bg-secondary)"
         imageCount={1}
       />
@@ -59,12 +63,17 @@ export default function HomePage() {
         eyebrow="고객 후기"
         title={
           <>
-            실제 <span className="c-accent">고객 후기</span>
+            결과보다 확실한 건,{" "}
+            <span className="c-accent">
+              고객의 <span className="tilt-hl">실제</span> 목소리
+            </span>
+            입니다
           </>
         }
-        body="WEFLOW에서 홈페이지를 직접 제작한 고객의 생생한 후기를 담았습니다."
+        body="WEFLOW가 직접 제작한 결과물, 실제 고객 인터뷰로 확인하세요."
         imageCount={1}
       />
+      <TargetCustomerSection />
       <HomepageDefinitionSection />
       <WhatIsHomepageSection />
       <LandingHomepageSection />
