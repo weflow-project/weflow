@@ -6,14 +6,14 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
   {
     Icon: Rows3,
     label: "원페이지 구성",
-    desc: "한 페이지 안에 모든 섹션을 담음",
+    desc: "한 페이지 안에 모든 섹션 포함",
   },
   {
     Icon: Anchor,
     label: "헤더 앵커 이동",
-    desc: "메뉴 클릭 시 해당 섹션으로 스크롤",
+    desc: "메뉴 클릭 시 해당 섹션 스크롤",
   },
-  { Icon: Target, label: "전환 집중", desc: "이탈 없이 문의까지 자연스럽게" },
+  { Icon: Target, label: "전환 집중", desc: "이탈없이 자연스러운 문의" },
 ];
 
 export default function LandingHomepageSection() {

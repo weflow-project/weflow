@@ -11,7 +11,7 @@ const BENEFITS = [
   {
     no: "혜택 02",
     icon: "/images/3d-icon/feature002.svg",
-    title: ["더 확실한", "고객 DB가 생깁니다"],
+    title: ["확실한", "고객 DB 확보"],
     desc: "문의·예약을 통계로\n관리하는 나만의 관리자 페이지",
   },
   {
