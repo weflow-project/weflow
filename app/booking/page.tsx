@@ -232,7 +232,7 @@ export default function BookingPage() {
                       onClick={() => { setSelectedDay(day); setSelectedSlot(''); setCustomTime('') }}
                       style={{
                         border: isToday && !selected ? '1.5px solid var(--accent)' : '1.5px solid transparent',
-                        borderRadius: '12px', padding: '0.95rem 0',
+                        borderRadius: '12px', padding: '1.2rem 0',
                         fontSize: '1.3rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
                         cursor: past ? 'not-allowed' : 'pointer',
                         background: selected ? 'var(--accent)' : 'transparent',
@@ -325,7 +325,7 @@ export default function BookingPage() {
               </div>
               <div>
                 <label className="form-label">추가 요청사항</label>
-                <textarea className="form-input" rows={2} placeholder="자유롭게 적어주세요."
+                <textarea className="form-input" rows={4} placeholder="자유롭게 적어주세요."
                   value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
                   style={{ resize: 'vertical' }} />
               </div>
@@ -372,7 +372,7 @@ export default function BookingPage() {
         }
         .booking-layout {
           display: grid;
-          grid-template-columns: 1.4fr 1fr;
+          grid-template-columns: 1.7fr 0.9fr;
           gap: 1.25rem;
           align-items: start;
         }
