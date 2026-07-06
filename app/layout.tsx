@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
 import ClientLayout from '@/components/ClientLayout'
+import Analytics from '@/components/Analytics'
+import PageTracker from '@/components/PageTracker'
 
 export const metadata: Metadata = {
   title: 'WEFLOW — 문의로 이어지는 홈페이지를 만듭니다',
@@ -14,6 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" data-scroll-behavior="smooth">
       <body>
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
+        <PageTracker />
       </body>
     </html>
   )

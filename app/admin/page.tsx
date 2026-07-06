@@ -1,14 +1,16 @@
 'use client'
 import Image from 'next/image'
 import { useState, useEffect, useCallback, Fragment } from 'react'
-import { LogOut, Menu, X, RefreshCw, ChevronDown, ChevronUp, Download, ArrowLeft } from 'lucide-react'
+import { LogOut, Menu, X, RefreshCw, ChevronDown, ChevronUp, Download, ArrowLeft, Users, Eye, MousePointerClick, Clock, Smartphone, LogIn, DoorOpen, TrendingUp, ChevronsDown } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { projectTypes } from '@/data/common'
+import { SITE_TYPE } from '@/lib/siteConfig'
 
 const ADMIN_PW = 'weflow'
 
 type Status = 'pending' | 'in_progress' | 'done'
-type Tab = 'overview' | 'reservations' | 'inquiries' | 'analytics'
+type Tab = 'overview' | 'reservations' | 'inquiries' | 'analytics' | 'traffic'
 type Filter = '전체' | '대기' | '진행중' | '완료'
 
 const STATUS_KO: Record<Status, string> = { pending: '대기', in_progress: '진행중', done: '완료' }
@@ -22,6 +24,7 @@ const STATUS_STYLE: Record<Status, { bg: string; color: string; border: string }
 
 interface Booking { id: string; status: Status; name: string; phone: string; type: string; industry: string; note: string; date: string; time: string; createdAt: string }
 interface Inquiry { id: string; status: Status; name: string; phone: string; type: string; industry: string; note: string; source?: string; createdAt: string }
+interface PageView { id: string; sessionId: string; path: string; referrer: string; source: string; medium: string; campaign: string; device: string; durationMs: number | null; maxScroll: number | null; createdAt: string }
 
 const FILTERS: Filter[] = ['전체', '대기', '진행중', '완료']
 const TABS: { key: Tab; label: string }[] = [
@@ -29,6 +32,7 @@ const TABS: { key: Tab; label: string }[] = [
   { key: 'reservations', label: '예약 관리' },
   { key: 'inquiries', label: '문의 관리' },
   { key: 'analytics', label: '통계' },
+  { key: 'traffic', label: '유입 통계' },
 ]
 
 function pad(n: number) { return String(n).padStart(2, '0') }
@@ -311,6 +315,298 @@ function AnalyticsView({ bookings, inquiries }: { bookings: Booking[]; inquiries
   )
 }
 
+const SOURCE_KO: Record<string, string> = {
+  kakao: '카카오', naver: '네이버', instagram: '인스타그램', facebook: '페이스북',
+  google: '구글', daum: '다음', twitter: 'X(트위터)', youtube: '유튜브', direct: '직접 유입',
+}
+const SOURCE_COLOR: Record<string, string> = {
+  kakao: '#fae100', naver: '#03c75a', instagram: '#e1306c', facebook: '#1877f2',
+  google: '#ea4335', daum: '#4263eb', twitter: '#111', youtube: '#ff0000', direct: '#94a3b8',
+}
+const PAGE_KO: Record<string, string> = {
+  '/': '메인', '/about': '회사 소개', '/benefits': 'WEFLOW 혜택', '/booking': '예약',
+  '/cases': '성공 사례', '/diagnosis': '무료 진단', '/pricing': '가격 안내',
+  '/reviews': '고객 후기', '/service': '서비스 소개',
+}
+// 경로 → 사람이 알아보는 한글 이름 (쿼리·해시 제거, 미등록 경로는 경로 그대로)
+function pageName(path: string): string {
+  const clean = path.split(/[?#]/)[0].replace(/\/$/, '') || '/'
+  return PAGE_KO[clean] || clean
+}
+const DEVICE_KO: Record<string, string> = { mobile: '모바일', tablet: '태블릿', desktop: '데스크탑' }
+const DEVICE_COLOR: Record<string, string> = { mobile: 'var(--accent)', tablet: '#8b5cf6', desktop: '#22c55e' }
+
+function fmtDur(ms: number): string {
+  const s = Math.round(ms / 1000)
+  if (s < 60) return `${s}초`
+  const m = Math.floor(s / 60)
+  const rem = s % 60
+  return rem ? `${m}분 ${rem}초` : `${m}분`
+}
+
+function TrafficMetric({ Icon, label, value, sub, tint }: { Icon: LucideIcon; label: string; value: string; sub?: string; tint: string }) {
+  return (
+    <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.3rem 1.4rem', borderTop: `4px solid ${tint}` }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.7rem' }}>
+        <span style={{ display: 'inline-flex', width: 38, height: 38, borderRadius: 10, background: `${tint}1a`, color: tint, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <Icon size={20} strokeWidth={2.2} />
+        </span>
+        <p className="emphasized" style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem', wordBreak: 'keep-all' }}>{label}</p>
+      </div>
+      <p style={{ margin: 0, lineHeight: 1.05, fontSize: '2.35rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text)' }}>{value}</p>
+      {sub && <p style={{ margin: '0.45rem 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>{sub}</p>}
+    </div>
+  )
+}
+
+function SectionHead({ Icon, title, desc, tint }: { Icon: LucideIcon; title: string; desc: string; tint: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', marginBottom: '1.2rem' }}>
+      <span style={{ display: 'inline-flex', width: 40, height: 40, borderRadius: 11, background: `${tint}1a`, color: tint, alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Icon size={21} strokeWidth={2.2} />
+      </span>
+      <div>
+        <h3 style={{ margin: '0 0 0.15rem', fontSize: '1.15rem', fontWeight: 800, color: 'var(--text)', letterSpacing: '-0.01em' }}>{title}</h3>
+        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)', wordBreak: 'keep-all' }}>{desc}</p>
+      </div>
+    </div>
+  )
+}
+
+function BarRow({ label, color, value, max, right }: { label: string; color: string; value: number; max: number; right: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      <span style={{ flex: '0 0 92px', fontSize: '0.86rem', color: 'var(--text-secondary)', wordBreak: 'keep-all' }}>{label}</span>
+      <div style={{ flex: 1, height: 18, borderRadius: 5, background: 'var(--bg-secondary)', overflow: 'hidden' }}>
+        <div style={{ width: `${max ? (value / max) * 100 : 0}%`, height: '100%', background: color, borderRadius: 5 }} />
+      </div>
+      <span style={{ flex: '0 0 78px', textAlign: 'right', fontSize: '0.88rem', fontWeight: 700, color: 'var(--text)' }}>{right}</span>
+    </div>
+  )
+}
+
+function TrafficView({ pageViews, loading }: { pageViews: PageView[]; loading: boolean }) {
+  const card: React.CSSProperties = { background: '#fff', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.4rem 1.5rem' }
+
+  // 세션 단위로 묶기 (createdAt 오름차순 가정)
+  const sessions = new Map<string, PageView[]>()
+  pageViews.forEach(v => {
+    const arr = sessions.get(v.sessionId)
+    if (arr) arr.push(v); else sessions.set(v.sessionId, [v])
+  })
+  const sessionList = Array.from(sessions.values())
+  const totalSessions = sessionList.length
+  const totalViews = pageViews.length
+
+  // 유입 소스별 세션 (첫 페이지 기준)
+  const sourceCount: Record<string, number> = {}
+  const deviceCount: Record<string, number> = {}
+  const exitCount: Record<string, number> = {}
+  let bounced = 0
+  let durSum = 0, durN = 0
+  sessionList.forEach(views => {
+    const entry = views[0]
+    const exit = views[views.length - 1]
+    sourceCount[entry.source] = (sourceCount[entry.source] || 0) + 1
+    deviceCount[entry.device] = (deviceCount[entry.device] || 0) + 1
+    exitCount[exit.path] = (exitCount[exit.path] || 0) + 1
+    if (views.length === 1) bounced++
+    const sessionDur = views.reduce((a, v) => a + (v.durationMs || 0), 0)
+    if (sessionDur > 0) { durSum += sessionDur; durN++ }
+  })
+  const bounceRate = totalSessions ? Math.round((bounced / totalSessions) * 100) : 0
+  const avgDur = durN ? durSum / durN : 0
+
+  const sourceRows = Object.entries(sourceCount).sort((a, b) => b[1] - a[1])
+  const maxSource = Math.max(1, ...sourceRows.map(r => r[1]))
+  const deviceRows = Object.entries(deviceCount).sort((a, b) => b[1] - a[1])
+  const exitRows = Object.entries(exitCount).sort((a, b) => b[1] - a[1]).slice(0, 6)
+  const maxExit = Math.max(1, ...exitRows.map(r => r[1]))
+
+  // 일별 방문(세션 수) — 최근 14일
+  const DAYS = 14
+  const today = new Date()
+  const days: { key: string; label: string; v: number }[] = []
+  const didx: Record<string, number> = {}
+  for (let n = DAYS - 1; n >= 0; n--) {
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - n)
+    const key = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+    didx[key] = days.length
+    days.push({ key, label: `${d.getMonth() + 1}/${d.getDate()}`, v: 0 })
+  }
+  sessionList.forEach(views => {
+    const d = new Date(views[0].createdAt)
+    const key = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+    if (key in didx) days[didx[key]].v++
+  })
+  const maxDay = Math.max(1, ...days.map(d => d.v))
+
+  // 시간대별 (0~23시, 페이지뷰 기준)
+  const hours = Array.from({ length: 24 }, () => 0)
+  pageViews.forEach(v => { hours[new Date(v.createdAt).getHours()]++ })
+  const maxHour = Math.max(1, ...hours)
+
+  // 스크롤 도달 퍼널 — max_scroll 기록된 페이지뷰 기준
+  const scrolled = pageViews.filter(v => v.maxScroll != null)
+  const scrollTotal = scrolled.length
+  const scrollThresholds = [25, 50, 75, 100]
+  const scrollReach = scrollThresholds.map(t => ({
+    t,
+    n: scrolled.filter(v => (v.maxScroll as number) >= t).length,
+  }))
+  const avgScroll = scrollTotal ? Math.round(scrolled.reduce((a, v) => a + (v.maxScroll as number), 0) / scrollTotal) : 0
+
+  if (loading && pageViews.length === 0) {
+    return <p className="subhead c-muted" style={{ padding: '2rem 0' }}>불러오는 중…</p>
+  }
+  if (!loading && totalViews === 0) {
+    return (
+      <div style={card}>
+        <p className="subhead" style={{ color: 'var(--text-muted)', margin: 0, textAlign: 'center', padding: '2rem 0' }}>
+          아직 수집된 방문 데이터가 없습니다.<br />방문이 기록되면 여기에 유입·이탈 통계가 표시됩니다.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {/* 요약 지표 */}
+      <div className="traffic-metric-grid" style={{ display: 'grid', gap: '1rem' }}>
+        <TrafficMetric Icon={Users} tint="#3373df" label="방문자 수" value={`${totalSessions}명`} sub="최근 30일 다녀간 손님" />
+        <TrafficMetric Icon={Eye} tint="#8b5cf6" label="본 페이지 수" value={`${totalViews}회`} sub="손님들이 열어본 페이지" />
+        {SITE_TYPE === 'multi' ? (
+          <TrafficMetric Icon={MousePointerClick} tint="#f59e0b" label="바로 나간 비율" value={`${bounceRate}%`} sub={`한 페이지만 보고 나감 (${bounced}명)`} />
+        ) : (
+          <TrafficMetric Icon={ChevronsDown} tint="#0ea5e9" label="평균 스크롤 도달" value={scrollTotal ? `${avgScroll}%` : '-'} sub="페이지를 평균 이만큼 내려봄" />
+        )}
+        <TrafficMetric Icon={Clock} tint="#16a34a" label="평균 머문 시간" value={avgDur ? fmtDur(avgDur) : '-'} sub="한 명이 머문 평균 시간" />
+      </div>
+
+      {/* 핵심 한 줄 하이라이트 */}
+      {sourceRows.length > 0 && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '0.9rem',
+          background: 'linear-gradient(135deg, #eef4ff, #f7f0ff)',
+          border: '1px solid #dbe6fb', borderRadius: '16px', padding: '1.15rem 1.4rem',
+        }}>
+          <span style={{ display: 'inline-flex', width: 44, height: 44, borderRadius: 12, background: SOURCE_COLOR[sourceRows[0][0]] || 'var(--accent)', color: '#fff', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <TrendingUp size={24} strokeWidth={2.4} />
+          </span>
+          <p style={{ margin: 0, fontSize: '1.15rem', color: 'var(--text)', wordBreak: 'keep-all', lineHeight: 1.45 }}>
+            손님이 가장 많이 들어온 곳은{' '}
+            <strong style={{ color: SOURCE_COLOR[sourceRows[0][0]] === '#fae100' ? '#b59b00' : (SOURCE_COLOR[sourceRows[0][0]] || 'var(--accent)') }}>
+              {SOURCE_KO[sourceRows[0][0]] || sourceRows[0][0]}
+            </strong>
+            {' '}이에요 — 전체 방문자의{' '}
+            <strong>{totalSessions ? Math.round((sourceRows[0][1] / totalSessions) * 100) : 0}%</strong>
+          </p>
+        </div>
+      )}
+
+      {/* 유입 소스 + 기기별 */}
+      <div className="analytics-2col">
+        <section style={card}>
+          <SectionHead Icon={LogIn} tint="#3373df" title="어디서 들어왔나요?" desc="손님들이 우리 사이트를 찾은 경로" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {sourceRows.length === 0 && <p className="c-muted" style={{ margin: 0, fontSize: '0.9rem' }}>데이터 없음</p>}
+            {sourceRows.map(([src, cnt]) => (
+              <BarRow key={src} label={SOURCE_KO[src] || src} color={SOURCE_COLOR[src] || 'var(--accent)'}
+                value={cnt} max={maxSource} right={`${cnt}명 (${totalSessions ? Math.round((cnt / totalSessions) * 100) : 0}%)`} />
+            ))}
+          </div>
+        </section>
+
+        <section style={card}>
+          <SectionHead Icon={Smartphone} tint="#8b5cf6" title="무엇으로 봤나요?" desc="휴대폰·컴퓨터 등 접속 기기" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {deviceRows.map(([dev, cnt]) => (
+              <BarRow key={dev} label={DEVICE_KO[dev] || dev} color={DEVICE_COLOR[dev] || 'var(--accent)'}
+                value={cnt} max={Math.max(1, ...deviceRows.map(r => r[1]))} right={`${cnt}명 (${totalSessions ? Math.round((cnt / totalSessions) * 100) : 0}%)`} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* 일별 방문 추이 */}
+      <section style={card}>
+        <SectionHead Icon={TrendingUp} tint="#16a34a" title="날짜별 방문자" desc="최근 14일 동안 하루에 몇 명이 왔는지" />
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2%', height: 160 }}>
+          {days.map(d => (
+            <div key={d.key} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', height: '100%', justifyContent: 'flex-end' }}>
+              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-secondary)' }}>{d.v || ''}</span>
+              <div title={`${d.label} · ${d.v}명`} style={{ width: '100%', maxWidth: 34, height: `${(d.v / maxDay) * 100}%`, minHeight: d.v ? 4 : 0, background: 'var(--accent)', borderRadius: '5px 5px 0 0', transition: 'height 0.2s' }} />
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{d.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 스크롤 도달률 — 페이지를 얼마나 깊이 봤나 (모든 유형 공통) */}
+      <section style={card}>
+        <SectionHead Icon={ChevronsDown} tint="#0ea5e9"
+          title="어디까지 봤나요?"
+          desc={SITE_TYPE === 'landing'
+            ? '손님이 페이지를 얼마나 아래까지 내려봤는지 — 뚝 떨어지는 구간이 이탈 지점이에요'
+            : '각 페이지를 얼마나 아래까지 내려봤는지 (몰입도)'} />
+        {scrollTotal === 0 ? (
+          <p className="c-muted" style={{ margin: 0, fontSize: '0.9rem' }}>아직 스크롤 데이터가 없습니다.</p>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {scrollReach.map(({ t, n }) => {
+              const pct = Math.round((n / scrollTotal) * 100)
+              return <BarRow key={t} label={`${t}% 지점`} color="#0ea5e9" value={n} max={scrollTotal} right={`${pct}%`} />
+            })}
+          </div>
+        )}
+      </section>
+
+      {/* 시간대별 + (다중 페이지일 때만) 이탈 페이지 */}
+      {SITE_TYPE === 'multi' ? (
+        <div className="analytics-2col">
+          <section style={card}>
+            <SectionHead Icon={Clock} tint="#f59e0b" title="언제 많이 오나요?" desc="하루 중 방문이 몰리는 시간대 (0~23시)" />
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: 130 }}>
+              {hours.map((h, i) => (
+                <div key={i} title={`${i}시 · ${h}회`} style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
+                  <div style={{ width: '100%', height: `${(h / maxHour) * 100}%`, minHeight: h ? 3 : 0, background: i >= 9 && i <= 18 ? 'var(--accent)' : '#c7d7f5', borderRadius: '3px 3px 0 0' }} />
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+              <span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span>
+            </div>
+          </section>
+
+          <section style={card}>
+            <SectionHead Icon={DoorOpen} tint="#ef4444" title="어느 페이지에서 나갔나요?" desc="손님이 마지막으로 보고 떠난 페이지" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {exitRows.length === 0 && <p className="c-muted" style={{ margin: 0, fontSize: '0.9rem' }}>데이터 없음</p>}
+              {exitRows.map(([path, cnt]) => (
+                <BarRow key={path} label={pageName(path)} color="#f59e0b" value={cnt} max={maxExit} right={`${cnt}회`} />
+              ))}
+            </div>
+          </section>
+        </div>
+      ) : (
+        <section style={card}>
+          <SectionHead Icon={Clock} tint="#f59e0b" title="언제 많이 오나요?" desc="하루 중 방문이 몰리는 시간대 (0~23시)" />
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: 130 }}>
+            {hours.map((h, i) => (
+              <div key={i} title={`${i}시 · ${h}회`} style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
+                <div style={{ width: '100%', height: `${(h / maxHour) * 100}%`, minHeight: h ? 3 : 0, background: i >= 9 && i <= 18 ? 'var(--accent)' : '#c7d7f5', borderRadius: '3px 3px 0 0' }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+            <span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span>
+          </div>
+        </section>
+      )}
+    </div>
+  )
+}
+
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
   const [pw, setPw] = useState('')
@@ -319,6 +615,8 @@ export default function AdminPage() {
   const [filter, setFilter] = useState<Filter>('전체')
   const [bookings, setBookings] = useState<Booking[]>([])
   const [inquiries, setInquiries] = useState<Inquiry[]>([])
+  const [pageViews, setPageViews] = useState<PageView[]>([])
+  const [pvLoading, setPvLoading] = useState(false)
   const [loading, setLoading] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -337,6 +635,17 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => { if (authed) load() }, [authed, load])
+
+  // 유입 통계 탭 진입 시 방문 데이터 로드
+  useEffect(() => {
+    if (!authed || tab !== 'traffic') return
+    setPvLoading(true)
+    fetch('/api/analytics?days=30')
+      .then(r => r.json())
+      .then(d => setPageViews(Array.isArray(d) ? d : []))
+      .catch(() => {})
+      .finally(() => setPvLoading(false))
+  }, [authed, tab])
 
   // 자동 갱신: 20초 폴링 + 탭 재포커스 시 (조용히 갱신)
   useEffect(() => {
@@ -531,7 +840,7 @@ export default function AdminPage() {
             <h1 className="admin-page-title emphasized" style={{ color: 'var(--text)', margin: '0 0 1.5rem', fontSize: 'clamp(1.9rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
               {TABS.find(t => t.key === tab)?.label}
             </h1>
-            {tab !== 'analytics' && (
+            {tab !== 'analytics' && tab !== 'traffic' && (
             <div style={{ display: 'grid', gap: '1rem' }} className={tab === 'overview' ? 'stat-grid-4' : 'stat-grid-2'}>
               {tab !== 'inquiries' && (
                 <>
@@ -552,8 +861,11 @@ export default function AdminPage() {
           {/* 통계 탭 */}
           {tab === 'analytics' && <AnalyticsView bookings={bookings} inquiries={inquiries} />}
 
+          {/* 유입 통계 탭 */}
+          {tab === 'traffic' && <TrafficView pageViews={pageViews} loading={pvLoading} />}
+
           {/* 필터 + 새로고침 */}
-          {tab !== 'analytics' && (
+          {tab !== 'analytics' && tab !== 'traffic' && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
             <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
               {FILTERS.map(f => (
@@ -578,7 +890,7 @@ export default function AdminPage() {
           )}
 
           {/* 테이블 */}
-          {tab !== 'inquiries' && tab !== 'analytics' && (
+          {tab !== 'inquiries' && tab !== 'analytics' && tab !== 'traffic' && (
             <RequestTable
               title={tab === 'overview' ? '예약 관리' : undefined}
               rows={filteredB}
@@ -589,7 +901,7 @@ export default function AdminPage() {
               onSeeAll={tab === 'overview' ? () => setTab('reservations') : undefined}
             />
           )}
-          {tab !== 'reservations' && tab !== 'analytics' && (
+          {tab !== 'reservations' && tab !== 'analytics' && tab !== 'traffic' && (
             <RequestTable
               title={tab === 'overview' ? '문의 관리' : undefined}
               rows={filteredI}
@@ -616,6 +928,8 @@ export default function AdminPage() {
         .detail-dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.95rem; }
         .analytics-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
         @media (max-width: 900px) { .analytics-2col { grid-template-columns: 1fr; } }
+        .traffic-metric-grid { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 900px) { .traffic-metric-grid { grid-template-columns: repeat(2, 1fr); } }
 
         @media (max-width: 768px) {
           .admin-wrap { flex-direction: column; }
