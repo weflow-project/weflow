@@ -2,11 +2,23 @@ import Link from "next/link";
 import HeroCarousel from "./HeroCarousel";
 
 // 글자 단위 등장 — 자리는 유지하고 투명→나타남 (start: 앞선 글자 수, step: 글자 간격)
-function Chars({ text, start = 0, step = 0.03 }: { text: string; start?: number; step?: number }) {
+function Chars({
+  text,
+  start = 0,
+  step = 0.03,
+}: {
+  text: string;
+  start?: number;
+  step?: number;
+}) {
   return (
     <>
       {Array.from(text.replace(/ /g, " ")).map((ch, i) => (
-        <span key={i} className="hero-char" style={{ animationDelay: `${(start + i) * step}s` }}>
+        <span
+          key={i}
+          className="hero-char"
+          style={{ animationDelay: `${(start + i) * step}s` }}
+        >
           {ch === " " ? " " : ch}
         </span>
       ))}
@@ -14,7 +26,7 @@ function Chars({ text, start = 0, step = 0.03 }: { text: string; start?: number;
   );
 }
 
-const LINE1 = "내가 진짜 원하는 페이지로";
+const LINE1 = "내가 진짜 원하는 페이지";
 const LINE2A = "우리만의 플로우를 담다, ";
 const LINE2B = "WEFLOW";
 

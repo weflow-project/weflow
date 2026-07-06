@@ -1,99 +1,99 @@
 export interface Plan {
-  name: string
-  sub: string
-  highlight: boolean
-  features: string[]
-  originalPrice: string
-  price: string
-  note: string
+  name: string;
+  sub: string;
+  highlight: boolean;
+  features: string[];
+  originalPrice: string;
+  price: string;
+  note: string;
 }
 
 export interface MakePlan extends Plan {
-  id: string
-  emoji: string
-  img: string
-  tagline: string
-  discount: string
-  maintenance: string
-  adminPrice: string
-  adminOriginalPrice: string
-  adminMaintenance: string
+  id: string;
+  emoji: string;
+  img: string;
+  tagline: string;
+  discount: string;
+  maintenance: string;
+  adminPrice: string;
+  adminOriginalPrice: string;
+  adminMaintenance: string;
 }
 
 export const makePlans: MakePlan[] = [
   {
-    id: 'start',
-    name: 'START',
-    sub: '랜딩페이지',
-    tagline: '한 페이지 집중형',
-    emoji: '🚀',
-    img: '/images/3d-icon/image-3.svg',
+    id: "start",
+    name: "START",
+    sub: "랜딩페이지",
+    tagline: "한 페이지 집중형",
+    emoji: "🚀",
+    img: "/images/3d-icon/image-3.svg",
     highlight: false,
-    discount: '50%',
+    discount: "50%",
     features: [
-      '랜딩페이지 1섹션 ~',
-      '반응형 PC & 모바일 최적화',
-      '희망 SNS 문의폼 연동',
-      '기본 SEO 설정',
+      "랜딩페이지 1섹션 ~",
+      "반응형 PC & 모바일 최적화",
+      "희망 SNS 문의폼 연동",
+      "기본 SEO 설정",
     ],
-    originalPrice: '780,000원',
-    price: '390,000원',
-    maintenance: '39,000원',
-    adminPrice: '190,000원',
-    adminOriginalPrice: '380,000원',
-    adminMaintenance: '19,000원',
-    note: 'VAT 별도',
+    originalPrice: "780,000원",
+    price: "390,000원",
+    maintenance: "39,000원",
+    adminPrice: "190,000원",
+    adminOriginalPrice: "380,000원",
+    adminMaintenance: "19,000원",
+    note: "VAT 별도",
   },
   {
-    id: 'grow',
-    name: 'GROW',
-    sub: '랜딩형 홈페이지',
-    tagline: '원페이지 홈페이지',
-    emoji: '🌱',
-    img: '/images/3d-icon/image-4.svg',
+    id: "grow",
+    name: "GROW",
+    sub: "랜딩형 홈페이지",
+    tagline: "원페이지형 홈페이지",
+    emoji: "🌱",
+    img: "/images/3d-icon/image-4.svg",
     highlight: false,
-    discount: '50%',
+    discount: "50%",
     features: [
-      '원페이지 형식 홈페이지 1섹션 & 페이지 ~',
-      '반응형 PC & 모바일 최적화',
-      '희망 SNS 문의폼 연동',
-      '헤더 앵커 이동 구성',
-      '기본 SEO 설정',
+      "원페이지 형식 홈페이지 1섹션 & 페이지 ~",
+      "반응형 PC & 모바일 최적화",
+      "희망 SNS 문의폼 연동",
+      "헤더 앵커 이동 구성",
+      "기본 SEO 설정",
     ],
-    originalPrice: '1,180,000원',
-    price: '590,000원',
-    maintenance: '59,000원',
-    adminPrice: '290,000원',
-    adminOriginalPrice: '580,000원',
-    adminMaintenance: '29,000원',
-    note: 'VAT 별도',
+    originalPrice: "1,180,000원",
+    price: "590,000원",
+    maintenance: "59,000원",
+    adminPrice: "290,000원",
+    adminOriginalPrice: "580,000원",
+    adminMaintenance: "29,000원",
+    note: "VAT 별도",
   },
   {
-    id: 'master',
-    name: 'MASTER',
-    sub: '홈페이지',
-    tagline: '다중 페이지',
-    emoji: '👑',
-    img: '/images/3d-icon/image-5.svg',
+    id: "master",
+    name: "MASTER",
+    sub: "홈페이지",
+    tagline: "다중 페이지",
+    emoji: "👑",
+    img: "/images/3d-icon/image-5.svg",
     highlight: true,
-    discount: '50%',
+    discount: "50%",
     features: [
-      '홈페이지 1페이지 ~',
-      '반응형 PC & 모바일 최적화',
-      '희망 SNS 문의폼 연동',
-      '페이지 로딩 속도 최적화',
-      '각 페이지별 URL 생성',
-      'SEO 상위 노출 증가',
+      "홈페이지 1페이지 ~",
+      "반응형 PC & 모바일 최적화",
+      "희망 SNS 문의폼 연동",
+      "페이지 로딩 속도 최적화",
+      "각 페이지별 URL 생성",
+      "SEO 상위 노출 증가",
     ],
-    originalPrice: '1,980,000원',
-    price: '990,000원',
-    maintenance: '99,000원',
-    adminPrice: '390,000원',
-    adminOriginalPrice: '780,000원',
-    adminMaintenance: '39,000원',
-    note: 'VAT 별도',
+    originalPrice: "1,980,000원",
+    price: "990,000원",
+    maintenance: "99,000원",
+    adminPrice: "390,000원",
+    adminOriginalPrice: "780,000원",
+    adminMaintenance: "39,000원",
+    note: "VAT 별도",
   },
-]
+];
 
 /* 케어플랜 전체 - 주석처리
 export const carePlans: Plan[] = [
