@@ -56,7 +56,7 @@ export default function HeroBanner() {
       >
         {/* 아이브로우 */}
         <span className="tag-badge" style={{ marginBottom: "1.4rem" }}>
-          홈페이지·랜딩페이지 제작 솔루션
+          홈페이지 메인 제작 솔루션
         </span>
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
