@@ -19,7 +19,7 @@ const BENEFITS: Benefit[] = [
       "인스타그램 — 메타 광고로 브랜드 도달",
       "유튜브 숏폼 — 짧은 영상으로 바이럴 확산",
       "네이버 플레이스 — 지역 검색·지도 노출",
-      "제휴 채널 통합 운영으로 검색 상단 관리까지",
+      "제휴 채널 통합 운영으로 검색 상단 관리",
     ],
     image: "/images/benefits/benefit-01-partnership.png",
     icon: "/images/3d-icon/benefit001.svg",

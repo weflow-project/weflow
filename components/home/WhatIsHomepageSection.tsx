@@ -125,7 +125,7 @@ export default function WhatIsHomepageSection() {
             ))}
           </div>
           <h2 className="title-1" style={{ marginTop: 0, textAlign: 'left', wordBreak: 'keep-all' }}>
-            <span className="tilt-hl tilt-hl-red">홈페이지가 <span className="c-accent">왜 필요할까요?</span></span>
+            홈페이지가 <span className="c-accent tilt-hl tilt-hl-red">왜 필요할까요?</span>
           </h2>
         </div>
 

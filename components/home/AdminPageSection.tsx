@@ -3,9 +3,9 @@ import { Database, Route, BarChart3 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
-  { Icon: Database, label: '확실한 고객 DB 확보', desc: '카톡·SNS 폼보다 요청사항까지 입력받아 니즈가 명확한 고객 유입' },
-  { Icon: Route, label: '유입 경로 확인', desc: '고객이 어떤 채널·광고를 보고 들어왔는지 유입 경로 파악' },
-  { Icon: BarChart3, label: '통계로 쌓이는 DB', desc: '문의·예약이 통계와 함께 한 줄씩 차곡차곡 쌓임' },
+  { Icon: Database, label: '확실한 고객 DB 확보', desc: '니즈까지 명확한 고객 유입' },
+  { Icon: Route, label: '유입 경로 확인', desc: '어떤 채널·광고로 들어왔는지 파악' },
+  { Icon: BarChart3, label: '통계로 유입되는 DB', desc: '통계와 함께 차곡차곡 유입' },
 ]
 
 export default function AdminPageSection() {

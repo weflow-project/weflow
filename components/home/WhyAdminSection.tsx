@@ -104,9 +104,8 @@ export default function WhyAdminSection() {
             className="title-1"
             style={{ marginTop: 0, textAlign: "left", wordBreak: "keep-all" }}
           >
-            <span className="tilt-hl tilt-hl-red">
-              관리자 페이지가 <span className="c-accent">왜 필요할까요?</span>
-            </span>
+            관리자 페이지가{" "}
+            <span className="c-accent tilt-hl tilt-hl-red">왜 필요할까요?</span>
           </h2>
         </div>
 
