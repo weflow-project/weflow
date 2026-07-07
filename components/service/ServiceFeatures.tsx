@@ -11,6 +11,7 @@ import {
   Link2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
@@ -95,7 +96,7 @@ export default function ServiceFeatures() {
 
         {/* 카드 그리드 */}
         <Reveal as="div" stagger className="svc-feat-grid">
-          {FEATURES.map(({ Icon, title, desc, only }) => (
+          {FEATURES.map(({ Icon, title, desc, only }, i) => (
             <div key={title} className="svc-feat-card">
               {/* WEFLOW ONLY 배지 */}
               {only && (
@@ -164,8 +165,20 @@ export default function ServiceFeatures() {
                 {desc}
               </p>
 
-              {/* 이미지 */}
-              <div className="svc-feat-img">이미지</div>
+              {/* 이미지 (관리자 페이지 제공 카드는 제외) */}
+              <div className="svc-feat-img">
+                {i === 1 ? (
+                  <span className="svc-img-ph">이미지</span>
+                ) : (
+                  <Image
+                    src={`/images/service/service${i + 1}.png`}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 340px"
+                    style={{ objectFit: "cover" }}
+                  />
+                )}
+              </div>
             </div>
           ))}
         </Reveal>
@@ -198,12 +211,18 @@ export default function ServiceFeatures() {
           box-shadow: 0 12px 28px rgba(51,115,223,0.13);
         }
         .svc-feat-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
           margin-top: auto;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
+          border: 1px solid var(--border);
+        }
+        .svc-img-ph {
+          position: absolute;
+          inset: 0;
           display: flex;
           align-items: center;
           justify-content: center;

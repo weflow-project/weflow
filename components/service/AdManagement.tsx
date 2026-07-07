@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
 import { FileEdit, Camera, PlaySquare, MapPin, BarChart2, Globe } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -21,10 +22,12 @@ function AdCard({
   Icon,
   title,
   desc,
+  img,
 }: {
   Icon: LucideIcon;
   title: string;
   desc: string;
+  img?: string;
 }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -70,7 +73,19 @@ function AdCard({
       <p className="callout c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
         {desc}
       </p>
-      <div className="ad-card-img">이미지</div>
+      <div className="ad-card-img">
+        {img ? (
+          <Image
+            src={img}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 340px"
+            style={{ objectFit: "cover" }}
+          />
+        ) : (
+          <span className="ad-img-ph">이미지</span>
+        )}
+      </div>
     </div>
   );
 }
@@ -114,8 +129,18 @@ export default function AdManagement() {
 
         {/* 카드 그리드 */}
         <Reveal as="div" stagger className="ad-grid">
-          {AD_SERVICES.map(({ Icon, title, desc }) => (
-            <AdCard key={title} Icon={Icon} title={title} desc={desc} />
+          {AD_SERVICES.map(({ Icon, title, desc }, i) => (
+            <AdCard
+              key={title}
+              Icon={Icon}
+              title={title}
+              desc={desc}
+              img={
+                i === 1 || i === 2
+                  ? `/images/service/service${i + 18}.png`
+                  : undefined
+              }
+            />
           ))}
         </Reveal>
 
@@ -142,12 +167,18 @@ export default function AdManagement() {
       <style>{`
         .ad-title { font-size: clamp(2rem, 4.5vw, 3rem); }
         .ad-card-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
           margin-top: 0.9rem;
           border-radius: 8px;
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
+          border: 1px solid var(--border);
+        }
+        .ad-img-ph {
+          position: absolute;
+          inset: 0;
           display: flex;
           align-items: center;
           justify-content: center;

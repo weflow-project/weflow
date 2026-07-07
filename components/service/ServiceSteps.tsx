@@ -1,5 +1,6 @@
 import { MessageSquare, FileText, Palette, Code2, Monitor, Share2, ChevronRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import Image from 'next/image'
 import { steps } from '@/data/service'
 import Reveal from '@/components/Reveal'
 
@@ -43,8 +44,16 @@ export default function ServiceSteps() {
                 {/* 설명 */}
                 <p className="callout" style={{ margin: '0 0 1.1rem', wordBreak: 'keep-all', whiteSpace: 'pre-line' }}>{s.detail}</p>
 
-                {/* 이미지 자리 */}
-                <div className="pt-img">이미지</div>
+                {/* 이미지 */}
+                <div className="pt-img">
+                  <Image
+                    src={`/images/service/service${i + 10}.png`}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 900px) 100vw, 340px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
 
                 {/* 카드 사이 화살표 (행 마지막 카드에선 CSS로 숨김) */}
                 <span className="pt-arrow" aria-hidden="true">
@@ -105,19 +114,14 @@ export default function ServiceSteps() {
           display: flex; align-items: center; justify-content: center;
         }
         .pt-img {
+          position: relative;
+          overflow: hidden;
           margin-top: auto;
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         @media (max-width: 900px) {
           .pt-grid { grid-template-columns: repeat(2, 1fr); }

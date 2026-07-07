@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PencilRuler, Workflow, Wrench, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -11,27 +12,30 @@ export const metadata: Metadata = {
     "사람과 기술이 함께 흘러가며 더 좋은 방향을 만드는 회사, WEFLOW.",
 };
 
-const VALUES: { Icon: LucideIcon; title: string; desc: string }[] = [
+const VALUES: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: PencilRuler,
     title: "직접 기획·설계",
     desc: "템플릿이 아니라, 사람이 목표부터 구조까지 전략을 세웁니다.",
+    img: "/images/about/about6.png",
   },
   {
     Icon: Workflow,
     title: "맞춤형 플로우",
     desc: "업종과 고객 흐름에 맞춰 문의로 이어지는 동선을 설계합니다.",
+    img: "/images/about/about7.png",
   },
   {
     Icon: Wrench,
     title: "지속 가능한 운영",
     desc: "제작 이후에도 광고 연동·유지보수·운영까지 함께합니다.",
+    img: "/images/about/about8.png",
   },
 ];
 
-const MEANING: { key: string; desc: string }[] = [
-  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치" },
-  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 앞으로 나아가는 움직임" },
+const MEANING: { key: string; desc: string; img: string }[] = [
+  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/about/about2.png" },
+  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 앞으로 나아가는 움직임", img: "/images/about/about3.png" },
 ];
 
 const STORY: string[] = [
@@ -100,7 +104,13 @@ export default function AboutPage() {
                 marginTop: "clamp(2rem, 4vw, 3rem)",
               }}
             >
-              이미지
+              <Image
+                src="/images/about/about1.png"
+                alt="WEFLOW"
+                fill
+                sizes="(max-width: 1000px) 100vw, 1000px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
           </Reveal>
         </div>
@@ -121,7 +131,7 @@ export default function AboutPage() {
             </h2>
           </Reveal>
           <Reveal as="div" stagger className="about-grid-2">
-            {MEANING.map(({ key, desc }) => (
+            {MEANING.map(({ key, desc, img }) => (
               <div key={key} className="about-meaning-card">
                 <p
                   className="large-title c-accent"
@@ -135,7 +145,15 @@ export default function AboutPage() {
                 >
                   {desc}
                 </p>
-                <div className="about-card-img">이미지</div>
+                <div className="about-card-img">
+                  <Image
+                    src={img}
+                    alt={key}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 520px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
               </div>
             ))}
           </Reveal>
@@ -224,7 +242,13 @@ export default function AboutPage() {
             >
               {[0, 1].map((i) => (
                 <div key={i} className="about-img" style={{ aspectRatio: "4 / 3" }}>
-                  이미지
+                  <Image
+                    src={`/images/about/about${i + 4}.png`}
+                    alt="WEFLOW 이야기"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 480px"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
               ))}
             </div>
@@ -252,7 +276,7 @@ export default function AboutPage() {
             </h2>
           </Reveal>
           <Reveal as="div" stagger className="about-grid-3">
-            {VALUES.map(({ Icon, title, desc }) => (
+            {VALUES.map(({ Icon, title, desc, img }) => (
               <div key={title} className="about-value-card">
                 <span className="about-value-icon">
                   <Icon size={22} strokeWidth={2} />
@@ -269,7 +293,15 @@ export default function AboutPage() {
                 >
                   {desc}
                 </p>
-                <div className="about-card-img">이미지</div>
+                <div className="about-card-img">
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 340px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
               </div>
             ))}
           </Reveal>
@@ -396,17 +428,12 @@ export default function AboutPage() {
           width: 100%;
         }
         .about-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           border-radius: var(--radius-2xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         .about-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
         .about-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
@@ -423,19 +450,14 @@ export default function AboutPage() {
           box-shadow: 0 12px 28px rgba(51,115,223,0.13);
         }
         .about-card-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
           margin-top: 1.1rem;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         .about-value-card {
           background: #fff;

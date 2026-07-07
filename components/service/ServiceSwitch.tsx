@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
@@ -35,7 +36,13 @@ export default function ServiceSwitch() {
         <Reveal as="div" stagger className="svc-switch-boxes">
           {[0, 1].map((i) => (
             <div key={i} className="svc-switch-img">
-              이미지
+              <Image
+                src={`/images/service/service${i + 16}.png`}
+                alt="타 서비스 전환"
+                fill
+                sizes="(max-width: 760px) 100vw, 420px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
           ))}
         </Reveal>
@@ -52,18 +59,13 @@ export default function ServiceSwitch() {
           margin-top: clamp(2rem, 4vw, 3rem);
         }
         .svc-switch-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-2xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         @media (max-width: 760px) {
           .svc-switch-boxes { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }

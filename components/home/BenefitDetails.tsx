@@ -1,7 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Check, ArrowRight, Crown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+
+// 아이콘 배치 순서 (혜택 카드별) — 3-2-1-2-3-1
+const ICON_ORDER = [3, 2, 1, 2, 3, 1];
 
 type Benefit = {
   title: string;
@@ -129,22 +133,19 @@ export default function BenefitDetails() {
                   </div>
                   <div
                     style={{
+                      position: "relative",
                       width: 72,
                       height: 72,
                       marginBottom: "1.1rem",
-                      borderRadius: "var(--radius-xl)",
-                      background: "#e6eaf1",
-                      border: "1px dashed rgba(11,18,32,0.14)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "var(--text-secondary)",
-                      fontSize: "0.72rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.02em",
                     }}
                   >
-                    아이콘
+                    <Image
+                      src={`/images/benefits/benefits-icon-0${ICON_ORDER[i]}.png`}
+                      alt=""
+                      fill
+                      sizes="72px"
+                      style={{ objectFit: "contain" }}
+                    />
                   </div>
                   <h3
                     className="title-2 emphasized"
@@ -197,8 +198,20 @@ export default function BenefitDetails() {
                   )}
                 </div>
 
-                {/* 이미지 */}
-                <div className="bd-img">이미지</div>
+                {/* 이미지 (통계 관리자 페이지는 제외) */}
+                <div className="bd-img">
+                  {i === 1 ? (
+                    <span className="bd-img-ph">이미지</span>
+                  ) : (
+                    <Image
+                      src={`/images/benefits/benefits${i + 1}.png`}
+                      alt={b.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 520px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  )}
+                </div>
               </Reveal>
             ))}
           </div>
@@ -246,8 +259,24 @@ export default function BenefitDetails() {
             </p>
           </Reveal>
           <Reveal as="div" stagger className="bd-band-imgs">
-            <div className="bd-band-img bd-band-ph">이미지</div>
-            <div className="bd-band-img bd-band-ph">이미지</div>
+            <div className="bd-band-img">
+              <Image
+                src="/images/benefits/benefits7.png"
+                alt="24시간 상담 대기"
+                fill
+                sizes="(max-width: 768px) 100vw, 360px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <div className="bd-band-img">
+              <Image
+                src="/images/benefits/benefits8.png"
+                alt="24시간 상담 대기"
+                fill
+                sizes="(max-width: 768px) 100vw, 360px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </Reveal>
           <Reveal variant="up">
             <div
@@ -312,7 +341,7 @@ export default function BenefitDetails() {
           position: relative;
           overflow: hidden;
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
+          border: 1px solid var(--border);
           display: flex;
           align-items: center;
           justify-content: center;
