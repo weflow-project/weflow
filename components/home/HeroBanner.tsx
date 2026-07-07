@@ -38,13 +38,13 @@ export default function HeroBanner() {
         overflow: "hidden",
         background: "#fff",
         scrollSnapAlign: "start",
-        minHeight: "calc(100vh - 64px)",
+        minHeight: "calc(100vh + 80px)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem",
+        padding: "clamp(5.5rem, 13vh, 9.75rem) 1.25rem clamp(3rem, 6vw, 5rem)",
       }}
     >
       {/* 배경 영상 */}
@@ -80,7 +80,7 @@ export default function HeroBanner() {
         style={{
           position: "relative",
           zIndex: 2,
-          maxWidth: "960px",
+          maxWidth: "1150px",
           width: "100%",
           display: "flex",
           flexDirection: "column",
@@ -88,23 +88,46 @@ export default function HeroBanner() {
         }}
       >
         {/* 아이브로우 */}
-        <span className="tag-badge" style={{ marginBottom: "1.4rem" }}>
+        <span
+          className="tag-badge"
+          style={{ marginBottom: "1.4rem", fontSize: "0.95rem" }}
+        >
           홈페이지 메인 제작 솔루션
         </span>
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
-        <h1 style={{ margin: 0, wordBreak: "keep-all" }}>
-          <span className="title-2" style={{ display: "block", color: "#fff" }}>
+        <h1 style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.34 }}>
+          <span
+            className="title-2"
+            style={{
+              display: "block",
+              color: "#fff",
+              fontSize: "clamp(1.8rem, 4.2vw, 2.3rem)",
+            }}
+          >
             <Chars text={LINE1} start={0} />
           </span>
-          <span style={{ display: "block", marginTop: "0.4rem" }}>
-            <span className="large-title" style={{ color: "#fff" }}>
+          <span
+            style={{
+              display: "block",
+              marginTop: "0.95rem",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <span
+              className="large-title"
+              style={{
+                color: "#fff",
+                fontSize: "clamp(1.2rem, 5.6vw, 4rem)",
+              }}
+            >
               <Chars text={LINE2A} start={LINE1.length} />
             </span>
             <span
               className="large-title hero-weflow"
               style={{
                 color: "#fff",
+                fontSize: "clamp(1.2rem, 5.6vw, 4rem)",
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 textShadow:
@@ -150,9 +173,9 @@ export default function HeroBanner() {
               href="/diagnosis"
               className="btn-primary"
               style={{
-                fontSize: "1rem",
+                fontSize: "1.25rem",
                 borderRadius: "9999px",
-                padding: "0.95rem 2.2rem",
+                padding: "1.05rem 2.5rem",
               }}
             >
               무료 진단하기
@@ -163,9 +186,9 @@ export default function HeroBanner() {
             href="/#benefits"
             className="btn-primary"
             style={{
-              fontSize: "1rem",
+              fontSize: "1.25rem",
               borderRadius: "9999px",
-              padding: "0.95rem 2.2rem",
+              padding: "1.05rem 2.5rem",
               background: "var(--accent-dim)",
             }}
           >
@@ -178,7 +201,10 @@ export default function HeroBanner() {
       </div>
 
       <style>{`
-        /* 모바일에서만 WEFLOW를 다음 줄로 */
+        /* 히어로 배지(신청중) 글씨 확대 */
+        .hero-cta-badge { font-size: 0.92rem; }
+
+        /* 모바일에서만 WEFLOW를 다음 줄로 (데스크톱은 한 줄 유지) */
         @media (max-width: 768px) {
           .hero-weflow {
             display: block;

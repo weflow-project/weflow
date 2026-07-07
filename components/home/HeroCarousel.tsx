@@ -45,7 +45,7 @@ export default function HeroCarousel() {
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '960px',
+        maxWidth: '1120px',
         margin: 'clamp(2.5rem, 6vw, 4rem) auto 0',
         aspectRatio: '16 / 9',
         borderRadius: 'var(--radius-2xl)',
@@ -80,7 +80,7 @@ export default function HeroCarousel() {
               src={s.src}
               alt={s.label}
               fill
-              sizes="(max-width: 960px) 100vw, 960px"
+              sizes="(max-width: 1120px) 100vw, 1120px"
               style={{ objectFit: 'cover' }}
               priority={i === 0}
             />
