@@ -136,15 +136,22 @@ export default function LandingPageSection() {
 
           {/* 오른쪽 이미지 */}
           <Reveal as="div" variant="left" className="lps-img">
-            <div
+            <a
+              className="lps-img-frame"
+              href="https://weflow-landingpage.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="참고 랜딩페이지 새 탭으로 열기"
               style={{
                 position: "relative",
+                display: "block",
                 width: "100%",
                 aspectRatio: "16 / 9",
                 borderRadius: "var(--radius-2xl)",
                 overflow: "hidden",
                 background: "#e6eaf1",
                 border: "1px solid var(--border)",
+                cursor: "pointer",
               }}
             >
               <Image
@@ -154,6 +161,35 @@ export default function LandingPageSection() {
                 sizes="(max-width: 768px) 100vw, 520px"
                 style={{ objectFit: "cover" }}
               />
+            </a>
+
+            {/* 곡선 화살표 + 캡션 */}
+            <div className="lps-img-note">
+              <svg
+                className="lps-img-arrow"
+                width="38"
+                height="33"
+                viewBox="0 0 64 56"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M56 29 C 32 41, 13 33, 17 13"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M8 22 L17 10 L28 20"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p className="lps-img-note-text">
+                위 이미지를 클릭하면 <strong>참고 링크</strong>로 이동합니다
+              </p>
             </div>
           </Reveal>
         </div>
@@ -168,9 +204,59 @@ export default function LandingPageSection() {
         }
         .lps-text { flex: 1; min-width: 0; }
         .lps-img { flex: 1; min-width: 0; }
+
+        /* 이미지 — 주기적으로 살짝 흔들려 클릭을 유도 */
+        .lps-img-frame {
+          transform-origin: 50% 62%;
+          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          animation: lpsImgWiggle 3.8s ease-in-out infinite;
+        }
+        .lps-img-frame:hover {
+          animation: lpsImgWiggleHover 0.45s ease-in-out infinite;
+          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+        }
+        @keyframes lpsImgWiggle {
+          0%, 70%, 100% { transform: rotate(0deg) translateY(0); }
+          74% { transform: rotate(-1.3deg) translateY(-3px); }
+          79% { transform: rotate(1.1deg) translateY(-1px); }
+          84% { transform: rotate(-0.7deg) translateY(0); }
+          89% { transform: rotate(0.4deg) translateY(0); }
+          94% { transform: rotate(-0.15deg) translateY(0); }
+        }
+        /* hover 시 더 크고 빠르게 흔들림 */
+        @keyframes lpsImgWiggleHover {
+          0%, 100% { transform: rotate(0deg) scale(1.02); }
+          25% { transform: rotate(-2.4deg) scale(1.02); }
+          75% { transform: rotate(2.4deg) scale(1.02); }
+        }
+
+        /* 곡선 화살표 + 캡션 */
+        .lps-img-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.55rem;
+          margin-top: 0.85rem;
+        }
+        .lps-img-arrow { flex-shrink: 0; }
+        .lps-img-note-text {
+          margin: 0;
+          font-size: 1.05rem;
+          font-weight: 600;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .lps-img-note-text strong { color: var(--accent); }
+
         @media (max-width: 768px) {
           .lps-split { flex-direction: column; align-items: stretch; }
           .lps-img { max-width: 360px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .lps-img-frame,
+          .lps-img-frame:hover { animation: none; }
         }
       `}</style>
     </section>

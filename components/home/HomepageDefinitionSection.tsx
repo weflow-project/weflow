@@ -1,3 +1,5 @@
+"use client";
+
 import Reveal from "@/components/Reveal";
 import Image from "next/image";
 import { Home, Clock, Search, Database, ArrowUp } from "lucide-react";
@@ -193,6 +195,19 @@ export default function HomepageDefinitionSection() {
           {/* 오른쪽 이미지 */}
           <Reveal as="div" variant="right" className="def-img">
             <div
+              className="def-img-frame"
+              role="button"
+              tabIndex={0}
+              aria-label="페이지 상단으로 이동"
+              onClick={() =>
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
               style={{
                 position: "relative",
                 width: "100%",
@@ -201,6 +216,7 @@ export default function HomepageDefinitionSection() {
                 overflow: "hidden",
                 background: "#e6eaf1",
                 border: "1px solid var(--border)",
+                cursor: "pointer",
               }}
             >
               <Image
@@ -210,6 +226,35 @@ export default function HomepageDefinitionSection() {
                 sizes="(max-width: 768px) 100vw, 520px"
                 style={{ objectFit: "cover" }}
               />
+            </div>
+
+            {/* 곡선 화살표 + 캡션 */}
+            <div className="def-img-note">
+              <svg
+                className="def-img-arrow"
+                width="38"
+                height="33"
+                viewBox="0 0 64 56"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M56 29 C 32 41, 13 33, 17 13"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M8 22 L17 10 L28 20"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p className="def-img-note-text">
+                위 이미지는 지금 보고 계신 <strong>홈페이지</strong>입니다.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -223,9 +268,59 @@ export default function HomepageDefinitionSection() {
         }
         .def-text { flex: 1; min-width: 0; }
         .def-img { flex: 1; min-width: 0; }
+
+        /* 이미지 — 주기적으로 살짝 흔들려 클릭을 유도 */
+        .def-img-frame {
+          transform-origin: 50% 62%;
+          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          animation: defImgWiggle 3.8s ease-in-out infinite;
+        }
+        .def-img-frame:hover {
+          animation: defImgWiggleHover 0.45s ease-in-out infinite;
+          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+        }
+        @keyframes defImgWiggle {
+          0%, 70%, 100% { transform: rotate(0deg) translateY(0); }
+          74% { transform: rotate(-1.3deg) translateY(-3px); }
+          79% { transform: rotate(1.1deg) translateY(-1px); }
+          84% { transform: rotate(-0.7deg) translateY(0); }
+          89% { transform: rotate(0.4deg) translateY(0); }
+          94% { transform: rotate(-0.15deg) translateY(0); }
+        }
+        /* hover 시 더 크고 빠르게 흔들림 */
+        @keyframes defImgWiggleHover {
+          0%, 100% { transform: rotate(0deg) scale(1.02); }
+          25% { transform: rotate(-2.4deg) scale(1.02); }
+          75% { transform: rotate(2.4deg) scale(1.02); }
+        }
+
+        /* 곡선 화살표 + 캡션 */
+        .def-img-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.55rem;
+          margin-top: 0.85rem;
+        }
+        .def-img-arrow { flex-shrink: 0; }
+        .def-img-note-text {
+          margin: 0;
+          font-size: 1.05rem;
+          font-weight: 600;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .def-img-note-text strong { color: var(--accent); }
+
         @media (max-width: 768px) {
           .def-split { flex-direction: column; align-items: stretch; }
           .def-img { max-width: 360px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .def-img-frame,
+          .def-img-frame:hover { animation: none; }
         }
       `}</style>
     </section>
