@@ -196,7 +196,7 @@ export default function HomepageDefinitionSection() {
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "4 / 3",
+                aspectRatio: "16 / 9",
                 borderRadius: "var(--radius-2xl)",
                 overflow: "hidden",
                 background: "#e6eaf1",
@@ -218,7 +218,7 @@ export default function HomepageDefinitionSection() {
       <style>{`
         .def-split {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: clamp(1.75rem, 4vw, 3.5rem);
         }
         .def-text { flex: 1; min-width: 0; }

@@ -117,23 +117,21 @@ export default function WhyAdminSection() {
             className={`wa-row${i % 2 === 0 ? " reverse" : ""}`}
           >
             {/* 텍스트 */}
-            <div className={`wa-text${i === 0 ? " wa-text--key" : ""}`}>
-              {i === 0 && (
-                <Crown
-                  strokeWidth={2}
-                  color="#f5b301"
-                  fill="#f5b301"
-                  style={{
-                    width: "1.625rem",
-                    height: "1.625rem",
-                    display: "block",
-                    marginBottom: "0.2rem",
-                    marginLeft: "-0.15rem",
-                  }}
-                />
-              )}
+            <div className="wa-text wa-text--key">
+              <Crown
+                strokeWidth={2}
+                color="#f5b301"
+                fill="#f5b301"
+                style={{
+                  width: "1.625rem",
+                  height: "1.625rem",
+                  display: "block",
+                  marginBottom: "0.2rem",
+                  marginLeft: "-0.15rem",
+                }}
+              />
               <span className="footnote emphasized c-accent">{p.order}</span>
-              {i === 0 && <span className="wa-badge">핵심</span>}
+              <span className="wa-badge">핵심</span>
               <h3
                 className="title-2 emphasized"
                 style={{ margin: "0.5rem 0 1rem", wordBreak: "keep-all" }}
@@ -218,7 +216,8 @@ export default function WhyAdminSection() {
           padding: clamp(1.25rem, 3vw, 2rem);
         }
         @media (max-width: 768px) {
-          .wa-row, .wa-row.reverse { flex-direction: column; }
+          /* 모바일: 모든 행을 이미지 → 설명 순서로 (DOM은 텍스트가 먼저라 column-reverse) */
+          .wa-row, .wa-row.reverse { flex-direction: column-reverse; }
         }
         /* 파란 키워드 흔들림 (화면 진입 후 7초마다 잠깐) — WhatIs와 동일 */
         .wa-stat { transform-origin: center bottom; }

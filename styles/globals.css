@@ -153,7 +153,8 @@
   }
 
   /* 타이틀 사선 하이라이트(형광펜) — 전역 재사용 */
-  .tilt-hl { position: relative; z-index: 0; }
+  /* inline-block: 문구가 줄 중간에서 쪼개지지 않게 해 ::before 하이라이트가 항상 한 줄 아래 정확히 깔림 (모바일 줄바꿈 대응) */
+  .tilt-hl { position: relative; z-index: 0; display: inline-block; }
   .tilt-hl::before {
     content: '';
     position: absolute;
@@ -813,6 +814,11 @@
 /* ── 홈 스크롤 스냅 제거 — 페이지마다 끊기지 않고 자연스럽게 연속 스크롤 ── */
 /* (body.snap-home 클래스는 더 이상 스냅을 적용하지 않음) */
 
+/* 모바일에서만 줄바꿈 */
+.br-mobile {
+  display: none;
+}
+
 /* ── 모바일 반응형 ── */
 @media (max-width: 768px) {
   .section-title {
@@ -820,6 +826,9 @@
   }
   .hide-mobile {
     display: none !important;
+  }
+  .br-mobile {
+    display: block;
   }
 }
 

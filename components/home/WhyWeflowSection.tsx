@@ -69,7 +69,9 @@ export default function WhyWeflowSection() {
               wordBreak: "keep-all",
             }}
           >
-            누구나 한 번쯤 하는 생각입니다. 그런데 막상 만들어 보면—
+            누구나 한 번쯤 하는 생각입니다.{" "}
+            <br className="br-mobile" />
+            그런데 막상 만들어 보면—
           </p>
         </Reveal>
 
@@ -155,7 +157,9 @@ export default function WhyWeflowSection() {
                 fontSize: "clamp(1.05rem, 2.4vw, 1.2rem)",
               }}
             >
-              AI가 뚝딱 만들어 준 결과물엔, 이런 한계가 반복됩니다.
+              AI가 뚝딱 만들어 준 결과물엔,{" "}
+              <br className="br-mobile" />
+              이런 한계가 반복됩니다.
             </p>
             <ul
               style={{
@@ -345,6 +349,7 @@ export default function WhyWeflowSection() {
             style={{ margin: "0 0 1.5rem", wordBreak: "keep-all" }}
           >
             보기 좋은 페이지가 아니라,{" "}
+            <br className="br-mobile" />
             <span className="c-accent emphasized">성과를 내는 페이지</span>.
           </p>
           <div style={{ display: "flex", gap: "0.9rem", justifyContent: "center", flexWrap: "wrap" }}>

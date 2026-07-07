@@ -23,7 +23,9 @@ export default function HomeAboutSection() {
             className="title-1"
             style={{ margin: "0.75rem 0 0", wordBreak: "keep-all" }}
           >
-            사람이 움직이면, <span className="c-accent">기술은 따라온다</span>
+            사람이 움직이면,{" "}
+            <br className="br-mobile" />
+            <span className="c-accent">기술은 따라온다</span>
           </h2>
           <p
             className="callout c-muted"

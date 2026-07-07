@@ -102,7 +102,7 @@ export default function HeroBanner() {
               <Chars text={LINE2A} start={LINE1.length} />
             </span>
             <span
-              className="large-title"
+              className="large-title hero-weflow"
               style={{
                 color: "#fff",
                 fontWeight: 900,
@@ -176,6 +176,15 @@ export default function HeroBanner() {
         {/* 대표 이미지 캐러셀 (10장 · 3초 자동 좌우 슬라이드) */}
         <HeroCarousel />
       </div>
+
+      <style>{`
+        /* 모바일에서만 WEFLOW를 다음 줄로 */
+        @media (max-width: 768px) {
+          .hero-weflow {
+            display: block;
+          }
+        }
+      `}</style>
     </section>
   );
 }

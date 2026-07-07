@@ -141,7 +141,7 @@ export default function TargetCustomerSection() {
             textAlign: "center",
             margin: 0,
             wordBreak: "keep-all",
-            fontSize: "clamp(1.15rem, 2.8vw, 1.5rem)",
+            fontSize: "clamp(1.4rem, 3.4vw, 1.85rem)",
             fontWeight: 600,
             lineHeight: 1.5,
           }}

@@ -60,8 +60,9 @@ export default function BenefitsSection() {
               wordBreak: "keep-all",
             }}
           >
-            지금 시작하면, <span style={{ color: "#8fb4ff" }}>3가지 혜택</span>
-            을 한 번에
+            지금 시작하면,{" "}
+            <br className="br-mobile" />
+            <span style={{ color: "#8fb4ff" }}>3가지 혜택</span>을 한 번에
           </h2>
           <p
             className="body"
@@ -191,8 +192,9 @@ export default function BenefitsSection() {
             wordBreak: "keep-all",
           }}
         >
-          * 프로모션은 선착순으로 조기 마감될 수 있습니다. 지금 부담 없이
-          시작하세요!
+          * 프로모션은 선착순으로 조기 마감될 수 있습니다.{" "}
+          <br className="br-mobile" />
+          지금 부담 없이 시작하세요!
         </p>
         <div style={{ textAlign: "center" }}>
           <Link

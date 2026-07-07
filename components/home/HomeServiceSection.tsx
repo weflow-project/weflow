@@ -66,8 +66,9 @@ export default function HomeServiceSection() {
               wordBreak: "keep-all",
             }}
           >
-            제작부터 마케팅까지, <span className="c-accent">하나의 흐름</span>
-            으로
+            제작부터 마케팅까지,{" "}
+            <br className="br-mobile" />
+            <span className="c-accent">하나의 흐름</span>으로
           </h2>
           <p
             className="body c-muted"
@@ -77,7 +78,9 @@ export default function HomeServiceSection() {
               wordBreak: "keep-all",
             }}
           >
-            상담부터 제휴 마케팅 연결까지, WEFLOW의 6단계 프로세스로 완성합니다.
+            상담부터 제휴 마케팅 연결까지,{" "}
+            <br className="br-mobile" />
+            WEFLOW의 6단계 프로세스로 완성합니다.
           </p>
         </Reveal>
 

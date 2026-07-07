@@ -247,7 +247,8 @@ export default function WhatIsHomepageSection() {
           padding: clamp(1.25rem, 3vw, 2rem);
         }
         @media (max-width: 768px) {
-          .wih-row, .wih-row.reverse { flex-direction: column; }
+          /* 모바일: 모든 행을 이미지 → 설명 순서로 (DOM은 텍스트가 먼저라 column-reverse) */
+          .wih-row, .wih-row.reverse { flex-direction: column-reverse; }
         }
         /* 파란 숫자 흔들림 효과 (화면 진입 후 7초마다 잠깐 흔들림) */
         .wih-stat { transform-origin: center bottom; }
