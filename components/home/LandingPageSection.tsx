@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import Image from "next/image";
 import { Target, Rocket, TrendingUp } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -133,25 +134,26 @@ export default function LandingPageSection() {
             </div>
           </Reveal>
 
-          {/* 오른쪽 이미지 (추후 교체) */}
+          {/* 오른쪽 이미지 */}
           <Reveal as="div" variant="left" className="lps-img">
             <div
               style={{
+                position: "relative",
                 width: "100%",
                 aspectRatio: "4 / 3",
                 borderRadius: "var(--radius-2xl)",
+                overflow: "hidden",
                 background: "#e6eaf1",
-                border: "1px dashed rgba(11,18,32,0.14)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--text-secondary)",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
+                border: "1px solid var(--border)",
               }}
             >
-              이미지
+              <Image
+                src="/images/main/main-landing-01.png"
+                alt="랜딩페이지란"
+                fill
+                sizes="(max-width: 768px) 100vw, 520px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
           </Reveal>
         </div>

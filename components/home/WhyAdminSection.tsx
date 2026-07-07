@@ -216,8 +216,8 @@ export default function WhyAdminSection() {
           padding: clamp(1.25rem, 3vw, 2rem);
         }
         @media (max-width: 768px) {
-          /* 모바일: 모든 행을 이미지 → 설명 순서로 (DOM은 텍스트가 먼저라 column-reverse) */
-          .wa-row, .wa-row.reverse { flex-direction: column-reverse; }
+          /* 모바일: 이미지 → 설명 순서(column-reverse) + stretch로 이미지 폭 붕괴 방지 */
+          .wa-row, .wa-row.reverse { flex-direction: column-reverse; align-items: stretch; }
         }
         /* 파란 키워드 흔들림 (화면 진입 후 7초마다 잠깐) — WhatIs와 동일 */
         .wa-stat { transform-origin: center bottom; }
