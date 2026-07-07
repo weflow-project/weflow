@@ -135,11 +135,7 @@ export default function AdManagement() {
               Icon={Icon}
               title={title}
               desc={desc}
-              img={
-                i === 1 || i === 2
-                  ? `/images/service/service${i + 18}.png`
-                  : undefined
-              }
+              img={`/images/service/service${i + 18}.png`}
             />
           ))}
         </Reveal>

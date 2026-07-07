@@ -200,17 +200,13 @@ export default function BenefitDetails() {
 
                 {/* 이미지 (통계 관리자 페이지는 제외) */}
                 <div className="bd-img">
-                  {i === 1 ? (
-                    <span className="bd-img-ph">이미지</span>
-                  ) : (
-                    <Image
-                      src={`/images/benefits/benefits${i + 1}.png`}
-                      alt={b.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 520px"
-                      style={{ objectFit: "cover" }}
-                    />
-                  )}
+                  <Image
+                    src={`/images/benefits/benefits${i + 1}.png`}
+                    alt={b.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 520px"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
               </Reveal>
             ))}

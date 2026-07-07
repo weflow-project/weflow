@@ -167,17 +167,13 @@ export default function ServiceFeatures() {
 
               {/* 이미지 (관리자 페이지 제공 카드는 제외) */}
               <div className="svc-feat-img">
-                {i === 1 ? (
-                  <span className="svc-img-ph">이미지</span>
-                ) : (
-                  <Image
-                    src={`/images/service/service${i + 1}.png`}
-                    alt={title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 340px"
-                    style={{ objectFit: "cover" }}
-                  />
-                )}
+                <Image
+                  src={`/images/service/service${i + 1}.png`}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 340px"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
           ))}
