@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { RiKakaoTalkFill } from 'react-icons/ri'
 
 const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
@@ -31,11 +32,8 @@ const MailIcon = () => (
     <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
   </svg>
 )
-const KakaoIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 3C6.477 3 2 6.582 2 11.01c0 2.865 1.768 5.38 4.438 6.895-.196.73-.71 2.645-.812 3.056-.127.508.186.501.39.365.16-.108 2.538-1.724 3.566-2.426.454.064.921.1 1.418.1 5.523 0 10-3.582 10-8.01C22 6.582 17.523 3 12 3z"/>
-  </svg>
-)
+const KakaoIcon = () => <RiKakaoTalkFill size={14} />
+
 const InstagramIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>

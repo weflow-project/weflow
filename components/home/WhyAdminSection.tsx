@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { Star, Crown } from "lucide-react";
 
 type Point = { order: string; title: string; kw: string; desc: ReactNode };
@@ -160,25 +161,26 @@ export default function WhyAdminSection() {
               </p>
             </div>
 
-            {/* 이미지 자리 (추후 교체) */}
+            {/* 이미지 */}
             <div className="wa-img">
               <div
                 style={{
+                  position: "relative",
                   width: "100%",
                   aspectRatio: "4 / 3",
                   borderRadius: "var(--radius-2xl)",
+                  overflow: "hidden",
                   background: "#e6eaf1",
-                  border: "1px dashed rgba(11,18,32,0.14)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                  fontSize: "0.9rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.02em",
+                  border: "1px solid var(--border)",
                 }}
               >
-                이미지
+                <Image
+                  src={`/images/main/main-adminwhy-0${i + 1}.png`}
+                  alt={p.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
           </div>
