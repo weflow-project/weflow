@@ -22,10 +22,10 @@ export default function ReviewsExplorer() {
           CUSTOMER REVIEWS
         </p>
         <h1 className="title-1" style={{ margin: '0 0 0.9rem' }}>
-          고객 후기
+          고객 인터뷰
         </h1>
         <p className="callout c-muted" style={{ margin: '0 0 1.75rem', maxWidth: '440px', wordBreak: 'keep-all' }}>
-          고객 후기를 준비 중입니다. 곧 실제 후기로 찾아뵐게요.
+          고객 인터뷰를 준비 중입니다. 곧 실제 인터뷰로 찾아뵐게요.
         </p>
         <Link href="/diagnosis" className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 2.2rem' }}>
           무료 진단 신청하기 →

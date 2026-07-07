@@ -188,7 +188,7 @@ export default function LandingPageSection() {
                 />
               </svg>
               <p className="lps-img-note-text">
-                위 이미지를 클릭하면 <strong>참고 링크</strong>로 이동합니다
+                위 이미지를 클릭하면 <strong>참고 링크</strong>로 이동합니다.
               </p>
             </div>
           </Reveal>

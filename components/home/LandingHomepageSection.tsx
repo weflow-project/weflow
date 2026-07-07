@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import Image from "next/image";
 import { Rows3, Anchor, Target } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -140,25 +141,52 @@ export default function LandingHomepageSection() {
             </div>
           </Reveal>
 
-          {/* 오른쪽 이미지 (추후 교체) */}
+          {/* 오른쪽 이미지 — 원본 비율 그대로(자르지 않음) */}
           <Reveal as="div" variant="right" className="lhd-img">
-            <div
-              style={{
-                width: "100%",
-                aspectRatio: "4 / 3",
-                borderRadius: "var(--radius-2xl)",
-                background: "#e6eaf1",
-                border: "1px dashed rgba(11,18,32,0.14)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--text-secondary)",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-              }}
+            <a
+              className="lhd-img-frame"
+              href="https://weflow-landinghomepage.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="참고 랜딩형 홈페이지 새 탭으로 열기"
             >
-              이미지
+              <Image
+                src="/images/main/main-landing-home-01.png"
+                alt="랜딩형 홈페이지란"
+                width={751}
+                height={820}
+                sizes="(max-width: 768px) 100vw, 370px"
+                style={{ display: "block", width: "100%", height: "auto" }}
+              />
+            </a>
+
+            {/* 곡선 화살표 + 캡션 */}
+            <div className="lhd-img-note">
+              <svg
+                className="lhd-img-arrow"
+                width="38"
+                height="33"
+                viewBox="0 0 64 56"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M56 29 C 32 41, 13 33, 17 13"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M8 22 L17 10 L28 20"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p className="lhd-img-note-text">
+                위 이미지를 클릭하면 <strong>참고 링크</strong>로 이동합니다.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -171,10 +199,68 @@ export default function LandingHomepageSection() {
           gap: clamp(1.75rem, 4vw, 3.5rem);
         }
         .lhd-text { flex: 1; min-width: 0; }
-        .lhd-img { flex: 1; min-width: 0; }
+        .lhd-img { flex: 1; min-width: 0; margin-top: -1.25rem; }
+
+        /* 이미지 — 클릭 가능 · 주기적으로 살짝 흔들려 클릭을 유도 */
+        .lhd-img-frame {
+          display: block;
+          width: 100%;
+          max-width: 370px;
+          margin: 0 auto;
+          overflow: hidden;
+          border: 1px solid var(--border);
+          border-radius: var(--radius-2xl);
+          cursor: pointer;
+          transform-origin: 50% 62%;
+          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          animation: lhdImgWiggle 3.8s ease-in-out infinite;
+        }
+        .lhd-img-frame:hover {
+          animation: lhdImgWiggleHover 0.45s ease-in-out infinite;
+          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+        }
+        @keyframes lhdImgWiggle {
+          0%, 70%, 100% { transform: rotate(0deg) translateY(0); }
+          74% { transform: rotate(-1.3deg) translateY(-3px); }
+          79% { transform: rotate(1.1deg) translateY(-1px); }
+          84% { transform: rotate(-0.7deg) translateY(0); }
+          89% { transform: rotate(0.4deg) translateY(0); }
+          94% { transform: rotate(-0.15deg) translateY(0); }
+        }
+        /* hover 시 더 크고 빠르게 흔들림 */
+        @keyframes lhdImgWiggleHover {
+          0%, 100% { transform: rotate(0deg) scale(1.02); }
+          25% { transform: rotate(-2.4deg) scale(1.02); }
+          75% { transform: rotate(2.4deg) scale(1.02); }
+        }
+
+        /* 곡선 화살표 + 캡션 */
+        .lhd-img-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.55rem;
+          margin-top: 0.85rem;
+        }
+        .lhd-img-arrow { flex-shrink: 0; }
+        .lhd-img-note-text {
+          margin: 0;
+          font-size: 1.05rem;
+          font-weight: 600;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .lhd-img-note-text strong { color: var(--accent); }
+
         @media (max-width: 768px) {
           .lhd-split { flex-direction: column; align-items: stretch; }
-          .lhd-img { max-width: 360px; }
+          .lhd-img { max-width: 360px; margin-top: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .lhd-img-frame,
+          .lhd-img-frame:hover { animation: none; }
         }
       `}</style>
     </section>

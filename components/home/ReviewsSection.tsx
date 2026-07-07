@@ -49,13 +49,13 @@ export default function ReviewsSection() {
         flexWrap: 'wrap',
       }}>
         <div>
-          <p className="footnote emphasized c-accent" style={{ marginBottom: '0.5rem' }}>고객의 찐후기</p>
-          <h2 className="title-1" style={{ marginBottom: '0.35rem' }}>고객 후기</h2>
+          <p className="footnote emphasized c-accent" style={{ marginBottom: '0.5rem' }}>고객의 찐인터뷰</p>
+          <h2 className="title-1" style={{ marginBottom: '0.35rem' }}>고객 인터뷰</h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ color: '#f59e0b', fontSize: '0.85rem' }}>{'★'.repeat(5)}</span>
             <span className="footnote emphasized c-secondary">5.0</span>
             <span style={{ color: 'var(--border)', fontSize: '0.75rem' }}>·</span>
-            <span className="footnote c-muted">{reviews.length}개 후기</span>
+            <span className="footnote c-muted">{reviews.length}개 인터뷰</span>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export default function ReviewsSection() {
           borderBottom: '1px solid var(--border)',
           transition: 'color 0.15s, border-color 0.15s',
         }}>
-          전체 후기 보기
+          전체 인터뷰 보기
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -93,7 +93,7 @@ export default function ReviewsSection() {
       {/* 하단 CTA */}
       <div style={{ textAlign: 'center', padding: '0 1.5rem' }}>
         <Link href="/cases" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-          성공 사례 및 후기 더 보기
+          성공 사례 및 인터뷰 더 보기
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

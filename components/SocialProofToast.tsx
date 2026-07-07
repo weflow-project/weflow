@@ -14,6 +14,26 @@ const ITEMS = [
   { area: '송파', biz: '웨딩스냅 작가', action: '무료 진단을 신청했습니다' },
   { area: '부천', biz: 'PT 트레이너', action: '무료 진단을 신청했습니다' },
   { area: '일산', biz: '입시학원', action: '제작 상담을 문의했습니다' },
+  { area: '잠실', biz: '요가원', action: '무료 진단을 신청했습니다' },
+  { area: '판교', biz: '세무사무소', action: '홈페이지 제작을 의뢰했습니다' },
+  { area: '서초', biz: '성형외과', action: '제작 상담을 문의했습니다' },
+  { area: '노원', biz: '영어학원', action: '무료 진단을 신청했습니다' },
+  { area: '용산', biz: '애견카페', action: '홈페이지 제작을 의뢰했습니다' },
+  { area: '광진', biz: '헬스장', action: '무료 진단을 신청했습니다' },
+  { area: '동탄', biz: '브런치 카페', action: '제작 상담을 문의했습니다' },
+  { area: '부산 해운대', biz: '미용실', action: '무료 진단을 신청했습니다' },
+  { area: '대구 수성구', biz: '한의원', action: '홈페이지 제작을 의뢰했습니다' },
+  { area: '청주', biz: '치과', action: '제작 상담을 문의했습니다' },
+  { area: '천안', biz: '필라테스 센터', action: '무료 진단을 신청했습니다' },
+  { area: '안양', biz: '법무사 사무소', action: '홈페이지 제작을 의뢰했습니다' },
+  { area: '성남', biz: '공유오피스', action: '무료 진단을 신청했습니다' },
+  { area: '김포', biz: '태권도장', action: '제작 상담을 문의했습니다' },
+  { area: '평택', biz: '자동차 정비소', action: '무료 진단을 신청했습니다' },
+  { area: '구리', biz: '플라워샵', action: '홈페이지 제작을 의뢰했습니다' },
+  { area: '남양주', biz: '목공방', action: '제작 상담을 문의했습니다' },
+  { area: '화성', biz: '이사업체', action: '무료 진단을 신청했습니다' },
+  { area: '광주 상무', biz: '스터디카페', action: '무료 진단을 신청했습니다' },
+  { area: '대전 유성', biz: '동물병원', action: '홈페이지 제작을 의뢰했습니다' },
 ]
 
 // 0(포함)~max(미포함) 사이 정수
@@ -53,8 +73,8 @@ export default function SocialProofToast() {
 
   useEffect(() => {
     setMounted(true)
-    // 첫 알림: 8~14초 후 랜덤
-    timerRef.current = setTimeout(showRandom, 8000 + randInt(6000))
+    // 첫 알림: 6~11초 후 랜덤
+    timerRef.current = setTimeout(showRandom, 6000 + randInt(5000))
     return () => clearTimeout(timerRef.current)
   }, [])
 
@@ -65,10 +85,10 @@ export default function SocialProofToast() {
     return () => clearTimeout(hideTimer)
   }, [visible, idx])
 
-  // 숨겨지면 25~40초 후 다음 랜덤 알림
+  // 숨겨지면 18~28초 후 다음 랜덤 알림
   useEffect(() => {
     if (!mounted || visible) return
-    timerRef.current = setTimeout(showRandom, 25000 + randInt(15000))
+    timerRef.current = setTimeout(showRandom, 18000 + randInt(10000))
     return () => clearTimeout(timerRef.current)
   }, [visible, mounted])
 

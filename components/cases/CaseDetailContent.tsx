@@ -198,14 +198,14 @@ export default function CaseDetailContent({ c, imageSrc, slug }: Props) {
           </div>
         </div>
 
-        {/* 고객 후기 */}
+        {/* 고객 인터뷰 */}
         <div style={{
           background: '#fff', borderRadius: '14px', overflow: 'hidden',
           border: '1px solid var(--border)', marginBottom: '1.25rem',
           boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
         }}>
           <div style={{ padding: '1.5rem 1.75rem 1rem' }}>
-            <h2 className="headline" style={{ margin: 0 }}>고객 후기</h2>
+            <h2 className="headline" style={{ margin: 0 }}>고객 인터뷰</h2>
           </div>
           <div style={{ padding: '0 1.75rem 1.75rem' }}>
             <div style={{

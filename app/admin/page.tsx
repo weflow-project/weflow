@@ -1087,7 +1087,7 @@ const PAGE_KO: Record<string, string> = {
   "/cases": "성공 사례",
   "/diagnosis": "무료 진단",
   "/pricing": "가격 안내",
-  "/reviews": "고객 후기",
+  "/reviews": "고객 인터뷰",
   "/service": "서비스 소개",
 };
 // 경로 → 사람이 알아보는 한글 이름 (쿼리·해시 제거, 미등록 경로는 경로 그대로)
