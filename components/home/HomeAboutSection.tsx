@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
 const MEANING = [
-  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치" },
-  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 나아가는 움직임" },
+  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/main/main-about-01.png" },
+  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 나아가는 움직임", img: "/images/main/main-about-02.png" },
 ];
 
 export default function HomeAboutSection() {
@@ -46,7 +47,7 @@ export default function HomeAboutSection() {
 
         {/* WE · FLOW (2×1) */}
         <Reveal as="div" stagger className="about-meaning">
-          {MEANING.map(({ key, desc }) => (
+          {MEANING.map(({ key, desc, img }) => (
             <div
               key={key}
               style={{
@@ -68,7 +69,15 @@ export default function HomeAboutSection() {
               >
                 {desc}
               </p>
-              <div className="about-card-img">이미지</div>
+              <div className="about-card-img">
+                <Image
+                  src={img}
+                  alt={key}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 520px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </div>
           ))}
         </Reveal>
@@ -92,19 +101,14 @@ export default function HomeAboutSection() {
           gap: 1.1rem;
         }
         .about-card-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
           margin-top: 1.1rem;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         @media (max-width: 640px) {
           .about-meaning { grid-template-columns: 1fr; }

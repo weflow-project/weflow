@@ -1,24 +1,29 @@
 import { MessageCircle, PenLine, Users } from "lucide-react";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { LucideIcon } from "lucide-react";
 
-const POINTS: { Icon: LucideIcon; title: string; desc: string }[] = [
-  {
-    Icon: MessageCircle,
-    title: "소통",
-    desc: "제작 전 충분한 상담으로 고객이 진짜 원하는 것을 먼저 듣고 시작합니다.",
-  },
-  {
-    Icon: PenLine,
-    title: "맞춤형 워딩",
-    desc: "업종과 브랜드 톤에 맞는 문구를 직접 설계해, 방문자에게 전달력 있게 다가갑니다.",
-  },
-  {
-    Icon: Users,
-    title: "1:1 맞춤 시스템",
-    desc: "전담 담당자가 고객 한 분을 전담하는 1:1 케어로 디테일까지 챙깁니다.",
-  },
-];
+const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
+  [
+    {
+      Icon: MessageCircle,
+      title: "소통",
+      desc: "제작 전 충분한 상담으로 고객이 진짜 원하는 것을 먼저 듣고 시작합니다.",
+      img: "/images/main/main-listen-01.png",
+    },
+    {
+      Icon: PenLine,
+      title: "맞춤형 워딩",
+      desc: "업종과 브랜드 톤에 맞는 문구를 직접 설계해, 방문자에게 전달력 있게 다가갑니다.",
+      img: "/images/main/main-listen-02.png",
+    },
+    {
+      Icon: Users,
+      title: "1:1 맞춤 시스템",
+      desc: "전담 담당자가 고객 한 분을 전담하는 1:1 케어로 디테일까지 챙깁니다.",
+      img: "/images/main/main-listen-03.png",
+    },
+  ];
 
 export default function ListeningSection() {
   return (
@@ -56,7 +61,7 @@ export default function ListeningSection() {
 
         {/* 3개 카드 (각 카드에 이미지) */}
         <Reveal as="div" stagger className="listen-list">
-          {POINTS.map(({ Icon, title, desc }) => (
+          {POINTS.map(({ Icon, title, desc, img }) => (
             <div key={title} className="listen-card">
               <span className="listen-card-icon">
                 <Icon size={22} strokeWidth={2} />
@@ -70,7 +75,15 @@ export default function ListeningSection() {
               >
                 {desc}
               </p>
-              <div className="listen-card-img">이미지</div>
+              <div className="listen-card-img">
+                <Image
+                  src={img}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 860px) 100vw, 340px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </div>
           ))}
         </Reveal>
@@ -98,19 +111,14 @@ export default function ListeningSection() {
           justify-content: center;
         }
         .listen-card-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 4 / 3;
           margin-top: 1.25rem;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         @media (max-width: 860px) {
           .listen-list { grid-template-columns: 1fr; }

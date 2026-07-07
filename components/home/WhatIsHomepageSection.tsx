@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
+import Image from 'next/image'
 import { ArrowUp, Crown, Star } from 'lucide-react'
 
 type Point = {
@@ -92,6 +93,16 @@ const POINTS: Point[] = [
   },
 ]
 
+// POINTS 순서와 1:1 매핑 (03만 .jpg)
+const WHY_IMAGES = [
+  '/images/main/main-why-01.png',
+  '/images/main/main-why-02.png',
+  '/images/main/main-why-03.png',
+  '/images/main/main-why-04.png',
+  '/images/main/main-why-05.png',
+  '/images/main/main-why-06.png',
+]
+
 export default function WhatIsHomepageSection() {
   const ref = useRef<HTMLElement>(null)
   const [inView, setInView] = useState(false)
@@ -179,25 +190,26 @@ export default function WhatIsHomepageSection() {
               </p>
             </div>
 
-            {/* 이미지 자리 (추후 교체) */}
+            {/* 이미지 */}
             <div className="wih-img">
               <div
                 style={{
+                  position: 'relative',
                   width: '100%',
                   aspectRatio: '4 / 3',
                   borderRadius: 'var(--radius-2xl)',
+                  overflow: 'hidden',
                   background: '#e6eaf1',
-                  border: '1px dashed rgba(11,18,32,0.14)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.02em',
+                  border: '1px solid var(--border)',
                 }}
               >
-                이미지
+                <Image
+                  src={WHY_IMAGES[i]}
+                  alt={p.title}
+                  fill
+                  sizes="(max-width: 860px) 100vw, 480px"
+                  style={{ objectFit: 'cover' }}
+                />
               </div>
             </div>
           </div>

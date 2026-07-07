@@ -1,8 +1,10 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const SLIDES = Array.from({ length: 10 }, (_, i) => ({
+  src: `/images/main/main-hero-${String(i + 1).padStart(2, '0')}.png`,
   label: `대표 이미지 ${i + 1}`,
 }))
 const COUNT = SLIDES.length
@@ -72,16 +74,17 @@ export default function HeroCarousel() {
               flex: '0 0 100%',
               height: '100%',
               position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               background: 'var(--bg-secondary)',
-              color: 'var(--text-secondary)',
-              fontSize: 'clamp(1rem, 3vw, 1.5rem)',
-              fontWeight: 600,
             }}
           >
-            {s.label}
+            <Image
+              src={s.src}
+              alt={s.label}
+              fill
+              sizes="(max-width: 960px) 100vw, 960px"
+              style={{ objectFit: 'cover' }}
+              priority={i === 0}
+            />
           </div>
         ))}
       </div>

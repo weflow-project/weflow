@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { SiNaver } from "react-icons/si";
 import { FaInstagram, FaYoutube, FaMapMarkerAlt } from "react-icons/fa";
@@ -51,18 +52,45 @@ function InstagramGradientDef() {
   );
 }
 
-// 이미지 자리 (실제 이미지는 추후 삽입)
+// 이미지 (src 없으면 자리표시자)
 function ImagePlaceholder({
   aspectRatio,
   width,
   label = "이미지",
+  src,
   style,
 }: {
   aspectRatio?: string;
   width?: string;
   label?: string;
+  src?: string;
   style?: React.CSSProperties;
 }) {
+  if (src) {
+    return (
+      <div
+        style={{
+          position: "relative",
+          width: width ?? "100%",
+          aspectRatio,
+          flexShrink: 0,
+          borderRadius: "var(--radius-xl)",
+          overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.12)",
+          background: "rgba(0,0,0,0.18)",
+          ...style,
+        }}
+      >
+        <Image
+          src={src}
+          alt={label}
+          fill
+          sizes="(max-width: 860px) 100vw, 520px"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    );
+  }
   return (
     <div
       style={{
@@ -106,6 +134,7 @@ const CHANNELS: {
   tag: string;
   desc: string;
   brand: { color: string; background: string };
+  img: string;
 }[] = [
   {
     area: "bento-ch1",
@@ -114,6 +143,7 @@ const CHANNELS: {
     tag: "검색 노출",
     desc: "정보성 콘텐츠를 발행해 네이버 검색 상단에서 잠재 고객을 꾸준히 만납니다.",
     brand: BRAND.naver,
+    img: "/images/main/main-partner-03.png",
   },
   {
     area: "bento-ch2",
@@ -122,6 +152,7 @@ const CHANNELS: {
     tag: "브랜드 도달",
     desc: "메타 광고로 브랜드 분위기를 전하고 팔로워를 잠재 고객으로 전환합니다.",
     brand: BRAND.instagram,
+    img: "/images/main/main-partner-04.png",
   },
   {
     area: "bento-ch3",
@@ -130,6 +161,7 @@ const CHANNELS: {
     tag: "바이럴 확산",
     desc: "짧고 강한 숏폼 영상으로 빠르게 브랜드 인지도를 확산시킵니다.",
     brand: BRAND.youtube,
+    img: "/images/main/main-partner-05.png",
   },
   {
     area: "bento-ch4",
@@ -138,6 +170,7 @@ const CHANNELS: {
     tag: "지역 노출",
     desc: "지역 검색·지도에서 우리 매장을 먼저 노출해 방문과 문의로 연결합니다.",
     brand: BRAND.naver,
+    img: "/images/main/main-partner-06.png",
   },
 ];
 
@@ -251,7 +284,11 @@ export default function PartnershipSection() {
 
             {/* 하단: 이미지 1개 */}
             <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
-              <ImagePlaceholder aspectRatio="16 / 9" />
+              <ImagePlaceholder
+                aspectRatio="16 / 9"
+                src="/images/main/main-partner-01.png"
+                label="4개 채널 동시 노출"
+              />
             </div>
           </div>
 
@@ -293,12 +330,16 @@ export default function PartnershipSection() {
               강해집니다.
             </p>
             <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
-              <ImagePlaceholder aspectRatio="16 / 9" />
+              <ImagePlaceholder
+                aspectRatio="16 / 9"
+                src="/images/main/main-partner-02.png"
+                label="제작 이후에도 지속되는 유입"
+              />
             </div>
           </div>
 
           {/* ③④⑤ 채널 카드 (아이콘 상단 · 텍스트 · 하단 이미지 — 지속 유입 카드와 동일 구조) */}
-          {CHANNELS.map(({ area, Icon, name, tag, desc, brand }) => (
+          {CHANNELS.map(({ area, Icon, name, tag, desc, brand, img }) => (
             <div key={name} className={`bento-card ${area}`}>
               <IconChip Icon={Icon} {...brand} />
               <div
@@ -331,6 +372,8 @@ export default function PartnershipSection() {
               </p>
               <ImagePlaceholder
                 aspectRatio="16 / 9"
+                src={img}
+                label={name}
                 style={{ marginTop: "clamp(1rem, 3vw, 1.5rem)" }}
               />
             </div>

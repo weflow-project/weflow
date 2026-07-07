@@ -12,21 +12,24 @@ const AI_CONS = [
   "운영·수정·검색 노출은 결국 내 몫",
 ];
 
-const DIFFS: { Icon: LucideIcon; title: string; desc: string }[] = [
+const DIFFS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: PencilRuler,
     title: "사람이 직접 기획·설계",
     desc: "템플릿이 아니라, 전문가가 목표부터 구조까지 전략을 세웁니다.",
+    img: "/images/main/main-weflow-02.png",
   },
   {
     Icon: Workflow,
     title: "고객만의 맞춤 플로우",
     desc: "업종·고객 흐름에 맞춰 방문자가 문의에 이르는 동선을 설계합니다.",
+    img: "/images/main/main-weflow-03.png",
   },
   {
     Icon: ShieldCheck,
     title: "신뢰감 있는 완성도",
     desc: "브랜드를 담은 디자인으로 고객이 믿고 연락하는 홈페이지를 만듭니다.",
+    img: "/images/main/main-weflow-04.png",
   },
 ];
 
@@ -235,22 +238,23 @@ export default function WhyWeflowSection() {
           </h2>
           <div
             style={{
+              position: "relative",
+              overflow: "hidden",
               marginTop: "clamp(2rem, 5vw, 3rem)",
               width: "100%",
               aspectRatio: "16 / 9",
               borderRadius: "var(--radius-2xl)",
               background: "#e6eaf1",
-              border: "1px dashed rgba(11,18,32,0.14)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--text-secondary)",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              letterSpacing: "0.02em",
+              border: "1px solid var(--border)",
             }}
           >
-            이미지
+            <Image
+              src="/images/main/main-weflow-01.png"
+              alt="홈페이지다운 홈페이지"
+              fill
+              sizes="(max-width: 1100px) 100vw, 1100px"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </Reveal>
 
@@ -281,7 +285,7 @@ export default function WhyWeflowSection() {
 
           {/* 차별점 3카드 */}
           <div className="why-diffs" style={{ marginTop: "1.1rem" }}>
-            {DIFFS.map(({ Icon, title, desc }) => (
+            {DIFFS.map(({ Icon, title, desc, img }) => (
               <div
                 key={title}
                 style={{
@@ -318,7 +322,15 @@ export default function WhyWeflowSection() {
                 >
                   {desc}
                 </p>
-                <div className="why-diff-img">이미지</div>
+                <div className="why-diff-img">
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 340px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -367,19 +379,14 @@ export default function WhyWeflowSection() {
           gap: 1.1rem;
         }
         .why-diff-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
           aspect-ratio: 4 / 3;
           margin-top: 1.25rem;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         .wf-br-m { display: none; }
         @media (max-width: 768px) {

@@ -1,17 +1,20 @@
 import { Wrench, Rocket, ArrowUpRight, Star } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
-const CARDS: { Icon: LucideIcon; title: string; desc: string }[] = [
+const CARDS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: Wrench,
     title: "타 서비스 전환 고객",
     desc: "현재 홈페이지에 아쉬움이 있어 점검과 개선이 필요한 분",
+    img: "/images/main/main-customer-01.png",
   },
   {
     Icon: Rocket,
     title: "신규 고객",
     desc: "업종을 준비 중이거나 이미 운영 중이지만, 아직 홈페이지 방향을 잡지 못한 분",
+    img: "/images/main/main-customer-02.png",
   },
 ];
 
@@ -60,7 +63,7 @@ export default function TargetCustomerSection() {
 
         {/* 카드 2개 */}
         <Reveal as="div" stagger className="tc-grid">
-          {CARDS.map(({ Icon, title, desc }) => (
+          {CARDS.map(({ Icon, title, desc, img }) => (
             <div key={title} className="tc-card">
               {/* 아이콘 */}
               <span className="tc-icon">
@@ -98,8 +101,16 @@ export default function TargetCustomerSection() {
                 {desc}
               </p>
 
-              {/* 이미지 자리 */}
-              <div className="tc-img">이미지</div>
+              {/* 이미지 */}
+              <div className="tc-img">
+                <Image
+                  src={img}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 520px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </div>
           ))}
         </Reveal>
@@ -177,19 +188,14 @@ export default function TargetCustomerSection() {
           margin-bottom: 1.1rem;
         }
         .tc-img {
+          position: relative;
+          overflow: hidden;
           width: 100%;
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 16 / 9;
           margin-top: auto;
           border-radius: var(--radius-xl);
           background: #e6eaf1;
-          border: 1px dashed rgba(11,18,32,0.14);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-secondary);
-          font-size: 0.82rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          border: 1px solid var(--border);
         }
         @media (max-width: 640px) {
           .tc-grid { grid-template-columns: 1fr; }
