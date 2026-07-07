@@ -52,6 +52,13 @@ const POINTS: Point[] = [
   },
 ];
 
+// 이미지 원본 치수(비율 유지·자르지 않기 위함)
+const IMG_DIMS = [
+  { w: 1190, h: 1322 },
+  { w: 1122, h: 1402 },
+  { w: 1397, h: 1126 },
+];
+
 export default function WhyAdminSection() {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
@@ -159,27 +166,22 @@ export default function WhyAdminSection() {
               </p>
             </div>
 
-            {/* 이미지 */}
+            {/* 이미지 — 원본 비율 그대로(자르지 않음) */}
             <div className="wa-img">
-              <div
+              <Image
+                src={`/images/main/main-adminwhy-0${i + 1}.png`}
+                alt={p.title}
+                width={IMG_DIMS[i].w}
+                height={IMG_DIMS[i].h}
+                sizes="(max-width: 768px) 100vw, 480px"
                 style={{
-                  position: "relative",
+                  display: "block",
                   width: "100%",
-                  aspectRatio: "4 / 3",
+                  height: "auto",
                   borderRadius: "var(--radius-2xl)",
-                  overflow: "hidden",
-                  background: "#e6eaf1",
                   border: "1px solid var(--border)",
                 }}
-              >
-                <Image
-                  src={`/images/main/main-adminwhy-0${i + 1}.png`}
-                  alt={p.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 480px"
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
+              />
             </div>
           </div>
         ))}
