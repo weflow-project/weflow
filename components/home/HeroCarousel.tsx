@@ -49,7 +49,6 @@ export default function HeroCarousel() {
         margin: 'clamp(2.5rem, 6vw, 4rem) auto 0',
         aspectRatio: '16 / 9',
         borderRadius: 'var(--radius-2xl)',
-        border: '1px solid var(--border)',
         overflow: 'hidden',
         background: 'var(--bg-secondary)',
       }}

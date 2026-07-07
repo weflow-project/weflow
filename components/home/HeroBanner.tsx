@@ -34,6 +34,8 @@ export default function HeroBanner() {
   return (
     <section
       style={{
+        position: "relative",
+        overflow: "hidden",
         background: "#fff",
         scrollSnapAlign: "start",
         minHeight: "calc(100vh - 64px)",
@@ -45,8 +47,39 @@ export default function HeroBanner() {
         padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem",
       }}
     >
+      {/* 배경 영상 */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+      >
+        <source src="/video/hero-video.mp4" type="video/mp4" />
+      </video>
+      {/* 가독성 오버레이 */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(255,255,255,0.3)",
+          zIndex: 1,
+        }}
+      />
+
       <div
         style={{
+          position: "relative",
+          zIndex: 2,
           maxWidth: "960px",
           width: "100%",
           display: "flex",
@@ -61,14 +94,23 @@ export default function HeroBanner() {
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
         <h1 style={{ margin: 0, wordBreak: "keep-all" }}>
-          <span className="title-2 c-secondary" style={{ display: "block" }}>
+          <span className="title-2" style={{ display: "block", color: "#fff" }}>
             <Chars text={LINE1} start={0} />
           </span>
           <span style={{ display: "block", marginTop: "0.4rem" }}>
-            <span className="large-title c-secondary">
+            <span className="large-title" style={{ color: "#fff" }}>
               <Chars text={LINE2A} start={LINE1.length} />
             </span>
-            <span className="large-title c-accent">
+            <span
+              className="large-title"
+              style={{
+                color: "#fff",
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textShadow:
+                  "0 0 30px rgba(88,138,226,0.9), 0 0 12px rgba(88,138,226,0.7), 0 3px 12px rgba(0,0,0,0.3)",
+              }}
+            >
               <Chars text={LINE2B} start={LINE1.length + LINE2A.length} />
             </span>
           </span>
@@ -119,11 +161,12 @@ export default function HeroBanner() {
 
           <Link
             href="/#benefits"
-            className="btn-outline"
+            className="btn-primary"
             style={{
               fontSize: "1rem",
               borderRadius: "9999px",
               padding: "0.95rem 2.2rem",
+              background: "var(--accent-dim)",
             }}
           >
             WEFLOW 혜택보기
