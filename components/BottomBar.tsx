@@ -34,7 +34,7 @@ export default function BottomBar() {
                   justifyContent: 'center',
                   width: 22,
                   height: 22,
-                  borderRadius: 7,
+                  borderRadius: '50%',
                   background: '#FEE500',
                 }}
               >
