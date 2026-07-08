@@ -96,29 +96,30 @@ export default function HeroBanner() {
         </span>
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
-        <h1 style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.34 }}>
+        <h1 style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.5 }}>
           <span
             className="title-2"
             style={{
               display: "block",
               color: "#fff",
-              fontSize: "clamp(1.8rem, 4.2vw, 2.3rem)",
+              fontSize: "clamp(1.35rem, 4.6vw, 2.9rem)",
             }}
           >
             <Chars text={LINE1} start={0} />
           </span>
           <span
+            className="hero-line2"
             style={{
               display: "block",
-              marginTop: "0.95rem",
-              whiteSpace: "nowrap",
+              marginTop: "0.75rem",
             }}
           >
             <span
               className="large-title"
               style={{
                 color: "#fff",
-                fontSize: "clamp(1.2rem, 5.6vw, 4rem)",
+                fontSize: "clamp(1.55rem, 7.2vw, 4.6rem)",
+                whiteSpace: "nowrap",
               }}
             >
               <Chars text={LINE2A} start={LINE1.length} />
@@ -127,7 +128,7 @@ export default function HeroBanner() {
               className="large-title hero-weflow"
               style={{
                 color: "#fff",
-                fontSize: "clamp(1.2rem, 5.6vw, 4rem)",
+                fontSize: "clamp(2.5rem, 10.5vw, 5.5rem)",
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 textShadow:
@@ -204,10 +205,18 @@ export default function HeroBanner() {
         /* 히어로 배지(신청중) 글씨 확대 */
         .hero-cta-badge { font-size: 0.92rem; }
 
-        /* 모바일에서만 WEFLOW를 다음 줄로 (데스크톱은 한 줄 유지) */
+        /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 */
+        .hero-line2 { white-space: nowrap; }
+
+        /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
-          .hero-weflow {
-            display: block;
+          .hero-line2 { white-space: normal; }
+          .hero-weflow { display: block; }
+          /* 모바일: '최근 한달…' 말풍선 축소 */
+          .hero-cta-badge {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            gap: 4px;
           }
         }
       `}</style>

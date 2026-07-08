@@ -78,7 +78,7 @@ export default function ComparisonCTA() {
         .cmp-text { max-width: 60%; }
         .cmp-char {
           position: absolute;
-          right: -24rem;
+          right: -21rem;
           bottom: -1.8rem;
           width: clamp(700px, 72vw, 1050px);
           height: 155%;
@@ -86,7 +86,7 @@ export default function ComparisonCTA() {
         @media (max-width: 768px) {
           .cmp-text { max-width: 70%; }
           .cmp-char {
-            right: -4rem;
+            right: -3rem;
             bottom: 0;
             width: 230px;
             height: 118%;
@@ -94,7 +94,7 @@ export default function ComparisonCTA() {
         }
         @media (max-width: 420px) {
           .cmp-text { max-width: 62%; }
-          .cmp-char { right: -4.5rem; width: 200px; }
+          .cmp-char { right: -3.3rem; width: 200px; }
         }
       `}</style>
     </section>

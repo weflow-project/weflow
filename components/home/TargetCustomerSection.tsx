@@ -146,11 +146,12 @@ export default function TargetCustomerSection() {
             lineHeight: 1.5,
           }}
         >
-          어느 쪽에 해당하셔도 괜찮아요.{" "}
+          어느 쪽에 해당하셔도 괜찮아요.
+          <br />
           <strong className="c-accent tilt-hl tilt-hl-red">
             누구나 WEFLOW의 고객
           </strong>
-          이 될 수 있습니다.
+          이<br />될 수 있습니다.
         </p>
       </div>
 
