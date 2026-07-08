@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
   keywords: '홈페이지 제작, 랜딩페이지 제작, 광고 운영, 검색 상단 노출, 웹사이트 제작',
   icons: { icon: '/logo.png' },
+  verification: {
+    other: {
+      'naver-site-verification': '273b65c0c97f6eb30704a68b165015c3e1c7d5fb',
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
