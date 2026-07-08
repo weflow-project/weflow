@@ -219,9 +219,9 @@ export default function HeroBanner() {
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
           .hero-section {
-            min-height: auto;
+            min-height: 100svh;
             justify-content: flex-start;
-            padding-top: 2.6rem;
+            padding-top: clamp(2.5rem, 12vh, 8rem);
           }
           .hero-eyebrow { margin-bottom: 0.85rem; }
           .hero-line2 { white-space: normal; }

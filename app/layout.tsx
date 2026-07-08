@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
     url: 'https://weflowlab.kr',
     siteName: 'WEFLOW',
-    images: [{ url: '/images/main/main-homepage-01.png', width: 1919, height: 909 }],
+    images: [{ url: '/images/main/main-homepage-01.png', width: 1895, height: 909 }],
     type: 'website',
     locale: 'ko_KR',
   },
