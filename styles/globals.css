@@ -839,4 +839,13 @@
   .hide-sm {
     display: none !important;
   }
+  /* 프로모 배너: 좁은 폰에서도 한 줄 유지 */
+  .promo-banner .caption-1 {
+    font-size: 0.6rem;
+    padding: 2px 8px;
+  }
+  .promo-banner strong {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
 }

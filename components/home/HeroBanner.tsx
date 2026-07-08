@@ -33,18 +33,16 @@ const LINE2B = "WEFLOW";
 export default function HeroBanner() {
   return (
     <section
+      className="hero-section"
       style={{
         position: "relative",
         overflow: "hidden",
         background: "#fff",
         scrollSnapAlign: "start",
-        minHeight: "calc(100vh + 80px)",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        padding: "clamp(5.5rem, 13vh, 9.75rem) 1.25rem clamp(3rem, 6vw, 5rem)",
       }}
     >
       {/* 배경 영상 */}
@@ -89,8 +87,8 @@ export default function HeroBanner() {
       >
         {/* 아이브로우 */}
         <span
-          className="tag-badge"
-          style={{ marginBottom: "1.4rem", fontSize: "0.95rem" }}
+          className="tag-badge hero-eyebrow"
+          style={{ fontSize: "0.95rem" }}
         >
           홈페이지 메인 제작 솔루션
         </span>
@@ -102,7 +100,7 @@ export default function HeroBanner() {
             style={{
               display: "block",
               color: "#fff",
-              fontSize: "clamp(1.35rem, 4.6vw, 2.9rem)",
+              fontSize: "clamp(1.4rem, 4.8vw, 2.9rem)",
             }}
           >
             <Chars text={LINE1} start={0} />
@@ -111,14 +109,14 @@ export default function HeroBanner() {
             className="hero-line2"
             style={{
               display: "block",
-              marginTop: "0.75rem",
+              marginTop: "0.95rem",
             }}
           >
             <span
               className="large-title"
               style={{
                 color: "#fff",
-                fontSize: "clamp(1.55rem, 7.2vw, 4.6rem)",
+                fontSize: "clamp(1.65rem, 7.8vw, 4.6rem)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -128,7 +126,7 @@ export default function HeroBanner() {
               className="large-title hero-weflow"
               style={{
                 color: "#fff",
-                fontSize: "clamp(2.5rem, 10.5vw, 5.5rem)",
+                fontSize: "clamp(2.8rem, 11.8vw, 5.5rem)",
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 textShadow:
@@ -205,11 +203,27 @@ export default function HeroBanner() {
         /* 히어로 배지(신청중) 글씨 확대 */
         .hero-cta-badge { font-size: 0.92rem; }
 
+        /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
+        .hero-section {
+          min-height: calc(100vh + 80px);
+          justify-content: center;
+          padding: clamp(5.5rem, 13vh, 9.75rem) 1.25rem clamp(3rem, 6vw, 5rem);
+        }
+
+        /* 아이브로우 배지 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
+        .hero-eyebrow { margin-bottom: 1.4rem; }
+
         /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 */
         .hero-line2 { white-space: nowrap; }
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
+          .hero-section {
+            min-height: auto;
+            justify-content: flex-start;
+            padding-top: 2.6rem;
+          }
+          .hero-eyebrow { margin-bottom: 0.85rem; }
           .hero-line2 { white-space: normal; }
           .hero-weflow { display: block; }
           /* 모바일: '최근 한달…' 말풍선 축소 */
