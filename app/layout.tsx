@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   keywords: '홈페이지 제작, 랜딩페이지 제작, 광고 운영, 검색 상단 노출, 웹사이트 제작',
   icons: { icon: '/logo.png' },
   openGraph: {
-    title: 'WEFLOW — 문의로 이어지는 홈페이지를 만듭니다',
+    title: 'WEFLOW — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
     description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
     url: 'https://weflowlab.kr',
     siteName: 'WEFLOW',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WEFLOW — 문의로 이어지는 홈페이지를 만듭니다',
+    title: 'WEFLOW — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
     description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
     images: ['/images/main/main-homepage-01.png'],
   },
