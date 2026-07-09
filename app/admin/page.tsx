@@ -2538,20 +2538,6 @@ export default function AdminPage() {
                 style={{ display: "grid", gap: "1rem" }}
                 className={tab === "overview" ? "stat-grid-4" : "stat-grid-2"}
               >
-                {tab !== "inquiries" && (
-                  <>
-                    <StatCard
-                      label="전체 예약"
-                      value={bookings.length}
-                      color="blue"
-                    />
-                    <StatCard
-                      label="대기중 예약"
-                      value={pendingB}
-                      color="green"
-                    />
-                  </>
-                )}
                 {tab !== "reservations" && (
                   <>
                     <StatCard
@@ -2562,6 +2548,20 @@ export default function AdminPage() {
                     <StatCard
                       label="대기중 문의"
                       value={pendingI}
+                      color="green"
+                    />
+                  </>
+                )}
+                {tab !== "inquiries" && (
+                  <>
+                    <StatCard
+                      label="전체 예약"
+                      value={bookings.length}
+                      color="blue"
+                    />
+                    <StatCard
+                      label="대기중 예약"
+                      value={pendingB}
                       color="green"
                     />
                   </>
@@ -2656,23 +2656,6 @@ export default function AdminPage() {
           )}
 
           {/* 테이블 */}
-          {tab !== "inquiries" && tab !== "analytics" && tab !== "traffic" && (
-            <RequestTable
-              title={tab === "overview" ? "예약 관리" : undefined}
-              rows={filteredB}
-              showSchedule
-              onStatusChange={(id, s) =>
-                updateStatus("/api/bookings", id, s, setBookings)
-              }
-              onDelete={(id) => remove("/api/bookings", id, setBookings)}
-              onExport={() =>
-                window.open("/api/export?type=bookings", "_blank")
-              }
-              onSeeAll={
-                tab === "overview" ? () => setTab("reservations") : undefined
-              }
-            />
-          )}
           {tab !== "reservations" &&
             tab !== "analytics" &&
             tab !== "traffic" && (
@@ -2691,6 +2674,23 @@ export default function AdminPage() {
                 }
               />
             )}
+          {tab !== "inquiries" && tab !== "analytics" && tab !== "traffic" && (
+            <RequestTable
+              title={tab === "overview" ? "예약 관리" : undefined}
+              rows={filteredB}
+              showSchedule
+              onStatusChange={(id, s) =>
+                updateStatus("/api/bookings", id, s, setBookings)
+              }
+              onDelete={(id) => remove("/api/bookings", id, setBookings)}
+              onExport={() =>
+                window.open("/api/export?type=bookings", "_blank")
+              }
+              onSeeAll={
+                tab === "overview" ? () => setTab("reservations") : undefined
+              }
+            />
+          )}
         </div>
       </main>
 
