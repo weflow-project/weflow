@@ -1079,6 +1079,19 @@ const SOURCE_COLOR: Record<string, string> = {
   youtube: "#ff0000",
   direct: "#94a3b8",
 };
+// utm 약자·별칭 소스 통합 (예: ig → instagram) — 같은 채널을 한 줄로 합침
+const SOURCE_ALIAS: Record<string, string> = {
+  ig: "instagram",
+  insta: "instagram",
+  fb: "facebook",
+  meta: "facebook",
+  yt: "youtube",
+  x: "twitter",
+};
+function normSource(s: string): string {
+  const k = (s || "direct").toLowerCase();
+  return SOURCE_ALIAS[k] || k;
+}
 const PAGE_KO: Record<string, string> = {
   "/": "메인",
   "/about": "회사 소개",
@@ -1358,7 +1371,8 @@ function TrafficView({
   sessionList.forEach((views) => {
     const entry = views[0];
     const exit = views[views.length - 1];
-    sourceCount[entry.source] = (sourceCount[entry.source] || 0) + 1;
+    const src = normSource(entry.source);
+    sourceCount[src] = (sourceCount[src] || 0) + 1;
     deviceCount[entry.device] = (deviceCount[entry.device] || 0) + 1;
     exitCount[exit.path] = (exitCount[exit.path] || 0) + 1;
     if (views.length === 1) bounced++;

@@ -2,15 +2,18 @@
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
-// 방문자 세션 ID — 탭이 열려있는 동안 유지 (sessionStorage)
+// 방문자 ID — 기기당 하루 1회만 카운트 (영구 기기ID[localStorage] + 한국시간 날짜)
+// 같은 기기·같은 날의 여러 방문/탭은 하나로 묶여 방문자 1명으로 집계된다.
 function getSessionId(): string {
-  const KEY = 'weflow_sid'
-  let id = sessionStorage.getItem(KEY)
-  if (!id) {
-    id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
-    sessionStorage.setItem(KEY, id)
+  const KEY = 'weflow_did'
+  let did = localStorage.getItem(KEY)
+  if (!did) {
+    did = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
+    localStorage.setItem(KEY, did)
   }
-  return id
+  // 한국시간(KST, UTC+9) 기준 날짜(YYYY-MM-DD)
+  const day = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10)
+  return `${did}-${day}`
 }
 
 // 추적 제외 여부 — 로컬 개발(localhost) + 본인 브라우저 opt-out
