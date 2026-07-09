@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 import { bookingStore } from '@/lib/store'
+import { isAdmin } from '@/lib/adminAuth'
 
 export async function GET() {
+  if (!(await isAdmin()))
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   const bookings = await bookingStore.getAll()
   return NextResponse.json(bookings)
 }

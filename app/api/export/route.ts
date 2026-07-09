@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server'
 import { bookingStore, inquiryStore } from '@/lib/store'
 import * as XLSX from 'xlsx'
+import { isAdmin } from '@/lib/adminAuth'
 
 export async function GET(req: Request) {
+  if (!(await isAdmin()))
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   const { searchParams } = new URL(req.url)
   const type = searchParams.get('type') || 'all'
 

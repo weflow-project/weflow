@@ -25,7 +25,7 @@ import Link from "next/link";
 import { projectTypes } from "@/data/common";
 import { SITE_TYPE } from "@/lib/siteConfig";
 
-const ADMIN_PW = "weflow";
+// 관리자 비밀번호는 서버 환경변수(ADMIN_PASSWORD)에서만 검증 — 클라이언트 노출 제거
 
 type Status = "pending" | "in_progress" | "done";
 type Tab = "overview" | "reservations" | "inquiries" | "analytics" | "traffic";
@@ -1905,12 +1905,12 @@ export default function AdminPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      localStorage.getItem("weflow_admin_auth") === "true"
-    )
-      setAuthed(true);
-    setChecked(true);
+    // 서버 세션(httpOnly 쿠키)으로 로그인 여부 확인
+    fetch("/api/admin/me")
+      .then((r) => r.json())
+      .then((d) => setAuthed(!!d?.authed))
+      .catch(() => {})
+      .finally(() => setChecked(true));
   }, []);
 
   // 새로고침해도 현재 탭 유지 — 마지막 탭을 저장하고 진입 시 복원
@@ -1962,20 +1962,29 @@ export default function AdminPage() {
     };
   }, [authed, load]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pw === ADMIN_PW) {
-      setAuthed(true);
-      localStorage.setItem("weflow_admin_auth", "true");
-    } else {
-      setPwError(true);
-      setTimeout(() => setPwError(false), 2000);
-    }
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw }),
+      });
+      if (res.ok) {
+        setAuthed(true);
+        setPw("");
+        return;
+      }
+    } catch {}
+    setPwError(true);
+    setTimeout(() => setPwError(false), 2000);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {}
     setAuthed(false);
-    localStorage.removeItem("weflow_admin_auth");
   };
 
   const updateStatus = (

@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 import { inquiryStore } from '@/lib/store'
+import { isAdmin } from '@/lib/adminAuth'
 
 export async function GET() {
+  if (!(await isAdmin()))
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   const inquiries = await inquiryStore.getAll()
   return NextResponse.json(inquiries)
 }
