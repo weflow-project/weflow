@@ -1373,6 +1373,17 @@ function TrafficView({
     else sessions.set(v.sessionId, [v]);
   });
   const sessionList = Array.from(sessions.values());
+
+  // 날짜별 방문자 차트는 기간 선택과 무관하게 최근 14일 전체를 보여줌
+  // → 기간 필터가 걸린 pageViews가 아니라 전체 데이터로 세션을 다시 묶는다
+  const allSessions = new Map<string, PageView[]>();
+  allPageViews.forEach((v) => {
+    const arr = allSessions.get(v.sessionId);
+    if (arr) arr.push(v);
+    else allSessions.set(v.sessionId, [v]);
+  });
+  const allSessionList = Array.from(allSessions.values());
+
   const totalSessions = sessionList.length;
   const totalViews = pageViews.length;
 
@@ -1425,7 +1436,7 @@ function TrafficView({
     didx[key] = days.length;
     days.push({ key, label: `${d.getMonth() + 1}/${d.getDate()}`, v: 0 });
   }
-  sessionList.forEach((views) => {
+  allSessionList.forEach((views) => {
     const d = new Date(views[0].createdAt);
     const key = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
     if (key in didx) days[didx[key]].v++;
