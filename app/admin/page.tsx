@@ -1888,6 +1888,7 @@ function TrafficView({
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
+  const [checked, setChecked] = useState(false); // 인증 확인 완료 여부(로그인창 깜빡임 방지)
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState(false);
   const [tab, setTab] = useState<Tab>("overview");
@@ -1906,6 +1907,7 @@ export default function AdminPage() {
       localStorage.getItem("weflow_admin_auth") === "true"
     )
       setAuthed(true);
+    setChecked(true);
   }, []);
 
   // 새로고침해도 현재 탭 유지 — 마지막 탭을 저장하고 진입 시 복원
@@ -2003,6 +2005,9 @@ export default function AdminPage() {
     filter === "전체"
       ? rows
       : rows.filter((r) => STATUS_KO[r.status] === filter);
+
+  // 인증 확인 전에는 로그인창을 렌더하지 않음 (모바일에서 로그인창 깜빡임 방지)
+  if (!checked) return null;
 
   if (!authed) {
     return (
