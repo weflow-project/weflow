@@ -1641,12 +1641,14 @@ function TrafficView({
           title="날짜별 방문자"
           desc="최근 14일 동안 하루에 몇 명이 왔는지"
         />
+        <div style={{ overflowX: "auto", overflowY: "hidden" }}>
         <div
           style={{
             display: "flex",
             alignItems: "flex-end",
-            gap: "2%",
+            gap: "0.5rem",
             height: 160,
+            minWidth: 620,
           }}
         >
           {days.map((d) => (
@@ -1688,6 +1690,7 @@ function TrafficView({
               </span>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
