@@ -98,8 +98,8 @@ interface PageView {
 const FILTERS: Filter[] = ["전체", "대기", "진행중", "완료"];
 const TABS: { key: Tab; label: string }[] = [
   { key: "overview", label: "전체 현황" },
-  { key: "reservations", label: "예약 관리" },
   { key: "inquiries", label: "문의 관리" },
+  { key: "reservations", label: "예약 관리" },
   { key: "analytics", label: "통계 관리" },
   { key: "traffic", label: "유입 관리" },
 ];
@@ -683,7 +683,7 @@ function AnalyticsView({
   inquiries: Inquiry[];
 }) {
   // 기간 선택
-  const [period, setPeriod] = useState("14d");
+  const [period, setPeriod] = useState("today");
   // 마운트 시각을 한 번만 캡처 (렌더 중 Date.now() 직접 호출 금지 규칙 대응)
   const [now] = useState(() => Date.now());
   const periodDays =
@@ -1350,7 +1350,7 @@ function TrafficView({
   };
 
   // 기간 선택 (최근 30일 범위 내에서 필터)
-  const [period, setPeriod] = useState("all");
+  const [period, setPeriod] = useState("today");
   const pageViews = withinPeriod(allPageViews, period);
 
   // 세션 단위로 묶기 (createdAt 오름차순 가정)
@@ -1896,7 +1896,7 @@ export default function AdminPage() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
   const [pvLoading, setPvLoading] = useState(false);
-  const [listPeriod, setListPeriod] = useState("all");
+  const [listPeriod, setListPeriod] = useState("today");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -1907,6 +1907,15 @@ export default function AdminPage() {
     )
       setAuthed(true);
   }, []);
+
+  // 새로고침해도 현재 탭 유지 — 마지막 탭을 저장하고 진입 시 복원
+  useEffect(() => {
+    const saved = localStorage.getItem("weflow_admin_tab") as Tab | null;
+    if (saved && TABS.some((t) => t.key === saved)) setTab(saved);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("weflow_admin_tab", tab);
+  }, [tab]);
 
   const load = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);

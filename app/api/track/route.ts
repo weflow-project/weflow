@@ -27,6 +27,20 @@ function normalizeSource(referrer: string, host: string): string {
   return h.replace(/^www\./, '')
 }
 
+// 인앱 브라우저는 referrer를 숨기므로 User-Agent로 유입 소스를 판별
+// (인스타/카톡/밴드/페북 등 앱 안에서 링크를 열면 UA에 앱 이름이 남는다)
+function detectAppSource(ua: string): string {
+  const s = ua.toLowerCase()
+  if (s.includes('instagram')) return 'instagram'
+  if (/fban|fbav|fb_iab|fbios/.test(s)) return 'facebook'
+  if (s.includes('kakaotalk')) return 'kakao'
+  if (/\bband\//.test(s)) return 'band' // 네이버 밴드 인앱
+  if (s.includes('naver')) return 'naver' // 네이버 앱 인앱
+  if (/line\//.test(s)) return 'line'
+  if (s.includes('daumapps')) return 'daum'
+  return ''
+}
+
 // 봇 간단 필터
 function isBot(ua: string): boolean {
   return /bot|crawler|spider|crawling|slurp|bingpreview|facebookexternalhit|headless/i.test(ua)
@@ -55,7 +69,8 @@ export async function POST(req: Request) {
   const referrer = String(body.referrer || '')
   const host = req.headers.get('host') || ''
   const utmSource = body.utmSource ? String(body.utmSource).toLowerCase() : ''
-  const source = utmSource || normalizeSource(referrer, host)
+  // 우선순위: UTM 태그 > 인앱 브라우저(UA) 판별 > referrer 도메인
+  const source = utmSource || detectAppSource(ua) || normalizeSource(referrer, host)
 
   const { id } = await pageViewStore.create({
     sessionId,
