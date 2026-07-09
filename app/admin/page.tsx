@@ -114,14 +114,25 @@ const ANALYTICS_PERIODS: { key: string; label: string; days: number | null }[] =
     { key: "all", label: "전체", days: null },
   ];
 
+// 기간 → 집계 시작 시각(ms). '오늘'은 로컬 자정부터(달력상 오늘),
+// 그 외 '최근 N일'은 현재 시각 기준 롤링. days=null(전체)이면 0 반환.
+function periodCutoff(periodKey: string): number {
+  const days = ANALYTICS_PERIODS.find((p) => p.key === periodKey)?.days;
+  if (days == null) return 0;
+  if (periodKey === "today") {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  }
+  return Date.now() - days * 86400000;
+}
+
 // createdAt 기준으로 선택 기간 내 항목만 반환
 function withinPeriod<T extends { createdAt: string }>(
   rows: T[],
   periodKey: string,
 ): T[] {
-  const days = ANALYTICS_PERIODS.find((p) => p.key === periodKey)?.days;
-  if (days == null) return rows;
-  const cutoff = Date.now() - days * 86400000;
+  const cutoff = periodCutoff(periodKey);
+  if (cutoff === 0) return rows;
   return rows.filter((r) => new Date(r.createdAt).getTime() >= cutoff);
 }
 
@@ -684,15 +695,16 @@ function AnalyticsView({
 }) {
   // 기간 선택
   const [period, setPeriod] = useState("today");
-  // 마운트 시각을 한 번만 캡처 (렌더 중 Date.now() 직접 호출 금지 규칙 대응)
-  const [now] = useState(() => Date.now());
+  // 현재 시각 — 자정을 지나면 '오늘' 집계가 다음 날로 넘어가야 하므로
+  // 마운트에 고정하지 않고 매 렌더(폴링·포커스 갱신 시) 다시 읽는다
+  const now = Date.now();
   const periodDays =
     ANALYTICS_PERIODS.find((p) => p.key === period)?.days ?? 14;
   const periodLabel =
     ANALYTICS_PERIODS.find((p) => p.key === period)?.label ?? "최근 14일";
 
-  // 선택 기간만 집계
-  const cutoff = periodDays != null ? now - periodDays * 86400000 : 0;
+  // 선택 기간만 집계 ('오늘'은 달력상 오늘 자정부터)
+  const cutoff = periodCutoff(period);
   const bookings = cutoff
     ? allB.filter((b) => new Date(b.createdAt).getTime() >= cutoff)
     : allB;
