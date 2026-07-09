@@ -1066,6 +1066,7 @@ const SOURCE_KO: Record<string, string> = {
   daum: "다음",
   twitter: "X(트위터)",
   youtube: "유튜브",
+  band: "밴드",
   direct: "직접 유입",
 };
 const SOURCE_COLOR: Record<string, string> = {
@@ -1077,6 +1078,7 @@ const SOURCE_COLOR: Record<string, string> = {
   daum: "#06b6d4",
   twitter: "#111",
   youtube: "#ff0000",
+  band: "#00c73c",
   direct: "#94a3b8",
 };
 // utm 약자·별칭 소스 통합 (예: ig → instagram) — 같은 채널을 한 줄로 합침
@@ -1087,6 +1089,7 @@ const SOURCE_ALIAS: Record<string, string> = {
   meta: "facebook",
   yt: "youtube",
   x: "twitter",
+  "band.us": "band",
 };
 function normSource(s: string): string {
   const k = (s || "direct").toLowerCase();

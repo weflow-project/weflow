@@ -20,6 +20,7 @@ function getSessionId(): string {
 function trackingDisabled(): boolean {
   const host = window.location.hostname
   if (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local')) return true
+  if (host.endsWith('.vercel.app')) return true // vercel 기본·미리보기 도메인 제외 (실제 방문은 커스텀 도메인)
   return localStorage.getItem('weflow_notrack') === '1'
 }
 
