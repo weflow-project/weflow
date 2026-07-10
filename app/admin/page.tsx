@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect, useCallback, Fragment } from "react";
+import { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import {
   LogOut,
   Menu,
@@ -1365,6 +1365,13 @@ function TrafficView({
   const [period, setPeriod] = useState("today");
   const pageViews = withinPeriod(allPageViews, period);
 
+  // 날짜별 방문자 차트(가로 스크롤)를 진입 시 맨 오른쪽(최근)으로 이동
+  const dailyScrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = dailyScrollRef.current;
+    if (el) el.scrollLeft = el.scrollWidth;
+  }, [allPageViews.length]);
+
   // 세션 단위로 묶기 (createdAt 오름차순 가정)
   const sessions = new Map<string, PageView[]>();
   pageViews.forEach((v) => {
@@ -1664,7 +1671,7 @@ function TrafficView({
           title="날짜별 방문자"
           desc="최근 14일 동안 하루에 몇 명이 왔는지"
         />
-        <div style={{ overflowX: "auto", overflowY: "hidden" }}>
+        <div ref={dailyScrollRef} style={{ overflowX: "auto", overflowY: "hidden" }}>
         <div
           style={{
             display: "flex",
