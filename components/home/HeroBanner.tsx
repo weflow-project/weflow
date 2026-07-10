@@ -51,6 +51,8 @@ export default function HeroBanner() {
         loop
         muted
         playsInline
+        preload="auto"
+        poster="/video/hero-poster.jpg"
         aria-hidden="true"
         style={{
           position: "absolute",
