@@ -174,9 +174,12 @@ export default function HeroBanner() {
               href="/diagnosis"
               className="btn-primary"
               style={{
-                fontSize: "1.25rem",
+                fontSize: "1.3rem",
                 borderRadius: "9999px",
-                padding: "1.05rem 2.5rem",
+                padding: "1.15rem 1rem",
+                width: "min(240px, 80vw)",
+                whiteSpace: "nowrap",
+                justifyContent: "center",
               }}
             >
               홈페이지 견적 받기
@@ -187,9 +190,12 @@ export default function HeroBanner() {
             href="/#benefits"
             className="btn-primary"
             style={{
-              fontSize: "1.25rem",
+              fontSize: "1.3rem",
               borderRadius: "9999px",
-              padding: "1.05rem 2.5rem",
+              padding: "1.15rem 1rem",
+              width: "min(240px, 80vw)",
+              whiteSpace: "nowrap",
+              justifyContent: "center",
               background: "var(--accent-dim)",
             }}
           >
