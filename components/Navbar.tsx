@@ -119,7 +119,7 @@ export default function Navbar() {
 
           <Link
             href="/diagnosis"
-            aria-label="무료 진단 신청"
+            aria-label="지금 바로 견적 받기"
             className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
@@ -129,7 +129,7 @@ export default function Navbar() {
             }}
           >
             <span className="cta-marquee-track">
-              {["무료 진단", "무료 진단", "무료 진단", "무료 진단"].map((t, i) => (
+              {["지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>

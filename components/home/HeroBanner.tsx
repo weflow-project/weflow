@@ -179,7 +179,7 @@ export default function HeroBanner() {
                 padding: "1.05rem 2.5rem",
               }}
             >
-              무료 진단하기
+              홈페이지 견적 받기
             </Link>
           </span>
 

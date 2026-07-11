@@ -147,8 +147,8 @@ export default function DiagnosisPage() {
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
               { text: '무료 ' },
-              { text: '진단', className: 'c-accent' },
-              { text: '받기' },
+              { text: '견적', className: 'c-accent' },
+              { text: ' 받기' },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
@@ -250,7 +250,7 @@ export default function DiagnosisPage() {
               <div style={{ marginBottom: '1.4rem' }}>
                 <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>FREE · 무료</p>
                 <h2 className="title-2 emphasized" style={{ margin: '0 0 0.35rem' }}>
-                  무료 진단 신청
+                  무료 견적 신청
                 </h2>
                 <p className="c-muted" style={{ margin: 0, fontSize: '0.95rem' }}>2분이면 충분합니다. 부담 없이 신청하세요.</p>
               </div>
@@ -301,7 +301,7 @@ export default function DiagnosisPage() {
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.05rem', padding: '1rem', justifyContent: 'center', width: '100%', marginTop: '0.25rem' }}>
-                  {loading ? '제출 중...' : '무료 진단 신청하기 →'}
+                  {loading ? '제출 중...' : '견적 결과 확인하기 →'}
                 </button>
                 {submitError && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>
