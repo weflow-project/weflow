@@ -1,3 +1,9 @@
+/**
+ * /service 페이지 데이터 — 제작 6단계와 광고·마케팅 서비스 목록.
+ * steps 는 components/service/ServiceSteps.tsx 가 단계 카드로 뿌린다.
+ */
+
+/** 제작 단계 하나 — 번호·제목·한 줄 요약·펼쳤을 때 본문·좌측 이미지 */
 export interface Step {
   num: string;
   title: string;
@@ -6,6 +12,7 @@ export interface Step {
   image: string;
 }
 
+/** 제작 6단계 — 배열 순서가 곧 화면에 뜨는 순서 (num 과 짝을 맞춰 둘 것) */
 export const steps: Step[] = [
   {
     num: "01",
@@ -56,6 +63,11 @@ export const steps: Step[] = [
   },
 ];
 
+/**
+ * 광고·마케팅 서비스 8종.
+ * 현재 이 배열을 가져다 쓰는 컴포넌트가 없다 — /service 의 광고 영역은
+ * components/service/AdManagement.tsx 가 자체 목록으로 그리고 있다.
+ */
 export const adServices = [
   { icon: "📝", title: "블로그 업로드", desc: "네이버 블로그 정기 업로드" },
   { icon: "📸", title: "인스타 업로드", desc: "인스타그램·메타 광고 운영" },

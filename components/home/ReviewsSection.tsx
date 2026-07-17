@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { reviews } from '@/data/reviews'
 
+// 인터뷰 카드 한 장 — 별점 · 인용한 후기 본문 · 작성자 이름 (캐러셀에 들어가는 고정폭 카드)
 function ReviewCard({ review }: { review: { star: number; text: string; name: string } }) {
   return (
     <div style={{
@@ -26,7 +27,15 @@ function ReviewCard({ review }: { review: { star: number; text: string; name: st
   )
 }
 
+/**
+ * 메인페이지 고객 인터뷰 섹션(#reviews) — 헤더(평점·인터뷰 수·전체 보기) 아래로
+ * 후기 카드가 서로 반대 방향으로 흐르는 무한 캐러셀 두 줄, 맨 아래 성공 사례 CTA.
+ * data/reviews 의 인터뷰를 그대로 쓴다. (현재 app/page.tsx 에 붙어 있지는 않다)
+ */
 export default function ReviewsSection() {
+  // 인터뷰를 절반으로 갈라 위·아래 줄에 나눠 담고, 각 줄은 같은 배열을 두 번 이어붙인다.
+  // 트랙을 -50% 까지 밀면 뒤쪽 사본이 앞쪽 자리에 정확히 겹쳐 끊김 없이 무한 반복된다.
+  // 실제 이동 애니메이션(.review-track / .review-track-reverse, 40s)은 styles/globals.css 에 있다.
   const half = Math.ceil(reviews.length / 2)
   const row1 = [...reviews.slice(0, half), ...reviews.slice(0, half)]
   const row2 = [...reviews.slice(half), ...reviews.slice(half)]

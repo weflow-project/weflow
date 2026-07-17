@@ -2,6 +2,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { processSections, sixSteps } from '@/data/home'
 
+// 타임라인 한 칸 — 왼쪽에 번호 원 + 아래로 이어지는 연결선, 오른쪽에 제목·설명.
+// 마지막 칸(isLast)은 연결선을 그리지 않아 선이 허공에 뜨지 않는다.
+// delay 만큼 늦게 떠서 위에서부터 순차적으로 나타난다.
 function TimelineStep({
   num,
   title,
@@ -45,6 +48,8 @@ function TimelineStep({
   )
 }
 
+// 카드 하나 — 상단 헤더(라벨 배지 + 제목) 아래로 TimelineStep 을 쭉 세운다.
+// baseDelay 는 이 카드의 첫 칸이 뜨는 시점 (카드끼리 시차를 두는 용도)
 function ProcessCard({
   label,
   title,
@@ -98,10 +103,19 @@ function ProcessCard({
   )
 }
 
+/**
+ * "제작 진행 과정" 섹션 — 4단계(왼쪽)와 6단계(오른쪽) 카드를 나란히 놓고
+ * 스크롤이 닿으면 각 단계가 순서대로 떠오르게 한다.
+ * 단계 내용은 data/home.ts 의 processSections · sixSteps 에서 가져온다.
+ *
+ * 주의: 현재 app/page.tsx 에 붙어 있지 않아 화면에 나오지 않는다.
+ */
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  // 등장 애니메이션 스위치 — 한 번 켜지면 다시 끄지 않는다
   const [active, setActive] = useState(false)
 
+  // 섹션이 15% 보이면 애니메이션을 켜고 관찰을 끊는다 (재진입해도 다시 재생하지 않음)
   useEffect(() => {
     const el = sectionRef.current
     if (!el) return
@@ -112,6 +126,7 @@ export default function ProcessSection() {
     return () => obs.disconnect()
   }, [])
 
+  // processSections 에는 번호가 없어서 배열 순서로 01, 02 … 를 붙인다
   const process4 = processSections.map((p, i) => ({
     num: String(i + 1).padStart(2, '0'),
     title: p.step,

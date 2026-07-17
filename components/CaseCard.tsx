@@ -2,6 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { caseImagePath } from '@/data/cases'
 
+/**
+ * 사례 썸네일 카드 — 이미지(4:3) 위에 이름과 "자세히 보기" 링크를 얹은 공용 카드.
+ * href 를 주면 그 주소로, 없으면 slug 로 만든 /cases/{slug} 상세 페이지로 간다.
+ * (지금은 /cases 페이지가 자체 카드를 쓰고 있어 이 공용 카드를 쓰는 곳은 없다)
+ */
 export default function CaseCard({
   name,
   slug,

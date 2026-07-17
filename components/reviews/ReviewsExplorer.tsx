@@ -1,5 +1,10 @@
 import Link from 'next/link'
 
+/**
+ * /reviews 페이지 본문 전체 — 아직 "인터뷰 준비 중" 플레이스홀더다.
+ * 한 화면 가운데에 라벨 · 제목 · 안내 문구 · 무료 진단 CTA 만 띄운다.
+ * 실제 인터뷰가 모이면 이 자리를 인터뷰 목록/필터 UI 로 교체한다.
+ */
 export default function ReviewsExplorer() {
   return (
     <div>

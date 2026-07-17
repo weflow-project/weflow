@@ -2,6 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
+/**
+ * 메인페이지의 "혹시, 타사와 고민 중이신가요?" 비교 배너 — 마무리 CTA 바로 앞에 온다.
+ * 파란 그라데이션 배너 안에 문구와 /pricing(가격·비교자료)으로 가는 흰 알약 버튼을 두고,
+ * 캐릭터는 배너 오른쪽 밖으로 크게 삐져나오게 배치했다(의도된 연출).
+ */
 export default function ComparisonCTA() {
   return (
     <section
@@ -74,6 +79,8 @@ export default function ComparisonCTA() {
         </Reveal>
       </div>
 
+      {/* 캐릭터를 배너 밖으로 밀어내는 배치 — right 음수값과 100% 넘는 height 가 핵심이고,
+          좁은 화면에서는 글자를 가리지 않도록 크기·위치를 단계별로 줄인다 */}
       <style>{`
         .cmp-text { max-width: 60%; }
         .cmp-char {

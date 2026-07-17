@@ -2,11 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
+// 사명 WEFLOW를 WE / FLOW 두 글자로 나눠 각각의 뜻을 담은 카드 2개
 const MEANING = [
   { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/main/main-about-01.png" },
   { key: "FLOW", desc: "흐름 · 성장 · 연결 · 나아가는 움직임", img: "/images/main/main-about-02.png" },
 ];
 
+/**
+ * 메인 페이지(/)의 회사소개 섹션 — "사람이 움직이면, 기술은 따라온다".
+ * 소개 문구 아래 WE · FLOW 카드 2개로 사명의 뜻을 풀고, 하단 링크로 /about 으로 보낸다.
+ */
 export default function HomeAboutSection() {
   return (
     <section

@@ -4,9 +4,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { cases, caseImagePath, Case } from '@/data/cases'
 
+// 메인에 미리보기로 띄울 사례 5개 — 여기 적은 순서가 곧 모자이크 배치 순서다.
+// 맨 앞이 큰 카드로 나가므로 대표 사례를 앞에 둘 것.
 const PREVIEW_SLUGS = ['pt-shop', 'pilates', 'insurance', 'car-detailing', 'tax']
+// 왼쪽 텍스트 카드와 오른쪽 모자이크의 높이를 맞추는 값 (CSS 양쪽에 함께 먹인다)
 const GRID_H = 360
 
+// 사례 썸네일 — 이미지 위에 업종 칩과 이름을 얹는다.
+// 마우스를 올리면 이미지가 살짝 확대되고 그라데이션이 짙어지며 "자세히 보기"가 뜬다.
+// featured 면 큰 카드라 여백과 글자를 키운다.
 function CaseImgCard({ c, featured = false }: { c: Case; featured?: boolean }) {
   const [hovered, setHovered] = useState(false)
   return (
@@ -62,7 +68,14 @@ function CaseImgCard({ c, featured = false }: { c: Case; featured?: boolean }) {
   )
 }
 
+/**
+ * "업종별 성공 사례" 섹션 — 왼쪽 소개 카드 + 오른쪽 사례 이미지 모자이크(대표 1개 크게, 나머지 4개 작게).
+ * 전체 목록은 /cases 로 넘긴다.
+ *
+ * 주의: 현재 app/page.tsx 에 붙어 있지 않아 화면에 나오지 않는다.
+ */
 export default function CasesSection() {
+  // data/cases.ts 전체에서 미리보기 5개만 골라, PREVIEW_SLUGS 에 적힌 순서대로 다시 세운다
   const previewCases = cases
     .filter(c => PREVIEW_SLUGS.includes(c.slug))
     .sort((a, b) => PREVIEW_SLUGS.indexOf(a.slug) - PREVIEW_SLUGS.indexOf(b.slug))
@@ -121,7 +134,7 @@ export default function CasesSection() {
             </Link>
           </div>
 
-          {/* 오른쪽 이미지 5개 그리드 */}
+          {/* 오른쪽 이미지 5개 그리드 — 첫 번째만 2행을 차지하는 큰 카드 */}
           <div className="cases-img-mosaic">
             {previewCases.map((c, i) => (
               <div key={c.slug} className={i === 0 ? 'case-featured' : 'case-thumb'}>
