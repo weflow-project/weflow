@@ -7,12 +7,21 @@ import { makePlans } from "@/data/pricing";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
+/**
+ * /pricing — 제작 플랜 & 가격 안내 페이지.
+ * 제작 플랜 카드 3장 → 관리자 페이지 옵션 카드 3장 → 안내사항 순으로 이어진다.
+ * 가격은 data/pricing.ts 의 makePlans 를 그대로 쓰고, 스타일은 파일 하단 <style> 에 모아뒀다.
+ * 케어플랜·광고 세팅·유지보수 섹션은 주석 또는 false && 로 꺼둔 상태.
+ */
+
+// 플랜 카드 좌측 3D 아이콘 — makePlans 순서대로 짝지어 쓴다
 const MAKE_ICONS = [
   "/images/3d-icon/image-3.svg",
   "/images/3d-icon/image-4.svg",
   "/images/3d-icon/image-5.svg",
 ];
 
+// 관리자 페이지 옵션 카드의 공통 기능 목록 — 플랜과 무관하게 세 카드 모두 동일
 const ADMIN_FEATURES = [
   "문의·예약 확인",
   "회원 관리",
@@ -21,17 +30,20 @@ const ADMIN_FEATURES = [
 ];
 
 export default function PricingPage() {
+  // 제작 플랜 섹션 — 닷 네비의 스크롤 목적지 겸 활성 감지 대상
   const s1 = useRef<HTMLElement>(null);
   // const s2 = useRef<HTMLElement>(null) // 플랜 섹션 주석처리
   // const s3 = useRef<HTMLElement>(null) // 광고 세팅 섹션 주석처리
 
   const [activeSection, setActiveSection] = useState(0);
 
+  // 이 페이지에 있는 동안만 body 에 스냅 스크롤 클래스를 건다
   useEffect(() => {
     document.body.classList.add("snap-home");
     return () => document.body.classList.remove("snap-home");
   }, []);
 
+  // 화면에 들어온 섹션을 닷 네비의 활성 표시로 반영
   useEffect(() => {
     const refs = [s1];
     const observers = refs.map((ref, i) => {
@@ -47,6 +59,7 @@ export default function PricingPage() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // 닷 클릭 시 해당 섹션으로 부드럽게 이동
   const scrollTo = (ref: React.RefObject<HTMLElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -77,6 +90,7 @@ export default function PricingPage() {
         }}
       >
         <div className="pricing-inner">
+          {/* 헤더 — 할인 배지 + 제목 */}
           <div className="pricing-header">
             <Reveal variant="up">
               <span className="pricing-badge-pill">
@@ -98,12 +112,14 @@ export default function PricingPage() {
               </p>
             </Reveal>
           </div>
+          {/* 제작 플랜 카드 3장 — 순서대로 하나씩 등장 */}
           <Reveal as="div" stagger className="pricing-grid">
             {makePlans.map((plan, i) => (
               <div
                 key={plan.id}
                 className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}
               >
+                {/* 인기 플랜만 — 별 5개 태그 + 카드 안쪽 반짝이 */}
                 {plan.highlight && (
                   <>
                     <span className="pricing-tag" aria-label="가장 인기">
@@ -263,6 +279,7 @@ export default function PricingPage() {
         }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+          {/* 헤더 — 선택 옵션 안내 */}
           <div
             style={{
               textAlign: "center",
@@ -285,12 +302,14 @@ export default function PricingPage() {
             </Reveal>
           </div>
 
+          {/* 관리자 페이지 옵션 카드 3장 — 같은 플랜을 옵션 가격 기준으로 다시 보여준다 */}
           <Reveal as="div" stagger className="pricing-grid">
             {makePlans.map((plan, i) => (
               <div
                 key={plan.id}
                 className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}
               >
+                {/* 인기 플랜만 — 별 5개 태그 + 카드 안쪽 반짝이 */}
                 {plan.highlight && (
                   <>
                     <span className="pricing-tag" aria-label="가장 인기">
@@ -576,6 +595,7 @@ export default function PricingPage() {
               <Info size={16} strokeWidth={2.5} color="var(--accent)" />
               안내사항
             </p>
+            {/* 안내 문구 목록 — ※ 로 시작하면 불릿 없는 보조 안내로 뺀다 */}
             <ul>
               {[
                 "섹션은 랜딩페이지 1개 분량을, 페이지는 홈페이지 1개 분량을 의미합니다.",

@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import { FileEdit, Camera, PlaySquare, MapPin, BarChart2, Globe } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
+// 제휴 마케팅 운영 항목 6가지 — 카드 그리드를 채우는 데이터
 const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
   { Icon: FileEdit, title: "블로그 업로드", desc: "네이버 블로그 정기 업로드" },
   { Icon: Camera, title: "인스타 업로드", desc: "인스타그램·메타 광고 정기 업로드" },
@@ -18,6 +19,7 @@ const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
   { Icon: Globe, title: "구글 콘솔", desc: "사이트 맵을 활용한 구글 검색 상단 등록" },
 ];
 
+// 운영 항목 카드 한 장 (마우스를 올리면 배경·아이콘 색이 강조된다)
 function AdCard({
   Icon,
   title,
@@ -90,6 +92,7 @@ function AdCard({
   );
 }
 
+/** 서비스 페이지 "제휴 마케팅 업체 연결" 섹션 — 제작 후 운영 지원 항목을 카드로 보여준다 (한 화면 높이·스크롤 스냅) */
 export default function AdManagement() {
   return (
     <section

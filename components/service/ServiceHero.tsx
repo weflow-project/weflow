@@ -1,8 +1,11 @@
 import { CheckCircle } from 'lucide-react'
 
+// 제목 아래 한 줄로 보여주는 전체 흐름 태그
 const TAGS = ['상담 → 기획 → 디자인 → 개발 → SEO → 광고운영']
+// 체크 아이콘이 붙는 강조 배지 문구
 const POINTS = ['체계적인 6단계 프로세스', '제작 후 광고·운영 사후관리', '평균 3~7일 완성']
 
+/** 서비스 페이지 최상단 히어로 — "제작진행과정" 제목과 흐름 태그·강조 배지 (한 화면 높이·스크롤 스냅) */
 export default function ServiceHero() {
   return (
     <section style={{

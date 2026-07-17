@@ -26,10 +26,15 @@ function Chars({
   );
 }
 
+// 히어로 타이틀 문구 — 세 토막을 이어 한 문장으로 등장시킨다
 const LINE1 = "내가 진짜 원하는 페이지";
 const LINE2A = "우리만의 플로우를 담다, ";
 const LINE2B = "WEFLOW";
 
+/**
+ * 메인 페이지 최상단 히어로 — 배경 영상 위에 타이틀·CTA 두 개(견적/혜택)를 얹고,
+ * 아래에 대표 이미지 캐러셀을 붙인다.
+ */
 export default function HeroBanner() {
   return (
     <section

@@ -5,6 +5,7 @@ import { SiNaver } from "react-icons/si";
 import { FaInstagram, FaYoutube, FaMapMarkerAlt } from "react-icons/fa";
 import { TrendingUp } from "lucide-react";
 
+// 둥근 사각 배경에 아이콘 하나 (채널 로고 칩)
 function IconChip({
   Icon,
   size = 24,
@@ -127,6 +128,7 @@ const BRAND = {
   youtube: { color: "#FF0000", background: "rgba(255,0,0,0.10)" },
 } as const;
 
+// 마케팅 채널 4종 — 벤토 그리드의 채널 카드를 채운다
 const CHANNELS: {
   area: string;
   Icon: IconType;
@@ -174,6 +176,10 @@ const CHANNELS: {
   },
 ];
 
+/**
+ * "제휴 마케팅과의 협약" 섹션 — 제작 이후 채널 마케팅까지 함께 한다는 내용을
+ * 벤토 그리드(개요 · 지속 유입 · 채널 4종)로 보여준다
+ */
 export default function PartnershipSection() {
   return (
     <section

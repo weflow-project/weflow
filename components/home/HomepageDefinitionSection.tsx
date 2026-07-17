@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Home, Clock, Search, Database, ArrowUp } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+// 홈페이지가 무엇인지 한 줄로 짚는 포인트 — 왼쪽 아이콘 목록을 채운다 (고객 DB 행 아래)
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
   { Icon: Home, label: "브랜드의 얼굴", desc: "방문자가 처음 마주하는 첫인상" },
   {
@@ -19,6 +20,10 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
   },
 ];
 
+/**
+ * "01 · 홈페이지의 정의" 섹션 — 홈페이지가 무엇인지 사전적 정의와 쉬운 풀이로 설명한다
+ * 왼쪽은 정의·핵심 포인트, 오른쪽은 지금 보고 있는 홈페이지 이미지(클릭하면 맨 위로)
+ */
 export default function HomepageDefinitionSection() {
   return (
     <section

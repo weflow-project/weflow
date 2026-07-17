@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
+/** 서비스 페이지 맨 아래 전환 유도 섹션 — 전화상담 · 무료 진단 신청 두 버튼으로 보낸다 */
 export default function ServiceCTA() {
   return (
     <section

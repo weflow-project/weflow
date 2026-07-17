@@ -4,8 +4,10 @@ import Image from 'next/image'
 import { steps } from '@/data/service'
 import Reveal from '@/components/Reveal'
 
+// data/service.ts 의 steps 순서에 1:1로 대응하는 단계별 아이콘
 const STEP_ICONS: LucideIcon[] = [MessageSquare, FileText, Palette, Code2, Monitor, Share2]
 
+/** 서비스 페이지 "제작 진행과정" 섹션 — 상담부터 광고운영까지 6단계를 3x2 카드로 보여준다 */
 export default function ServiceSteps() {
   return (
     <section style={{ background: '#fff', padding: 'clamp(3rem, 6vw, 5rem) 1.25rem' }}>

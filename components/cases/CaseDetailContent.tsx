@@ -6,8 +6,15 @@ import { ArrowLeft, MapPin, Phone, Clock, ArrowDown } from 'lucide-react'
 import { cases, caseImagePath } from '@/data/cases'
 import type { CaseDetail } from '@/data/cases'
 
+/**
+ * 사례 상세 화면 — 브라우저 목업, 서비스·요금 안내, 문제→솔루션→결과,
+ * 인터뷰·비즈니스 정보, CTA, 관련 사례 순으로 한 장에 쌓아 보여준다.
+ * 안내·요금·인터뷰 같은 항목은 업종과 무관한 디자인 참고용 예시다.
+ */
+
 type Props = { c: CaseDetail; imageSrc: string; slug: string }
 
+// 문장 속 숫자만 강조색으로 뽑아낸다 ('6배 증가' 같은 성과 수치용)
 function highlightNumbers(text: string) {
   return text.split(/(\d+(?:\.\d+)?)/).map((part, i) =>
     /^\d+(\.\d+)?$/.test(part)
@@ -16,12 +23,14 @@ function highlightNumbers(text: string) {
   )
 }
 
+// '서비스 안내' 카드 3장 — 업종과 무관한 공통 예시 문구
 const SERVICE_CARDS = [
   { title: '1:1 맞춤 상담', desc: '고객의 상황에 맞는 맞춤형 상담을 제공합니다.' },
   { title: '전문 서비스', desc: '검증된 노하우와 시스템으로 만족도 높은 결과를 제공합니다.' },
   { title: '체계적인 관리', desc: '이용 후에도 꾸준한 관리와 피드백으로 챙겨드립니다.' },
 ]
 
+// '이용 요금' 예시 요금제 — WEFLOW 가격이 아니라 목업용 샘플이다
 const PRICE_TIERS = [
   { name: '베이직', price: '₩50,000~', desc: '처음 이용하시는 분들을 위한 기본 패키지' },
   { name: '스탠다드', price: '₩120,000~', desc: '가장 많이 찾는 표준 패키지' },
@@ -31,6 +40,7 @@ const PRICE_TIERS = [
 export default function CaseDetailContent({ c, imageSrc, slug }: Props) {
   const [imgError, setImgError] = useState(false)
 
+  // 아래 '관련 성공사례' 3칸 — 같은 업종을 앞으로 당긴다
   const related = cases
     .filter(r => r.slug !== slug)
     .sort((a, b) => (b.category === c.category ? 1 : 0) - (a.category === c.category ? 1 : 0))

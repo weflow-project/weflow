@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
+// 혜택 카드 3개 (번호 리본 · 3D 아이콘 · 설명)
 const BENEFITS = [
   {
     no: "혜택 01",
@@ -23,6 +24,10 @@ const BENEFITS = [
   },
 ];
 
+/**
+ * WEFLOW만의 혜택 섹션 (#benefits — 히어로의 "혜택보기" 버튼이 여기로 온다).
+ * 파란 배경에 혜택 카드 3개 + 하단 신청 CTA, 우측엔 가격 페이지로 가는 사이드 탭.
+ */
 export default function BenefitsSection() {
   return (
     <section

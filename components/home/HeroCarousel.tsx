@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
+// 히어로 대표 이미지 10장 (main-hero-01 ~ 10)
 const SLIDES = Array.from({ length: 10 }, (_, i) => ({
   src: `/images/main/main-hero-${String(i + 1).padStart(2, '0')}.png`,
   label: `대표 이미지 ${i + 1}`,
@@ -10,6 +11,7 @@ const SLIDES = Array.from({ length: 10 }, (_, i) => ({
 const COUNT = SLIDES.length
 const INTERVAL = 3000
 
+/** 히어로 하단 대표 이미지 캐러셀 — 3초 자동 전환 · 화살표·스와이프로 수동 조작 */
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -26,6 +28,7 @@ export default function HeroCarousel() {
     return () => clearTimeout(id)
   }, [index, paused])
 
+  // 모바일 스와이프 — 좌우 40px 넘게 끌면 이전/다음 장으로
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
   }

@@ -1,21 +1,35 @@
+/**
+ * 성공 사례 페이지(/cases)와 사례 상세(/cases/[slug])가 쓰는 데이터.
+ * 두 종류가 섞여 있다 — 업종별 예시 사례(cases/caseDetails, 지금은 비어 있음)와
+ * 실제 제작 사례(portfolios, 목록 페이지에 노출 중).
+ */
+
+/** 목록 카드 한 칸 — 업종별 예시 사례용 (현재 cases는 빈 배열) */
 export interface Case {
+  /** 상세 주소(/cases/[slug])이자 목업 브라우저에 찍히는 도메인 */
   slug: string
   name: string
   category: string
+  /** 카드 테두리·아이콘 강조색 */
   color: string
   emoji: string
 }
 
+/** 사례 상세 한 건 — 문제 → 솔루션 → 결과 순서로 화면에 깔린다 */
 export interface CaseDetail {
   name: string
   category: string
   emoji: string
   color: string
+  /** BEFORE — 제작 전 겪던 문제 */
   challenge: string
+  /** WEFLOW가 적용한 처방 */
   solution: string
+  /** AFTER — 숫자는 화면에서 강조색으로 표시된다 */
   result: string
 }
 
+// 업종 slug -> 상세 내용. /cases/[slug] 진입 시 여기서 찾아 쓴다
 export const caseDetails: Record<string, CaseDetail> = {
   'pt-shop': {
     name: 'PT샵', category: '피트니스', emoji: '💪', color: '#6366f1',
@@ -187,6 +201,7 @@ export const caseDetails: Record<string, CaseDetail> = {
   },
 }
 
+// caseDetails에 없는 slug로 들어왔을 때 대신 보여주는 일반 사례
 export const defaultCaseDetail: CaseDetail = {
   name: '업종별 맞춤 제작',
   category: '다양한 업종',
@@ -197,6 +212,7 @@ export const defaultCaseDetail: CaseDetail = {
   result: '평균적으로 홈페이지 리뉴얼 후 문의 전환율이 3~5배 향상됩니다.',
 }
 
+// slug와 이미지 파일명이 다른 업종들 — 이름이 같으면 굳이 넣지 않아도 된다
 const SLUG_TO_IMAGE: Record<string, string> = {
   'pt-shop': 'pt',
   'pilates': 'pilates',
@@ -228,6 +244,7 @@ const SLUG_TO_IMAGE: Record<string, string> = {
   'cleaning': 'cleaning',
 }
 
+// 업종 slug로 사례 대표 이미지 경로를 만든다 (목록 카드·상세 목업 공용)
 export function caseImagePath(slug: string): string {
   const imageSlug = SLUG_TO_IMAGE[slug] ?? slug
   return `/images/cases/cases_${imageSlug}.jpg`
@@ -238,15 +255,20 @@ export const cases: Case[] = []
 
 // 실제 제작 사례 — 사진 여러 장을 한 칸에서 자동 전환한다
 export interface Portfolio {
+  /** React key 용도 — cases와 달리 상세 페이지는 없다 */
   slug: string
   name: string
+  /** 업종 칩으로 거를 때 쓰는 분류 */
   category: string
+  /** 카드 이름 밑 한 줄 소개 */
   desc: string
   /** 누르면 열리는 실제 제작 사이트 */
   url: string
+  /** 한 칸에서 자동 전환되는 화면 사진들 */
   images: string[]
 }
 
+// 목록 페이지의 PortfolioShowcase가 그리는 실제 제작 사례 목록
 export const portfolios: Portfolio[] = [
   {
     slug: 'ksmobility',

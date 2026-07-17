@@ -2,6 +2,10 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
+/**
+ * 서비스 페이지 "타 서비스에서 전환하신다면?" 섹션 — 다른 업체에서 만든 사이트를
+ * WEFLOW로 갈아타도록 문의를 유도한다. (동작하는 토글 스위치가 아니라 안내용 섹션이다)
+ */
 export default function ServiceSwitch() {
   return (
     <section

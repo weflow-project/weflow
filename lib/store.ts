@@ -1,5 +1,10 @@
+// Supabase 테이블 접근 계층 — 라우트는 여기만 통해 DB에 닿는다.
+// 테이블 3개: bookings(예약) / inquiries(문의) / page_views(방문 기록)
+// DB는 snake_case, 앱은 camelCase — 사이의 변환은 각 to*() 함수가 담당한다.
+
 import { getSupabase } from './supabase'
 
+// 예약 1건 — bookings 테이블 한 행
 export interface Booking {
   id: string
   status: 'pending' | 'in_progress' | 'done'
@@ -13,6 +18,7 @@ export interface Booking {
   createdAt: string
 }
 
+// 문의 1건 — inquiries 테이블 한 행 (예약과 달리 희망일정 없고 개인정보 동의·유입 출처가 있다)
 export interface Inquiry {
   id: string
   status: 'pending' | 'in_progress' | 'done'
@@ -26,6 +32,7 @@ export interface Inquiry {
   createdAt: string
 }
 
+// bookings 행 → Booking (created_at → createdAt, null 필드는 빈 문자열로)
 function toBooking(row: Record<string, unknown>): Booking {
   return {
     id: row.id as string,

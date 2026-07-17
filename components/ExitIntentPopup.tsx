@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
+/**
+ * 폼에 뭔가 입력해 둔 사람이 떠나려 할 때 붙잡는 모달.
+ * 뒤로가기(모바일) 또는 마우스가 창 위로 빠질 때(데스크탑) 뜬다. 관리자 페이지는 제외.
+ */
 export default function ExitIntentPopup() {
   const [visible, setVisible] = useState(false)
   const [mounted, setMounted] = useState(false)

@@ -1,3 +1,6 @@
+// 관리자 로그인 엔드포인트 — /api/admin/login
+// POST only, 공개(로그인 전이므로). 관리자 로그인 화면에서 호출.
+
 import { NextResponse } from 'next/server'
 import { createSession, ADMIN_COOKIE, ADMIN_MAX_AGE } from '@/lib/adminAuth'
 

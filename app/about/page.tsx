@@ -1,3 +1,7 @@
+// /about — 회사소개 페이지.
+// 인트로 → 이름의 의미 → 철학 → 브랜드 스토리 → 일하는 방식 → 회사 정보 → CTA 순.
+// 화면에 뿌릴 문구는 아래 상수(VALUES·MEANING·STORY·INFO)에 모아뒀고,
+// 페이지 전용 스타일은 파일 맨 아래 <style> 블록에 있다.
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +16,7 @@ export const metadata: Metadata = {
     "사람과 기술이 함께 흘러가며 더 좋은 방향을 만드는 회사, WEFLOW.",
 };
 
+// 일하는 방식 카드 3장
 const VALUES: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: PencilRuler,
@@ -33,17 +38,20 @@ const VALUES: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
   },
 ];
 
+// 사명 풀이 — WE · FLOW 두 카드
 const MEANING: { key: string; desc: string; img: string }[] = [
   { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/about/about2.png" },
   { key: "FLOW", desc: "흐름 · 성장 · 연결 · 앞으로 나아가는 움직임", img: "/images/about/about3.png" },
 ];
 
+// 브랜드 스토리 본문 — 한 줄씩 순차 등장
 const STORY: string[] = [
   "처음엔 돈도, 스펙도, 대단한 기술도 없었습니다.",
   "하지만 사람과 관계, 그리고 좋은 흐름은 결국 큰 결과를 만든다고 믿었습니다.",
   "우리는 혼자 성공하는 회사보다, 함께 흘러가며 성장하는 회사를 만들고 싶었습니다.",
 ];
 
+// 사업자 정보 표 (라벨 — 값)
 const INFO: { label: string; value: string }[] = [
   { label: "상호", value: "WEFLOW (위플로우)" },
   { label: "대표", value: "신서준" },

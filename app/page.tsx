@@ -1,3 +1,5 @@
+// 메인 페이지 (/) — 히어로부터 마지막 CTA까지 16개 섹션을 순서대로 쌓는다.
+// 각 섹션의 실제 내용은 components/home/* 에 있고, 여기선 순서와 임시 문구만 잡는다.
 "use client";
 import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
@@ -20,11 +22,13 @@ import ComparisonCTA from "@/components/home/ComparisonCTA";
 import FinalCTA from "@/components/home/FinalCTA";
 
 export default function HomePage() {
+  // 이 페이지에 있는 동안만 body에 스크롤 스냅 클래스를 붙인다
   useEffect(() => {
     document.body.classList.add("snap-home");
     return () => document.body.classList.remove("snap-home");
   }, []);
 
+  // .reveal 요소가 화면에 들어오면 visible을 붙여 등장 애니메이션을 튼다
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
@@ -45,6 +49,7 @@ export default function HomePage() {
       <HeroBanner />
 
       {/* 2~7. 새 섹션 (임시 문구 · 텍스트 아래 이미지) */}
+      {/* 2. 포트폴리오 — 이미지를 누르면 실제 제작 사이트로 이동 */}
       <PlaceholderSection
         eyebrow="포트폴리오"
         stars
@@ -69,6 +74,7 @@ export default function HomePage() {
           </>
         }
       />
+      {/* 3. 고객 인터뷰 */}
       <PlaceholderSection
         eyebrow="고객 인터뷰"
         stars
@@ -86,11 +92,13 @@ export default function HomePage() {
         imageAlt="WEFLOW 고객 인터뷰"
         imageCount={1}
       />
+      {/* 4~7. 어떤 고객을 위한 건지 → 홈페이지란 무엇인지 → 종류별(홈페이지·랜딩형·랜딩) 설명 */}
       <TargetCustomerSection />
       <HomepageDefinitionSection />
       <WhatIsHomepageSection />
       <LandingHomepageSection />
       <LandingPageSection />
+      {/* 관리자 페이지 소개와 필요성 */}
       <AdminPageSection />
       <WhyAdminSection />
 

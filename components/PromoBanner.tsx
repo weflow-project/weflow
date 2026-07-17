@@ -1,5 +1,8 @@
 import Link from 'next/link'
 
+/**
+ * 헤더 바로 위에 붙는 프로모션 띠 — 할인 문구를 알리고 누르면 무료 진단으로 간다.
+ */
 export default function PromoBanner() {
   return (
     <Link

@@ -4,6 +4,10 @@ import { Check, Sparkles, Star } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import { makePlans } from '@/data/pricing'
 
+/**
+ * 제작 플랜 & 가격 섹션 — data/pricing.ts의 플랜 3개를 카드로 나열한다.
+ * highlight 플랜은 테두리 강조 + 별 배지 + 반짝이 애니메이션.
+ */
 export default function PricingSection() {
   return (
     <section style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>

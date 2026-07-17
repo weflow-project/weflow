@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 
+// 외부 채널 주소 (BottomBar와 동일한 곳을 가리킨다)
 const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
 const INSTAGRAM_URL = 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2bWRt'
@@ -45,6 +46,7 @@ const NaverIcon = () => (
   </svg>
 )
 
+// 상담문의 열 — 아이콘은 각 채널 브랜드 색으로 표시
 const CONTACT_LINKS = [
   { label: '전화문의',          href: 'tel:010-2971-7280',              Icon: PhoneIcon,    external: false, color: '#22d3ee' },
   { label: '이메일 문의',       href: 'mailto:contact@weflowlab.kr',    Icon: MailIcon,     external: false, color: '#5b9bff' },
@@ -53,6 +55,10 @@ const CONTACT_LINKS = [
   { label: '블로그',            href: BLOG_URL,                          Icon: NaverIcon,    external: true,  color: '#03C75A' },
 ]
 
+/**
+ * 모든 페이지 하단의 푸터 — 브랜드·사업자 정보 + 링크 4열 + 카피라이트.
+ * 아래 BottomBar에 가리지 않도록 paddingBottom을 둔다.
+ */
 export default function Footer() {
   return (
     <footer style={{ background: '#0f172a', color: '#64748b', paddingBottom: '72px' }}>

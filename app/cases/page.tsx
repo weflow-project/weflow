@@ -23,6 +23,13 @@ import {
 import { cases, caseImagePath } from "@/data/cases";
 import PortfolioShowcase from "@/components/cases/PortfolioShowcase";
 
+/**
+ * 성공 사례 페이지(/cases).
+ * 업종별 예시 사례가 있으면 칩 필터 + 카드 그리드를 그리고,
+ * 없으면 실제 제작 사례(PortfolioShowcase)만 보여준다 — 지금은 후자다.
+ */
+
+// 카드 이름 옆에 붙는 업종 아이콘
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   피트니스: Dumbbell,
   금융: Landmark,
@@ -40,12 +47,14 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   교육: GraduationCap,
 };
 
+// 필터 칩 목록 — '전체' + 사례에 실제로 있는 업종들
 const ALL_CATEGORIES = [
   "전체",
   ...Array.from(new Set(cases.map((c) => c.category))),
 ];
 
 /* ── 카드 ── */
+// 사례 한 칸 — 브라우저 목업 안에 대표 이미지, 마우스를 올리면 확대·강조된다
 function CaseCard({
   c,
   index,
@@ -233,16 +242,19 @@ function CaseCard({
 }
 
 /* ── 그리드 + reveal ── */
+// 카드 그리드 — 화면에 들어오면(또는 필터가 바뀌면) 카드가 차례로 떠오른다
 function GridReveal({ filtered }: { filtered: typeof cases }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
+  // 업종을 바꾸면 새 카드들이 처음부터 다시 떠오른다
   useEffect(() => {
     setVisible(false);
     const t = setTimeout(() => setVisible(true), 30);
     return () => clearTimeout(t);
   }, [filtered]);
 
+  // 그리드가 화면에 걸치는 순간 등장 (첫 진입용)
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -266,6 +278,7 @@ function GridReveal({ filtered }: { filtered: typeof cases }) {
 }
 
 /* ── 메인 ── */
+// 사례 목록 화면 — 선택한 업종 칩에 따라 카드를 걸러 보여준다
 export default function CasesPage() {
   const [activeCategory, setActiveCategory] = useState("전체");
   const [mounted, setMounted] = useState(false);
@@ -313,6 +326,7 @@ export default function CasesPage() {
               WEFLOW가 직접 제작한 사례입니다.
             </p>
 
+            {/* 실제 제작 사례 목록 */}
             <PortfolioShowcase />
 
             <div style={{ textAlign: "center", marginTop: "clamp(2.5rem, 5vw, 3.5rem)" }}>

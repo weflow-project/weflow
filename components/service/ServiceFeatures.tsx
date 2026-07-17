@@ -15,6 +15,7 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 
+// 강점 카드 9장을 채우는 데이터 — only 는 WEFLOW ONLY 배지를 붙일 항목
 const FEATURES: {
   Icon: LucideIcon;
   title: string;
@@ -69,6 +70,7 @@ const FEATURES: {
   },
 ];
 
+/** 서비스 페이지 "WEFLOW만의 강점" 섹션 — 강점 9가지를 3열 카드 그리드로 보여준다 */
 export default function ServiceFeatures() {
   return (
     <section

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Rows3, Anchor, Target } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+// 랜딩형 홈페이지의 특징 — 왼쪽 아이콘 목록을 채운다
 const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
   {
     Icon: Rows3,
@@ -17,6 +18,10 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
   { Icon: Target, label: "전환 집중", desc: "이탈없이 자연스러운 문의" },
 ];
 
+/**
+ * "03 · 랜딩형 홈페이지란" 섹션 — 랜딩형이 무엇인지 정의·특징으로 설명한다
+ * 오른쪽 이미지를 누르면 참고용 랜딩형 사이트가 새 탭으로 열린다
+ */
 export default function LandingHomepageSection() {
   return (
     <section

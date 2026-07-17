@@ -65,6 +65,11 @@ const PLAN_EXTRA: Record<string, { type: string; why: string }> = {
 
 type Industry = typeof INDUSTRIES[number]
 
+/**
+ * 우측 하단에 떠 있는 "맞춤 플랜 알아보기" 플로팅 버튼 + 3단계 퀴즈 패널.
+ * 업종(0) → 현재 상황(1) → 추천 플랜 결과(2) 순으로 진행하고,
+ * 결과에서 무료 진단으로 넘어가면 선택 내용이 폼에 자동으로 채워진다.
+ */
 export default function InquiryQuiz() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -74,6 +79,7 @@ export default function InquiryQuiz() {
   const [planId, setPlanId] = useState('')
 
   const reset = () => { setStep(0); setIndustry(null); setSituation(''); setPlanId('') }
+  // 닫힘 애니메이션이 끝난 뒤 초기화 — 사라지는 중에 내용이 바뀌지 않게
   const close = () => { setOpen(false); setTimeout(reset, 300) }
 
   const selectSituation = (label: string, pid: string) => {
@@ -82,6 +88,7 @@ export default function InquiryQuiz() {
     setStep(2)
   }
 
+  // 선택 결과로 결정되는 화면 내용 — 추천 플랜, 추천 이유, 업종별 성공사례
   const plan = PLANS.find(p => p.id === planId)
   const extra = PLAN_EXTRA[planId]
   const caseSlug = industry?.caseSlug

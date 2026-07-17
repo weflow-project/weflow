@@ -5,6 +5,7 @@ import SplitText from "@/components/SplitText";
 import { X, PencilRuler, Workflow, ShieldCheck, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+// AI로만 만든 홈페이지의 한계 — 목업 이미지 옆 X 목록을 채운다
 const AI_CONS = [
   "어디서 본 듯한 천편일률 템플릿",
   "맥락 없이 자동 생성된 어색한 문구",
@@ -12,6 +13,7 @@ const AI_CONS = [
   "운영·수정·검색 노출은 결국 내 몫",
 ];
 
+// 위플로우의 차별점 — 하단 3카드 그리드를 채운다
 const DIFFS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: PencilRuler,
@@ -33,6 +35,10 @@ const DIFFS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = 
   },
 ];
 
+/**
+ * "왜 위플로우인가" 섹션 — AI로 직접 만들면 되지 않나? 라는 질문에서 출발해
+ * AI 결과물의 한계 → 우리가 원한 홈페이지 → 위플로우의 차별점 3카드 → CTA 순으로 이어진다
+ */
 export default function WhyWeflowSection() {
   return (
     <section

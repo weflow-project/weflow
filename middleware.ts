@@ -1,3 +1,5 @@
+// 모든 페이지 요청보다 먼저 실행되는 미들웨어 (matcher 범위: 정적파일·API 제외).
+// 하는 일은 하나 — 경로가 깨진 링크면 홈으로 리다이렉트한다.
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -6,6 +8,7 @@ import type { NextRequest } from 'next/server'
 // 404로 이탈시키지 않고 홈으로 보낸다. (예: weflowlab.kr/] → weflowlab.kr/)
 const BROKEN = /[[\]()]/
 
+// 경로를 디코딩해 깨진 문자가 있는지 보고, 있으면 홈으로 보낸다
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   let decoded = pathname

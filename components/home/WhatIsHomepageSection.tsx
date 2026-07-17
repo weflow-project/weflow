@@ -12,6 +12,7 @@ type Point = {
   source: string
 }
 
+// 홈페이지가 필요한 이유 6가지 — 지그재그 행(통계 숫자 + 설명 + 출처)을 채운다
 const POINTS: Point[] = [
   {
     order: '첫째',
@@ -103,10 +104,15 @@ const WHY_IMAGES = [
   '/images/main/main-why-06.png',
 ]
 
+/**
+ * "02 · 홈페이지가 필요한 이유" 섹션 — 통계 근거 6가지를 지그재그 좌우 배치로 보여준다
+ * 앞의 3개는 핵심으로 왕관·뱃지와 강조 패널이 붙는다
+ */
 export default function WhatIsHomepageSection() {
   const ref = useRef<HTMLElement>(null)
   const [inView, setInView] = useState(false)
 
+  // 섹션이 화면에 들어오면 파란 통계 숫자 흔들림 애니메이션을 시작한다 (한 번만)
   useEffect(() => {
     const el = ref.current
     if (!el) return

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+// 제작 프로세스 6단계 — num이 카드 배경 숫자이자 이미지 파일명(main-service-01 …)
 const STEPS: { num: string; Icon: LucideIcon; title: string; desc: string }[] =
   [
     {
@@ -46,6 +47,7 @@ const STEPS: { num: string; Icon: LucideIcon; title: string; desc: string }[] =
     },
   ];
 
+/** 서비스 섹션 — "제작부터 마케팅까지, 하나의 흐름으로", 6단계 프로세스를 2열 카드로 */
 export default function HomeServiceSection() {
   return (
     <section

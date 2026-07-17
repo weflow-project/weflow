@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { features } from '@/data/home'
 
+// 상단 통계 바 숫자 4개 (화면에 들어오면 0부터 세어 올라간다)
 const STATS = [
   { value: 100, suffix: '+', label: '성공 사례' },
   { value: 99, suffix: '%', label: '고객 만족도' },
@@ -10,6 +11,7 @@ const STATS = [
   { value: 24, suffix: 'h', label: '상시 상담' },
 ]
 
+// 하단 프로세스 플로우 — 의뢰부터 사후 관리까지 4단계
 const FLOW_STEPS = [
   { title: '고객 의뢰',           desc: '업종·목표 상담' },
   { title: '접수 후 제작',         desc: '문의 구조 설계' },
@@ -17,6 +19,7 @@ const FLOW_STEPS = [
   { title: '광고 및 운영 사후 관리', desc: '지속 성장 지원' },
 ]
 
+// 0에서 target까지 세어 올리는 숫자 (active가 켜지면 시작)
 function useCountUp(target: number, duration = 1200, active: boolean) {
   const [count, setCount] = useState(0)
   useEffect(() => {
@@ -34,6 +37,7 @@ function useCountUp(target: number, duration = 1200, active: boolean) {
   return count
 }
 
+// 통계 바의 숫자 한 칸
 function StatItem({ value, suffix, label, active }: { value: number; suffix: string; label: string; active: boolean }) {
   const count = useCountUp(value, 1200, active)
   return (
@@ -46,6 +50,7 @@ function StatItem({ value, suffix, label, active }: { value: number; suffix: str
   )
 }
 
+// 케어 플랜 혜택 카드 (이미지 + 제목·설명 · 마우스를 올리면 확대·파란 오버레이)
 function FeatureCard({ f, active, delay }: { f: typeof features[0]; active: boolean; delay: number }) {
   const [hovered, setHovered] = useState(false)
   return (

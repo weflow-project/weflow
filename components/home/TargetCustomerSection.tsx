@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
+// 고객 유형 2가지 (전환 고객 / 신규 고객)
 const CARDS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
   {
     Icon: Wrench,
@@ -18,6 +19,10 @@ const CARDS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = 
   },
 ];
 
+/**
+ * WEFLOW의 고객 섹션 — "어떤 분들이 위플로우의 고객이 될 수 있을까요?"
+ * 고객 유형 두 가지를 카드로 보여주고, 하단에 "누구나 고객이 될 수 있다"로 맺는다.
+ */
 export default function TargetCustomerSection() {
   return (
     <section

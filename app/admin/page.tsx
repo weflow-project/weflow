@@ -1,4 +1,10 @@
 "use client";
+/**
+ * 관리자 대시보드 — 전체 현황·문의·예약·통계·유입 5개 탭을 한 페이지에서 전환한다.
+ * 비밀번호 로그인(서버 세션 쿠키) 후 진입하며, 예약/문의는 /api/bookings·/api/inquiries,
+ * 방문 기록은 /api/analytics 에서 받아온다. 데이터는 20초 폴링 + 탭 재포커스 시 갱신.
+ * 모든 표·차트는 이 파일 안의 로컬 컴포넌트로 그린다 (외부 차트 라이브러리 없음).
+ */
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import {
@@ -31,6 +37,7 @@ type Status = "pending" | "in_progress" | "done";
 type Tab = "overview" | "reservations" | "inquiries" | "analytics" | "traffic";
 type Filter = "전체" | "대기" | "진행중" | "완료";
 
+// 상태 코드 ↔ 화면 표기 (KO: 코드→한글, EN: 한글→코드 / 필터 버튼에서 역변환용)
 const STATUS_KO: Record<Status, string> = {
   pending: "대기",
   in_progress: "진행중",
@@ -41,6 +48,7 @@ const STATUS_EN: Record<string, Status> = {
   진행중: "in_progress",
   완료: "done",
 };
+// 상태 배지 색 (배경·글자·테두리)
 const STATUS_STYLE: Record<
   Status,
   { bg: string; color: string; border: string }
@@ -58,6 +66,7 @@ const STATUS_STYLE: Record<
   done: { bg: "#f0fdf4", color: "#15803d", border: "1px solid #86efac" },
 };
 
+// /api/bookings 응답 한 건 — 상담 예약(희망 날짜·시간 포함)
 interface Booking {
   id: string;
   status: Status;
@@ -70,6 +79,7 @@ interface Booking {
   time: string;
   createdAt: string;
 }
+// /api/inquiries 응답 한 건 — 일반 문의(일시 없음, 유입 소스가 붙기도 함)
 interface Inquiry {
   id: string;
   status: Status;
@@ -81,6 +91,7 @@ interface Inquiry {
   source?: string;
   createdAt: string;
 }
+// /api/analytics 응답 한 건 — 방문자가 페이지 하나를 본 기록 (sessionId로 한 방문을 묶는다)
 interface PageView {
   id: string;
   sessionId: string;
@@ -95,7 +106,9 @@ interface PageView {
   createdAt: string;
 }
 
+// 목록 위 상태 필터 버튼
 const FILTERS: Filter[] = ["전체", "대기", "진행중", "완료"];
+// 사이드바·드로어 메뉴 = 탭 목록 (순서대로 노출)
 const TABS: { key: Tab; label: string }[] = [
   { key: "overview", label: "전체 현황" },
   { key: "inquiries", label: "문의 관리" },
@@ -179,15 +192,18 @@ const TYPE_COLORS = [
   "#ef4444",
 ];
 
+// 한 자리 수를 두 자리로 (날짜 키 만들 때)
 function pad(n: number) {
   return String(n).padStart(2, "0");
 }
 
+// 접수일 표기 — YYYY-MM-DD HH:MM
 function fmt(iso: string) {
   const d = new Date(iso);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
 }
 
+// 페이지 상단 요약 카드 한 장 — "전체 문의 12건" 식
 function StatCard({
   label,
   value,
@@ -263,6 +279,11 @@ function StatCard({
   );
 }
 
+/**
+ * 예약·문의 목록 표 — 두 탭이 같이 쓴다.
+ * 행마다 상태 변경·삭제 버튼, 화살표를 누르면 업종·요청사항 상세가 아래로 펼쳐진다.
+ * showSchedule 이면 '희망 일시' 열이 추가된다(예약용).
+ */
 function RequestTable({
   title,
   rows,
@@ -285,6 +306,7 @@ function RequestTable({
 
   return (
     <section>
+      {/* 표 제목 + 전체 보기 링크 + 엑셀 다운로드 */}
       <div
         style={{
           display: "flex",
@@ -369,6 +391,7 @@ function RequestTable({
             textAlign: "left",
           }}
         >
+          {/* 헤더 행 */}
           <thead>
             <tr>
               {[
@@ -415,6 +438,7 @@ function RequestTable({
                 </td>
               </tr>
             )}
+            {/* 접수 건 한 줄 + (펼침 시) 상세 행 */}
             {rows.map((row) => {
               const expanded = expandedId === row.id;
               const st = row.status as Status;
@@ -543,6 +567,7 @@ function RequestTable({
                       </button>
                     </td>
                   </tr>
+                  {/* 펼침 상세 — 업종·추가요청사항 */}
                   {expanded && (
                     <tr style={{ background: "var(--bg-secondary)" }}>
                       <td
@@ -605,6 +630,7 @@ function RequestTable({
   );
 }
 
+// 표 안 작은 버튼 (진행중/완료/삭제) — active면 채워지고, red/green으로 색을 고른다
 function ActionBtn({
   children,
   onClick,
@@ -655,12 +681,14 @@ function ActionBtn({
   );
 }
 
+// 상태 분포 누적 막대의 구간 — 표시 순서와 색
 const STATUS_SEG: { key: Status; label: string; color: string }[] = [
   { key: "pending", label: "대기", color: "#cbd5e1" },
   { key: "in_progress", label: "진행중", color: "var(--accent)" },
   { key: "done", label: "완료", color: "#22c55e" },
 ];
 
+// 차트 범례 한 칸 — 색 네모 + 이름
 function Legend({ color, label }: { color: string; label: string }) {
   return (
     <span
@@ -686,6 +714,10 @@ function Legend({ color, label }: { color: string; label: string }) {
   );
 }
 
+/**
+ * 통계 관리 탭 — 예약·문의 접수 데이터를 기간별로 집계해 보여준다.
+ * 일별 접수 추이(꺾은선), 상태 분포(누적 막대), 제작 종류별 건수(가로 막대).
+ */
 function AnalyticsView({
   bookings: allB,
   inquiries: allI,
@@ -1069,6 +1101,7 @@ function AnalyticsView({
   );
 }
 
+// 유입 소스 표기·색 — 채널별 브랜드 컬러
 const SOURCE_KO: Record<string, string> = {
   kakao: "카카오",
   naver: "네이버",
@@ -1103,10 +1136,12 @@ const SOURCE_ALIAS: Record<string, string> = {
   x: "twitter",
   "band.us": "band",
 };
+// 소스 문자열 정규화 — 소문자화 + 별칭 흡수, 값이 없으면 직접 유입
 function normSource(s: string): string {
   const k = (s || "direct").toLowerCase();
   return SOURCE_ALIAS[k] || k;
 }
+// 경로 → 한글 페이지 이름 (이탈 페이지 표기용)
 const PAGE_KO: Record<string, string> = {
   "/": "메인",
   "/about": "회사 소개",
@@ -1123,6 +1158,7 @@ function pageName(path: string): string {
   const clean = path.split(/[?#]/)[0].replace(/\/$/, "") || "/";
   return PAGE_KO[clean] || clean;
 }
+// 접속 기기 표기·색
 const DEVICE_KO: Record<string, string> = {
   mobile: "모바일",
   tablet: "태블릿",
@@ -1134,6 +1170,7 @@ const DEVICE_COLOR: Record<string, string> = {
   desktop: "#22c55e",
 };
 
+// 머문 시간 표기 — ms → "45초" / "2분 10초"
 function fmtDur(ms: number): string {
   const s = Math.round(ms / 1000);
   if (s < 60) return `${s}초`;

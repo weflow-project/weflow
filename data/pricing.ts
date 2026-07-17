@@ -1,25 +1,51 @@
+/**
+ * 가격 데이터 — 제작 플랜(START/GROW/MASTER) 정의.
+ * /pricing 의 "제작 플랜"·"관리자 페이지" 카드와 메인페이지 가격 섹션에서 함께 쓴다.
+ * 금액은 계산하지 않고 표시용 문자열 그대로 둔다("390,000원").
+ * 케어플랜·광고 세팅 플랜은 아래에 주석 처리된 상태로 보관 중.
+ */
+
+/** 플랜 카드 공통 골격 — 케어플랜 등 다른 플랜도 이 형태를 따른다 */
 export interface Plan {
+  // 플랜 코드명 (START, GROW …)
   name: string;
+  // 카드 제목에 뜨는 상품명 (랜딩페이지, 홈페이지 …)
   sub: string;
+  // 인기 플랜 여부 — 파란 테두리·별 태그·반짝이 표시
   highlight: boolean;
+  // 카드 안 체크리스트 항목
   features: string[];
+  // 할인 전 금액 (취소선으로 표시)
   originalPrice: string;
+  // 실제 판매가
   price: string;
+  // 가격 아래 단서 문구 (VAT 별도 등)
   note: string;
 }
 
+/** 제작 플랜 — 기본 카드에 관리자 페이지 옵션 가격까지 얹은 형태 */
 export interface MakePlan extends Plan {
+  // 리스트 key
   id: string;
+  // 현재 화면에서는 미사용 (아이콘은 img/MAKE_ICONS 사용)
   emoji: string;
+  // 카드 좌측 3D 아이콘
   img: string;
+  // 상품명 아래 한 줄 (스피드형, 밸런스형 …)
   tagline: string;
+  // 할인율 배지 문구
   discount: string;
+  // 제작 플랜 월 유지보수비
   maintenance: string;
+  // 관리자 페이지 옵션 판매가
   adminPrice: string;
+  // 관리자 페이지 옵션 할인 전 금액
   adminOriginalPrice: string;
+  // 관리자 페이지 옵션 월 유지보수비
   adminMaintenance: string;
 }
 
+/** 제작 플랜 3종 — 배열 순서가 곧 카드 배치 순서 (MAKE_ICONS 순서와 짝을 이룬다) */
 export const makePlans: MakePlan[] = [
   {
     id: "start",

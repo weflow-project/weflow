@@ -3,6 +3,7 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { LucideIcon } from "lucide-react";
 
+// WEFLOW의 일하는 방식 3가지 — 카드 하나씩
 const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
   [
     {
@@ -25,6 +26,7 @@ const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
     },
   ];
 
+/** 한 줄 소개 섹션 — "고객의 소리에 귀 기울이는 WEFLOW", 일하는 방식 3가지를 카드로 */
 export default function ListeningSection() {
   return (
     <section

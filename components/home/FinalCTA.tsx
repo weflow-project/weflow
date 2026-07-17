@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
+// 헤드라인 알약 안에서 3초마다 갈아끼워지는 홈페이지 유형 문구
 const WORDS = [
   '광고형 홈페이지',
   '문의형 홈페이지',
@@ -28,11 +29,16 @@ const WORDS = [
   '매출형 홈페이지',
 ]
 
+/**
+ * 페이지 맨 아래 마무리 CTA — 파란 배경에 "지금 OOO를 문의하세요" 헤드라인,
+ * 단어가 3초마다 바뀐다. 아래에 전화상담·무료체험 버튼.
+ */
 export default function FinalCTA() {
   const [i, setI] = useState(0)
   const [w, setW] = useState<number | undefined>(undefined)
   const wordRef = useRef<HTMLSpanElement>(null)
 
+  // 3초마다 다음 단어로
   useEffect(() => {
     const id = setInterval(() => setI(p => (p + 1) % WORDS.length), 3000)
     return () => clearInterval(id)

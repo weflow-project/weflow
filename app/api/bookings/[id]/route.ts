@@ -1,7 +1,11 @@
+// 예약 개별 항목 엔드포인트 — /api/bookings/[id]
+// PATCH·DELETE 모두 관리자 인증 필요 (관리자 페이지의 상태 변경·삭제용)
+
 import { NextResponse } from 'next/server'
 import { bookingStore } from '@/lib/store'
 import { isAdmin } from '@/lib/adminAuth'
 
+// 요청 본문의 필드만 부분 수정 (주로 status 변경) → 수정된 예약 반환
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   if (!(await isAdmin()))
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
@@ -12,6 +16,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   return NextResponse.json(updated)
 }
 
+// 예약 삭제 — 없는 id면 404
 export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
   if (!(await isAdmin()))
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })

@@ -1,3 +1,6 @@
+// 관리자 세션 확인 엔드포인트 — /api/admin/me
+// GET only. 쿠키만 검사해 { authed } 를 돌려준다.
+
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/adminAuth'
 

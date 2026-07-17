@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+// 토스트에 돌아가며 노출되는 지역·업종·행동 문구 목록
 const ITEMS = [
   { area: '강남', biz: '필라테스 센터', action: '무료 진단을 신청했습니다' },
   { area: '홍대', biz: '카페', action: '홈페이지 제작을 의뢰했습니다' },
@@ -46,6 +47,10 @@ function randomTimeLabel() {
 }
 
 
+/**
+ * 화면 하단에 잠깐씩 떴다 사라지는 "다른 사람도 신청 중" 알림.
+ * 6~11초 뒤 첫 노출 → 5초 표시 → 18~28초 쉬고 다음 항목, 좌우 번갈아 나온다.
+ */
 export default function SocialProofToast() {
   const [visible, setVisible] = useState(false)
   const [idx, setIdx] = useState(0)

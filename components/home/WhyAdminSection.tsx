@@ -6,6 +6,7 @@ import { Star, Crown } from "lucide-react";
 
 type Point = { order: string; title: string; kw: string; desc: ReactNode };
 
+// 관리자 페이지가 필요한 이유 3가지 — 지그재그 행(키워드 + 설명)을 채운다
 const POINTS: Point[] = [
   {
     order: "첫째",
@@ -59,10 +60,15 @@ const IMG_DIMS = [
   { w: 1397, h: 1126 },
 ];
 
+/**
+ * "06 · 관리자 페이지가 필요한 이유" 섹션 — 고객 DB·유입 경로·통계 3가지를
+ * 지그재그 좌우 배치로 보여준다 (WhatIsHomepageSection과 같은 구조)
+ */
 export default function WhyAdminSection() {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
+  // 섹션이 화면에 들어오면 파란 키워드 흔들림 애니메이션을 시작한다 (한 번만)
   useEffect(() => {
     const el = ref.current;
     if (!el) return;

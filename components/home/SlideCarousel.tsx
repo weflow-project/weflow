@@ -28,12 +28,14 @@ export default function SlideCarousel({
   const next = () => go(index + 1)
   const prev = () => go(index - 1)
 
+  // 자동 전환 (마우스를 올리면 멈추고, 수동 조작하면 타이머가 다시 시작된다)
   useEffect(() => {
     if (paused) return
     const id = setTimeout(() => setIndex(i => (i + 1) % count), interval)
     return () => clearTimeout(id)
   }, [index, paused, count, interval])
 
+  // 모바일 스와이프 — 좌우 40px 넘게 끌면 이전/다음 장으로
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
   }

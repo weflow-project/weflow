@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
+// 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다)
 const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
@@ -15,12 +16,18 @@ const NAV_LINKS = [
   { href: "/booking", label: "예약" },
 ];
 
+// 같은 페이지에서 다시 눌렀을 때 폼을 새로 시작해야 하는 경로
 const RESETTABLE = new Set(["/booking", "/diagnosis"]);
 
+/**
+ * 모든 페이지 상단의 헤더 — 로고 · 메뉴 · 견적 CTA.
+ * 모바일에선 메뉴가 햄버거 버튼 → 왼쪽 드로어로 바뀐다.
+ */
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // 예약·진단 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
   const handleClick =
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (pathname === href && RESETTABLE.has(href)) {
@@ -86,6 +93,7 @@ export default function Navbar() {
             </span>
           </Link>
 
+          {/* 데스크탑 가로 메뉴 — 현재 페이지는 강조색 굵게 */}
           <nav
             className="hide-mobile"
             style={{
@@ -117,6 +125,7 @@ export default function Navbar() {
             ))}
           </nav>
 
+          {/* 데스크탑 견적 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
           <Link
             href="/diagnosis"
             aria-label="지금 바로 견적 받기"
@@ -137,6 +146,7 @@ export default function Navbar() {
             </span>
           </Link>
 
+          {/* 모바일 햄버거 — 드로어를 연다 */}
           <button
             onClick={() => setOpen(true)}
             className="show-mobile-flex"

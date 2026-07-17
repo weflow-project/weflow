@@ -1,3 +1,7 @@
+// 방문 추적 수집 엔드포인트 — /api/track
+// POST only, 공개(인증 없음). 모든 방문자의 브라우저에서 호출된다.
+// 새 방문 기록과 체류시간·스크롤 갱신 두 가지를 body.type으로 구분해 받는다.
+
 import { NextResponse } from 'next/server'
 import { pageViewStore } from '@/lib/store'
 
@@ -46,6 +50,7 @@ function isBot(ua: string): boolean {
   return /bot|crawler|spider|crawling|slurp|bingpreview|facebookexternalhit|headless/i.test(ua)
 }
 
+// 방문 기록 생성 시 새 page_view의 id를 반환 (이후 체류시간 갱신에 그 id를 쓴다)
 export async function POST(req: Request) {
   const ua = req.headers.get('user-agent') || ''
   if (isBot(ua)) return NextResponse.json({ ok: true, skipped: 'bot' })

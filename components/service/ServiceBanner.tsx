@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { caseImagePath } from '@/data/cases'
 
+// 띠 배너에 흘려보낼 업종별 제작 사례 — 이미지는 slug로 찾는다
 const ITEMS = [
   { slug: 'pt-shop',    name: 'PT샵',       category: '피트니스' },
   { slug: 'pilates',    name: '필라테스',    category: '피트니스' },
@@ -17,6 +18,7 @@ const ITEMS = [
   { slug: 'cleaning',   name: '청소업체',    category: '생활서비스' },
 ]
 
+/** 업종별 사례가 옆으로 흐르는 띠 배너 — 마우스를 올리면 멈춘다 (ITEMS를 두 번 이어 붙여 무한 루프) */
 export default function ServiceBanner() {
   return (
     <div style={{

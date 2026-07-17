@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Search, Palette, BarChart2, MessageSquare, CheckCircle, Clock, ShieldCheck, Star } from 'lucide-react'
 
+// 진단 항목 카드 4개 (2열 그리드)
 const DIAGNOSIS_ITEMS = [
   { Icon: Search,        title: '문의 구조 진단',    desc: '어디서 이탈하는지 정확히 파악' },
   { Icon: Palette,       title: '디자인 신뢰도 점검', desc: '방문자가 느끼는 첫인상 분석' },
@@ -10,6 +11,7 @@ const DIAGNOSIS_ITEMS = [
   { Icon: MessageSquare, title: '문의 개선 제안',    desc: '구체적 전환 구조 개선안 제시' },
 ]
 
+// 헤드라인 아래 공감 문구 — 알약 배지로 나열
 const PAIN_POINTS = [
   '홈페이지가 있는데 문의가 없어요',
   '방문자는 오는데 연락이 없어요',
