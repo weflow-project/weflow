@@ -62,10 +62,10 @@ export default function HomePage() {
         imageAlt="특장맨 특장 카니발 홈페이지 제작 사례"
         imageCount={1}
         photoAspect="1896 / 867"
-        imageHref="/cases"
+        imageHref="https://ksmobility-v2.vercel.app/"
         hint={
           <>
-            누르면 <span className="emphasized c-accent">성공 사례 포트폴리오</span> 탭으로 이동합니다!
+            누르면 <span className="emphasized c-accent">해당 사이트 링크</span>로 이동합니다.
           </>
         }
       />

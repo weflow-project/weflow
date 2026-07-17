@@ -251,7 +251,7 @@ export const portfolios: Portfolio[] = [
   {
     slug: 'ksmobility',
     name: '특장카니발 특장맨',
-    category: '영업',
+    category: '영업 직종',
     desc: '프리미엄 특장 카니발 전문',
     url: 'https://ksmobility-v2.vercel.app/',
     images: [

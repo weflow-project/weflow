@@ -50,17 +50,6 @@ function PortfolioCard({ p }: { p: Portfolio }) {
           />
         ))}
 
-        {/* 업종 뱃지 */}
-        <span
-          className="caption-2 emphasized c-primary"
-          style={{
-            position: 'absolute', top: '0.7rem', left: '0.7rem',
-            background: '#fff', padding: '0.2rem 0.65rem', borderRadius: '9999px',
-          }}
-        >
-          {p.category}
-        </span>
-
         {/* 현재 사진 표시 — 눌러서 바로 넘길 수도 있다 (카드 링크보다 위에 둔다) */}
         {p.images.length > 1 && (
           <div style={{
@@ -113,15 +102,71 @@ function PortfolioCard({ p }: { p: Portfolio }) {
   )
 }
 
-/** 실제 제작 사례 — 한 줄에 두 칸(화면 반)씩, 사례가 늘면 자동으로 채워진다 */
+// 업종 칩 — '전체' + 사례에 실제로 있는 업종들 (사례가 늘면 업종도 따라 늘어난다)
+const ALL = '전체'
+const CATEGORIES = [ALL, ...Array.from(new Set(portfolios.map(p => p.category)))]
+
+/** 실제 제작 사례 — 업종 칩으로 거르고, 한 줄에 두 칸(화면 반)씩 채운다 */
 export default function PortfolioShowcase() {
+  const [active, setActive] = useState(ALL)
+  const filtered = active === ALL ? portfolios : portfolios.filter(p => p.category === active)
+
   return (
-    <div className="portfolio-grid">
-      {portfolios.map(p => (
-        <PortfolioCard key={p.slug} p={p} />
-      ))}
+    <div>
+      {/* 업종 칩 */}
+      <div className="portfolio-chips">
+        {CATEGORIES.map(cat => {
+          const isActive = cat === active
+          const count = cat === ALL ? portfolios.length : portfolios.filter(p => p.category === cat).length
+          return (
+            <button
+              key={cat}
+              onClick={() => setActive(cat)}
+              className="subhead"
+              style={{
+                flexShrink: 0,
+                padding: '0.4rem 1rem',
+                background: isActive ? 'var(--accent)' : '#f3f4f6',
+                border: 'none',
+                borderRadius: '9999px',
+                cursor: 'pointer',
+                fontWeight: isActive ? 700 : 500,
+                color: isActive ? '#fff' : 'var(--text-muted)',
+                transition: 'all 0.18s ease',
+                whiteSpace: 'nowrap',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.3rem',
+              }}
+            >
+              {cat}
+              <span
+                className="caption-2 semibold"
+                style={{
+                  color: isActive ? 'rgba(255,255,255,0.75)' : 'var(--text-muted)',
+                  opacity: isActive ? 1 : 0.7,
+                }}
+              >
+                {count}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      <div className="portfolio-grid">
+        {filtered.map(p => (
+          <PortfolioCard key={p.slug} p={p} />
+        ))}
+      </div>
 
       <style>{`
+        .portfolio-chips {
+          display: flex;
+          gap: 0.4rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+        }
         .portfolio-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);

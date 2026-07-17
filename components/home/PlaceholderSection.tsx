@@ -135,12 +135,16 @@ export default function PlaceholderSection({
                   <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: 'cover' }} />
                 </div>
               )
-              return imageHref ? (
+              if (!imageHref) return box
+              // 외부 사이트는 새 창으로 연다
+              return /^https?:\/\//.test(imageHref) ? (
+                <a href={imageHref} target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+                  {box}
+                </a>
+              ) : (
                 <Link href={imageHref} style={{ display: 'block' }}>
                   {box}
                 </Link>
-              ) : (
-                box
               )
             })()}
           </Reveal>
