@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import Image from 'next/image'
-import { Star } from 'lucide-react'
+import Link from 'next/link'
+import { CornerLeftDown, Star } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import SlideCarousel from './SlideCarousel'
 
@@ -41,9 +42,12 @@ export default function PlaceholderSection({
   imageCount = 1,
   imageCols,
   imageAspect = '1 / 1',
+  photoAspect = '16 / 9',
   carousel = false,
   image,
   imageAlt = '',
+  imageHref,
+  hint,
   stars = false,
 }: {
   eyebrow: string
@@ -55,11 +59,17 @@ export default function PlaceholderSection({
   imageCount?: number
   imageCols?: number
   imageAspect?: string
+  /** image로 넣은 실제 사진의 표시 비율 — 사진 원본 비율과 맞춰야 잘리지 않는다 */
+  photoAspect?: string
   /** true면 이미지를 나란히 놓지 않고 히어로처럼 슬라이드로 전환 */
   carousel?: boolean
   /** 단일 이미지 자리에 넣을 실제 이미지 경로 (테스트/실제 교체용) */
   image?: string
   imageAlt?: string
+  /** 값이 있으면 이미지 전체가 이 경로로 연결된다 */
+  imageHref?: string
+  /** 이미지를 가리키는 안내 문구 — 헤더 오른쪽에 화살표와 함께 노출 */
+  hint?: ReactNode
 }) {
   return (
     <section
@@ -69,22 +79,31 @@ export default function PlaceholderSection({
       }}
     >
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
-        {/* 헤더 (좌측 정렬) */}
-        <Reveal variant="up" style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
-          <span className="footnote emphasized c-accent">{eyebrow}</span>
-          {stars && (
-            <div aria-hidden="true" style={{ display: 'flex', gap: '1px', margin: '0.75rem 0 0' }}>
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
-              ))}
-            </div>
-          )}
-          <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
-            {title}
-          </h2>
-          {body && (
-            <p className="body c-muted" style={{ margin: '1rem 0 0', maxWidth: '640px', wordBreak: 'keep-all' }}>
-              {body}
+        {/* 헤더 (좌측 정렬 · 안내 문구는 우측 하단) */}
+        <Reveal variant="up" className="ps-header" style={{ marginBottom: 'clamp(1.75rem, 4vw, 2.5rem)' }}>
+          <div>
+            <span className="footnote emphasized c-accent">{eyebrow}</span>
+            {stars && (
+              <div aria-hidden="true" style={{ display: 'flex', gap: '1px', margin: '0.75rem 0 0' }}>
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <Star key={i} size={19} fill="#f5b301" color="#f5b301" strokeWidth={0} />
+                ))}
+              </div>
+            )}
+            <h2 className="title-1" style={{ marginTop: '0.75rem', textAlign: 'left', wordBreak: 'keep-all' }}>
+              {title}
+            </h2>
+            {body && (
+              <p className="body c-muted" style={{ margin: '1rem 0 0', maxWidth: '640px', wordBreak: 'keep-all' }}>
+                {body}
+              </p>
+            )}
+          </div>
+
+          {hint && (
+            <p className="body c-muted ps-hint" style={{ margin: 0, wordBreak: 'keep-all' }}>
+              <CornerLeftDown size={24} strokeWidth={2.25} aria-hidden="true" style={{ flexShrink: 0, color: 'var(--accent)' }} />
+              {hint}
             </p>
           )}
         </Reveal>
@@ -110,9 +129,20 @@ export default function PlaceholderSection({
           )
         ) : image ? (
           <Reveal variant="up">
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: 'var(--radius-2xl)', overflow: 'hidden', border: '1px solid var(--border)', background: '#e6eaf1' }}>
-              <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: 'cover' }} />
-            </div>
+            {(() => {
+              const box = (
+                <div className={imageHref ? 'ps-photo ps-photo-link' : 'ps-photo'} style={{ aspectRatio: photoAspect }}>
+                  <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: 'cover' }} />
+                </div>
+              )
+              return imageHref ? (
+                <Link href={imageHref} style={{ display: 'block' }}>
+                  {box}
+                </Link>
+              ) : (
+                box
+              )
+            })()}
           </Reveal>
         ) : (
           <Reveal variant="up">
@@ -120,6 +150,51 @@ export default function PlaceholderSection({
           </Reveal>
         )}
       </div>
+
+      <style>{`
+        .ps-header {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 1.5rem;
+        }
+        .ps-hint {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-shrink: 0;
+          white-space: nowrap;
+          padding-bottom: 0.35rem;
+        }
+        .ps-photo {
+          position: relative;
+          width: 100%;
+          border-radius: var(--radius-2xl);
+          overflow: hidden;
+          border: 1px solid var(--border);
+          background: #e6eaf1;
+        }
+        .ps-photo-link {
+          transition: border-color 0.2s, transform 0.3s, box-shadow 0.3s;
+        }
+        .ps-photo-link:hover {
+          border-color: var(--accent);
+          transform: translateY(-3px);
+          box-shadow: 0 14px 34px rgba(11, 18, 32, 0.14);
+        }
+        @media (max-width: 768px) {
+          .ps-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.9rem;
+          }
+          .ps-hint {
+            padding-bottom: 0;
+            white-space: normal;
+            align-items: flex-start;
+          }
+        }
+      `}</style>
     </section>
   )
 }

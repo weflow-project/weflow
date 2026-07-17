@@ -21,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cases, caseImagePath } from "@/data/cases";
+import PortfolioShowcase from "@/components/cases/PortfolioShowcase";
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   피트니스: Dumbbell,
@@ -277,52 +278,53 @@ export default function CasesPage() {
       ? cases
       : cases.filter((c) => c.category === activeCategory);
 
-  // 포트폴리오 준비 중 — 사례가 없으면 안내 화면만 노출
+  // 업종별 더미 사례는 아직 없고 실제 제작 사례만 노출한다
   if (cases.length === 0) {
     return (
       <div>
         <section
           style={{
             background: "#fff",
-            padding: "clamp(4rem, 10vw, 7rem) 1.5rem",
-            textAlign: "center",
-            minHeight: "55vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+            padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3rem, 6vw, 4rem)",
           }}
         >
-          <p
-            className="caption-2 emphasized c-accent"
-            style={{
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              marginBottom: "0.6rem",
-            }}
-          >
-            SUCCESS CASES
-          </p>
-          <h1 className="title-1" style={{ margin: "0 0 0.9rem" }}>
-            성공 사례 포트폴리오
-          </h1>
-          <p
-            className="callout c-muted"
-            style={{
-              margin: "0 0 1.75rem",
-              maxWidth: "440px",
-              wordBreak: "keep-all",
-            }}
-          >
-            포트폴리오를 준비 중입니다. 곧 실제 제작 성공 사례로 찾아뵐게요.
-          </p>
-          <Link
-            href="/diagnosis"
-            className="btn-primary"
-            style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
-          >
-            무료 진단 신청하기 →
-          </Link>
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+            <p
+              className="caption-2 emphasized c-accent"
+              style={{
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: "0.5rem",
+              }}
+            >
+              SUCCESS CASES
+            </p>
+            <h1 className="title-1" style={{ margin: "0 0 0.75rem" }}>
+              성공 사례 포트폴리오
+            </h1>
+            <p
+              className="callout c-muted"
+              style={{
+                margin: "0 0 2rem",
+                maxWidth: "480px",
+                wordBreak: "keep-all",
+              }}
+            >
+              WEFLOW가 직접 제작한 사례입니다.
+            </p>
+
+            <PortfolioShowcase />
+
+            <div style={{ textAlign: "center", marginTop: "clamp(2.5rem, 5vw, 3.5rem)" }}>
+              <Link
+                href="/diagnosis"
+                className="btn-primary"
+                style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
+              >
+                무료 견적 받기 →
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
     );

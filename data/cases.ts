@@ -235,3 +235,29 @@ export function caseImagePath(slug: string): string {
 
 // 포트폴리오 준비 중 — 실제 제작 사례 확정 시 여기에 추가 (더미 데이터는 git 이력에 보존)
 export const cases: Case[] = []
+
+// 실제 제작 사례 — 사진 여러 장을 한 칸에서 자동 전환한다
+export interface Portfolio {
+  slug: string
+  name: string
+  category: string
+  desc: string
+  /** 누르면 열리는 실제 제작 사이트 */
+  url: string
+  images: string[]
+}
+
+export const portfolios: Portfolio[] = [
+  {
+    slug: 'ksmobility',
+    name: '특장카니발 특장맨',
+    category: '영업',
+    desc: '프리미엄 특장 카니발 전문',
+    url: 'https://ksmobility-v2.vercel.app/',
+    images: [
+      '/images/cases/cases-ksmobility-01.jpg',
+      '/images/cases/cases-ksmobility-02.jpg',
+      '/images/cases/cases-ksmobility-03.jpg',
+    ],
+  },
+]

@@ -58,9 +58,16 @@ export default function HomePage() {
         }
         body="WEFLOW가 직접 제작한 결과물, 실제 성과로 확인하세요."
         background="var(--bg-secondary)"
-        image="/images/main/main-portfolio-01.png"
-        imageAlt="WEFLOW 포트폴리오"
+        image="/images/main/main-portfolio-01.jpg"
+        imageAlt="특장맨 특장 카니발 홈페이지 제작 사례"
         imageCount={1}
+        photoAspect="1896 / 867"
+        imageHref="/cases"
+        hint={
+          <>
+            누르면 <span className="emphasized c-accent">성공 사례 포트폴리오</span> 탭으로 이동합니다!
+          </>
+        }
       />
       <PlaceholderSection
         eyebrow="고객 인터뷰"
