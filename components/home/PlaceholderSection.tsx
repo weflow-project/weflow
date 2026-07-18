@@ -43,6 +43,7 @@ export default function PlaceholderSection({
   imageCols,
   imageAspect = '1 / 1',
   photoAspect = '16 / 9',
+  photoFit = 'cover',
   carousel = false,
   image,
   imageAlt = '',
@@ -61,6 +62,8 @@ export default function PlaceholderSection({
   imageAspect?: string
   /** image로 넣은 실제 사진의 표시 비율 — 사진 원본 비율과 맞춰야 잘리지 않는다 */
   photoAspect?: string
+  /** 원본과 다른 비율로 보여줄 때 — cover는 잘라서 채우고, fill은 자르지 않고 늘린다 */
+  photoFit?: 'cover' | 'fill'
   /** true면 이미지를 나란히 놓지 않고 히어로처럼 슬라이드로 전환 */
   carousel?: boolean
   /** 단일 이미지 자리에 넣을 실제 이미지 경로 (테스트/실제 교체용) */
@@ -132,7 +135,7 @@ export default function PlaceholderSection({
             {(() => {
               const box = (
                 <div className={imageHref ? 'ps-photo ps-photo-link' : 'ps-photo'} style={{ aspectRatio: photoAspect }}>
-                  <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: 'cover' }} />
+                  <Image src={image} alt={imageAlt} fill sizes="(max-width: 1100px) 100vw, 1100px" style={{ objectFit: photoFit }} />
                 </div>
               )
               if (!imageHref) return box

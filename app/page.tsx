@@ -66,7 +66,8 @@ export default function HomePage() {
         image="/images/main/main-portfolio-01.jpg"
         imageAlt="특장맨 특장 카니발 홈페이지 제작 사례"
         imageCount={1}
-        photoAspect="1896 / 867"
+        photoAspect="16 / 9"
+        photoFit="fill"
         imageHref="https://ksmobility-v2.vercel.app/"
         hint={
           <>
