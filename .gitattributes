@@ -1,0 +1,20 @@
+# 줄바꿈을 저장소에서는 항상 LF로 통일한다.
+# 윈도우·맥을 오가며 작업해도 파일 전체가 바뀐 것처럼 보이지 않게 하기 위함.
+* text=auto eol=lf
+
+# 아래는 텍스트로 취급하면 깨지는 파일들 — 바이트 그대로 둔다
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.avif binary
+*.mp4 binary
+*.webm binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+*.xlsx binary
