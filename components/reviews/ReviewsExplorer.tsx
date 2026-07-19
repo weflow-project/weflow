@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Star, ArrowUpRight, Quote } from 'lucide-react'
 import { reviews } from '@/data/reviews'
 
@@ -38,12 +39,23 @@ export default function ReviewsExplorer() {
                 <span className="rv-chip caption-2 semibold">{r.category}</span>
               </div>
 
-              {/* 제작해 드린 사이트 */}
+              {/* 제작해 드린 사이트 — 사진과 이름이 한 덩어리로 사이트에 연결된다 */}
               <a href={r.siteUrl} target="_blank" rel="noopener noreferrer" className="rv-site">
-                <span className="footnote c-muted">제작 사이트</span>
-                <span className="subhead emphasized">
-                  {r.site}
-                  <ArrowUpRight size={16} strokeWidth={2.5} style={{ verticalAlign: '-2px', marginLeft: '0.25rem' }} />
+                <span className="rv-shot">
+                  <Image
+                    src={r.siteImage}
+                    alt={`${r.site} 홈페이지 화면`}
+                    fill
+                    sizes="(max-width: 860px) 100vw, 800px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </span>
+                <span className="rv-site-meta">
+                  <span className="footnote c-muted">제작 사이트</span>
+                  <span className="rv-site-name subhead emphasized">
+                    <span>{r.site}</span>
+                    <ArrowUpRight size={18} strokeWidth={2.5} style={{ flexShrink: 0, color: 'var(--accent)' }} />
+                  </span>
                 </span>
               </a>
 
@@ -99,20 +111,40 @@ export default function ReviewsExplorer() {
           white-space: nowrap;
         }
         .rv-site {
-          display: inline-flex;
-          flex-direction: column;
-          gap: 0.15rem;
-          padding: 0.7rem 1rem;
+          display: block;
           margin-bottom: 1.5rem;
           border: 1px solid var(--border);
-          border-radius: var(--radius-lg, 12px);
+          border-radius: var(--radius-2xl);
+          overflow: hidden;
           text-decoration: none;
           color: var(--text-primary);
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.2s, box-shadow 0.3s;
         }
         .rv-site:hover {
           border-color: var(--accent);
+          box-shadow: 0 10px 26px rgba(11, 18, 32, 0.12);
+        }
+        /* 사진 — 원본 비율(약 2.14:1)에 맞춰 잘리지 않게 둔다 */
+        .rv-shot {
+          display: block;
+          position: relative;
+          width: 100%;
+          aspect-ratio: 2851 / 1332;
           background: var(--bg-secondary);
+        }
+        .rv-site-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+          padding: 0.8rem 1rem;
+          border-top: 1px solid var(--border);
+        }
+        /* 이름은 왼쪽, 화살표는 같은 줄 오른쪽 끝에 고정 */
+        .rv-site-name {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.75rem;
         }
         .rv-quote {
           color: var(--accent);

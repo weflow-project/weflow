@@ -15,6 +15,8 @@ export interface Review {
   site: string
   /** 그 사이트 주소 — 카드에서 새 창으로 열린다 */
   siteUrl: string
+  /** 그 사이트 화면 사진 — 성공 사례 탭에 쓰는 것과 같은 파일 */
+  siteImage: string
   /** 후기 본문 — 문단별로 나눠 담는다 */
   paragraphs: string[]
 }
@@ -27,6 +29,7 @@ export const reviews: Review[] = [
     category: '영업 직종',
     site: '메타리치THE한빛 박나라 컨설턴트',
     siteUrl: 'https://parknara.vercel.app/',
+    siteImage: '/images/cases/cases-parknara-01.png',
     paragraphs: [
       '저는 광고에 크게 관심이 없어서 홈페이지 만들고까지는 생각 안 해봤는데, 우연한 계기로 위플로우를 알게 됐습니다.',
       '사설 광고에 사기를 당해본 저로서는 광고라 하면 부정적인 생각으로 안 한다 그러고 마는데, 대표님의 설명에 혹해서 제작을 하게 되었는데요.',
