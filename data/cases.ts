@@ -44,4 +44,16 @@ export const portfolios: Portfolio[] = [
       '/images/cases/cases-parknara-03.png',
     ],
   },
+  {
+    slug: 'cambiocamp',
+    name: 'CAMP CAMBIO',
+    category: '캠핑/레저',
+    desc: '캄비오 캠핑장',
+    url: 'https://cambiocamp.vercel.app/',
+    images: [
+      '/images/cases/cases-cambiocamp-01.jpg',
+      '/images/cases/cases-cambiocamp-02.jpg',
+      '/images/cases/cases-cambiocamp-03.jpg',
+    ],
+  },
 ]

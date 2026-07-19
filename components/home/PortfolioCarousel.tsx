@@ -1,0 +1,185 @@
+'use client'
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+// 메인에 노출할 사례 — 사진을 누르면 해당 사이트가 새 창으로 열린다.
+// 성공 사례 탭(data/cases.ts)과 달리 여기는 골라서 넣는다.
+const SLIDES = [
+  {
+    src: '/images/main/main-portfolio-01.jpg',
+    alt: '특장맨 특장 카니발 홈페이지 제작 사례',
+    url: 'https://ksmobility-v2.vercel.app/',
+  },
+  {
+    src: '/images/main/main-portfolio-02.jpg',
+    alt: 'CAMP CAMBIO 캄비오 캠핑장 홈페이지 제작 사례',
+    url: 'https://cambiocamp.vercel.app/',
+  },
+]
+const COUNT = SLIDES.length
+const INTERVAL = 4000
+
+/**
+ * 메인 포트폴리오 섹션의 사례 캐러셀 — 4초 자동 전환 · 화살표·스와이프로 조작.
+ * 아래 고객 인터뷰 섹션과 높이를 맞추려고 16:9로 두고, 사진은 자르지 않고 늘린다.
+ */
+export default function PortfolioCarousel() {
+  // pos는 0..COUNT 범위. COUNT는 트랙 끝에 덧댄 첫 장의 복제본 자리다.
+  // 마지막 장에서 한 번 더 오른쪽으로 밀면 복제본까지 이동한 뒤,
+  // 애니메이션이 끝나는 순간 티 안 나게 0으로 되돌린다 — 항상 오른쪽으로만 흐른다.
+  const [pos, setPos] = useState(0)
+  const [animated, setAnimated] = useState(true)
+  const [paused, setPaused] = useState(false)
+  const touchStartX = useRef<number | null>(null)
+
+  const next = () => {
+    setAnimated(true)
+    setPos(p => p + 1)
+  }
+
+  // 뒤로 갈 때도 이음매가 보이지 않게 — 첫 장이면 복제본으로 순간이동 후 왼쪽으로 민다
+  const prev = () => {
+    if (pos === 0) {
+      setAnimated(false)
+      setPos(COUNT)
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setAnimated(true)
+          setPos(COUNT - 1)
+        }),
+      )
+    } else {
+      setAnimated(true)
+      setPos(p => p - 1)
+    }
+  }
+
+  // 복제본 자리에 도착하면 애니메이션 없이 처음으로 되감는다
+  const onTransitionEnd = () => {
+    if (pos === COUNT) {
+      setAnimated(false)
+      setPos(0)
+    }
+  }
+
+  // 자동 전환 (마우스를 올리거나 직접 넘기면 멈춘다)
+  useEffect(() => {
+    if (paused || COUNT < 2 || !animated) return
+    const id = setTimeout(next, INTERVAL)
+    return () => clearTimeout(id)
+  }, [pos, paused, animated])
+
+  // 모바일 스와이프 — 40px 넘게 끌면 이전/다음 사례로
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    if (Math.abs(delta) > 40) (delta < 0 ? next : prev)()
+    touchStartX.current = null
+  }
+
+  return (
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      className="pc-frame"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="제작 사례"
+    >
+      {/* 슬라이드 트랙 — 끝에 첫 장을 한 벌 덧대 오른쪽으로만 흐르게 한다 */}
+      <div
+        onTransitionEnd={onTransitionEnd}
+        style={{
+          display: 'flex',
+          height: '100%',
+          transform: `translateX(-${pos * 100}%)`,
+          transition: animated ? 'transform 0.6s cubic-bezier(0.4,0,0.2,1)' : 'none',
+        }}
+      >
+        {[...SLIDES, SLIDES[0]].map((s, i) => (
+          <a
+            key={i}
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-hidden={i !== pos}
+            tabIndex={i === pos ? 0 : -1}
+            aria-label={`${s.alt} 사이트 새 창에서 열기`}
+            style={{
+              flex: '0 0 100%',
+              height: '100%',
+              position: 'relative',
+              display: 'block',
+              background: 'var(--bg-secondary)',
+            }}
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              fill
+              sizes="(max-width: 1100px) 100vw, 1100px"
+              style={{ objectFit: 'fill' }}
+              priority={i === 0}
+            />
+          </a>
+        ))}
+      </div>
+
+      {/* 좌우 화살표 */}
+      {COUNT > 1 && (
+        <>
+          <button type="button" onClick={prev} aria-label="이전 사례" className="pc-arrow" style={{ left: '0.75rem' }}>
+            <ChevronLeft size={20} />
+          </button>
+          <button type="button" onClick={next} aria-label="다음 사례" className="pc-arrow" style={{ right: '0.75rem' }}>
+            <ChevronRight size={20} />
+          </button>
+        </>
+      )}
+
+      <style>{`
+        .pc-frame {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          border-radius: var(--radius-2xl);
+          overflow: hidden;
+          border: 1px solid var(--border);
+          background: var(--bg-secondary);
+          transition: border-color 0.2s, box-shadow 0.3s;
+        }
+        .pc-frame:hover {
+          border-color: var(--accent);
+          box-shadow: 0 14px 34px rgba(11, 18, 32, 0.14);
+        }
+        .pc-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 3;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border: none;
+          border-radius: 9999px;
+          cursor: pointer;
+          color: var(--text-primary);
+          background: rgba(255,255,255,0.9);
+          box-shadow: 0 2px 10px rgba(11,18,32,0.16);
+          transition: background 0.2s;
+        }
+        .pc-arrow:hover {
+          background: #fff;
+        }
+      `}</style>
+    </div>
+  )
+}
