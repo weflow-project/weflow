@@ -60,8 +60,8 @@ export default function FinalCTA() {
       }}
     >
       {/* 장식 원 */}
-      <span aria-hidden style={{ position: 'absolute', right: '-80px', bottom: '-120px', width: '320px', height: '320px', borderRadius: '9999px', background: 'rgba(8,8,10,0.08)' }} />
-      <span aria-hidden style={{ position: 'absolute', right: '40px', bottom: '-60px', width: '180px', height: '180px', borderRadius: '9999px', background: 'rgba(8,8,10,0.08)' }} />
+      <span aria-hidden style={{ position: 'absolute', right: '-80px', bottom: '-120px', width: '320px', height: '320px', borderRadius: '9999px', background: 'rgba(14,14,16,0.10)' }} />
+      <span aria-hidden style={{ position: 'absolute', right: '40px', bottom: '-60px', width: '180px', height: '180px', borderRadius: '9999px', background: 'rgba(14,14,16,0.10)' }} />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto' }}>
         {/* 헤드라인 */}

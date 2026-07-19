@@ -54,7 +54,7 @@ export default function Navbar() {
         style={{
           position: "relative",
           zIndex: 100,
-          background: "rgba(8,8,10,0.92)",
+          background: "rgba(14,14,16,0.92)",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border)",
         }}

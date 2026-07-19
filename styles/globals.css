@@ -9,33 +9,33 @@
     /* ── weflow_v3 디자인 시스템 토큰 (다크) ──
        무채색 검정 기조. 파란색은 버튼·라벨 같은 강조에만 쓰고 배경에는 쓰지 않는다.
        남색 배경 + 파란 강조는 흔한 조합이라 일부러 피했다. */
-    --bg: #08080a;
-    --bg-secondary: #101013; /* weflow SURFACE */
+    --bg: #0e0e10;
+    --bg-secondary: #151517; /* weflow SURFACE */
     /* 섹션 배경 교차용 — 위아래로 이어지는 섹션이 a, b 를 번갈아 쓴다.
        배경이 어두울수록 두 색 차이가 묻히므로, 밝기 간격을 넉넉히 벌려뒀다. */
-    --section-a: #08080a;
-    --section-b: #101013;
-    --surface: #17171a; /* 카드·박스 — 섹션보다 한 단계 밝게 */
-    --surface-container: #1e1e22;
-    --surface-container-high: #26262b;
+    --section-a: #0e0e10;
+    --section-b: #151517;
+    --surface: #1c1c1f; /* 카드·박스 — 섹션보다 한 단계 밝게 */
+    --surface-container: #232326;
+    --surface-container-high: #2b2b2f;
     --text: #f2f2f4; /* weflow TEXT_PRIMARY */
     --text-secondary: #c4c4cc; /* weflow TEXT_SECONDARY */
-    /* 배경(#08080a) 대비 7.4:1 */
-    --text-muted: #9a9aa4; /* weflow TEXT_MUTED */
-    --border: #26262b;
-    --border-subtle: #1c1c20;
-    --outline: #55555e;
-    --outline-variant: #3a3a41;
+    /* 배경(#0e0e10) 대비 7.7:1 */
+    --text-muted: #a3a3aa; /* weflow TEXT_MUTED */
+    --border: #2b2b2f;
+    --border-subtle: #212124;
+    --outline: #5a5a63;
+    --outline-variant: #3f3f46;
     
     /* 파란색 한 가족 — 색조 218° 고정, 밝기만 다르다.
        어두운 배경에서는 요구가 반대라 두 단계로 나눈다:
        작은 요소는 밝아야 눈에 띄고, 넓은 면은 어두워야 그 위 흰 글씨가 읽힌다. */
-    --accent: #6a92d7; /* weflow PRIMARY — 배경 대비 6.39:1 */
-    --accent-light: #16233a; /* 파란 기가 도는 어두운 면 (배지·칩 배경) */
-    --accent-dim: #1c1c21; /* 강조 섹션 — 남색 대신 한 단계 밝은 무채색 */
+    --accent: #6a92d7; /* weflow PRIMARY — 배경 대비 6.16:1 */
+    --accent-light: #1b2840; /* 파란 기가 도는 어두운 면 (배지·칩 배경) */
+    --accent-dim: #212126; /* 강조 섹션 — 남색 대신 한 단계 밝은 무채색 */
     --accent-hover: #8aabe3;
     /* 강조색 위에 얹는 글자 — 파란 배경이 밝아 어두운 글자가 잘 읽힌다 */
-    --on-accent: #08080a;
+    --on-accent: #0e0e10;
     /* 넓은 면을 파랗게 채울 때 쓰는 진한 파랑 — 흰 글자 대비 6.88:1.
        상단 프로모션 띠와 히어로 버튼처럼 "파란 면 + 흰 글씨"가 필요한 곳이 여기를 쓴다.
        작은 요소(아이콘·링크·칩)는 밝은 --accent 를 그대로 쓴다. */

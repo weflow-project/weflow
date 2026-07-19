@@ -143,7 +143,7 @@ export default function PortfolioShowcase() {
               <span
                 className="caption-2 semibold"
                 style={{
-                  color: isActive ? 'rgba(8,8,10,0.7)' : 'var(--text-muted)',
+                  color: isActive ? 'rgba(14,14,16,0.7)' : 'var(--text-muted)',
                   opacity: isActive ? 1 : 0.7,
                 }}
               >
