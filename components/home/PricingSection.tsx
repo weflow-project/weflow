@@ -104,7 +104,7 @@ export default function PricingSection() {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: 1.6rem;
@@ -112,10 +112,10 @@ export default function PricingSection() {
         .pricing-card.is-highlight {
           border: 2px solid var(--accent);
           z-index: 0; /* 반짝이 레이어를 담는 스태킹 컨텍스트 */
-          box-shadow: 0 16px 42px rgba(51,115,223,0.18);
+          box-shadow: 0 16px 42px rgba(106, 146, 215,0.3);
         }
         .pricing-card.is-highlight:hover {
-          box-shadow: 0 20px 50px rgba(51,115,223,0.26);
+          box-shadow: 0 20px 50px rgba(106, 146, 215,0.4);
         }
         /* 반짝이 레이어 — 카드 안쪽으로만 보이게(클립), 텍스트·버튼 뒤 */
         .hl-sparkle-layer {
@@ -156,7 +156,7 @@ export default function PricingSection() {
           font-weight: 700;
           padding: 4px 11px;
           border-radius: 9999px;
-          box-shadow: 0 4px 10px rgba(51,115,223,0.28);
+          box-shadow: 0 4px 10px rgba(106, 146, 215,0.35);
         }
         @keyframes tag-flow {
           0%   { background-position: 0% 50%; }

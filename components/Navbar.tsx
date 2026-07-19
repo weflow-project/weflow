@@ -54,7 +54,7 @@ export default function Navbar() {
         style={{
           position: "relative",
           zIndex: 100,
-          background: "rgba(255,255,255,0.95)",
+          background: "rgba(8,8,10,0.92)",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border)",
         }}
@@ -173,7 +173,7 @@ export default function Navbar() {
           position: "fixed",
           inset: 0,
           zIndex: 200,
-          background: "rgba(0,0,0,0.4)",
+          background: "rgba(0,0,0,0.6)",
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
           transition: "opacity 0.28s ease",
@@ -189,8 +189,8 @@ export default function Navbar() {
           bottom: 0,
           zIndex: 201,
           width: "min(280px, 80vw)",
-          background: "#fff",
-          boxShadow: "4px 0 24px rgba(0,0,0,0.12)",
+          background: "var(--surface)",
+          boxShadow: "4px 0 24px rgba(0,0,0,0.5)",
           display: "flex",
           flexDirection: "column",
           transform: open ? "translateX(0)" : "translateX(-100%)",
@@ -270,7 +270,8 @@ export default function Navbar() {
                   pathname === l.href
                     ? "3px solid var(--accent)"
                     : "3px solid transparent",
-                background: pathname === l.href ? "#ebf2ff" : "transparent",
+                background:
+                  pathname === l.href ? "var(--accent-light)" : "transparent",
                 transition: "background 0.15s",
               }}
             >
@@ -299,10 +300,14 @@ export default function Navbar() {
 
       <style>{`
         @media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }
+        /* 어두운 헤더 위 CTA — 상단 띠·히어로 버튼과 같은 파랑(--accent-strong)에서
+           한 번 밝아졌다 돌아온다. 흰 글씨 최저 대비 5.11:1. */
         .cta-gradient {
-          background: linear-gradient(120deg, #1560c9, #1e93d6, #14c1c8, #1e93d6, #1560c9) !important;
+          background: linear-gradient(120deg, #1b4ea7, #2a6ccb, #1b4ea7) !important;
           background-size: 250% 100% !important;
-          animation: cta-flow 2.4s linear infinite, cta-glow 1.9s ease-in-out infinite;
+          color: #ffffff !important;
+          animation: cta-flow 2.4s linear infinite;
+          box-shadow: none !important;
         }
         .cta-gradient::after {
           content: '';
@@ -326,10 +331,6 @@ export default function Navbar() {
           0% { left: -70%; }
           55% { left: 130%; }
           100% { left: 130%; }
-        }
-        @keyframes cta-glow {
-          0%, 100% { box-shadow: 0 3px 12px rgba(23,160,205,0.45); }
-          50% { box-shadow: 0 6px 22px rgba(20,193,200,0.85); }
         }
         @media (prefers-reduced-motion: reduce) {
           .cta-gradient, .cta-gradient::after { animation: none; }

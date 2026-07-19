@@ -3,6 +3,8 @@
 // 메인은 이미 제작을 마음먹은 사람을 위한 자리로 두고, 알아보는 단계의 방문자는 여기서 읽는다.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import Reveal from "@/components/Reveal";
 import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
@@ -42,14 +44,14 @@ export default function GuidePage() {
             GUIDE
           </p>
           <h1 className="title-1" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
-            홈페이지, 알아보고 계신가요?
+            홈페이지, 어디서부터 알아봐야 할까요?
           </h1>
           <p
             className="callout c-muted"
             style={{ margin: "0 0 1.75rem", maxWidth: "560px", wordBreak: "keep-all" }}
           >
-            홈페이지와 랜딩페이지는 뭐가 다른지, 관리자 페이지는 왜 필요한지 — 제작을 결정하기 전에
-            알아두면 좋은 것들을 정리했습니다.
+            홈페이지와 랜딩형 홈페이지·랜딩페이지는 뭐가 다른지, 관리자 페이지는 왜 필요한지
+            <br />— 제작을 결정하기 전에 알아두면 좋은 것들을 정리했습니다.
           </p>
           <Link
             href="/diagnosis"
@@ -74,38 +76,103 @@ export default function GuidePage() {
       <AdminPageSection />
       <WhyAdminSection />
 
-      {/* 마무리 CTA */}
+      {/* 마무리 CTA — 서비스 페이지 ServiceCTA와 같은 서식 */}
       <section
         style={{
+          padding: "clamp(2.5rem, 5vw, 3.5rem) 1.5rem",
           background: "var(--section-b)",
-          padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem",
-          textAlign: "center",
+          borderTop: "1px solid var(--border)",
         }}
       >
-        <div style={{ maxWidth: "620px", margin: "0 auto" }}>
-          <h2 className="title-2" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
+        <Reveal
+          variant="zoom"
+          style={{
+            maxWidth: "640px",
+            margin: "0 auto",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <p
+            className="caption-1 emphasized c-accent"
+            style={{
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              marginBottom: "0.85rem",
+            }}
+          >
+            GET STARTED
+          </p>
+
+          <h2
+            className="emphasized"
+            style={{
+              marginBottom: "1rem",
+              wordBreak: "keep-all",
+              fontSize: "clamp(2.2rem, 5.5vw, 3.5rem)",
+              lineHeight: 1.25,
+            }}
+          >
             어떤 게 맞을지 모르겠다면
           </h2>
-          <p className="callout c-muted" style={{ margin: "0 0 1.75rem", wordBreak: "keep-all" }}>
-            업종과 목표를 알려주시면, 어떤 형태가 맞는지부터 함께 정리해 드립니다.
+
+          <p
+            className="c-muted"
+            style={{
+              marginBottom: "2rem",
+              wordBreak: "keep-all",
+              fontSize: "clamp(1.1rem, 2.6vw, 1.35rem)",
+              lineHeight: 1.7,
+            }}
+          >
+            업종과 목표를 알려주시면,
+            <br className="br-mobile" /> 어떤 형태가 맞는지부터 함께 정리해 드립니다.
           </p>
-          <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/diagnosis"
-              className="btn-primary"
-              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
-            >
-              무료 진단 신청하기 →
-            </Link>
+
+          {/* CTA 버튼 */}
+          <div
+            style={{
+              display: "flex",
+              gap: "0.75rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <Link
               href="/pricing"
               className="btn-outline"
-              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+                fontSize: "1.1rem",
+                padding: "1rem 2.1rem",
+              }}
             >
-              가격 먼저 보기
+              가격 먼저 보기 <ArrowRight size={18} strokeWidth={2.5} />
+            </Link>
+            <Link
+              href="/diagnosis"
+              className="btn-primary"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+                fontSize: "1.1rem",
+                padding: "1rem 2.1rem",
+              }}
+            >
+              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
-        </div>
+        </Reveal>
+
+        <style>{`
+          .br-mobile { display: none; }
+          @media (max-width: 560px) {
+            .br-mobile { display: inline; }
+          }
+        `}</style>
       </section>
     </div>
   );

@@ -156,7 +156,7 @@ export default function PortfolioCarousel() {
         }
         .pc-frame:hover {
           border-color: var(--accent);
-          box-shadow: 0 14px 34px rgba(11, 18, 32, 0.14);
+          box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
         }
         .pc-arrow {
           position: absolute;
@@ -171,13 +171,13 @@ export default function PortfolioCarousel() {
           border: none;
           border-radius: 9999px;
           cursor: pointer;
-          color: var(--text-primary);
-          background: rgba(255,255,255,0.9);
-          box-shadow: 0 2px 10px rgba(11,18,32,0.16);
+          color: var(--text);
+          background: var(--surface-container);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.5);
           transition: background 0.2s;
         }
         .pc-arrow:hover {
-          background: #fff;
+          background: var(--surface-container-high);
         }
       `}</style>
     </div>

@@ -6,29 +6,41 @@
 
 @layer base {
   :root {
-    /* ── weflow_v3 디자인 시스템 토큰 ── */
-    --bg: #ffffff;
-    --bg-secondary: #f7f9fc; /* weflow SURFACE */
+    /* ── weflow_v3 디자인 시스템 토큰 (다크) ──
+       무채색 검정 기조. 파란색은 버튼·라벨 같은 강조에만 쓰고 배경에는 쓰지 않는다.
+       남색 배경 + 파란 강조는 흔한 조합이라 일부러 피했다. */
+    --bg: #08080a;
+    --bg-secondary: #101013; /* weflow SURFACE */
     /* 섹션 배경 교차용 — 위아래로 이어지는 섹션이 a, b 를 번갈아 쓴다.
-       나중에 다크 테마로 갈 때 이 두 값만 바꾸면 교차가 그대로 유지된다.
-       (브랜드색 배경 섹션은 --accent / --accent-dim 을 그대로 쓴다) */
-    --section-a: #ffffff;
-    --section-b: #f7f9fc;
-    --surface: #ffffff;
-    --surface-container: #eef2f8;
-    --surface-container-high: #e7ecf4;
-    --text: #0b1220; /* weflow TEXT_PRIMARY */
-    --text-secondary: #3d4759; /* weflow TEXT_SECONDARY */
-    /* 흰 배경 대비 5.88:1 — 이전 #8a94a6 은 3.06:1 로 본문에 쓰기엔 흐렸다 */
-    --text-muted: #5b6577; /* weflow TEXT_MUTED */
-    --border: #eceff3;
-    --border-subtle: #f3f5f9;
-    --outline: #727785;
-    --outline-variant: #c2c6d6;
-    --accent: #3373df; /* weflow PRIMARY */
-    --accent-light: #ebf2ff; /* weflow PRIMARY_LIGHT */
-    --accent-dim: #1b2a4a; /* weflow SECONDARY (navy) */
-    --accent-hover: #2861c9;
+       배경이 어두울수록 두 색 차이가 묻히므로, 밝기 간격을 넉넉히 벌려뒀다. */
+    --section-a: #08080a;
+    --section-b: #101013;
+    --surface: #17171a; /* 카드·박스 — 섹션보다 한 단계 밝게 */
+    --surface-container: #1e1e22;
+    --surface-container-high: #26262b;
+    --text: #f2f2f4; /* weflow TEXT_PRIMARY */
+    --text-secondary: #c4c4cc; /* weflow TEXT_SECONDARY */
+    /* 배경(#08080a) 대비 7.4:1 */
+    --text-muted: #9a9aa4; /* weflow TEXT_MUTED */
+    --border: #26262b;
+    --border-subtle: #1c1c20;
+    --outline: #55555e;
+    --outline-variant: #3a3a41;
+    
+    /* 파란색 한 가족 — 색조 218° 고정, 밝기만 다르다.
+       어두운 배경에서는 요구가 반대라 두 단계로 나눈다:
+       작은 요소는 밝아야 눈에 띄고, 넓은 면은 어두워야 그 위 흰 글씨가 읽힌다. */
+    --accent: #6a92d7; /* weflow PRIMARY — 배경 대비 6.39:1 */
+    --accent-light: #16233a; /* 파란 기가 도는 어두운 면 (배지·칩 배경) */
+    --accent-dim: #1c1c21; /* 강조 섹션 — 남색 대신 한 단계 밝은 무채색 */
+    --accent-hover: #8aabe3;
+    /* 강조색 위에 얹는 글자 — 파란 배경이 밝아 어두운 글자가 잘 읽힌다 */
+    --on-accent: #08080a;
+    /* 넓은 면을 파랗게 채울 때 쓰는 진한 파랑 — 흰 글자 대비 6.88:1.
+       상단 프로모션 띠와 히어로 버튼처럼 "파란 면 + 흰 글씨"가 필요한 곳이 여기를 쓴다.
+       작은 요소(아이콘·링크·칩)는 밝은 --accent 를 그대로 쓴다. */
+    --accent-strong: #1b4ea7; /* 흰 글자 대비 7.79:1 */
+    --on-accent-strong: #ffffff;
     --radius-sm: 2px;
     --radius: 4px;
     --radius-md: 6px;
@@ -36,8 +48,8 @@
     --radius-xl: 12px;
     --radius-2xl: 16px;
     --radius-full: 9999px;
-    --shadow-btn: 0 4px 14px rgba(51, 115, 223, 0.28);
-    --shadow-card: 0 1px 4px rgba(11, 18, 32, 0.06);
+    --shadow-btn: 0 4px 14px rgba(106, 146, 215, 0.25);
+    --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   html {
@@ -85,7 +97,7 @@
     justify-content: center;
     gap: 0.5rem;
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 0.95rem;
     padding: 0.85rem 1.75rem;
@@ -102,7 +114,7 @@
   }
   .btn-primary:hover {
     opacity: 0.92;
-    box-shadow: 0 6px 18px rgba(51, 115, 223, 0.32);
+    box-shadow: 0 6px 18px rgba(106, 146, 215, 0.32);
   }
   .btn-primary:active {
     transform: scale(0.97);
@@ -138,8 +150,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: #fff;
-    color: var(--accent);
+    background: var(--text);
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 0.95rem;
     padding: 0.75rem 1.75rem;
@@ -149,10 +161,10 @@
     transition: all 0.18s;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(11, 18, 32, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
   .btn-white:hover {
-    background: var(--accent-light);
+    background: var(--text-secondary);
   }
   .btn-white:active {
     transform: scale(0.97);
@@ -377,10 +389,10 @@
   /* 다크 섹션 위 카드 — 텍스트 밝게 */
   .bento-card .title-3,
   .bento-card .headline {
-    color: #f1f5f9;
+    color: var(--text);
   }
   .bento-card .callout {
-    color: #c2cde0;
+    color: var(--text-secondary);
   }
   @media (max-width: 768px) {
     .bento-grid {
@@ -407,9 +419,10 @@
     border: 1px solid var(--border);
     border-radius: 9999px;
     background: rgba(255, 255, 255, 0.9);
-    color: var(--text);
+    /* 흰 버튼 위에 얹히므로 아이콘은 어둡게 고정한다 */
+    color: var(--on-accent);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(11, 18, 32, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     opacity: 0;
     transition:
       opacity 0.2s,
@@ -443,9 +456,9 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--border);
-    box-shadow: 0 4px 14px rgba(11, 18, 32, 0.1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
     border-radius: 9999px;
     padding: 5px 14px;
     font-size: 0.78rem;
@@ -463,7 +476,7 @@
     left: 50%;
     transform: translateX(-50%) translateY(-1px);
     border: 6px solid transparent;
-    border-top-color: #fff;
+    border-top-color: var(--surface);
     filter: drop-shadow(0 1px 0 var(--border));
   }
 
@@ -532,7 +545,7 @@
   }
   .form-input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(51, 115, 223, 0.14);
+    box-shadow: 0 0 0 3px rgba(106, 146, 215, 0.2);
   }
   .form-input::placeholder {
     color: var(--text-muted);
@@ -540,7 +553,7 @@
   select.form-input {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239a9aa4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.85rem center;
     padding-right: 2.25rem;
@@ -733,7 +746,7 @@
     z-index: 200;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #fff;
+    background: var(--surface);
     border-top: 1px solid var(--border);
   }
 
@@ -780,7 +793,7 @@
   }
   .case-card:hover > div {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
   }
 
   /* ── 피처 카드 호버 ── */
@@ -790,7 +803,7 @@
       transform 0.2s;
   }
   .feature-card:hover {
-    box-shadow: 0 8px 24px rgba(51, 115, 223, 0.13);
+    box-shadow: 0 8px 24px rgba(106, 146, 215, 0.16);
     transform: translateY(-2px);
   }
 
@@ -801,7 +814,7 @@
       transform 0.2s;
   }
   .service-card:hover {
-    box-shadow: 0 6px 20px rgba(51, 115, 223, 0.1);
+    box-shadow: 0 6px 20px rgba(106, 146, 215, 0.14);
     transform: translateY(-2px);
   }
 

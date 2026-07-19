@@ -22,7 +22,13 @@ export default function BenefitsPage() {
             만들고 끝이 아니라, <span className="c-accent">계속 함께합니다</span>
           </>
         }
-        body="제작 이후에도 검색 노출 관리와 운영을 이어갑니다. WEFLOW가 기본으로 챙기는 것들을 정리했습니다."
+        body={
+          <>
+            제작 이후에도 검색 노출 관리와 운영을 이어갑니다.
+            <br />
+            WEFLOW가 기본으로 챙기는 것들을 정리했습니다.
+          </>
+        }
         ctaLabel="혜택 신청하기 →"
       />
       <BenefitsSection />

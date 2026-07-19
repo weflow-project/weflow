@@ -11,8 +11,8 @@ export default function PromoBanner() {
       style={{
         display: 'block',
         textDecoration: 'none',
-        background: 'var(--accent)',
-        color: '#fff',
+        background: 'var(--accent-strong)',
+        color: 'var(--on-accent-strong)',
         transition: 'opacity 0.18s',
       }}
     >
@@ -35,8 +35,8 @@ export default function PromoBanner() {
           className="caption-1 emphasized"
           style={{
             flexShrink: 0,
-            background: '#fff',
-            color: 'var(--accent)',
+            background: 'var(--on-accent-strong)',
+            color: 'var(--accent-strong)',
             padding: '2px 11px',
             borderRadius: '9999px',
             letterSpacing: '-0.01em',
@@ -44,10 +44,10 @@ export default function PromoBanner() {
         >
           신규 런칭
         </span>
-        <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em',color: '#D5D5D5' }}>
-          제작비 <span style={{ color: '#fff' }}>50% 할인</span> + 무료 전환 진단 제공!
+        <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em',color: 'rgba(255,255,255,0.88)' }}>
+          제작비 <span style={{ color: 'var(--on-accent-strong)' }}>50% 할인</span> + 무료 전환 진단 제공!
         </strong>
-        <span className="hide-sm footnote medium" style={{ color: '#c7ccd6' }}>
+        <span className="hide-sm footnote medium" style={{ color: 'rgba(255,255,255,0.75)' }}>
           (선착순 마감 · 지금 바로 신청하세요)
         </span>
       </div>

@@ -126,7 +126,7 @@ export default function HeroCarousel() {
           width: 'clamp(120px, 30%, 200px)',
           height: '6px',
           borderRadius: '9999px',
-          background: 'rgba(11,18,32,0.18)',
+          background: 'rgba(255,255,255,0.25)',
           overflow: 'hidden',
         }}
       >

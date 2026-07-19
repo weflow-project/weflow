@@ -37,7 +37,7 @@ function AdCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "#ebf2ff" : "#fff",
+        background: hovered ? "var(--accent-light)" : "var(--surface)",
         border: hovered
           ? "1.5px solid var(--accent)"
           : "1.5px solid var(--border)",
@@ -51,7 +51,7 @@ function AdCard({
         style={{
           width: "42px",
           height: "42px",
-          background: hovered ? "var(--accent)" : "#ebf2ff",
+          background: hovered ? "var(--accent)" : "var(--accent-light)",
           borderRadius: "10px",
           display: "flex",
           alignItems: "center",
@@ -62,7 +62,7 @@ function AdCard({
       >
         <Icon
           size={20}
-          color={hovered ? "#fff" : "var(--accent)"}
+          color={hovered ? "var(--on-accent)" : "var(--accent)"}
           strokeWidth={2}
         />
       </div>
@@ -149,7 +149,7 @@ export default function AdManagement() {
           style={{
             marginTop: "2rem",
             padding: "1rem 1.25rem",
-            background: "#f9fafb",
+            background: "var(--surface)",
             border: "1px solid var(--border)",
             borderRadius: "10px",
             textAlign: "center",
@@ -172,7 +172,7 @@ export default function AdManagement() {
           aspect-ratio: 16 / 9;
           margin-top: 0.9rem;
           border-radius: 8px;
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .ad-img-ph {

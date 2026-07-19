@@ -224,7 +224,7 @@ export default function BenefitDetails() {
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
-            <span className="footnote emphasized" style={{ color: "#9dbff6" }}>
+            <span className="footnote emphasized" style={{ color: "var(--accent)" }}>
               24시간 상담 대기
             </span>
           </Reveal>
@@ -233,7 +233,7 @@ export default function BenefitDetails() {
             className="title-1 bd-heading"
             style={{
               margin: "0.75rem 0 0",
-              color: "#fff",
+              color: "var(--text)",
               wordBreak: "keep-all",
               lineHeight: 1.4,
             }}
@@ -248,7 +248,7 @@ export default function BenefitDetails() {
               className="callout"
               style={{
                 margin: "1rem 0 1.75rem",
-                color: "rgba(255,255,255,0.72)",
+                color: "var(--text-secondary)",
               }}
             >
               연중무휴 24시간, 언제 문의하셔도 빠르게 응답합니다.
@@ -294,9 +294,9 @@ export default function BenefitDetails() {
                   fontWeight: 700,
                   padding: "0.75rem 1.75rem",
                   borderRadius: "var(--radius-xl)",
-                  border: "1.5px solid rgba(255,255,255,0.85)",
-                  background: "rgba(255,255,255,0.12)",
-                  color: "#fff",
+                  border: "1.5px solid var(--border)",
+                  background: "var(--surface)",
+                  color: "var(--text)",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                 }}
@@ -306,7 +306,12 @@ export default function BenefitDetails() {
               <Link
                 href="/diagnosis"
                 className="btn-white"
-                style={{ fontSize: "1rem" }}
+                style={{
+                  fontSize: "1rem",
+                  padding: "0.75rem 1.75rem",
+                  // 옆 전화상담 버튼의 1.5px 테두리만큼 높이가 벌어지지 않게 투명 테두리로 맞춘다
+                  border: "1.5px solid transparent",
+                }}
               >
                 무료 진단 신청하기
               </Link>
@@ -324,7 +329,7 @@ export default function BenefitDetails() {
         }
         /* 텍스트 측 푸른 박스 패널 */
         .bd-text {
-          background: #eef3fd;
+          background: var(--surface);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.5rem, 3vw, 2.25rem);
@@ -336,7 +341,7 @@ export default function BenefitDetails() {
           border-radius: var(--radius-2xl);
           position: relative;
           overflow: hidden;
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
           display: flex;
           align-items: center;
@@ -347,7 +352,7 @@ export default function BenefitDetails() {
           letter-spacing: 0.02em;
         }
         .bd-heading { font-size: clamp(2rem, 4.5vw, 3rem); }
-        .bd-band-accent { color: #9dbff6; }
+        .bd-band-accent { color: var(--accent); }
         .bd-band-imgs {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -365,9 +370,9 @@ export default function BenefitDetails() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.08);
-          border: 1px dashed rgba(255,255,255,0.3);
-          color: rgba(255,255,255,0.6);
+          background: var(--surface);
+          border: 1px dashed var(--border);
+          color: var(--text-muted);
           font-size: 0.82rem;
           font-weight: 600;
           letter-spacing: 0.02em;

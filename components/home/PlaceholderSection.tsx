@@ -12,8 +12,8 @@ function ImageBox({ aspectRatio, style }: { aspectRatio: string; style?: CSSProp
         width: '100%',
         aspectRatio,
         borderRadius: 'var(--radius-2xl)',
-        background: '#e6eaf1',
-        border: '1px dashed rgba(11,18,32,0.14)',
+        background: 'var(--surface-container)',
+        border: '1px dashed var(--border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -184,7 +184,7 @@ export default function PlaceholderSection({
           border-radius: var(--radius-2xl);
           overflow: hidden;
           border: 1px solid var(--border);
-          background: #e6eaf1;
+          background: var(--surface-container);
         }
         .ps-photo-link {
           transition: border-color 0.2s, transform 0.3s, box-shadow 0.3s;
@@ -192,7 +192,7 @@ export default function PlaceholderSection({
         .ps-photo-link:hover {
           border-color: var(--accent);
           transform: translateY(-3px);
-          box-shadow: 0 14px 34px rgba(11, 18, 32, 0.14);
+          box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
         }
         @media (max-width: 768px) {
           .ps-header {

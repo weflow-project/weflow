@@ -28,12 +28,12 @@ function PortfolioCard({ p }: { p: Portfolio }) {
         borderRadius: 'var(--radius-2xl)',
         overflow: 'hidden',
         border: `1.5px solid ${hovered ? 'var(--accent)' : 'var(--border)'}`,
-        background: '#fff',
+        background: 'var(--surface)',
         transition: 'border-color 0.2s',
       }}
     >
       {/* 사진 자리 — 겹쳐놓고 페이드로 전환 */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: PHOTO_ASPECT, background: '#e6eaf1' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: PHOTO_ASPECT, background: 'var(--surface-container)' }}>
         {p.images.map((src, i) => (
           <Image
             key={src}
@@ -126,12 +126,12 @@ export default function PortfolioShowcase() {
               style={{
                 flexShrink: 0,
                 padding: '0.4rem 1rem',
-                background: isActive ? 'var(--accent)' : '#f3f4f6',
+                background: isActive ? 'var(--accent)' : 'var(--surface)',
                 border: 'none',
                 borderRadius: '9999px',
                 cursor: 'pointer',
                 fontWeight: isActive ? 700 : 500,
-                color: isActive ? '#fff' : 'var(--text-muted)',
+                color: isActive ? 'var(--on-accent)' : 'var(--text-muted)',
                 transition: 'all 0.18s ease',
                 whiteSpace: 'nowrap',
                 display: 'inline-flex',
@@ -143,7 +143,7 @@ export default function PortfolioShowcase() {
               <span
                 className="caption-2 semibold"
                 style={{
-                  color: isActive ? 'rgba(255,255,255,0.75)' : 'var(--text-muted)',
+                  color: isActive ? 'rgba(8,8,10,0.7)' : 'var(--text-muted)',
                   opacity: isActive ? 1 : 0.7,
                 }}
               >

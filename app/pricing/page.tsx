@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Check, Info, BadgePercent, Sparkles, Star } from "lucide-react";
+import { Check, Info, BadgePercent, Sparkles, Star, ArrowRight } from "lucide-react";
 import { makePlans } from "@/data/pricing";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
@@ -465,7 +465,7 @@ export default function PricingPage() {
       {false && (
         <section
           style={{
-            background: "#f9fafb",
+            background: "var(--section-a)",
             padding: "clamp(3rem, 6vw, 4.5rem) 1.5rem",
             borderTop: "1px solid var(--border)",
           }}
@@ -501,7 +501,7 @@ export default function PricingPage() {
                 <div
                   key={m.name}
                   style={{
-                    background: "#fff",
+                    background: "var(--surface)",
                     border: "1px solid var(--border)",
                     borderRadius: "var(--radius-2xl)",
                     padding: "1.5rem 1.6rem",
@@ -530,7 +530,7 @@ export default function PricingPage() {
             {/* 포함 내역 */}
             <div
               style={{
-                background: "#fff",
+                background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius-2xl)",
                 padding: "clamp(1.5rem, 4vw, 2rem)",
@@ -620,37 +620,95 @@ export default function PricingPage() {
 
       {/* 마무리 CTA — 가격을 다 본 직후가 문의 의사가 가장 높은 지점이라
           면책 문구로 끝내지 않고 여기서 문의·전화로 받는다 */}
+      {/* 서식은 /service 맨 아래 ServiceCTA 와 동일하게 맞춘다 */}
       <section
         style={{
+          padding: "clamp(2.5rem, 5vw, 3.5rem) 1.5rem",
           background: "var(--section-b)",
-          padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem",
-          textAlign: "center",
+          borderTop: "1px solid var(--border)",
+          scrollSnapAlign: "start",
         }}
       >
-        <div style={{ maxWidth: "620px", margin: "0 auto" }}>
-          <h2 className="title-2" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
+        <Reveal
+          variant="zoom"
+          style={{
+            maxWidth: "640px",
+            margin: "0 auto",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <p
+            className="caption-1 emphasized c-accent"
+            style={{
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              marginBottom: "0.85rem",
+            }}
+          >
+            GET STARTED
+          </p>
+
+          <h2
+            className="emphasized"
+            style={{
+              marginBottom: "1rem",
+              wordBreak: "keep-all",
+              fontSize: "clamp(2.2rem, 5.5vw, 3.5rem)",
+              lineHeight: 1.25,
+            }}
+          >
             어떤 플랜이 맞을지 모르겠다면
           </h2>
-          <p className="callout c-muted" style={{ margin: "0 0 1.75rem", wordBreak: "keep-all" }}>
+
+          <p
+            className="c-muted"
+            style={{
+              marginBottom: "2rem",
+              wordBreak: "keep-all",
+              fontSize: "clamp(1.1rem, 2.6vw, 1.35rem)",
+              lineHeight: 1.7,
+            }}
+          >
             업종과 목표를 알려주시면 필요한 구성과 예상 견적을 함께 정리해 드립니다.
           </p>
-          <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/diagnosis"
-              className="btn-primary"
-              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
-            >
-              무료 진단 신청하기 →
-            </Link>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "0.75rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <a
               href="tel:010-2971-7280"
               className="btn-outline"
-              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+                fontSize: "1.1rem",
+                padding: "1rem 2.1rem",
+              }}
             >
-              전화 상담하기
+              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
+            <Link
+              href="/diagnosis"
+              className="btn-primary"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+                fontSize: "1.1rem",
+                padding: "1rem 2.1rem",
+              }}
+            >
+              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* 케어플랜 섹션 - 주석처리
@@ -798,7 +856,7 @@ export default function PricingPage() {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #fff;
+          background: var(--surface);
           border: 2.5px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: 1.6rem;
@@ -808,17 +866,17 @@ export default function PricingPage() {
         .pricing-card:hover {
           border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 14px 34px rgba(51,115,223,0.16);
+          box-shadow: 0 14px 34px rgba(106, 146, 215,0.24);
         }
-        /* 홈페이지(인기) 카드 — 흰 배경 + 항상 켜진 파란 테두리 */
+        /* 홈페이지(인기) 카드 — 카드 면 + 항상 켜진 파란 테두리 */
         .pricing-card.is-highlight {
-          background: #fff;
+          background: var(--surface);
           border-color: var(--accent);
           z-index: 0; /* 반짝이 레이어를 담는 스태킹 컨텍스트 */
-          box-shadow: 0 16px 42px rgba(51,115,223,0.18);
+          box-shadow: 0 16px 42px rgba(106, 146, 215,0.26);
         }
         .pricing-card.is-highlight:hover {
-          box-shadow: 0 20px 50px rgba(51,115,223,0.26);
+          box-shadow: 0 20px 50px rgba(106, 146, 215,0.36);
         }
         /* 반짝이 레이어 — 카드 안쪽으로만 보이게(클립), 텍스트·버튼 뒤 */
         .hl-sparkle-layer {
@@ -864,7 +922,7 @@ export default function PricingPage() {
           font-weight: 700;
           padding: 4px 11px;
           border-radius: 9999px;
-          box-shadow: 0 4px 10px rgba(51,115,223,0.28);
+          box-shadow: 0 4px 10px rgba(106, 146, 215,0.38);
         }
         @keyframes tag-flow {
           0%   { background-position: 0% 50%; }
@@ -876,14 +934,14 @@ export default function PricingPage() {
           display: inline-flex; align-items: center; justify-content: center;
           width: 100%; margin-top: 1.5rem;
           padding: 0.8rem 1rem;
-          background: var(--accent); color: #fff;
+          background: var(--accent); color: var(--on-accent);
           font-size: 0.95rem; font-weight: 700;
           border: 2.5px solid var(--accent);
           border-radius: 9999px;
           text-decoration: none;
           transition: background 0.16s ease, color 0.16s ease;
         }
-        .plan-cta:hover { background: #fff; color: var(--accent); }
+        .plan-cta:hover { background: var(--surface-container); color: var(--accent); }
         @media (max-width: 860px) {
           .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
         }
@@ -920,7 +978,7 @@ export default function PricingPage() {
         .pcard-wrap--admin .pcard { opacity: 1; transform: none; }
         .pcard {
           flex: 1; min-width: 0;
-          background: #fff; border: 1.5px solid var(--border);
+          background: var(--surface); border: 1.5px solid var(--border);
           border-radius: 16px; overflow: hidden;
           display: flex; flex-direction: column; position: relative;
           opacity: 0; transform: translateY(18px);
@@ -948,7 +1006,7 @@ export default function PricingPage() {
         .pcard-crown {
           display: block;
           transform: rotate(-6deg);
-          filter: drop-shadow(0 10px 14px rgba(15,23,42,0.22));
+          filter: drop-shadow(0 10px 14px rgba(0,0,0,0.6));
         }
         /* hover 마이크로 인터랙션: 왕관이 한 번 까딱 */
         .pcard-wrap--featured:hover .pcard-crown {
@@ -972,15 +1030,15 @@ export default function PricingPage() {
         }
         /* 리프트는 .pcard-wrap 이 담당. 카드는 테두리/그림자만 강조 */
         .pcard-wrap:hover .pcard {
-          border-color: #cdddf9;
-          box-shadow: 0 12px 32px rgba(51,115,223,0.1);
+          border-color: var(--accent);
+          box-shadow: 0 12px 32px rgba(106, 146, 215,0.18);
         }
         .pcard--featured {
           background: linear-gradient(160deg, var(--accent) 0%, #2f66cf 100%);
           border-color: var(--accent);
         }
         .pcard-wrap:hover .pcard--featured {
-          box-shadow: 0 14px 36px rgba(51,115,223,0.32);
+          box-shadow: 0 14px 36px rgba(106, 146, 215,0.4);
         }
 
         .pcard-badge {
@@ -1016,7 +1074,7 @@ export default function PricingPage() {
         }
         .pcard-icon-wrap {
           width: 40px; height: 40px; border-radius: 10px;
-          background: #ebf2ff; display: flex; align-items: center;
+          background: var(--accent-light); display: flex; align-items: center;
           justify-content: center; margin-bottom: 0.65rem;
         }
         .pcard--featured .pcard-icon-wrap { background: rgba(255,255,255,0.18); }
@@ -1042,7 +1100,7 @@ export default function PricingPage() {
         .pcard--featured .pcard-features li svg { color: #86efac; }
 
         .pcard-foot {
-          border-top: 1px solid var(--border); background: #fafafa;
+          border-top: 1px solid var(--border); background: var(--surface-container);
           padding: 1rem 1.4rem;
         }
         .pcard--featured .pcard-foot {
@@ -1058,12 +1116,12 @@ export default function PricingPage() {
         .pcard--featured .pcard-original { color: rgba(255,255,255,0.45); }
         .pcard-discount {
           font-size: 0.8125rem; font-weight: 800; letter-spacing: -0.01em;
-          color: #ef4444; background: #fef2f2;
+          color: #ef4444; background: rgba(239,68,68,0.14);
           padding: 2px 9px; border-radius: 9999px;
           line-height: 1.3; white-space: nowrap;
         }
         .pcard--featured .pcard-discount {
-          color: #ef4444; background: #fff;
+          color: #ef4444; background: var(--surface);
         }
         .pcard-price {
           font-size: 1.6rem; font-weight: 800; color: var(--accent);
@@ -1079,15 +1137,15 @@ export default function PricingPage() {
         .pcard-cta {
           display: flex; align-items: center; justify-content: center;
           width: 100%; padding: 0.7rem;
-          background: var(--accent); color: #fff;
+          background: var(--accent); color: var(--on-accent);
           font-size: 0.875rem; font-weight: 700; border-radius: 8px;
           text-decoration: none; transition: opacity 0.15s;
         }
         .pcard-cta:hover { opacity: 0.88; }
-        .pcard-cta--inv { background: #fff; color: var(--accent); }
+        .pcard-cta--inv { background: var(--surface); color: var(--accent); }
 
         .pricing-notice {
-          background: #f9fafb; border: 1px solid var(--border);
+          background: var(--surface); border: 1px solid var(--border);
           border-radius: 12px; padding: 1.1rem 1.4rem;
         }
         .pricing-notice-title {

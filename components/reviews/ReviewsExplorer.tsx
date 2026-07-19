@@ -88,9 +88,9 @@ export default function ReviewsExplorer() {
           position: relative;
           border: 1.5px solid var(--border);
           border-radius: var(--radius-2xl);
-          background: #fff;
+          background: var(--surface);
           padding: clamp(1.5rem, 4vw, 2.25rem);
-          box-shadow: 0 4px 18px rgba(11, 18, 32, 0.05);
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
         }
         .rv-card + .rv-card {
           margin-top: 1.25rem;
@@ -106,7 +106,7 @@ export default function ReviewsExplorer() {
           flex-shrink: 0;
           padding: 0.25rem 0.7rem;
           border-radius: 9999px;
-          background: #f3f4f6;
+          background: var(--surface-container);
           color: var(--text-muted);
           white-space: nowrap;
         }
@@ -117,12 +117,12 @@ export default function ReviewsExplorer() {
           border-radius: var(--radius-2xl);
           overflow: hidden;
           text-decoration: none;
-          color: var(--text-primary);
+          color: var(--text);
           transition: border-color 0.2s, box-shadow 0.3s;
         }
         .rv-site:hover {
           border-color: var(--accent);
-          box-shadow: 0 10px 26px rgba(11, 18, 32, 0.12);
+          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
         }
         /* 사진 — 원본 비율(약 2.14:1)에 맞춰 잘리지 않게 둔다 */
         .rv-shot {
@@ -130,7 +130,7 @@ export default function ReviewsExplorer() {
           position: relative;
           width: 100%;
           aspect-ratio: 2851 / 1332;
-          background: var(--bg-secondary);
+          background: var(--surface-container);
         }
         .rv-site-meta {
           display: flex;

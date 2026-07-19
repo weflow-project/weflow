@@ -115,7 +115,7 @@ export default function DiagnosisPage() {
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="tel:010-2971-7280" style={{
               flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
-              background: 'var(--accent)', color: '#fff', border: '1.5px solid var(--accent)',
+              background: 'var(--accent)', color: 'var(--on-accent)', border: '1.5px solid var(--accent)',
               padding: '0.8rem 1.5rem', borderRadius: '8px', fontSize: '1rem',
               textDecoration: 'none', whiteSpace: 'nowrap',
             }} className="emphasized">
@@ -123,7 +123,7 @@ export default function DiagnosisPage() {
             </a>
             <button onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', type: '', industry: '', note: '', agree: false }); setShowErrors(false); setSubmitError(false) }}
               className="semibold"
-              style={{ flex: 1, background: '#fff', border: '1.5px solid var(--accent)', color: 'var(--accent)', borderRadius: '8px', padding: '0.8rem 1.5rem', fontSize: '1rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+              style={{ flex: 1, background: 'var(--surface)', border: '1.5px solid var(--accent)', color: 'var(--accent)', borderRadius: '8px', padding: '0.8rem 1.5rem', fontSize: '1rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
               다시 신청하기
             </button>
           </div>
@@ -133,10 +133,10 @@ export default function DiagnosisPage() {
   }
 
   return (
-    <div style={{ background: '#f9fafb' }}>
+    <div style={{ background: 'var(--section-a)' }}>
 
       {/* ── 헤더 ── */}
-      <section style={{ background: '#fff', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
+      <section style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <Reveal variant="up">
             <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE DIAGNOSIS</span>
@@ -171,7 +171,7 @@ export default function DiagnosisPage() {
               <div style={{ display: 'flex', gap: '0.75rem' }}>
                 {TRUST.map(t => (
                   <div key={t.label} style={{
-                    flex: 1, background: '#fff', border: '1.5px solid var(--border)',
+                    flex: 1, background: 'var(--surface)', border: '1.5px solid var(--border)',
                     borderRadius: '12px', padding: '0.9rem 0.75rem', textAlign: 'center',
                   }}>
                     <p className="subhead emphasized c-accent" style={{ margin: '0 0 0.15rem' }}>{t.label}</p>
@@ -181,7 +181,7 @@ export default function DiagnosisPage() {
               </div>
 
               {/* 진단 항목 */}
-              <div style={{ background: '#fff', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
+              <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
                 <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>WHAT WE CHECK</p>
                 <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>
                   이런 걸 확인해드립니다
@@ -190,7 +190,7 @@ export default function DiagnosisPage() {
                   {CHECKS.map(({ icon: Icon, title, desc }) => (
                     <div key={title} style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
                       <div style={{
-                        width: 36, height: 36, borderRadius: '9px', background: '#ebf2ff',
+                        width: 36, height: 36, borderRadius: '9px', background: 'var(--accent-light)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                       }}>
                         <Icon size={16} color="var(--accent)" strokeWidth={1.75} />
@@ -205,7 +205,7 @@ export default function DiagnosisPage() {
               </div>
 
               {/* 진단 과정 */}
-              <div style={{ background: '#fff', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
+              <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
                 <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>HOW IT WORKS</p>
                 <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>진단 과정</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -214,12 +214,12 @@ export default function DiagnosisPage() {
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div style={{
                           width: 32, height: 32, borderRadius: '50%',
-                          background: 'var(--accent)', color: '#fff',
+                          background: 'var(--accent)', color: 'var(--on-accent)',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           flexShrink: 0,
                         }} className="caption-1 emphasized">{p.num}</div>
                         {i < PROCESS.length - 1 && (
-                          <div style={{ width: '2px', height: '28px', background: '#e5e7eb', margin: '3px 0' }} />
+                          <div style={{ width: '2px', height: '28px', background: 'var(--border)', margin: '3px 0' }} />
                         )}
                       </div>
                       <p className="subhead semibold c-primary" style={{ margin: '0.45rem 0 0' }}>{p.text}</p>
@@ -231,7 +231,7 @@ export default function DiagnosisPage() {
               {/* 전화 CTA */}
               <a href="tel:010-2971-7280" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem',
-                background: '#fff', border: '1.5px solid var(--border)',
+                background: 'var(--surface)', border: '1.5px solid var(--border)',
                 borderRadius: '12px', padding: '1rem',
                 textDecoration: 'none', color: 'var(--text)',
                 transition: 'border-color 0.18s',
@@ -246,7 +246,7 @@ export default function DiagnosisPage() {
             </div>
 
             {/* ── 오른쪽: 폼 ── */}
-            <div style={{ background: '#fff', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.75rem', position: 'sticky', top: '84px', alignSelf: 'start' }}>
+            <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.75rem', position: 'sticky', top: '84px', alignSelf: 'start' }}>
               <div style={{ marginBottom: '1.4rem' }}>
                 <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>FREE · 무료</p>
                 <h2 className="title-2 emphasized" style={{ margin: '0 0 0.35rem' }}>

@@ -18,7 +18,8 @@ export default function PageIntro({
   /** 제목 위 영문 라벨 */
   eyebrow: string
   title: ReactNode
-  body?: string
+  /** 줄바꿈이 필요하면 <br />를 넣은 JSX를 넘긴다 */
+  body?: ReactNode
   ctaHref?: string
   ctaLabel?: string
   background?: string

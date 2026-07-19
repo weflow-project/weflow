@@ -34,14 +34,14 @@ export default function ComparisonCTA() {
           <div className="cmp-text" style={{ position: "relative", zIndex: 1 }}>
             <h2
               className="title-2 emphasized"
-              style={{ color: "#fff", margin: 0, wordBreak: "keep-all" }}
+              style={{ color: "var(--text)", margin: 0, wordBreak: "keep-all" }}
             >
               혹시, 타사와 고민 중이신가요?
             </h2>
             <p
               className="callout"
               style={{
-                color: "rgba(255,255,255,0.85)",
+                color: "var(--text-secondary)",
                 margin: "0.6rem 0 1.4rem",
                 wordBreak: "keep-all",
               }}
@@ -54,12 +54,12 @@ export default function ComparisonCTA() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                background: "#fff",
-                color: "var(--accent)",
+                background: "transparent",
+                color: "#fff",
                 padding: "0.75rem 1.5rem",
                 borderRadius: "9999px",
+                border: "2px solid rgba(255,255,255,0.85)",
                 textDecoration: "none",
-                boxShadow: "0 4px 14px rgba(21,51,107,0.18)",
               }}
             >
               비교자료 보러가기

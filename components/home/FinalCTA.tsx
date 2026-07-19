@@ -60,19 +60,19 @@ export default function FinalCTA() {
       }}
     >
       {/* 장식 원 */}
-      <span aria-hidden style={{ position: 'absolute', right: '-80px', bottom: '-120px', width: '320px', height: '320px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)' }} />
-      <span aria-hidden style={{ position: 'absolute', right: '40px', bottom: '-60px', width: '180px', height: '180px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)' }} />
+      <span aria-hidden style={{ position: 'absolute', right: '-80px', bottom: '-120px', width: '320px', height: '320px', borderRadius: '9999px', background: 'rgba(8,8,10,0.08)' }} />
+      <span aria-hidden style={{ position: 'absolute', right: '40px', bottom: '-60px', width: '180px', height: '180px', borderRadius: '9999px', background: 'rgba(8,8,10,0.08)' }} />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto' }}>
         {/* 헤드라인 */}
-        <h2 className="large-title" style={{ color: '#fff', margin: 0, wordBreak: 'keep-all', lineHeight: 1.25 }}>
+        <h2 className="large-title" style={{ color: 'var(--on-accent)', margin: 0, wordBreak: 'keep-all', lineHeight: 1.25 }}>
           지금{' '}
           <span
             style={{
               display: 'inline-block',
               boxSizing: 'content-box',
-              background: '#fff',
-              color: 'var(--accent)',
+              background: 'var(--on-accent-strong)',
+              color: 'var(--accent-strong)',
               borderRadius: '9999px',
               padding: '0.05em 0.6em',
               whiteSpace: 'nowrap',
@@ -115,25 +115,25 @@ export default function FinalCTA() {
           display: inline-flex;
           align-items: center;
           gap: 0.6rem;
-          color: #fff;
+          color: var(--on-accent-strong);
           font-size: 1.1rem;
-          background: rgba(255,255,255,0.14);
-          border: 1.5px solid rgba(255,255,255,0.9);
+          background: rgba(255,255,255,0.12);
+          border: 1.5px solid rgba(255,255,255,0.85);
           border-radius: 9999px;
           padding: 0.95rem 2.2rem;
           text-decoration: none;
           transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
         }
-        .fcta-btn:hover { background: rgba(255,255,255,0.24); border-color: #fff; }
+        .fcta-btn:hover { background: rgba(255,255,255,0.22); border-color: var(--on-accent-strong); }
         .fcta-btn:active { transform: scale(0.97); }
         /* 주 버튼 — 흰색 채움 (강조) */
         .fcta-btn--solid {
-          background: #fff;
-          color: var(--accent);
-          border-color: #fff;
-          box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+          background: var(--on-accent-strong);
+          color: var(--accent-strong);
+          border-color: var(--on-accent-strong);
+          box-shadow: 0 10px 24px rgba(0,0,0,0.35);
         }
-        .fcta-btn--solid:hover { background: #eef2ff; border-color: #eef2ff; }
+        .fcta-btn--solid:hover { background: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.88); }
         @media (max-width: 480px) {
           .fcta-btns { flex-direction: column; align-items: stretch; }
           .fcta-btn { justify-content: center; }

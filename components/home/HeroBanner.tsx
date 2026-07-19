@@ -180,15 +180,8 @@ export default function HeroBanner() {
             </span>
             <Link
               href="/diagnosis"
-              className="btn-primary"
-              style={{
-                fontSize: "1.3rem",
-                borderRadius: "9999px",
-                padding: "1.15rem 1rem",
-                width: "min(240px, 80vw)",
-                whiteSpace: "nowrap",
-                justifyContent: "center",
-              }}
+              className="btn-primary hero-btn"
+              style={{ width: "min(240px, 80vw)" }}
             >
               홈페이지 견적 받기
             </Link>
@@ -196,16 +189,8 @@ export default function HeroBanner() {
 
           <Link
             href="/#benefits"
-            className="btn-primary"
-            style={{
-              fontSize: "1.3rem",
-              borderRadius: "9999px",
-              padding: "1.15rem 1rem",
-              width: "min(240px, 80vw)",
-              whiteSpace: "nowrap",
-              justifyContent: "center",
-              background: "var(--accent-dim)",
-            }}
+            className="btn-primary hero-btn hero-btn--ghost"
+            style={{ width: "min(240px, 80vw)" }}
           >
             WEFLOW 혜택보기
           </Link>
@@ -216,6 +201,31 @@ export default function HeroBanner() {
       </div>
 
       <style>{`
+        /* 히어로 버튼 — 영상 위 어두운 화면이라 제목과 같은 흰 글씨로 맞춘다.
+           사이트 기본 파랑(--accent)은 밝아서 흰 글씨가 안 읽히므로 여기서만 진한 파랑을 쓴다. */
+        .hero-btn {
+          font-size: 1.3rem;
+          border-radius: 9999px;
+          padding: 1.15rem 1rem;
+          white-space: nowrap;
+          justify-content: center;
+          background: var(--accent-strong);   /* 상단 프로모션 띠와 같은 파랑 */
+          color: var(--on-accent-strong);
+          border: 1.5px solid transparent;
+        }
+        .hero-btn:hover { background: #2262cc; }
+
+        /* 보조 버튼 — 영상이 비쳐 보이도록 반투명 테두리형 */
+        .hero-btn--ghost {
+          background: rgba(255, 255, 255, 0.10);
+          border-color: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(4px);
+        }
+        .hero-btn--ghost:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: #ffffff;
+        }
+
         /* 히어로 배지(신청중) 글씨 확대 */
         .hero-cta-badge { font-size: 0.92rem; }
 

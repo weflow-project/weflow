@@ -68,7 +68,7 @@ export default function ServiceSwitch() {
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-2xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 760px) {

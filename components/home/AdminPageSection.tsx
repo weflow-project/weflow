@@ -53,7 +53,7 @@ export default function AdminPageSection() {
                 width: "fit-content",
                 maxWidth: "100%",
                 borderLeft: "3px solid var(--accent)",
-                background: "#fff",
+                background: "var(--surface)",
                 borderRadius: "0 var(--radius-xl) var(--radius-xl) 0",
                 padding: "0.75rem 1.1rem",
                 marginBottom: "1.75rem",
@@ -157,7 +157,7 @@ export default function AdminPageSection() {
                 aspectRatio: "16 / 9",
                 borderRadius: "var(--radius-2xl)",
                 overflow: "hidden",
-                background: "#e6eaf1",
+                background: "var(--surface-container)",
                 border: "1px solid var(--border)",
                 cursor: "pointer",
               }}
@@ -215,13 +215,13 @@ export default function AdminPageSection() {
         /* 이미지 — 주기적으로 살짝 흔들려 클릭을 유도 */
         .aps-img-frame {
           transform-origin: 50% 62%;
-          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
           animation: apsImgWiggle 3.8s ease-in-out infinite;
         }
         .aps-img-frame:hover {
           animation: apsImgWiggleHover 0.45s ease-in-out infinite;
-          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+          box-shadow: 0 18px 44px rgba(106, 146, 215, 0.3);
         }
         @keyframes apsImgWiggle {
           0%, 70%, 100% { transform: rotate(0deg) translateY(0); }

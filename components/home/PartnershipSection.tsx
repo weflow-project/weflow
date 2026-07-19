@@ -77,8 +77,8 @@ function ImagePlaceholder({
           flexShrink: 0,
           borderRadius: "var(--radius-xl)",
           overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(0,0,0,0.18)",
+          border: "1px solid var(--border)",
+          background: "var(--surface-container)",
           ...style,
         }}
       >
@@ -99,12 +99,12 @@ function ImagePlaceholder({
         aspectRatio,
         flexShrink: 0,
         borderRadius: "var(--radius-xl)",
-        background: "rgba(0,0,0,0.18)",
-        border: "1px dashed rgba(255,255,255,0.18)",
+        background: "var(--surface-container)",
+        border: "1px dashed var(--border)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#9fb0c8",
+        color: "var(--text-muted)",
         fontSize: "0.82rem",
         fontWeight: 600,
         letterSpacing: "0.02em",
@@ -196,12 +196,12 @@ export default function PartnershipSection() {
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 (좌측 정렬) */}
         <Reveal variant="up" style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-          <span className="footnote emphasized" style={{ color: "#9dbff6" }}>
+          <span className="footnote emphasized" style={{ color: "var(--accent)" }}>
             제휴 마케팅과의 협약
           </span>
           <h2
             className="title-1"
-            style={{ marginTop: "0.75rem", textAlign: "left", color: "#fff" }}
+            style={{ marginTop: "0.75rem", textAlign: "left", color: "var(--text)" }}
           >
             <span style={{ display: "block" }}>
               홈페이지 제작에서 끝나지 않습니다
@@ -214,7 +214,7 @@ export default function PartnershipSection() {
                   <span
                     key={i}
                     className="c-accent"
-                    style={{ position: "relative", display: "inline-block", color: "#8fb4ff" }}
+                    style={{ position: "relative", display: "inline-block", color: "var(--accent)" }}
                   >
                     <span
                       aria-hidden
@@ -226,7 +226,7 @@ export default function PartnershipSection() {
                         width: "5px",
                         height: "5px",
                         borderRadius: "9999px",
-                        background: "#8fb4ff",
+                        background: "var(--accent)",
                       }}
                     />
                     {ch}
@@ -302,8 +302,8 @@ export default function PartnershipSection() {
           <div className="bento-card bento-sub">
             <IconChip
               Icon={TrendingUp}
-              color="#8fb4ff"
-              background="rgba(143,180,255,0.16)"
+              color="var(--accent)"
+              background="var(--accent-light)"
             />
             <div
               style={{

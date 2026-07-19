@@ -58,7 +58,7 @@ export default function LandingHomepageSection() {
                 width: "fit-content",
                 maxWidth: "100%",
                 borderLeft: "3px solid var(--accent)",
-                background: "#fff",
+                background: "var(--surface)",
                 borderRadius: "0 var(--radius-xl) var(--radius-xl) 0",
                 padding: "0.75rem 1.1rem",
                 marginBottom: "1.75rem",
@@ -217,13 +217,13 @@ export default function LandingHomepageSection() {
           border-radius: var(--radius-2xl);
           cursor: pointer;
           transform-origin: 50% 62%;
-          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
           animation: lhdImgWiggle 3.8s ease-in-out infinite;
         }
         .lhd-img-frame:hover {
           animation: lhdImgWiggleHover 0.45s ease-in-out infinite;
-          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+          box-shadow: 0 18px 44px rgba(106, 146, 215, 0.3);
         }
         @keyframes lhdImgWiggle {
           0%, 70%, 100% { transform: rotate(0deg) translateY(0); }

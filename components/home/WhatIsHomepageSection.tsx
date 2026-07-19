@@ -191,7 +191,7 @@ export default function WhatIsHomepageSection() {
               <p className="body c-muted" style={{ margin: 0, wordBreak: 'keep-all' }}>
                 {p.desc}
               </p>
-              <p style={{ fontSize: '11px', color: '#aaa', margin: '8px 0 0', wordBreak: 'keep-all' }}>
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: '8px 0 0', wordBreak: 'keep-all' }}>
                 {p.source}
               </p>
             </div>
@@ -205,7 +205,7 @@ export default function WhatIsHomepageSection() {
                   aspectRatio: '4 / 3',
                   borderRadius: 'var(--radius-2xl)',
                   overflow: 'hidden',
-                  background: '#e6eaf1',
+                  background: 'var(--surface-container)',
                   border: '1px solid var(--border)',
                 }}
               >
@@ -238,7 +238,7 @@ export default function WhatIsHomepageSection() {
           margin-left: 0.5rem;
           vertical-align: middle;
           background: var(--accent);
-          color: #fff;
+          color: var(--on-accent);
           font-size: 0.66rem;
           font-weight: 700;
           padding: 2px 9px;
@@ -247,7 +247,7 @@ export default function WhatIsHomepageSection() {
         }
         /* 1·2·3 핵심 강조 패널 */
         .wih-text--key {
-          background: rgba(51,115,223,0.05);
+          background: var(--accent-light);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.25rem, 3vw, 2rem);

@@ -27,7 +27,7 @@ export default function ServiceSteps() {
                 {/* 상단: 아이콘 + STEP */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.9rem' }}>
                   <div className="pt-num">
-                    <Icon size={18} color="#fff" strokeWidth={2} />
+                    <Icon size={18} color="var(--on-accent)" strokeWidth={2} />
                   </div>
                   <p className="footnote emphasized c-accent" style={{ margin: 0, letterSpacing: '0.06em' }}>STEP {s.num}</p>
                 </div>
@@ -78,7 +78,7 @@ export default function ServiceSteps() {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #f4f6fa;
+          background: var(--surface);
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
           padding: 1.6rem 1.5rem;
@@ -94,21 +94,21 @@ export default function ServiceSteps() {
           width: 30px;
           height: 30px;
           border-radius: 9999px;
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           color: var(--accent);
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 2px 6px rgba(11,18,32,0.08);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.45);
         }
         /* 3열: 각 행 마지막(3n) 카드에는 화살표 숨김 */
         .pt-card:nth-child(3n) .pt-arrow { display: none; }
         .pt-card:hover {
-          background: #fff;
+          background: var(--surface-container);
           border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.16);
         }
         .pt-num {
           width: 42px; height: 42px; border-radius: 9999px;
@@ -122,7 +122,7 @@ export default function ServiceSteps() {
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 900px) {

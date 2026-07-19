@@ -53,7 +53,7 @@ export default function BenefitsSection() {
         >
           <span
             className="caption-1 emphasized"
-            style={{ color: "#9dbff6", letterSpacing: "0.06em" }}
+            style={{ color: "var(--accent)", letterSpacing: "0.06em" }}
           >
             WEFLOW만의 혜택
           </span>
@@ -61,20 +61,20 @@ export default function BenefitsSection() {
             className="title-1 benefit-heading"
             style={{
               margin: "0.7rem 0 0.9rem",
-              color: "#fff",
+              color: "var(--text)",
               wordBreak: "keep-all",
             }}
           >
             지금 시작하면,{" "}
             <br className="br-mobile" />
-            <span style={{ color: "#8fb4ff" }}>3가지 혜택</span>을 한 번에
+            <span style={{ color: "var(--accent)" }}>3가지 혜택</span>을 한 번에
           </h2>
           <p
             className="body"
             style={{
               margin: "0 auto",
               maxWidth: "600px",
-              color: "#9dbff6",
+              color: "var(--accent)",
               wordBreak: "keep-all",
             }}
           >
@@ -91,7 +91,7 @@ export default function BenefitsSection() {
               className="benefit-card"
               style={{
                 position: "relative",
-                background: "#fff",
+                background: "var(--surface)",
                 borderRadius: "var(--radius-2xl)",
                 padding: "clamp(2rem, 4vw, 2.75rem) clamp(1.6rem, 3vw, 2rem)",
                 minHeight: "clamp(360px, 38vw, 440px)",
@@ -192,7 +192,7 @@ export default function BenefitsSection() {
           className="callout"
           style={{
             textAlign: "center",
-            color: "#9dbff6",
+            color: "var(--accent)",
             margin: "clamp(1.75rem, 4vw, 2.5rem) 0 1.5rem",
             wordBreak: "keep-all",
           }}
@@ -220,7 +220,7 @@ export default function BenefitsSection() {
           gap: 1.1rem;
         }
         .benefit-card { transition: transform 0.2s, box-shadow 0.2s; }
-        .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+        .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.45); }
 
         /* 우측 사이드 탭 */
         .benefit-more {
@@ -231,12 +231,12 @@ export default function BenefitsSection() {
           display: inline-flex;
           align-items: center;
           gap: 0.3rem;
-          background: #fff;
+          background: var(--surface);
           color: var(--accent);
           font-size: 1rem;
           padding: 1.05rem 1.4rem;
           border-radius: var(--radius-xl) 0 0 var(--radius-xl);
-          box-shadow: 0 6px 20px rgba(11,18,32,0.22);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.5);
           text-decoration: none;
           white-space: nowrap;
           transition: opacity 0.15s;

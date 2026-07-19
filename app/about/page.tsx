@@ -63,7 +63,7 @@ const INFO: { label: string; value: string }[] = [
 
 export default function AboutPage() {
   return (
-    <main style={{ background: "#fff" }}>
+    <main style={{ background: "var(--section-a)" }}>
       {/* 인트로 */}
       <section
         style={{
@@ -74,7 +74,12 @@ export default function AboutPage() {
       >
         <div className="about-hero">
           <Reveal variant="up">
-            <span className="footnote emphasized c-accent">회사소개</span>
+            <span
+              className="caption-2 emphasized c-accent"
+              style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}
+            >
+              ABOUT
+            </span>
           </Reveal>
           <SplitText
             as="h1"
@@ -389,7 +394,7 @@ export default function AboutPage() {
             className="emphasized"
             style={{
               margin: 0,
-              color: "#fff",
+              color: "var(--text)",
               wordBreak: "keep-all",
               fontSize: "clamp(2rem, 5vw, 3.25rem)",
               lineHeight: 1.25,
@@ -400,7 +405,7 @@ export default function AboutPage() {
           <p
             style={{
               margin: "0.9rem 0 2rem",
-              color: "#9dbff6",
+              color: "var(--accent)",
               fontSize: "clamp(1.15rem, 2.6vw, 1.4rem)",
             }}
           >
@@ -419,7 +424,7 @@ export default function AboutPage() {
                 borderRadius: "var(--radius-xl)",
                 border: "1.5px solid rgba(255,255,255,0.85)",
                 background: "rgba(255,255,255,0.12)",
-                color: "#fff",
+                color: "var(--text)",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
               }}
@@ -460,13 +465,13 @@ export default function AboutPage() {
           overflow: hidden;
           width: 100%;
           border-radius: var(--radius-2xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .about-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
         .about-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
         .about-meaning-card {
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: clamp(1.5rem, 3vw, 2rem);
@@ -475,7 +480,7 @@ export default function AboutPage() {
         .about-meaning-card:hover {
           transform: translateY(-4px);
           border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .about-card-img {
           position: relative;
@@ -484,11 +489,11 @@ export default function AboutPage() {
           aspect-ratio: 16 / 9;
           margin-top: 1.1rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .about-value-card {
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: 1.75rem 1.6rem;
@@ -497,7 +502,7 @@ export default function AboutPage() {
         .about-value-card:hover {
           transform: translateY(-4px);
           border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .about-value-icon {
           width: 46px;

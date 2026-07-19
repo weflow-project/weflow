@@ -58,7 +58,7 @@ export default function HomeAboutSection() {
             <div
               key={key}
               style={{
-                background: "#fff",
+                background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius-2xl)",
                 padding: "clamp(1.5rem, 3vw, 2rem)",
@@ -114,7 +114,7 @@ export default function HomeAboutSection() {
           aspect-ratio: 16 / 9;
           margin-top: 1.1rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 640px) {

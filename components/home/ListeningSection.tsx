@@ -96,7 +96,7 @@ export default function ListeningSection() {
         .listen-card {
           display: flex;
           flex-direction: column;
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: 1.5rem 1.6rem;
@@ -119,7 +119,7 @@ export default function ListeningSection() {
           aspect-ratio: 4 / 3;
           margin-top: 1.25rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 860px) {

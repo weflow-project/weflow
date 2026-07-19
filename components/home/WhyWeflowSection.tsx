@@ -192,7 +192,7 @@ export default function WhyWeflowSection() {
                       width: 26,
                       height: 26,
                       borderRadius: "9999px",
-                      background: "#fef2f2",
+                      background: "rgba(239,68,68,0.16)",
                       color: "#ef4444",
                       display: "flex",
                       alignItems: "center",
@@ -254,7 +254,7 @@ export default function WhyWeflowSection() {
               width: "100%",
               aspectRatio: "16 / 9",
               borderRadius: "var(--radius-2xl)",
-              background: "#e6eaf1",
+              background: "var(--surface-container)",
               border: "1px solid var(--border)",
             }}
           >
@@ -396,7 +396,7 @@ export default function WhyWeflowSection() {
           aspect-ratio: 4 / 3;
           margin-top: 1.25rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .wf-br-m { display: none; }

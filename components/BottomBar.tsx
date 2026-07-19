@@ -8,12 +8,12 @@ import { RiKakaoTalkFill } from 'react-icons/ri'
 const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
 
-// 하단 바 4칸 — color는 아이콘 색, whiteLines는 아이콘 테두리를 흰 선으로 뺄지 여부
+// 하단 바 4칸 — color는 아이콘 색(글씨는 모두 흰색)
 const ITEMS = [
-  { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, external: false, tel: true, color: '#2563eb', whiteLines: false, textColor: undefined as string | undefined },
-  { href: KAKAO_URL, label: '카카오톡 문의', icon: RiKakaoTalkFill, external: true, color: '#FEE500', whiteLines: false, textColor: '#3C1E1E', filled: true },
-  { href: BLOG_URL, label: '블로그', icon: Newspaper, external: true, color: '#03c75a', whiteLines: true, textColor: undefined },
-  { href: '/diagnosis', label: '3초 견적', icon: ClipboardCheck, external: false, color: '#7c3aed', whiteLines: true, textColor: undefined },
+  { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, external: false, tel: true, color: '#2563eb' },
+  { href: KAKAO_URL, label: '카카오톡 문의', icon: RiKakaoTalkFill, external: true, color: '#FEE500', filled: true },
+  { href: BLOG_URL, label: '블로그', icon: Newspaper, external: true, color: '#03c75a' },
+  { href: '/diagnosis', label: '3초 견적', icon: ClipboardCheck, external: false, color: '#7c3aed' },
 ]
 
 /**
@@ -25,7 +25,7 @@ export default function BottomBar() {
 
   return (
     <nav className="bottom-action-bar">
-      {ITEMS.map(({ href, label, icon: Icon, external, tel, color, whiteLines, textColor, filled }) => {
+      {ITEMS.map(({ href, label, icon: Icon, external, tel, color, filled }) => {
         const isActive = !external && !tel && pathname === href
         const cls = `bottom-action-item${isActive ? ' active' : ''}`
         const itemStyle = { '--item-color': color } as CSSProperties
@@ -46,14 +46,9 @@ export default function BottomBar() {
                 <Icon size={14} color="#3C1E1E" />
               </span>
             ) : (
-              <Icon
-                size={20}
-                fill="currentColor"
-                stroke={whiteLines ? '#fff' : 'currentColor'}
-                strokeWidth={whiteLines ? 1.9 : 2}
-              />
+              <Icon size={20} fill="currentColor" stroke="var(--surface)" strokeWidth={1.9} />
             )}
-            <span style={textColor ? { color: textColor } : undefined}>{label}</span>
+            <span style={{ color: '#fff' }}>{label}</span>
           </>
         )
 

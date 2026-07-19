@@ -170,17 +170,17 @@ export default function TargetCustomerSection() {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #f4f6fa;
+          background: var(--surface);
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
           padding: 1.75rem 1.6rem;
           transition: background 0.18s, transform 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
         .tc-card:hover {
-          background: #fff;
+          background: var(--surface-container);
           border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .tc-icon {
           display: inline-flex;
@@ -200,7 +200,7 @@ export default function TargetCustomerSection() {
           aspect-ratio: 16 / 9;
           margin-top: auto;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 640px) {

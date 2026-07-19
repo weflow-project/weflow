@@ -209,7 +209,7 @@ export default function WhyAdminSection() {
           margin-left: 0.5rem;
           vertical-align: middle;
           background: var(--accent);
-          color: #fff;
+          color: var(--on-accent);
           font-size: 0.66rem;
           font-weight: 700;
           padding: 2px 9px;
@@ -218,7 +218,7 @@ export default function WhyAdminSection() {
         }
         /* 핵심 강조 파란 패널 */
         .wa-text--key {
-          background: rgba(51,115,223,0.05);
+          background: var(--accent-light);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.25rem, 3vw, 2rem);
