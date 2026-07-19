@@ -68,6 +68,7 @@ export default function AboutPage() {
       <section
         style={{
           padding: "clamp(3.5rem, 7vw, 6rem) 1.25rem",
+          background: "var(--section-a)",
           borderBottom: "1px solid var(--border)",
         }}
       >
@@ -126,7 +127,12 @@ export default function AboutPage() {
       </section>
 
       {/* WE · FLOW 의미 */}
-      <section style={{ padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem",
+          background: "var(--section-b)",
+        }}
+      >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
             <h2
@@ -173,7 +179,7 @@ export default function AboutPage() {
       <section
         style={{
           padding: "clamp(3.5rem, 8vw, 6rem) 1.25rem",
-          background: "var(--bg-secondary)",
+          background: "var(--section-a)",
           textAlign: "center",
         }}
       >
@@ -195,7 +201,12 @@ export default function AboutPage() {
       </section>
 
       {/* 브랜드 스토리 */}
-      <section style={{ padding: "clamp(3rem, 7vw, 5rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(3rem, 7vw, 5rem) 1.25rem",
+          background: "var(--section-b)",
+        }}
+      >
         <div className="about-story">
           <Reveal variant="up">
             <span className="footnote emphasized c-accent">우리의 시작</span>
@@ -269,7 +280,7 @@ export default function AboutPage() {
       <section
         style={{
           padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem",
-          background: "var(--bg-secondary)",
+          background: "var(--section-a)",
         }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
@@ -321,7 +332,12 @@ export default function AboutPage() {
       <ListeningSection />
 
       {/* 회사 정보 */}
-      <section style={{ padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem",
+          background: "var(--section-a)",
+        }}
+      >
         <div style={{ maxWidth: "820px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
             <h2 className="title-2 emphasized" style={{ margin: "0 0 1.5rem" }}>

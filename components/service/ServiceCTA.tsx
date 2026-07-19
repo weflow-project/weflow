@@ -8,7 +8,7 @@ export default function ServiceCTA() {
     <section
       style={{
         padding: "clamp(2.5rem, 5vw, 3.5rem) 1.5rem",
-        background: "#f9fafb",
+        background: "var(--section-b)",
         borderTop: "1px solid var(--border)",
         scrollSnapAlign: "start",
       }}

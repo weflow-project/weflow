@@ -42,7 +42,7 @@ export default function HeroBanner() {
       style={{
         position: "relative",
         overflow: "hidden",
-        background: "#fff",
+        background: "var(--section-a)",
         scrollSnapAlign: "start",
         display: "flex",
         flexDirection: "column",

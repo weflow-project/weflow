@@ -9,6 +9,11 @@
     /* ── weflow_v3 디자인 시스템 토큰 ── */
     --bg: #ffffff;
     --bg-secondary: #f7f9fc; /* weflow SURFACE */
+    /* 섹션 배경 교차용 — 위아래로 이어지는 섹션이 a, b 를 번갈아 쓴다.
+       나중에 다크 테마로 갈 때 이 두 값만 바꾸면 교차가 그대로 유지된다.
+       (브랜드색 배경 섹션은 --accent / --accent-dim 을 그대로 쓴다) */
+    --section-a: #ffffff;
+    --section-b: #f7f9fc;
     --surface: #ffffff;
     --surface-container: #eef2f8;
     --surface-container-high: #e7ecf4;

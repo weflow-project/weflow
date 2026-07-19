@@ -43,7 +43,7 @@ export default function WhyWeflowSection() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-a)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >
@@ -92,7 +92,7 @@ export default function WhyWeflowSection() {
               borderRadius: "var(--radius-2xl)",
               border: "1px solid var(--border)",
               overflow: "hidden",
-              background: "#fff",
+              background: "var(--section-a)",
             }}
           >
             <div
@@ -299,7 +299,7 @@ export default function WhyWeflowSection() {
               <div
                 key={title}
                 style={{
-                  background: "#fff",
+                  background: "var(--section-a)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-2xl)",
                   padding: "1.6rem",

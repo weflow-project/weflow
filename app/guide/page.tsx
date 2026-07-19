@@ -29,7 +29,7 @@ export default function GuidePage() {
       {/* 페이지 도입부 */}
       <section
         style={{
-          background: "#fff",
+          background: "var(--section-a)",
           padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(2rem, 5vw, 3rem)",
           borderBottom: "1px solid var(--border)",
         }}
@@ -77,7 +77,7 @@ export default function GuidePage() {
       {/* 마무리 CTA */}
       <section
         style={{
-          background: "var(--bg-secondary)",
+          background: "var(--section-b)",
           padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem",
           textAlign: "center",
         }}

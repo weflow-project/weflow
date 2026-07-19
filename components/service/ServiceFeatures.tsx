@@ -74,7 +74,7 @@ const FEATURES: {
 export default function ServiceFeatures() {
   return (
     <section
-      style={{ background: "#fff", padding: "clamp(3rem, 6vw, 5rem) 1.25rem" }}
+      style={{ background: "var(--section-b)", padding: "clamp(3rem, 6vw, 5rem) 1.25rem" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}

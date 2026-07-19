@@ -10,7 +10,7 @@ const STEP_ICONS: LucideIcon[] = [MessageSquare, FileText, Palette, Code2, Monit
 /** 서비스 페이지 "제작 진행과정" 섹션 — 상담부터 광고운영까지 6단계를 3x2 카드로 보여준다 */
 export default function ServiceSteps() {
   return (
-    <section style={{ background: '#fff', padding: 'clamp(3rem, 6vw, 5rem) 1.25rem' }}>
+    <section style={{ background: 'var(--section-a)', padding: 'clamp(3rem, 6vw, 5rem) 1.25rem' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>

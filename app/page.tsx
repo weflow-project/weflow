@@ -56,7 +56,7 @@ export default function HomePage() {
           </>
         }
         body="WEFLOW가 직접 제작한 결과물, 실제 성과로 확인하세요."
-        background="var(--bg-secondary)"
+        background="var(--section-b)"
         hint={
           <>
             누르면 <span className="emphasized c-accent">해당 사이트 링크</span>로 이동합니다.

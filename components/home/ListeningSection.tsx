@@ -31,7 +31,7 @@ export default function ListeningSection() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-b)",
         minHeight: "calc(100vh - 64px)",
         display: "flex",
         flexDirection: "column",

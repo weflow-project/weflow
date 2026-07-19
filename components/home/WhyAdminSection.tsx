@@ -89,7 +89,7 @@ export default function WhyAdminSection() {
     <section
       ref={ref}
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-a)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >

@@ -10,7 +10,7 @@ import { reviews } from '@/data/reviews'
 export default function ReviewsExplorer() {
   return (
     <div>
-      <section style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3.5rem, 7vw, 5rem)' }}>
+      <section style={{ background: 'var(--section-a)', padding: 'clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3.5rem, 7vw, 5rem)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           {/* 머리말 */}
           <p

@@ -10,7 +10,7 @@ export default function ServiceSwitch() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-b)",
         padding: "clamp(4rem, 9vw, 7rem) 1.25rem",
         textAlign: "center",
       }}

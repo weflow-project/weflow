@@ -86,7 +86,7 @@ export default function PricingPage() {
         ref={s1}
         className="pricing-section pricing-section--hero"
         style={{
-          background: "linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%)",
+          background: "var(--section-a)",
         }}
       >
         <div className="pricing-inner">
@@ -274,7 +274,7 @@ export default function PricingPage() {
       {/* ─── 관리자 페이지 (선택) ─── */}
       <section
         style={{
-          background: "var(--bg-secondary)",
+          background: "var(--section-b)",
           padding: "clamp(3rem, 6vw, 4.5rem) 1.5rem",
           borderTop: "1px solid var(--border)",
         }}
@@ -586,7 +586,7 @@ export default function PricingPage() {
       {/* ─── 안내사항 ─── */}
       <section
         style={{
-          background: "#fff",
+          background: "var(--section-a)",
           padding: "clamp(2.5rem, 5vw, 4rem) 1.5rem",
         }}
       >
@@ -622,7 +622,7 @@ export default function PricingPage() {
           면책 문구로 끝내지 않고 여기서 문의·전화로 받는다 */}
       <section
         style={{
-          background: "var(--bg-secondary)",
+          background: "var(--section-b)",
           padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem",
           textAlign: "center",
         }}

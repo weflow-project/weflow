@@ -11,7 +11,7 @@ export default function ComparisonCTA() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-b)",
         padding: "clamp(2rem, 5vw, 3.5rem) 1.25rem",
       }}
     >

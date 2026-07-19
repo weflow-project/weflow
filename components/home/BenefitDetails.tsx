@@ -83,7 +83,7 @@ export default function BenefitDetails() {
     <>
       <section
         style={{
-          background: "#fff",
+          background: "var(--section-b)",
           padding: "clamp(3rem, 6vw, 5rem) 1.25rem",
         }}
       >

@@ -38,7 +38,7 @@ export default function PlaceholderSection({
   eyebrow,
   title,
   body,
-  background = '#fff',
+  background = 'var(--section-a)',
   imageCount = 1,
   imageCols,
   imageAspect = '1 / 1',

@@ -5,15 +5,16 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-// 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다)
+// 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다).
+// 헤더는 이정표라 짧게 — 자세한 이름은 푸터에 그대로 남겨뒀다.
 const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
-  { href: "/guide", label: "홈페이지 가이드" },
+  { href: "/guide", label: "제작 가이드" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  { href: "/pricing", label: "제작 플랜 & 가격 안내" },
-  { href: "/cases", label: "성공 사례 포트폴리오" },
-  { href: "/reviews", label: "성공 사례 인터뷰 & 후기" },
+  { href: "/pricing", label: "가격" },
+  { href: "/cases", label: "포트폴리오" },
+  { href: "/reviews", label: "인터뷰 & 후기" },
   { href: "/booking", label: "예약" },
 ];
 

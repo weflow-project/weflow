@@ -27,7 +27,7 @@ export default function TargetCustomerSection() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-b)",
         padding: "clamp(3rem, 6vw, 5rem) 1.25rem",
       }}
     >

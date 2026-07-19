@@ -24,7 +24,7 @@ export default function CasesPage() {
     <div>
       <section
         style={{
-          background: "#fff",
+          background: "var(--section-a)",
           padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3rem, 6vw, 4rem)",
         }}
       >

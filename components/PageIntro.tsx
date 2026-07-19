@@ -13,7 +13,7 @@ export default function PageIntro({
   body,
   ctaHref = '/diagnosis',
   ctaLabel = '무료 진단 신청하기 →',
-  background = '#fff',
+  background = 'var(--section-a)',
 }: {
   /** 제목 위 영문 라벨 */
   eyebrow: string

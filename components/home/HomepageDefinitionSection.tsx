@@ -28,7 +28,7 @@ export default function HomepageDefinitionSection() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-b)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >

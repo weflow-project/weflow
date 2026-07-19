@@ -98,7 +98,7 @@ export default function AdManagement() {
     <section
       style={{
         padding: "3.5rem 1.5rem",
-        background: "#fff",
+        background: "var(--section-a)",
         scrollSnapAlign: "start",
         minHeight: "calc(100vh - 64px)",
         display: "flex",

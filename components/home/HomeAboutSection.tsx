@@ -16,7 +16,7 @@ export default function HomeAboutSection() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-a)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >
