@@ -5,10 +5,9 @@ import PromoBanner from './PromoBanner'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import BottomBar from './BottomBar'
-import SocialProofToast from './SocialProofToast'
 
 /**
- * 모든 페이지를 감싸는 공통 껍데기 — 상단 배너·헤더 · 본문 · 푸터 · 하단 바 · 알림 토스트.
+ * 모든 페이지를 감싸는 공통 껍데기 — 상단 배너·헤더 · 본문 · 푸터 · 하단 바.
  * 관리자(/admin)는 이 껍데기 없이 본문만 그린다.
  */
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
@@ -39,7 +38,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <main style={{ paddingBottom: '56px' }}>{children}</main>
       <Footer />
       <BottomBar />
-      <SocialProofToast />
     </>
   )
 }

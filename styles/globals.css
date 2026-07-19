@@ -14,7 +14,8 @@
     --surface-container-high: #e7ecf4;
     --text: #0b1220; /* weflow TEXT_PRIMARY */
     --text-secondary: #3d4759; /* weflow TEXT_SECONDARY */
-    --text-muted: #8a94a6; /* weflow TEXT_MUTED */
+    /* 흰 배경 대비 5.88:1 — 이전 #8a94a6 은 3.06:1 로 본문에 쓰기엔 흐렸다 */
+    --text-muted: #5b6577; /* weflow TEXT_MUTED */
     --border: #eceff3;
     --border-subtle: #f3f5f9;
     --outline: #727785;

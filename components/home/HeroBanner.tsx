@@ -76,7 +76,10 @@ export default function HeroBanner() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(255,255,255,0.3)",
+          // 제목·버튼이 전부 흰색이라 배경을 어둡게 눌러야 대비가 산다.
+          // 위아래를 더 어둡게 해서 헤더 영역과 하단 캐러셀 쪽 글씨도 함께 보호한다.
+          background:
+            "linear-gradient(to bottom, rgba(8,13,24,0.55) 0%, rgba(8,13,24,0.38) 45%, rgba(8,13,24,0.6) 100%)",
           zIndex: 1,
         }}
       />
