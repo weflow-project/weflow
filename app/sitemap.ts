@@ -8,7 +8,7 @@ const BASE = 'https://weflowlab.kr'
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
-  // 공개 정적 페이지 (관리자 /admin, 사례 상세 /cases/[slug] 는 제외)
+  // 공개 정적 페이지 (관리자 /admin 은 제외)
   const paths: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '', priority: 1.0, freq: 'weekly' },
     { path: '/service', priority: 0.9, freq: 'weekly' },

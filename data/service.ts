@@ -62,19 +62,3 @@ export const steps: Step[] = [
     image: "/images/process/process-06-marketing.png",
   },
 ];
-
-/**
- * 광고·마케팅 서비스 8종.
- * 현재 이 배열을 가져다 쓰는 컴포넌트가 없다 — /service 의 광고 영역은
- * components/service/AdManagement.tsx 가 자체 목록으로 그리고 있다.
- */
-export const adServices = [
-  { icon: "📝", title: "블로그 업로드", desc: "네이버 블로그 정기 업로드" },
-  { icon: "📸", title: "인스타 업로드", desc: "인스타그램·메타 광고 운영" },
-  { icon: "🧵", title: "스레드 업로드", desc: "스레드 계정 운영 관리" },
-  { icon: "🔍", title: "네이버 키워드", desc: "네이버 키워드 광고 세팅·운영" },
-  { icon: "🥕", title: "당근플레이스", desc: "당근플레이스 키워드 업로드" },
-  { icon: "📊", title: "네이버 서치어드바이저", desc: "상단 등록 및 최적화" },
-  { icon: "🌐", title: "구글 콘솔", desc: "구글 검색 상단 등록" },
-  { icon: "🗺️", title: "사이트맵 등록", desc: "XML 사이트맵 생성 및 등록" },
-];
