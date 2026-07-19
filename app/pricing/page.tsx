@@ -98,8 +98,9 @@ export default function PricingPage() {
                 런칭 기념 50% 할인 진행 중
               </span>
             </Reveal>
+            {/* 이 페이지의 대표 제목이라 h1 — 아래 관리자 옵션 섹션 제목이 h2 다 */}
             <SplitText
-              as="h2"
+              as="h1"
               className="pricing-heading"
               segments={[
                 { text: "제작 플랜 & " },
@@ -614,6 +615,41 @@ export default function PricingPage() {
               ))}
             </ul>
           </Reveal>
+        </div>
+      </section>
+
+      {/* 마무리 CTA — 가격을 다 본 직후가 문의 의사가 가장 높은 지점이라
+          면책 문구로 끝내지 않고 여기서 문의·전화로 받는다 */}
+      <section
+        style={{
+          background: "var(--bg-secondary)",
+          padding: "clamp(3rem, 7vw, 4.5rem) 1.5rem",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ maxWidth: "620px", margin: "0 auto" }}>
+          <h2 className="title-2" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
+            어떤 플랜이 맞을지 모르겠다면
+          </h2>
+          <p className="callout c-muted" style={{ margin: "0 0 1.75rem", wordBreak: "keep-all" }}>
+            업종과 목표를 알려주시면 필요한 구성과 예상 견적을 함께 정리해 드립니다.
+          </p>
+          <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link
+              href="/diagnosis"
+              className="btn-primary"
+              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
+            >
+              무료 진단 신청하기 →
+            </Link>
+            <a
+              href="tel:010-2971-7280"
+              className="btn-outline"
+              style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
+            >
+              전화 상담하기
+            </a>
+          </div>
         </div>
       </section>
 

@@ -3,7 +3,6 @@
 // 메인은 이미 제작을 마음먹은 사람을 위한 자리로 두고, 알아보는 단계의 방문자는 여기서 읽는다.
 import type { Metadata } from "next";
 import Link from "next/link";
-import TargetCustomerSection from "@/components/home/TargetCustomerSection";
 import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
@@ -62,8 +61,6 @@ export default function GuidePage() {
         </div>
       </section>
 
-      {/* 어떤 분들이 고객이 되는가 */}
-      <TargetCustomerSection />
 
       {/* 01~02 홈페이지 */}
       <HomepageDefinitionSection />

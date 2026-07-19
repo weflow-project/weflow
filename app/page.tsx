@@ -9,6 +9,7 @@ import PartnershipSection from "@/components/home/PartnershipSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
 import BenefitsSection from "@/components/home/BenefitsSection";
 import PricingSection from "@/components/home/PricingSection";
+import TargetCustomerSection from "@/components/home/TargetCustomerSection";
 import HomeServiceSection from "@/components/home/HomeServiceSection";
 import HomeAboutSection from "@/components/home/HomeAboutSection";
 import ComparisonCTA from "@/components/home/ComparisonCTA";
@@ -87,6 +88,8 @@ export default function HomePage() {
 
       {/* 사례로 신뢰를 준 직후에 "얼마인가"를 바로 답한다 */}
       <BenefitsSection />
+      {/* "이런 분들이라면" 으로 대상을 짚어준 뒤 바로 가격을 보여준다 */}
+      <TargetCustomerSection />
       <PricingSection />
       {/* 타사 비교는 가격을 본 직후여야 문구가 맞는다 — 항상 가격 바로 아래 둔다 */}
       <ComparisonCTA />
