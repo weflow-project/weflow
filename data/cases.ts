@@ -33,18 +33,6 @@ export const portfolios: Portfolio[] = [
     ],
   },
   {
-    slug: 'parknara',
-    name: '박나라 컨설턴트',
-    category: '영업 직종',
-    desc: '메타리치THE한빛 박나라 컨설턴트',
-    url: 'https://parknara.vercel.app/',
-    images: [
-      '/images/cases/cases-parknara-01.png',
-      '/images/cases/cases-parknara-02.png',
-      '/images/cases/cases-parknara-03.png',
-    ],
-  },
-  {
     slug: 'cambiocamp',
     name: 'CAMP CAMBIO',
     category: '캠핑/레저',
@@ -54,6 +42,18 @@ export const portfolios: Portfolio[] = [
       '/images/cases/cases-cambiocamp-01.jpg',
       '/images/cases/cases-cambiocamp-02.jpg',
       '/images/cases/cases-cambiocamp-03.jpg',
+    ],
+  },
+  {
+    slug: 'parknara',
+    name: '박나라 컨설턴트',
+    category: '영업 직종',
+    desc: '메타리치THE한빛 박나라 컨설턴트',
+    url: 'https://parknara.vercel.app/',
+    images: [
+      '/images/cases/cases-parknara-01.png',
+      '/images/cases/cases-parknara-02.png',
+      '/images/cases/cases-parknara-03.png',
     ],
   },
 ]
