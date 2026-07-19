@@ -9,6 +9,7 @@ import { PencilRuler, Workflow, Wrench, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+import ListeningSection from "@/components/home/ListeningSection";
 
 export const metadata: Metadata = {
   title: "회사소개 · WEFLOW",
@@ -315,6 +316,9 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </section>
+
+      {/* 고객의 소리 — 일하는 방식의 연장이라 메인에서 이리로 옮겼다 */}
+      <ListeningSection />
 
       {/* 회사 정보 */}
       <section style={{ padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem" }}>

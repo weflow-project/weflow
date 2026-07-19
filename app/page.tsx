@@ -5,15 +5,7 @@ import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
 import PlaceholderSection from "@/components/home/PlaceholderSection";
 import PortfolioCarousel from "@/components/home/PortfolioCarousel";
-import TargetCustomerSection from "@/components/home/TargetCustomerSection";
-import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
-import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
-import LandingHomepageSection from "@/components/home/LandingHomepageSection";
-import LandingPageSection from "@/components/home/LandingPageSection";
-import AdminPageSection from "@/components/home/AdminPageSection";
-import WhyAdminSection from "@/components/home/WhyAdminSection";
 import PartnershipSection from "@/components/home/PartnershipSection";
-import ListeningSection from "@/components/home/ListeningSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
 import BenefitsSection from "@/components/home/BenefitsSection";
 import PricingSection from "@/components/home/PricingSection";
@@ -90,32 +82,23 @@ export default function HomePage() {
         imageAlt="WEFLOW 고객 인터뷰"
         imageCount={1}
       />
-      {/* 4~7. 어떤 고객을 위한 건지 → 홈페이지란 무엇인지 → 종류별(홈페이지·랜딩형·랜딩) 설명 */}
-      <TargetCustomerSection />
-      <HomepageDefinitionSection />
-      <WhatIsHomepageSection />
-      <LandingHomepageSection />
-      <LandingPageSection />
-      {/* 관리자 페이지 소개와 필요성 */}
-      <AdminPageSection />
-      <WhyAdminSection />
+      {/* 홈페이지·랜딩페이지·관리자 페이지 설명은 /guide 로 옮겼다.
+          메인은 이미 제작을 마음먹은 방문자가 보는 자리라, 정의부터 설명하면 문의까지 너무 멀어진다. */}
 
-      {/* 8~12. 원래 있던 섹션들 */}
-      <PartnershipSection />
-      <ListeningSection />
-      <WhyWeflowSection />
-
-      {/* 13. WEFLOW 혜택 (기존) */}
+      {/* 사례로 신뢰를 준 직후에 "얼마인가"를 바로 답한다 */}
       <BenefitsSection />
-
-      {/* 14. 제작 플랜 & 가격 */}
       <PricingSection />
-
-      {/* 15. 타사 비교 배너 (가격 아래) */}
+      {/* 타사 비교는 가격을 본 직후여야 문구가 맞는다 — 항상 가격 바로 아래 둔다 */}
       <ComparisonCTA />
 
-      {/* 14~15. 서비스 · 회사소개 (임시 문구) */}
+      {/* 그다음 차별점 — 왜 WEFLOW여야 하는지 */}
+      <PartnershipSection />
+      <WhyWeflowSection />
+
+      {/* 제작 과정 */}
       <HomeServiceSection />
+
+      {/* 브랜드 한마디로 끝맺고 최종 CTA로 넘긴다 (WE·FLOW 뜻풀이는 /about 에만 둔다) */}
       <HomeAboutSection />
 
       {/* 16. 마지막 CTA (기존) */}

@@ -9,6 +9,7 @@ import { Menu, X } from "lucide-react";
 const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
+  { href: "/guide", label: "홈페이지 가이드" },
   { href: "/benefits", label: "WEFLOW 혜택" },
   { href: "/pricing", label: "제작 플랜 & 가격 안내" },
   { href: "/cases", label: "성공 사례 포트폴리오" },
