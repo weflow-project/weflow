@@ -33,6 +33,18 @@ export const portfolios: Portfolio[] = [
     ],
   },
   {
+    slug: 'cambiocamp',
+    name: 'CAMP CAMBIO',
+    category: '캠핑/레저',
+    desc: '캄비오 캠핑장',
+    url: 'https://cambiocamp.vercel.app/',
+    images: [
+      '/images/cases/cases-cambiocamp-01.jpg',
+      '/images/cases/cases-cambiocamp-02.jpg',
+      '/images/cases/cases-cambiocamp-03.jpg',
+    ],
+  },
+  {
     slug: 'parknara',
     name: '박나라 컨설턴트',
     category: '영업 직종',

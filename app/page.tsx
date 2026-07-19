@@ -4,6 +4,7 @@
 import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
 import PlaceholderSection from "@/components/home/PlaceholderSection";
+import PortfolioCarousel from "@/components/home/PortfolioCarousel";
 import TargetCustomerSection from "@/components/home/TargetCustomerSection";
 import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
@@ -63,18 +64,14 @@ export default function HomePage() {
         }
         body="WEFLOW가 직접 제작한 결과물, 실제 성과로 확인하세요."
         background="var(--bg-secondary)"
-        image="/images/main/main-portfolio-01.jpg"
-        imageAlt="특장맨 특장 카니발 홈페이지 제작 사례"
-        imageCount={1}
-        photoAspect="16 / 9"
-        photoFit="fill"
-        imageHref="https://ksmobility-v2.vercel.app/"
         hint={
           <>
             누르면 <span className="emphasized c-accent">해당 사이트 링크</span>로 이동합니다.
           </>
         }
-      />
+      >
+        <PortfolioCarousel />
+      </PlaceholderSection>
       {/* 3. 고객 인터뷰 */}
       <PlaceholderSection
         eyebrow="고객 인터뷰"

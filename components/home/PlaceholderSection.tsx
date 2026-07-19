@@ -50,6 +50,7 @@ export default function PlaceholderSection({
   imageHref,
   hint,
   stars = false,
+  children,
 }: {
   eyebrow: string
   title: ReactNode
@@ -73,6 +74,8 @@ export default function PlaceholderSection({
   imageHref?: string
   /** 이미지를 가리키는 안내 문구 — 헤더 오른쪽에 화살표와 함께 노출 */
   hint?: ReactNode
+  /** 이미지 자리에 직접 넣을 내용 — 넘기면 image·imageCount 대신 이게 그려진다 */
+  children?: ReactNode
 }) {
   return (
     <section
@@ -112,7 +115,9 @@ export default function PlaceholderSection({
         </Reveal>
 
         {/* 이미지 자리 (텍스트 아래 · 추후 교체) */}
-        {carousel ? (
+        {children ? (
+          <Reveal variant="up">{children}</Reveal>
+        ) : carousel ? (
           <Reveal variant="up">
             <SlideCarousel count={Math.max(imageCount, 1)} aspectRatio={imageAspect} />
           </Reveal>
