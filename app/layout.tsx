@@ -7,9 +7,17 @@ import ClientLayout from '@/components/ClientLayout'
 import Analytics from '@/components/Analytics'
 import PageTracker from '@/components/PageTracker'
 
+/**
+ * 리뉴얼 미리보기 사이트(weflow-pied.vercel.app)를 검색에서 가린다.
+ * Vercel 환경변수 NOINDEX=1 이 걸린 프로젝트에서만 동작하므로,
+ * 이 코드가 main 에 합쳐져도 운영 사이트(weflowlab.kr)는 영향받지 않는다.
+ */
+const isNoindex = process.env.NOINDEX === '1'
+
 // 사이트 공통 메타 — 개별 페이지에서 title 등을 덮어쓴다
 export const metadata: Metadata = {
   metadataBase: new URL('https://weflowlab.kr'),
+  ...(isNoindex && { robots: { index: false, follow: false } }),
   title: 'WEFLOW — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
   description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
   keywords: '홈페이지 제작, 랜딩페이지 제작, 광고 운영, 검색 상단 노출, 웹사이트 제작',
