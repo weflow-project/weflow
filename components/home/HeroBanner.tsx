@@ -173,19 +173,13 @@ export default function HeroBanner() {
             marginTop: "clamp(2.75rem, 5vw, 3.5rem)",
           }}
         >
-          {/* 채움 버튼 + 말풍선 배지 */}
-          <span className="hero-cta">
-            <span className="hero-cta-badge">
-              🎁 최근 한달 <strong>1,549명</strong> 신청중
-            </span>
-            <Link
-              href="/diagnosis"
-              className="btn-primary hero-btn"
-              style={{ width: "min(240px, 80vw)" }}
-            >
-              홈페이지 견적 받기
-            </Link>
-          </span>
+          <Link
+            href="/diagnosis"
+            className="btn-primary hero-btn"
+            style={{ width: "min(240px, 80vw)" }}
+          >
+            홈페이지 견적 받기
+          </Link>
 
           <Link
             href="/#benefits"
@@ -226,9 +220,6 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 히어로 배지(신청중) 글씨 확대 */
-        .hero-cta-badge { font-size: 0.92rem; }
-
         /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
         .hero-section {
           min-height: calc(100vh + 80px);
@@ -252,12 +243,6 @@ export default function HeroBanner() {
           .hero-eyebrow { margin-bottom: 0.85rem; }
           .hero-line2 { white-space: normal; }
           .hero-weflow { display: block; }
-          /* 모바일: '최근 한달…' 말풍선 축소 */
-          .hero-cta-badge {
-            font-size: 0.72rem;
-            padding: 4px 10px;
-            gap: 4px;
-          }
         }
       `}</style>
     </section>

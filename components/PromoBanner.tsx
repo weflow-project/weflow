@@ -42,7 +42,7 @@ export default function PromoBanner() {
             letterSpacing: '-0.01em',
           }}
         >
-          신규 런칭
+          특별 프로모션
         </span>
         <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em',color: 'rgba(255,255,255,0.88)' }}>
           제작비 <span style={{ color: 'var(--on-accent-strong)' }}>50% 할인</span> + 무료 전환 진단 제공!

@@ -48,8 +48,8 @@ export default function HeroCarousel() {
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '1120px',
-        margin: 'clamp(2.5rem, 6vw, 4rem) auto 0',
+        maxWidth: '820px',
+        margin: 'clamp(2rem, 5vw, 3rem) auto 0',
         aspectRatio: '16 / 9',
         borderRadius: 'var(--radius-2xl)',
         overflow: 'hidden',

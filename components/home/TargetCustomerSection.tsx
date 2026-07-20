@@ -161,10 +161,13 @@ export default function TargetCustomerSection() {
       </div>
 
       <style>{`
+        /* 카드만 좁게 — 위쪽 제목은 1100px 그대로 두고 그리드에만 폭을 준다 */
         .tc-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1.1rem;
+          gap: 0.9rem;
+          max-width: 880px;
+          margin: 0 auto;
         }
         .tc-card {
           position: relative;
@@ -173,7 +176,7 @@ export default function TargetCustomerSection() {
           background: var(--surface);
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
-          padding: 1.75rem 1.6rem;
+          padding: 1.4rem 1.3rem;
           transition: background 0.18s, transform 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
         .tc-card:hover {
@@ -184,20 +187,20 @@ export default function TargetCustomerSection() {
         }
         .tc-icon {
           display: inline-flex;
-          width: 46px;
-          height: 46px;
+          width: 38px;
+          height: 38px;
           border-radius: var(--radius-xl);
           background: var(--accent-light);
           color: var(--accent);
           align-items: center;
           justify-content: center;
-          margin-bottom: 1.1rem;
+          margin-bottom: 0.85rem;
         }
         .tc-img {
           position: relative;
           overflow: hidden;
           width: 100%;
-          aspect-ratio: 16 / 9;
+          aspect-ratio: 2 / 1;
           margin-top: auto;
           border-radius: var(--radius-xl);
           background: var(--surface-container);

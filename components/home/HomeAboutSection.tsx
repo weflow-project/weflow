@@ -111,8 +111,9 @@ export default function HomeAboutSection() {
           position: relative;
           overflow: hidden;
           width: 100%;
-          aspect-ratio: 16 / 9;
-          margin-top: 1.1rem;
+          /* 16:9 보다 납작하게 — 카드 폭은 그대로 두고 사진 높이만 줄인다 */
+          aspect-ratio: 5 / 2;
+          margin-top: 0.9rem;
           border-radius: var(--radius-xl);
           background: var(--surface-container);
           border: 1px solid var(--border);

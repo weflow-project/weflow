@@ -349,12 +349,11 @@
   /* ── 제휴 마케팅 벤토 그리드 ── */
   .bento-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
-      "lead sub"
-      "ch1  ch2"
-      "ch3  ch4";
-    gap: 1.1rem;
+      "lead sub  ch1"
+      "ch2  ch3  ch4";
+    gap: 0.9rem;
   }
   .bento-lead {
     grid-area: lead;
@@ -378,13 +377,40 @@
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-2xl);
-    padding: 1.6rem;
+    padding: 1.25rem 1.1rem;
     display: flex;
     flex-direction: column;
     transition: background 0.18s;
   }
   .bento-card:hover {
     background: rgba(255, 255, 255, 0.1);
+  }
+  /* 카드 6개의 아이콘·제목·설명·사진 줄을 서로 맞춘다.
+     제목이 한 줄이든 두 줄이든 아래 요소가 밀리지 않도록 각 칸에 최소 높이를 준다. */
+  .bento-head {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    margin-bottom: 0.9rem;
+  }
+  .bento-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 3.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .bento-desc {
+    min-height: 4.2rem;
+  }
+  .bento-img {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  @media (max-width: 1000px) {
+    .bento-title-row { min-height: 0; }
+    .bento-desc { min-height: 0; }
   }
   /* 다크 섹션 위 카드 — 텍스트 밝게 */
   .bento-card .title-3,
@@ -393,6 +419,15 @@
   }
   .bento-card .callout {
     color: var(--text-secondary);
+  }
+  @media (max-width: 1000px) {
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "lead sub"
+        "ch1  ch2"
+        "ch3  ch4";
+    }
   }
   @media (max-width: 768px) {
     .bento-grid {
@@ -440,44 +475,6 @@
     .hero-carousel-arrow {
       opacity: 0.9;
     }
-  }
-
-  /* ── 히어로 CTA 말풍선 배지 ── */
-  .hero-cta {
-    position: relative;
-    display: inline-flex;
-  }
-  .hero-cta-badge {
-    position: absolute;
-    bottom: calc(100% + 11px);
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    border-radius: 9999px;
-    padding: 5px 14px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-  }
-  .hero-cta-badge strong {
-    color: var(--accent);
-    font-weight: 800;
-  }
-  .hero-cta-badge::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-1px);
-    border: 6px solid transparent;
-    border-top-color: var(--surface);
-    filter: drop-shadow(0 1px 0 var(--border));
   }
 
   /* ── 무료 진단 CTA 마퀴 버튼 ── */

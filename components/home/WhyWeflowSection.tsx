@@ -132,7 +132,8 @@ export default function WhyWeflowSection() {
             </div>
             <div
               style={{
-                aspectRatio: "16 / 10",
+                /* 사진 원본 비율(2816×1536)과 같게 — 다르면 cover 가 위아래를 잘라낸다 */
+                aspectRatio: "2816 / 1536",
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -246,25 +247,22 @@ export default function WhyWeflowSection() {
             <br className="wf-br-m" />
             홈페이지였습니다.
           </h2>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              marginTop: "clamp(2rem, 5vw, 3rem)",
-              width: "100%",
-              aspectRatio: "16 / 9",
-              borderRadius: "var(--radius-2xl)",
-              background: "var(--surface-container)",
-              border: "1px solid var(--border)",
-            }}
-          >
-            <Image
-              src="/images/main/main-weflow-01.png"
-              alt="홈페이지다운 홈페이지"
-              fill
-              sizes="(max-width: 1100px) 100vw, 1100px"
-              style={{ objectFit: "cover" }}
-            />
+          {/* 결과물 예시 2장 — 원본 비율(약 1.8:1)에 맞춰 잘리지 않게 둔다 */}
+          <div className="wf-shots">
+            {[
+              { src: "/images/main/main-weflow-01.png", alt: "홈페이지다운 홈페이지 예시 1" },
+              { src: "/images/main/main-weflow-05.png", alt: "홈페이지다운 홈페이지 예시 2" },
+            ].map(({ src, alt }) => (
+              <div key={src} className="wf-shot">
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            ))}
           </div>
         </Reveal>
 
@@ -380,9 +378,32 @@ export default function WhyWeflowSection() {
       <style>{`
         .why-split {
           display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
+          /* 사진 칸을 글보다 좁게 — 비율을 유지한 채 사진만 작아진다 */
+          grid-template-columns: 0.85fr 1.15fr;
+          /* 사진 + 문구를 한 덩어리로 보고 가운데에 모은다 */
+          max-width: 900px;
+          margin-inline: auto;
           gap: clamp(1.5rem, 4vw, 3rem);
           align-items: center;
+        }
+        .wf-shots {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-top: clamp(2rem, 5vw, 3rem);
+        }
+        .wf-shot {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          aspect-ratio: 1024 / 572;
+          border-radius: var(--radius-2xl);
+          background: var(--surface-container);
+          border: 1px solid var(--border);
+        }
+        /* 좁은 화면에서도 두 장을 나란히 — 폰에서만 세로로 쌓는다 */
+        @media (max-width: 480px) {
+          .wf-shots { grid-template-columns: 1fr; }
         }
         .why-diffs {
           display: grid;
