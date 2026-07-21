@@ -26,7 +26,7 @@ const BENEFITS = [
 
 /**
  * WEFLOW만의 혜택 섹션 (#benefits — 히어로의 "혜택보기" 버튼이 여기로 온다).
- * 파란 배경에 혜택 카드 3개 + 하단 신청 CTA, 우측엔 가격 페이지로 가는 사이드 탭.
+ * 파란 배경에 혜택 카드 3개 + 하단 신청 CTA.
  */
 export default function BenefitsSection() {
   return (
@@ -38,10 +38,6 @@ export default function BenefitsSection() {
         padding: "clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem)",
       }}
     >
-      {/* 우측 사이드 탭 — 혜택 더보기 (넓은 화면에서만 노출) */}
-      <Link href="/pricing" className="benefit-more footnote emphasized">
-        혜택 더보기 ›
-      </Link>
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
         <Reveal
@@ -222,31 +218,6 @@ export default function BenefitsSection() {
         .benefit-card { transition: transform 0.2s, box-shadow 0.2s; }
         .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.45); }
 
-        /* 우측 사이드 탭 */
-        .benefit-more {
-          position: absolute;
-          top: 50%;
-          right: 0;
-          transform: translateY(-50%);
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          background: var(--surface);
-          color: var(--accent);
-          font-size: 1rem;
-          padding: 1.05rem 1.4rem;
-          border-radius: var(--radius-xl) 0 0 var(--radius-xl);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-          text-decoration: none;
-          white-space: nowrap;
-          transition: opacity 0.15s;
-        }
-        .benefit-more:hover { opacity: 0.92; }
-
-        /* 좁은 화면에서는 콘텐츠와 겹쳐 숨김 */
-        @media (max-width: 1024px) {
-          .benefit-more { display: none; }
-        }
         @media (max-width: 768px) {
           .benefit-grid { grid-template-columns: 1fr; }
         }

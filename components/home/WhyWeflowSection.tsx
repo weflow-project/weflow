@@ -378,10 +378,10 @@ export default function WhyWeflowSection() {
       <style>{`
         .why-split {
           display: grid;
-          /* 사진 칸을 글보다 좁게 — 비율을 유지한 채 사진만 작아진다 */
-          grid-template-columns: 0.85fr 1.15fr;
+          /* 사진 칸을 글보다 조금 좁게 — 비율을 유지한 채 사진만 작아진다 */
+          grid-template-columns: 1.05fr 0.95fr;
           /* 사진 + 문구를 한 덩어리로 보고 가운데에 모은다 */
-          max-width: 900px;
+          max-width: 1080px;
           margin-inline: auto;
           gap: clamp(1.5rem, 4vw, 3rem);
           align-items: center;

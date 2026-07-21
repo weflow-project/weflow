@@ -20,7 +20,7 @@ const POINTS: Point[] = [
     stat: '99.9%',
     desc: (
       <>
-        카톡·SNS 폼보다 요청사항까지 남기고 들어와, <strong>니즈가 명확한 고객</strong>이 데이터로 남습니다.
+        카톡·SNS 폼보다 요청사항까지 남기고 들어와, <br /><strong>니즈가 명확한 고객</strong>이 데이터로 남습니다.
         <br />
         유입되는 순간부터 기록돼, 명확한 고객 DB 유입량이 늘어납니다.
       </>
@@ -33,9 +33,9 @@ const POINTS: Point[] = [
     stat: '84%',
     desc: (
       <>
-        SNS를 하지 말라는 게 아니에요. 내 <strong>홈페이지를 가진 상태</strong>로 SNS를 운영하라는 뜻입니다.
+        SNS를 하지 말라는 게 아니에요.<br />내 <strong>홈페이지를 가진 상태</strong>로 SNS를 운영하라는 뜻입니다.
         <br />
-        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰하니, 함께 굴릴수록 광고·유입 효과가 커집니다.
+        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰하니,<br />함께 굴릴수록 광고·유입 효과가 커집니다.
       </>
     ),
     source: '출처: BusinessDasher, "Statistics About Website" (2026)',
@@ -46,7 +46,7 @@ const POINTS: Point[] = [
     stat: '50%',
     desc: (
       <>
-        각 페이지별 <strong>고유 URL</strong>과 메타·구조화 정보를 최적화하면, 검색 결과에서 <strong>클릭률(CTR)이 20~80%</strong>까지 높아집니다.
+        각 페이지별 <strong>고유 URL</strong>과 메타·구조화 정보를 최적화하면,<br />검색 결과에서 <strong>클릭률(CTR)이 20~80%</strong>까지 높아집니다.
         <br />
         노출 기회가 늘어 상위 노출과 유입 확대에 유리해집니다.
       </>
@@ -213,7 +213,7 @@ export default function WhatIsHomepageSection() {
                   src={WHY_IMAGES[i]}
                   alt={p.title}
                   fill
-                  sizes="(max-width: 860px) 100vw, 480px"
+                  sizes="(max-width: 768px) 100vw, 380px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
@@ -227,11 +227,16 @@ export default function WhatIsHomepageSection() {
            줄마다 가운데 경계선이 어긋났다. 좌우가 바뀌어도 경계선은 항상 같은 자리다. */
         .wih-row {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          /* 사진 칸을 글보다 좁게 — 사진이 칸을 꽉 채우므로
+             가운데 경계선과 바깥 끝선이 줄마다 똑같이 떨어진다.
+             (사진만 줄여 칸 안에 띄우면 바깥쪽에 빈 자리가 생겨 어긋나 보인다) */
+          grid-template-columns: 1.2fr 0.8fr;
           align-items: center;
           gap: clamp(1.5rem, 4vw, 3.5rem);
         }
-        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다 */
+        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다.
+           좌우가 바뀌는 줄은 넓은 칸·좁은 칸 순서도 함께 뒤집어야 사진이 좁은 칸에 들어간다 */
+        .wih-row.reverse { grid-template-columns: 0.8fr 1.2fr; }
         .wih-row.reverse .wih-text { order: 2; }
         .wih-row.reverse .wih-img { order: 1; }
         .wih-row + .wih-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
@@ -241,6 +246,8 @@ export default function WhatIsHomepageSection() {
           .wih-row { grid-template-columns: 1fr; align-items: stretch; }
           .wih-row .wih-text, .wih-row.reverse .wih-text { order: 2; }
           .wih-row .wih-img, .wih-row.reverse .wih-img { order: 1; }
+          /* 한 줄로 쌓이면 사진이 너무 커지지 않게만 잡아둔다 */
+          .wih-img > div { max-width: 480px; margin-inline: auto; }
         }
         /* 핵심 뱃지 */
         .wih-badge {

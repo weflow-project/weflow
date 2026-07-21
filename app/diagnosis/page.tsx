@@ -87,6 +87,8 @@ export default function DiagnosisPage() {
       if (!res.ok) throw new Error('request failed')
       setLoading(false)
       setShowErrors(false)
+      // 완료 화면이 그려지기 전에 미리 상단으로 (스크롤이 움직이는 게 안 보이도록)
+      window.scrollTo(0, 0)
       setSubmitted(true)
       sessionStorage.removeItem('weflow_form_intent')
     } catch {
@@ -98,7 +100,16 @@ export default function DiagnosisPage() {
   if (submitted) {
     return (
       <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ textAlign: 'center', maxWidth: '420px' }}>
+        <style>{`
+          @keyframes done-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: none; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .done-panel { animation: none !important; }
+          }
+        `}</style>
+        <div className="done-panel" style={{ textAlign: 'center', maxWidth: '420px', animation: 'done-in 0.45s ease-out both' }}>
           <div style={{
             width: 72, height: 72, borderRadius: '50%', background: '#dcfce7',
             display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.75rem',

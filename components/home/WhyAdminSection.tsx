@@ -189,6 +189,35 @@ export default function WhyAdminSection() {
                   border: "1px solid var(--border)",
                 }}
               />
+
+              {/* 곡선 화살표 + 캡션 — 실제 화면 캡처임을 알린다 */}
+              <div className="wa-img-note">
+                <svg
+                  className="wa-img-arrow"
+                  width="30"
+                  height="26"
+                  viewBox="0 0 64 56"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M56 29 C 32 41, 13 33, 17 13"
+                    stroke="var(--accent)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M8 22 L17 10 L28 20"
+                    stroke="var(--accent)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <p className="wa-img-note-text">
+                  WEFLOW <strong>관리자 페이지</strong>의 실제 화면입니다.
+                </p>
+              </div>
             </div>
           </div>
         ))}
@@ -209,6 +238,24 @@ export default function WhyAdminSection() {
         .wa-row + .wa-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
         .wa-text { min-width: 0; }
         .wa-img { min-width: 0; }
+        /* 사진 아래 안내 — 화살표가 사진을 가리키고 문구가 옆에 붙는다 */
+        .wa-img-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 0.7rem;
+        }
+        .wa-img-arrow { flex-shrink: 0; }
+        .wa-img-note-text {
+          margin: 0;
+          font-size: 0.92rem;
+          font-weight: 600;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .wa-img-note-text strong { color: var(--accent); }
         @media (max-width: 768px) {
           .wa-row { grid-template-columns: 1fr; align-items: stretch; }
           .wa-row .wa-text, .wa-row.reverse .wa-text { order: 2; }

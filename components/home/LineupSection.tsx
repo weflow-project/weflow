@@ -25,7 +25,7 @@ const ITEMS = [
   { no: '03', name: '랜딩형 홈페이지',   tag: 'LANDING HOMEPAGE',     img: '/images/main/main-guide-03.png', anchor: 'landing-home'  },
   { no: '04', name: '랜딩페이지',       tag: 'LANDING PAGE',         img: '/images/main/main-guide-04.png',     anchor: 'landing'  },
   { no: '05', name: '관리자 페이지',     tag: 'ADMIN PAGE',           img: '/images/main/main-guide-05.png',       anchor: 'admin'  },
-  { no: '06', name: '관리자가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.png',    anchor: 'why-admin'  },
+  { no: '06', name: '관리자 페이지가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.png',    anchor: 'why-admin'  },
 ]
 
 export default function LineupSection() {
@@ -151,18 +151,20 @@ export default function LineupSection() {
           inset: 0;
           background: linear-gradient(to top, rgba(8,8,10,0.88) 0%, rgba(8,8,10,0.3) 45%, rgba(8,8,10,0.12) 100%);
         }
-        /* 접힌 상태 — 세로 이름 */
+        /* 접힌 상태 — 우측 하단에 가로로 눕힌 이름.
+           칸이 좁아 긴 이름은 여러 줄로 접히므로 오른쪽 끝을 기준으로 맞춘다 */
         .lineup-vname {
           position: absolute;
-          bottom: 1.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          writing-mode: vertical-rl;
-          white-space: nowrap;
-          font-size: 0.8rem;
+          left: 0.9rem;
+          right: 0.9rem;
+          bottom: 0.9rem;
+          text-align: right;
+          font-size: 0.95rem;
           font-weight: 600;
-          letter-spacing: 0.22em;
-          color: rgba(255,255,255,0.8);
+          line-height: 1.35;
+          letter-spacing: 0.01em;
+          word-break: keep-all;
+          color: rgba(255,255,255,0.85);
           transition: opacity 0.3s;
         }
         .lineup-panel.is-active .lineup-vname { opacity: 0; }
