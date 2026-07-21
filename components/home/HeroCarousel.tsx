@@ -31,7 +31,9 @@ export default function HeroCarousel() {
   // 여벌에서 제자리로 되돌리는 순간에는 움직임을 꺼서 되감기가 보이지 않게 한다
   const [animate, setAnimate] = useState(true)
   const [paused, setPaused] = useState(false)
+  const [dragging, setDragging] = useState(false)
   const touchStartX = useRef<number | null>(null)
+  const barRef = useRef<HTMLDivElement>(null)
 
   const outside = p < 0 || p >= COUNT
 
@@ -58,12 +60,33 @@ export default function HeroCarousel() {
     }
   }, [animate])
 
-  // 3초 자동 전환 (수동 조작·호버 시 타이머 리셋·정지)
+  // 3초 자동 전환 (수동 조작·호버·막대를 끄는 동안 타이머 리셋·정지)
   useEffect(() => {
-    if (paused || outside || !animate) return
+    if (paused || dragging || outside || !animate) return
     const id = setTimeout(() => setP(v => v + 1), INTERVAL)
     return () => clearTimeout(id)
-  }, [p, paused, outside, animate])
+  }, [p, paused, dragging, outside, animate])
+
+  // 막대를 끌어 이동 — 짚은 지점이 막대의 몇 번째 칸인지로 순번을 정한다
+  const seek = (clientX: number) => {
+    const rect = barRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const ratio = (clientX - rect.left) / rect.width
+    setP(Math.min(COUNT - 1, Math.max(0, Math.floor(ratio * COUNT))))
+  }
+  const onBarDown = (e: React.PointerEvent) => {
+    // 손이 막대 밖으로 벗어나도 계속 따라오게 포인터를 잡아둔다
+    e.currentTarget.setPointerCapture(e.pointerId)
+    setDragging(true)
+    seek(e.clientX)
+  }
+  const onBarMove = (e: React.PointerEvent) => {
+    if (dragging) seek(e.clientX)
+  }
+  const onBarUp = (e: React.PointerEvent) => {
+    e.currentTarget.releasePointerCapture(e.pointerId)
+    setDragging(false)
+  }
 
   // 모바일 스와이프 — 좌우 40px 넘게 끌면 이전/다음 장으로
   const onTouchStart = (e: React.TouchEvent) => {
@@ -111,8 +134,17 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      {/* 아래 진행 막대 — 끊김 없는 한 줄 위로 표시가 미끄러진다 */}
-      <div className="hero-car-barwrap">
+      {/* 아래 진행 막대 — 끊김 없는 한 줄 위로 표시가 미끄러진다.
+          잡고 좌우로 끌면 그 자리의 사진으로 넘어간다 (모바일에서는 숨기고 손으로 민다) */}
+      <div
+        ref={barRef}
+        className="hero-car-barwrap"
+        data-dragging={dragging}
+        onPointerDown={onBarDown}
+        onPointerMove={onBarMove}
+        onPointerUp={onBarUp}
+        onPointerCancel={onBarUp}
+      >
         <div className="hero-car-bar">
           <span
             className="hero-car-thumb"
@@ -173,11 +205,18 @@ export default function HeroCarousel() {
         /* 아래 막대 — 끊기지 않은 한 줄 */
         .hero-car-barwrap {
           position: relative;
-          width: clamp(160px, 34%, 260px);
+          width: clamp(200px, 40%, 320px);
           margin: clamp(1rem, 2.5vw, 1.5rem) auto 0;
+          cursor: grab;
+          /* 끄는 도중 글자·사진이 딸려 선택되지 않게 */
+          touch-action: none;
+          user-select: none;
         }
+        .hero-car-barwrap[data-dragging="true"] { cursor: grabbing; }
+        /* 끄는 동안엔 손끝을 바로 따라오도록 미끄러지는 시간을 줄인다 */
+        .hero-car-barwrap[data-dragging="true"] .hero-car-thumb { transition-duration: 120ms; }
         .hero-car-bar {
-          height: 4px;
+          height: 8px;
           border-radius: 9999px;
           background: var(--border);
           overflow: hidden;
@@ -194,7 +233,7 @@ export default function HeroCarousel() {
         /* 손가락으로 짚기 쉽게 위아래로 넓힌 투명한 칸 */
         .hero-car-hit {
           position: absolute;
-          inset: -9px 0;
+          inset: -10px 0;
           display: flex;
         }
         .hero-car-hit button {
@@ -207,6 +246,8 @@ export default function HeroCarousel() {
 
         @media (max-width: 720px) {
           .hero-car-track { --sw: 82%; --gap: 10px; }
+          /* 모바일은 막대 없이 손으로 밀어서 본다 */
+          .hero-car-barwrap { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
           .hero-car-track, .hero-car-thumb { transition: none; }

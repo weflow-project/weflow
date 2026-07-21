@@ -117,7 +117,7 @@ export default function DiagnosisPage() {
             <Check size={34} color="#16a34a" strokeWidth={2.5} />
           </div>
           <h2 className="title-1 emphasized" style={{ marginBottom: '1rem' }}>
-            무료 진단 신청 완료!
+            무료 견적 신청 완료!
           </h2>
           <p className="c-muted" style={{ lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '1.1rem' }}>
             담당자가 확인 후 <strong style={{ color: 'var(--text)' }}>24시간 내</strong>에 연락드리겠습니다.<br />

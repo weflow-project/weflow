@@ -482,6 +482,9 @@
     padding: 0 !important;
     overflow: hidden;
     position: relative;
+    /* 트랙을 왼쪽 기준으로 붙인다 — 가운데 정렬이면 보이는 창이 트랙 중앙에서
+       시작해 -50% 이동 시 트랙 끝을 넘어가며 빈칸이 스쳐 보인다(루프 끊김) */
+    justify-content: flex-start !important;
   }
   .cta-marquee-track {
     display: flex;
@@ -489,6 +492,7 @@
     height: 100%;
     animation: ctaMarquee 6.5s linear infinite;
     will-change: transform;
+    backface-visibility: hidden;
   }
   .cta-marquee:hover .cta-marquee-track {
     animation-play-state: paused;
@@ -501,10 +505,11 @@
   }
   @keyframes ctaMarquee {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     to {
-      transform: translateX(-50%);
+      /* 문구 4개 중 정확히 2개 분량 — 이동 후 3·4번이 1·2번 자리를 그대로 잇는다 */
+      transform: translate3d(-50%, 0, 0);
     }
   }
 
