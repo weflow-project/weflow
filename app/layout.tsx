@@ -72,6 +72,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" data-scroll-behavior="smooth">
       <body>
+        {/*
+         * 브라우저의 스크롤 위치 복원을 끈다.
+         * 화면이 그려지기 전(HTML 파싱 중)에 실행돼야 복원 자체가 일어나지 않는다.
+         * 하이드레이션 이후에 끄면 이미 복원된 뒤라, 되돌리려고 맨 위로 튕기는 동작이 필요해진다.
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history){history.scrollRestoration='manual'}`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}

@@ -87,13 +87,14 @@ export default function WhyAdminSection() {
 
   return (
     <section
+      id="why-admin"
       ref={ref}
       style={{
         background: "var(--section-a)",
-        padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
+        padding: "clamp(2.25rem, 5vw, 4rem) 1.25rem",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
         <div style={{ marginBottom: "clamp(2rem, 5vw, 3.5rem)" }}>
           <span className="footnote emphasized c-accent">
@@ -157,7 +158,7 @@ export default function WhyAdminSection() {
                   style={{
                     display: "inline-block",
                     lineHeight: 1.05,
-                    fontSize: "clamp(2.1rem, 5vw, 3.3rem)",
+                    fontSize: "clamp(1.6rem, 3.6vw, 2.4rem)",
                     wordBreak: "keep-all",
                   }}
                 >
@@ -194,15 +195,25 @@ export default function WhyAdminSection() {
       </div>
 
       <style>{`
+        /* 그리드로 칸을 반씩 고정한다 — flex 는 내용에 따라 폭이 밀려서
+           줄마다 가운데 경계선이 어긋났다. 좌우가 바뀌어도 경계선은 항상 같은 자리다. */
         .wa-row {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           align-items: center;
           gap: clamp(1.5rem, 4vw, 3.5rem);
         }
-        .wa-row.reverse { flex-direction: row-reverse; }
+        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다 */
+        .wa-row.reverse .wa-text { order: 2; }
+        .wa-row.reverse .wa-img { order: 1; }
         .wa-row + .wa-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
-        .wa-text { flex: 1; min-width: 0; }
-        .wa-img { flex: 1; min-width: 0; }
+        .wa-text { min-width: 0; }
+        .wa-img { min-width: 0; }
+        @media (max-width: 768px) {
+          .wa-row { grid-template-columns: 1fr; align-items: stretch; }
+          .wa-row .wa-text, .wa-row.reverse .wa-text { order: 2; }
+          .wa-row .wa-img, .wa-row.reverse .wa-img { order: 1; }
+        }
         /* 핵심 뱃지 */
         .wa-badge {
           display: inline-block;
@@ -222,10 +233,6 @@ export default function WhyAdminSection() {
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.25rem, 3vw, 2rem);
-        }
-        @media (max-width: 768px) {
-          /* 모바일: 이미지 → 설명 순서(column-reverse) + stretch로 이미지 폭 붕괴 방지 */
-          .wa-row, .wa-row.reverse { flex-direction: column-reverse; align-items: stretch; }
         }
         /* 파란 키워드 흔들림 (화면 진입 후 7초마다 잠깐) — WhatIs와 동일 */
         .wa-stat { transform-origin: center bottom; }

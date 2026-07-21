@@ -200,7 +200,7 @@ export default function BookingPage() {
 
       {/* ── 본문 ── */}
       <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) 5rem' }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
           <form onSubmit={handleSubmit}>
             <div className="booking-layout">
@@ -372,7 +372,7 @@ export default function BookingPage() {
         }
         .booking-layout {
           display: grid;
-          grid-template-columns: 1.7fr 0.9fr;
+          grid-template-columns: 1fr 420px;
           gap: 1.25rem;
           align-items: start;
         }

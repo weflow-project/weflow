@@ -1,9 +1,10 @@
-import { MessageCircle, PenLine, Users } from "lucide-react";
+import { MessageCircle, PenLine, Users, PencilRuler, Workflow, Wrench } from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import type { LucideIcon } from "lucide-react";
 
-// WEFLOW의 일하는 방식 3가지 — 카드 하나씩
+// WEFLOW의 일하는 방식 6가지 — 상담(듣기) → 기획·설계 → 동선 → 워딩 → 전담 케어 → 운영 순.
+// 회사 소개에 따로 있던 "WEFLOW가 일하는 방식" 3장을 여기로 합쳤다.
 const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
   [
     {
@@ -11,6 +12,18 @@ const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
       title: "소통",
       desc: "제작 전 충분한 상담으로 고객이 진짜 원하는 것을 먼저 듣고 시작합니다.",
       img: "/images/main/main-listen-01.png",
+    },
+    {
+      Icon: PencilRuler,
+      title: "직접 기획·설계",
+      desc: "템플릿이 아니라, 사람이 목표부터 구조까지 전략을 세웁니다.",
+      img: "/images/about/about6.png",
+    },
+    {
+      Icon: Workflow,
+      title: "맞춤형 플로우",
+      desc: "업종과 고객 흐름에 맞춰 문의로 이어지는 동선을 설계합니다.",
+      img: "/images/about/about7.png",
     },
     {
       Icon: PenLine,
@@ -24,6 +37,12 @@ const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
       desc: "전담 담당자가 고객 한 분을 전담하는 1:1 케어로 디테일까지 챙깁니다.",
       img: "/images/main/main-listen-03.png",
     },
+    {
+      Icon: Wrench,
+      title: "지속 가능한 운영",
+      desc: "제작 이후에도 광고 연동·유지보수·운영까지 함께합니다.",
+      img: "/images/about/about8.png",
+    },
   ];
 
 /** 한 줄 소개 섹션 — "고객의 소리에 귀 기울이는 WEFLOW", 일하는 방식 3가지를 카드로 */
@@ -32,11 +51,7 @@ export default function ListeningSection() {
     <section
       style={{
         background: "var(--section-b)",
-        minHeight: "calc(100vh - 64px)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "clamp(2.5rem, 5vw, 3.5rem) 1.25rem",
+        padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem",
       }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
@@ -122,7 +137,11 @@ export default function ListeningSection() {
           background: var(--surface-container);
           border: 1px solid var(--border);
         }
+        /* 6장이라 태블릿에서는 2열로 한 번 접고, 모바일에서만 1열로 내린다 */
         @media (max-width: 860px) {
+          .listen-list { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
           .listen-list { grid-template-columns: 1fr; }
         }
       `}</style>

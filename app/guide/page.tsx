@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import ScrollToHash from "@/components/ScrollToHash";
 import HomepageDefinitionSection from "@/components/home/HomepageDefinitionSection";
 import WhatIsHomepageSection from "@/components/home/WhatIsHomepageSection";
 import LandingHomepageSection from "@/components/home/LandingHomepageSection";
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
 export default function GuidePage() {
   return (
     <div>
+      {/* 메인 라인업에서 #앵커 를 달고 들어오면 해당 섹션으로 내려준다 */}
+      <ScrollToHash />
+
       {/* 페이지 도입부 */}
       <section
         style={{

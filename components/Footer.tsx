@@ -11,7 +11,7 @@ const INSTAGRAM_URL = 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2b
 const SERVICE_LINKS = [
   { label: '회사소개',            href: '/about' },
   { label: '서비스',              href: '/service' },
-  { label: '홈페이지 가이드',       href: '/guide' },
+  { label: '제작 라인업',           href: '/guide' },
   { label: 'WEFLOW 혜택',         href: '/benefits' },
   { label: '제작 플랜 & 가격 안내', href: '/pricing' },
 ]

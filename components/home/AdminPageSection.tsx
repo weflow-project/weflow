@@ -20,12 +20,13 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
 export default function AdminPageSection() {
   return (
     <section
+      id="admin"
       style={{
         background: "var(--section-b)",
-        padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
+        padding: "clamp(2.25rem, 5vw, 4rem) 1.25rem",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: "clamp(2rem, 5vw, 3rem)" }}>
           <span className="footnote emphasized c-accent">
@@ -34,6 +35,7 @@ export default function AdminPageSection() {
           <h2
             className="title-1"
             style={{
+              fontSize: "clamp(1.5rem, 3.2vw, 1.9rem)",
               marginTop: "0.75rem",
               textAlign: "left",
               wordBreak: "keep-all",

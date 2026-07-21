@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
 import PlaceholderSection from "@/components/home/PlaceholderSection";
 import PortfolioCarousel from "@/components/home/PortfolioCarousel";
+import LineupSection from "@/components/home/LineupSection";
 import PartnershipSection from "@/components/home/PartnershipSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
 import BenefitsSection from "@/components/home/BenefitsSection";
@@ -85,6 +86,9 @@ export default function HomePage() {
       />
       {/* 홈페이지·랜딩페이지·관리자 페이지 설명은 /guide 로 옮겼다.
           메인은 이미 제작을 마음먹은 방문자가 보는 자리라, 정의부터 설명하면 문의까지 너무 멀어진다. */}
+
+      {/* 제작 라인업 — 누르면 /guide 의 해당 설명으로 내려간다 */}
+      <LineupSection />
 
       {/* 사례로 신뢰를 준 직후에 "얼마인가"를 바로 답한다 */}
       <BenefitsSection />
