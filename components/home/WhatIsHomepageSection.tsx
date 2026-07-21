@@ -123,7 +123,10 @@ export default function WhatIsHomepageSection() {
           observer.disconnect()
         }
       },
-      { threshold: 0.3 },
+      // threshold 는 "요소 높이의 몇 %가 보이는가" 기준이라, 이 섹션처럼
+      // 화면보다 긴 요소에는 0.3 을 영영 못 채워 발동하지 않는다.
+      // 대신 화면 위아래 25% 를 잘라낸 가운데 띠에 걸리는 순간을 본다.
+      { threshold: 0, rootMargin: '-25% 0px -25% 0px' },
     )
     observer.observe(el)
     return () => observer.disconnect()
