@@ -211,7 +211,6 @@ export default function PricingPage() {
                     }}
                   >
                     <span className="title-2 emphasized">{plan.price}</span>
-                    <span className="caption-1 c-muted">부터</span>
                   </div>
                   <p
                     className="caption-1 c-muted"

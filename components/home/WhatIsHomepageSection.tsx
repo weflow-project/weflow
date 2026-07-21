@@ -131,7 +131,7 @@ export default function WhatIsHomepageSection() {
 
   return (
     <section id="why-homepage" ref={ref} style={{ background: 'var(--section-a)', padding: 'clamp(2.25rem, 5vw, 4rem) 1.25rem' }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+      <div style={{ maxWidth: '880px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>
           <span className="footnote emphasized c-accent">02 · 홈페이지가 필요한 이유</span>
@@ -173,7 +173,7 @@ export default function WhatIsHomepageSection() {
                     className="large-title emphasized c-accent"
                     style={{
                       lineHeight: 1,
-                      fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+                      fontSize: 'clamp(1.7rem, 4.2vw, 2.7rem)',
                       display: 'inline-block',
                     }}
                   >
@@ -183,7 +183,7 @@ export default function WhatIsHomepageSection() {
                     <ArrowUp
                       strokeWidth={2.6}
                       color="var(--accent)"
-                      style={{ width: 'clamp(2rem, 5vw, 3.25rem)', height: 'clamp(2rem, 5vw, 3.25rem)', flexShrink: 0 }}
+                      style={{ width: 'clamp(1.7rem, 4.2vw, 2.75rem)', height: 'clamp(1.7rem, 4.2vw, 2.75rem)', flexShrink: 0 }}
                     />
                   )}
                 </span>
@@ -213,7 +213,7 @@ export default function WhatIsHomepageSection() {
                   src={WHY_IMAGES[i]}
                   alt={p.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 380px"
+                  sizes="(max-width: 768px) 100vw, 420px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
@@ -227,20 +227,21 @@ export default function WhatIsHomepageSection() {
            줄마다 가운데 경계선이 어긋났다. 좌우가 바뀌어도 경계선은 항상 같은 자리다. */
         .wih-row {
           display: grid;
-          /* 사진 칸을 글보다 좁게 — 사진이 칸을 꽉 채우므로
-             가운데 경계선과 바깥 끝선이 줄마다 똑같이 떨어진다.
-             (사진만 줄여 칸 안에 띄우면 바깥쪽에 빈 자리가 생겨 어긋나 보인다) */
-          grid-template-columns: 1.2fr 0.8fr;
+          /* 사진과 글을 반반 — 사진이 칸을 꽉 채우므로
+             가운데 경계선과 바깥 끝선이 줄마다 똑같이 떨어진다 */
+          grid-template-columns: 1fr 1fr;
           align-items: center;
           gap: clamp(1.5rem, 4vw, 3.5rem);
         }
-        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다.
-           좌우가 바뀌는 줄은 넓은 칸·좁은 칸 순서도 함께 뒤집어야 사진이 좁은 칸에 들어간다 */
-        .wih-row.reverse { grid-template-columns: 0.8fr 1.2fr; }
+        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다 */
         .wih-row.reverse .wih-text { order: 2; }
         .wih-row.reverse .wih-img { order: 1; }
         .wih-row + .wih-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
         .wih-text { min-width: 0; }
+        /* 줄 전체를 한 단계 작게 — 전역 글씨 클래스는 rem 이라
+           틀만 좁혀서는 글씨가 따라 줄지 않아 여기서 직접 낮춘다 */
+        .wih-text .title-2 { font-size: clamp(1.2rem, 2.6vw, 1.33rem); }
+        .wih-text .body { font-size: 0.92rem; }
         .wih-img { min-width: 0; }
         @media (max-width: 768px) {
           .wih-row { grid-template-columns: 1fr; align-items: stretch; }
@@ -267,7 +268,7 @@ export default function WhatIsHomepageSection() {
           background: var(--accent-light);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
-          padding: clamp(1.25rem, 3vw, 2rem);
+          padding: clamp(1rem, 2.2vw, 1.5rem);
         }
         /* 파란 숫자 흔들림 효과 (화면 진입 후 7초마다 잠깐 흔들림) */
         .wih-stat { transform-origin: center bottom; }
