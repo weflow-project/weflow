@@ -19,7 +19,9 @@ export default function BenefitsPage() {
         eyebrow="BENEFITS"
         title={
           <>
-            만들고 끝이 아니라, <span className="c-accent">계속 함께합니다</span>
+            만들고 끝이 아니라,{" "}
+            <br className="br-mobile" />
+            <span className="c-accent">계속 함께합니다</span>
           </>
         }
         body={

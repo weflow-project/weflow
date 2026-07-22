@@ -6,6 +6,7 @@ import { Check, Info, BadgePercent, Sparkles, Star, ArrowRight } from "lucide-re
 import { makePlans } from "@/data/pricing";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 /**
  * /pricing — 제작 플랜 & 가격 안내 페이지.
@@ -262,7 +263,7 @@ export default function PricingPage() {
 
                 {/* CTA */}
                 <Link href="/diagnosis" className="plan-cta">
-                  무료 진단 신청
+                  무료 견적 신청
                 </Link>
               </div>
             ))}
@@ -297,7 +298,9 @@ export default function PricingPage() {
             />
             <Reveal variant="up" delay={0.1}>
               <p className="callout c-muted">
-                직접 콘텐츠를 관리할 수 있는 관리자 페이지를 옵션으로 추가하세요
+                직접 콘텐츠를 관리할 수 있는 관리자 페이지를{" "}
+                <br className="br-mobile" />
+                옵션으로 추가하세요
               </p>
             </Reveal>
           </div>
@@ -452,7 +455,7 @@ export default function PricingPage() {
 
                 {/* CTA */}
                 <Link href="/diagnosis" className="plan-cta">
-                  무료 진단 신청
+                  무료 견적 신청
                 </Link>
               </div>
             ))}
@@ -669,7 +672,9 @@ export default function PricingPage() {
               lineHeight: 1.7,
             }}
           >
-            업종과 목표를 알려주시면 필요한 구성과 예상 견적을 함께 정리해 드립니다.
+            업종과 목표를 알려주시면 필요한 구성과{" "}
+            <br className="br-mobile" />
+            예상 견적을 함께 정리해 드립니다.
           </p>
 
           <div
@@ -683,28 +688,16 @@ export default function PricingPage() {
             <a
               href="tel:010-2971-7280"
               className="btn-outline"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.45rem",
-                fontSize: "1.1rem",
-                padding: "1rem 2.1rem",
-              }}
+              style={CTA_BTN}
             >
-              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
               className="btn-primary"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.45rem",
-                fontSize: "1.1rem",
-                padding: "1rem 2.1rem",
-              }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>
@@ -749,7 +742,7 @@ export default function PricingPage() {
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
                   <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
-                    무료 진단 신청 →
+                    무료 견적 신청 →
                   </Link>
                 </div>
               </div>
@@ -795,7 +788,7 @@ export default function PricingPage() {
                   </div>
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
-                  <Link href="/diagnosis" className="pcard-cta">무료 진단 신청 →</Link>
+                  <Link href="/diagnosis" className="pcard-cta">무료 견적 신청 →</Link>
                 </div>
               </div>
             ))}

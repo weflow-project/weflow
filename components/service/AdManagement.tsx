@@ -126,7 +126,9 @@ export default function AdManagement() {
             제휴 마케팅 업체 연결 · 기본제공 시스템
           </h2>
           <p className="body c-muted" style={{ margin: 0 }}>
-            제작 후에도 꾸준히 성장할 수 있도록 전방위 운영을 지원합니다
+            제작 후에도 꾸준히 성장할 수 있도록{" "}
+            <br className="br-mobile" />
+            전방위 운영을 지원합니다
           </p>
         </Reveal>
 
@@ -157,6 +159,7 @@ export default function AdManagement() {
         >
           <p className="footnote c-muted" style={{ margin: 0 }}>
             플랜에 따라 운영 항목이 달라집니다.
+            <br className="br-mobile" />
             <span className="c-accent semibold"> 무료 진단</span>을 통해 맞춤
             운영 플랜을 확인하세요.
           </p>

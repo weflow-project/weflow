@@ -210,7 +210,7 @@ export default function BookingPage() {
       </section>
 
       {/* ── 본문 ── */}
-      <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) 5rem' }}>
+      <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) clamp(2rem, 5vw, 3rem)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
           <form onSubmit={handleSubmit}>
@@ -279,7 +279,7 @@ export default function BookingPage() {
             {/* 3. 시간 직접입력 */}
             <div className="booking-card">
               <p className="bk-section-title"><Clock size={15} color="var(--accent)" strokeWidth={2} /> 시간 직접 입력</p>
-              <input type="text" className="form-input" placeholder="예: 19:00, 오후 2시 반 (위 시간표에 없는 경우)"
+              <input type="text" className="form-input" placeholder="희망 시간을 입력해주세요"
                 value={customTime} onChange={e => { setCustomTime(e.target.value); setSelectedSlot('') }} />
             </div>
 
@@ -363,7 +363,9 @@ export default function BookingPage() {
                 </div>
               )}
               <p className="c-muted" style={{ textAlign: 'center', margin: 0, fontSize: '0.95rem' }}>
-                연중무휴 24시간 · 담당자가 직접 확인 후 연락드립니다
+                연중무휴 24시간 ·{' '}
+                <br className="br-mobile" />
+                담당자가 직접 확인 후 연락드립니다
               </p>
             </div>
 

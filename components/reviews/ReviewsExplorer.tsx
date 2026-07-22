@@ -77,7 +77,7 @@ export default function ReviewsExplorer() {
           {/* 마무리 CTA */}
           <div style={{ textAlign: 'center', marginTop: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
             <Link href="/diagnosis" className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 2.2rem' }}>
-              무료 진단 신청하기 →
+              무료 견적 신청 →
             </Link>
           </div>
         </div>

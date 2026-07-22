@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { Check, MessageSquare, FileSearch, Lightbulb, Zap, Phone, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
 import Reveal from '@/components/Reveal'
@@ -171,7 +170,7 @@ export default function DiagnosisPage() {
       </section>
 
       {/* ── 본문 ── */}
-      <section style={{ padding: '2rem 1.5rem 5rem' }}>
+      <section style={{ padding: '2rem 1.5rem clamp(2rem, 5vw, 3rem)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="diag-grid">
 

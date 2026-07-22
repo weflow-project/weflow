@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Check, ArrowRight, Crown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 // 아이콘 배치 순서 (혜택 카드별) — 3-2-1-2-3-1
 const ICON_ORDER = [3, 2, 1, 2, 3, 1];
@@ -103,7 +104,7 @@ export default function BenefitDetails() {
               style={{ margin: "0.75rem 0 0", wordBreak: "keep-all" }}
               segments={[
                 { text: "WEFLOW의 혜택, " },
-                { text: "하나하나 풀어봤습니다", className: "c-accent" },
+                { text: "하나하나 풀어봤습니다", className: "c-accent", br: "mobile" },
               ]}
             />
           </div>
@@ -246,7 +247,7 @@ export default function BenefitDetails() {
             step={0.024}
             segments={[
               { text: "모두가 잠든 이 시간에도,\nWEFLOW는 " },
-              { text: "고객을 기다립니다", className: "bd-band-accent" },
+              { text: "고객을 기다립니다", className: "bd-band-accent", br: "mobile" },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
@@ -293,33 +294,24 @@ export default function BenefitDetails() {
               <a
                 href="tel:010-2971-7280"
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "1rem",
+                  ...CTA_BTN,
                   fontWeight: 700,
-                  padding: "0.75rem 1.75rem",
                   borderRadius: "var(--radius-xl)",
-                  border: "1.5px solid var(--border)",
+                  border: "2px solid var(--border)",
                   background: "var(--surface)",
                   color: "var(--text)",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                 }}
               >
-                전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+                전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
               </a>
               <Link
                 href="/diagnosis"
                 className="btn-white"
-                style={{
-                  fontSize: "1rem",
-                  padding: "0.75rem 1.75rem",
-                  // 옆 전화상담 버튼의 1.5px 테두리만큼 높이가 벌어지지 않게 투명 테두리로 맞춘다
-                  border: "1.5px solid transparent",
-                }}
+                style={CTA_BTN_FILLED}
               >
-                무료 진단 신청하기
+                무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
             </div>
           </Reveal>

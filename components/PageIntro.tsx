@@ -12,7 +12,7 @@ export default function PageIntro({
   title,
   body,
   ctaHref = '/diagnosis',
-  ctaLabel = '무료 진단 신청하기 →',
+  ctaLabel = '무료 견적 신청하기 →',
   background = 'var(--section-a)',
 }: {
   /** 제목 위 영문 라벨 */

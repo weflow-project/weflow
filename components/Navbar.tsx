@@ -293,7 +293,7 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 진단 신청
+            무료 견적 신청
           </Link>
         </div>
       </div>

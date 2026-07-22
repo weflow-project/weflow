@@ -20,7 +20,7 @@ const CARE_LINKS = [
   { label: '성공 사례 포트폴리오',    href: '/cases' },
   { label: '성공 사례 인터뷰 & 후기', href: '/reviews' },
   { label: '예약',                   href: '/booking' },
-  { label: '무료 진단',               href: '/diagnosis' },
+  { label: '무료 견적',               href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */

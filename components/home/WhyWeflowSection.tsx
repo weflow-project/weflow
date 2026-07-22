@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 import { X, PencilRuler, Workflow, ShieldCheck, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 // AI로만 만든 홈페이지의 한계 — 목업 이미지 옆 X 목록을 채운다
 const AI_CONS = [
@@ -149,7 +150,7 @@ export default function WhyWeflowSection() {
           </div>
 
           {/* 단점 */}
-          <div>
+          <div className="why-cons">
             <h3
               className="title-2 emphasized"
               style={{ margin: "0 0 0.85rem", wordBreak: "keep-all" }}
@@ -171,7 +172,9 @@ export default function WhyWeflowSection() {
             <ul
               style={{
                 listStyle: "none",
-                margin: 0,
+                // 모바일에서 폭이 fit-content 로 줄 때 덩어리째 가운데 오도록 auto.
+                // 데스크탑에서는 폭이 꽉 차 있어 auto 여도 달라지는 게 없다.
+                margin: "0 auto",
                 padding: 0,
                 display: "flex",
                 flexDirection: "column",
@@ -360,16 +363,16 @@ export default function WhyWeflowSection() {
             <a
               href="tel:010-2971-7280"
               className="btn-outline"
-              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+              style={CTA_BTN}
             >
-              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
               className="btn-primary"
-              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청하기
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </div>
@@ -423,6 +426,14 @@ export default function WhyWeflowSection() {
         .wf-br-m { display: none; }
         @media (max-width: 768px) {
           .why-split, .why-diffs { grid-template-columns: 1fr; }
+          /* 한 단으로 쌓이면 섹션 나머지와 같이 가운데로 —
+             목록은 가장 긴 줄 기준으로 덩어리째 가운데 두고 줄끼리는 왼쪽에 맞춘다.
+             (그래야 X 표시가 세로로 한 줄에 선다) */
+          .why-cons { text-align: center; }
+          .why-cons ul {
+            width: fit-content;
+            text-align: left;
+          }
         }
         @media (max-width: 600px) {
           .wf-br-m { display: inline; }

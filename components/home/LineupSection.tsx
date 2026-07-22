@@ -19,13 +19,19 @@ const BLUR: Record<string, string> = {
   '06': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAFAAoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwBnijSLG2sLJ7e3WJ5PvMucn5Qa5UxqCetFFWloJn//2Q==',
 }
 
-const ITEMS = [
+// cardLines — 좁은 화면 카드에서만 쓰는 줄 나눔.
+// 카드 폭이 좁아 긴 이름이 아무 데서나 끊기므로, 여기 적힌 대로 줄을 나눈다.
+// (데스크탑 가로 패널은 name 을 그대로 한 줄로 쓴다)
+const ITEMS: {
+  no: string; name: string; tag: string; img: string; anchor: string
+  cardLines?: string[]
+}[] = [
   { no: '01', name: '홈페이지',        tag: 'WHAT IS A HOMEPAGE',   img: '/images/main/main-guide-01.png',    anchor: 'homepage'  },
   { no: '02', name: '홈페이지가 필요한 이유',      tag: 'WHY YOU NEED ONE',     img: '/images/main/main-guide-02.png',         anchor: 'why-homepage'  },
   { no: '03', name: '랜딩형 홈페이지',   tag: 'LANDING HOMEPAGE',     img: '/images/main/main-guide-03.png', anchor: 'landing-home'  },
   { no: '04', name: '랜딩페이지',       tag: 'LANDING PAGE',         img: '/images/main/main-guide-04.png',     anchor: 'landing'  },
   { no: '05', name: '관리자 페이지',     tag: 'ADMIN PAGE',           img: '/images/main/main-guide-05.png',       anchor: 'admin'  },
-  { no: '06', name: '관리자 페이지가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.png',    anchor: 'why-admin'  },
+  { no: '06', name: '관리자 페이지가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.png',    anchor: 'why-admin', cardLines: ['관리자 페이지가', '필요한 이유'] },
 ]
 
 export default function LineupSection() {
@@ -108,7 +114,13 @@ export default function LineupSection() {
             <span className="lineup-veil" aria-hidden="true" />
             <span className="lineup-card-text">
               <span className="lineup-card-tag">{it.no} · {it.tag}</span>
-              <span className="lineup-card-name">{it.name}</span>
+              <span className="lineup-card-name">
+                {it.cardLines
+                  ? it.cardLines.map((line, k) => (
+                      <span key={k} style={{ display: 'block' }}>{line}</span>
+                    ))
+                  : it.name}
+              </span>
             </span>
           </Link>
         ))}

@@ -60,7 +60,7 @@ export default function TargetCustomerSection() {
           >
             어떤 분들이{" "}
             <span className="c-accent tilt-hl tilt-hl-red">
-              위플로우의 고객
+              WEFLOW의 고객
             </span>
             이 될 수 있을까요?
           </h2>

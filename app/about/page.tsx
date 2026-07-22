@@ -9,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 import ListeningSection from "@/components/home/ListeningSection";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 export const metadata: Metadata = {
   title: "회사소개 · WEFLOW",
@@ -64,7 +65,7 @@ export default function AboutPage() {
             style={{ margin: "1rem 0 0", wordBreak: "keep-all" }}
             segments={[
               { text: "사람이 움직이면, " },
-              { text: "기술은 따라온다", className: "c-accent" },
+              { text: "기술은 따라온다", className: "c-accent", br: "mobile" },
             ]}
           />
           <Reveal variant="up" delay={0.15}>
@@ -180,7 +181,8 @@ export default function AboutPage() {
             segments={[
               { text: "기술은 " },
               { text: "뒤에서 받쳐주고", className: "c-accent emphasized" },
-              { text: ", 사람은 " },
+              { text: ", " },
+              { text: "사람은 ", br: "mobile" },
               { text: "앞에서 빛나게", className: "c-accent emphasized" },
               { text: " 하는 흐름" },
             ]}
@@ -332,7 +334,8 @@ export default function AboutPage() {
               lineHeight: 1.25,
             }}
           >
-            Flow Together, Grow Beyond.
+            Flow Together, <br className="br-mobile" />
+            Grow Beyond.
           </p>
           <p
             style={{
@@ -347,28 +350,24 @@ export default function AboutPage() {
             <a
               href="tel:010-2971-7280"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "1.15rem",
+                ...CTA_BTN,
                 fontWeight: 700,
-                padding: "0.9rem 2rem",
                 borderRadius: "var(--radius-xl)",
-                border: "1.5px solid rgba(255,255,255,0.85)",
+                border: "2px solid rgba(255,255,255,0.85)",
                 background: "rgba(255,255,255,0.12)",
                 color: "var(--text)",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
               }}
             >
-              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
               className="btn-white"
-              style={{ fontSize: "1.15rem", padding: "0.9rem 2rem" }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청하기
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>

@@ -12,6 +12,7 @@ import LandingHomepageSection from "@/components/home/LandingHomepageSection";
 import LandingPageSection from "@/components/home/LandingPageSection";
 import AdminPageSection from "@/components/home/AdminPageSection";
 import WhyAdminSection from "@/components/home/WhyAdminSection";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 export const metadata: Metadata = {
   title: "홈페이지 가이드 · WEFLOW",
@@ -48,7 +49,9 @@ export default function GuidePage() {
             GUIDE
           </p>
           <h1 className="title-1" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
-            홈페이지, 어디서부터 알아봐야 할까요?
+            홈페이지,{" "}
+            <br className="br-mobile" />
+            어디서부터 알아봐야 할까요?
           </h1>
           <p
             className="callout c-muted"
@@ -62,7 +65,7 @@ export default function GuidePage() {
             className="btn-primary"
             style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
           >
-            바로 무료 진단 받기 →
+            바로 무료 견적 받기 →
           </Link>
         </div>
       </section>
@@ -145,28 +148,16 @@ export default function GuidePage() {
             <Link
               href="/pricing"
               className="btn-outline"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.45rem",
-                fontSize: "1.1rem",
-                padding: "1rem 2.1rem",
-              }}
+              style={CTA_BTN}
             >
               가격 먼저 보기 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
             <Link
               href="/diagnosis"
               className="btn-primary"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.45rem",
-                fontSize: "1.1rem",
-                padding: "1rem 2.1rem",
-              }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>

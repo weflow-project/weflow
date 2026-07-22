@@ -199,23 +199,6 @@
     padding: 1.5rem;
   }
 
-  /* ── 체크리스트 아이템 ── */
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    padding: 0.3rem 0;
-  }
-  .check-item::before {
-    content: "✓";
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-
   /* ══════════════════════════════════════════════════
      타이포그래피 시스템 — Apple HIG 텍스트 스타일 기반
      위계는 '크기' 주도, 강조는 '웨이트', 색은 별도.
@@ -324,13 +307,6 @@
     letter-spacing: -0.025em;
     line-height: 1.18;
     color: var(--text);
-  }
-  .section-subtitle {
-    font-size: 0.9375rem;
-    font-weight: 400;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-    line-height: 1.55;
   }
 
   /* ── 태그 배지 ── */
@@ -513,23 +489,6 @@
     }
   }
 
-  /* ── 네비게이션 링크 ── */
-  .nav-link {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.15s;
-    white-space: nowrap;
-  }
-  .nav-link:hover {
-    color: var(--text);
-  }
-  .nav-link.active {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
   /* ── 폼 인풋 ── */
   .form-input {
     width: 100%;
@@ -577,13 +536,6 @@
     margin-bottom: 0.35rem;
   }
 
-  /* ── 가격 취소선 ── */
-  .price-strike {
-    font-size: 1rem;
-    color: var(--text-muted);
-    text-decoration: line-through;
-    font-weight: 500;
-  }
   .price-main {
     font-size: 1.6rem;
     font-weight: 800;
@@ -701,44 +653,6 @@
     }
   }
 
-  /* ── 후기 캐러셀 ── */
-  .review-track {
-    display: flex;
-    gap: 1rem;
-    animation: scrollReview 40s linear infinite;
-    will-change: transform;
-  }
-  .review-track:hover {
-    animation-play-state: paused;
-  }
-
-  .review-track-reverse {
-    display: flex;
-    gap: 1rem;
-    animation: scrollReviewReverse 40s linear infinite;
-    will-change: transform;
-  }
-  .review-track-reverse:hover {
-    animation-play-state: paused;
-  }
-
-  @keyframes scrollReview {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes scrollReviewReverse {
-    0% {
-      transform: translateX(-50%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
   /* ── 하단바 ── */
   .bottom-action-bar {
     position: fixed;
@@ -785,39 +699,6 @@
   }
   .bottom-action-item:nth-child(3) {
     border-right: 1px solid var(--border);
-  }
-
-  /* ── 케이스 카드 호버 ── */
-  .case-card > div {
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
-  }
-  .case-card:hover > div {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
-  }
-
-  /* ── 피처 카드 호버 ── */
-  .feature-card {
-    transition:
-      box-shadow 0.2s,
-      transform 0.2s;
-  }
-  .feature-card:hover {
-    box-shadow: 0 8px 24px rgba(106, 146, 215, 0.16);
-    transform: translateY(-2px);
-  }
-
-  /* ── 서비스 카드 호버 ── */
-  .service-card {
-    transition:
-      box-shadow 0.2s,
-      transform 0.2s;
-  }
-  .service-card:hover {
-    box-shadow: 0 6px 20px rgba(106, 146, 215, 0.14);
-    transform: translateY(-2px);
   }
 
   /* ── 파티클 캔버스 ── */
