@@ -54,7 +54,8 @@ export default function PlaceholderSection({
 }: {
   eyebrow: string
   title: ReactNode
-  body?: string
+  /** 줄바꿈이 필요하면 <br />를 넣은 JSX 를 넘긴다 */
+  body?: ReactNode
   background?: string
   /** true면 아이브로우와 제목 사이에 별 5개 노출 */
   stars?: boolean

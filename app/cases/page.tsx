@@ -62,7 +62,7 @@ export default function CasesPage() {
               className="btn-primary"
               style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
             >
-              무료 견적 받기 →
+              무료 견적 신청 →
             </Link>
           </div>
         </div>

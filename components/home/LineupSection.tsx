@@ -53,7 +53,7 @@ export default function LineupSection() {
             제작 라인업
           </h2>
           <p className="body c-muted" style={{ margin: '0.9rem 0 0', maxWidth: '560px', wordBreak: 'keep-all' }}>
-            WEFLOW의 제작 라인업, 클릭하여 자세한 설명을 확인하세요.
+            WEFLOW의 제작 라인업,<br />클릭하여 자세한 설명을 확인하세요.
           </p>
         </Reveal>
       </div>

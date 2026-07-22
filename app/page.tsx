@@ -56,7 +56,7 @@ export default function HomePage() {
             </span>
           </>
         }
-        body="WEFLOW가 직접 제작한 결과물, 실제 성과로 확인하세요."
+        body={<>WEFLOW가 직접 제작한 결과물,<br />실제 성과로 확인하세요.</>}
         background="var(--section-b)"
         hint={
           <>
@@ -79,7 +79,7 @@ export default function HomePage() {
             입니다
           </>
         }
-        body="WEFLOW가 직접 제작한 결과물, 실제 고객 인터뷰로 확인하세요."
+        body={<>WEFLOW가 직접 제작한 결과물,<br />실제 고객 인터뷰로 확인하세요.</>}
         image="/images/main/main-review-01.png"
         imageAlt="WEFLOW 고객 인터뷰"
         imageCount={1}
