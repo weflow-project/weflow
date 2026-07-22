@@ -13,12 +13,17 @@ const INTERVAL = 3000
 const DURATION = 600
 
 /**
- * 앞뒤에 여벌을 덧댄 목록.
- * 맨 앞에 마지막 장을, 맨 뒤에 첫 장·둘째 장을 복제해두면
+ * 같은 목록을 3벌 이어붙인 것 — 앞뒤 한 벌씩이 여벌이다.
+ * 뒤쪽 장이 앞에, 앞쪽 장이 뒤에 있으니
  * 끝에서 처음으로 넘어갈 때도 계속 오른쪽으로 미는 것처럼 보인다.
- * 실제 순번 p 는 여기서 p + 1 번째 자리에 해당한다.
+ *
+ * 여벌을 한 벌씩 통째로 두는 이유 —
+ * 가운데 장 옆으로 남는 폭은 (화면폭 - 760px) ÷ 2 라 화면이 넓을수록 커진다.
+ * 몇 장만 덧대면 어떤 배율에서는 또 모자라 첫 장·끝 장에서 옆이 빈다.
+ * 한 벌(10장)이면 어떤 배율에서도 덮으므로 이 문제가 아예 없어진다.
+ * 실제 순번 p 는 여기서 p + COUNT 번째 자리(가운데 벌)에 해당한다.
  */
-const RENDER = [SLIDES[COUNT - 1], ...SLIDES, SLIDES[0], SLIDES[1]]
+const RENDER = [...SLIDES, ...SLIDES, ...SLIDES]
 
 /**
  * 히어로 하단 대표 이미지 캐러셀.
@@ -113,13 +118,13 @@ export default function HeroCarousel() {
     >
       {/* 슬라이드 트랙 — 짚은 장이 가운데 오도록 통째로 민다 */}
       <div className="hero-car-viewport">
-        <div className="hero-car-track" style={{ '--i': p + 1 } as CSSProperties}>
+        <div className="hero-car-track" style={{ '--i': p + COUNT } as CSSProperties}>
           {RENDER.map((s, j) => (
             <div
               key={j}
               className="hero-car-slide"
               // 여벌은 같은 그림이 두 번 읽히지 않게 감춘다
-              aria-hidden={j === 0 || j > COUNT}
+              aria-hidden={j < COUNT || j >= COUNT * 2}
             >
               <Image
                 src={s.src}
@@ -127,7 +132,7 @@ export default function HeroCarousel() {
                 fill
                 sizes="(max-width: 720px) 90vw, 840px"
                 style={{ objectFit: 'cover' }}
-                priority={j === 1}
+                priority={j === COUNT}
               />
             </div>
           ))}
