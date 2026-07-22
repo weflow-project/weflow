@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroCarousel from "./HeroCarousel";
+import HeroVideo from "./HeroVideo";
 
 // 글자 단위 등장 — 자리는 유지하고 투명→나타남 (start: 앞선 글자 수, step: 글자 간격)
 function Chars({
@@ -51,25 +52,7 @@ export default function HeroBanner() {
       }}
     >
       {/* 배경 영상 */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        poster="/video/hero-poster.jpg"
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 0,
-        }}
-      >
-        <source src="/video/hero-video.mp4" type="video/mp4" />
-      </video>
+      <HeroVideo />
       {/* 가독성 오버레이 */}
       <div
         aria-hidden="true"
