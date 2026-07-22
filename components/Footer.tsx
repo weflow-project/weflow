@@ -79,10 +79,13 @@ export default function Footer() {
               제작부터 관리까지<br />비즈니스 성장을 함께합니다.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: 'var(--text-muted)' }} className="footnote">
-              <span>대표 : 신서준</span>
-              <span>사업자등록번호 : 884-07-03480</span>
-              <span>이메일 : contact@weflowlab.kr</span>
-              <span>운영시간 : 연중무휴 24시간 상담가능</span>
+              {/* span 이 아니라 p 로 두는 이유 —
+                  span 은 줄바꿈이 없는 요소라, 검색엔진이 글자만 뽑을 때
+                  "신서준사업자등록번호" 처럼 항목이 붙어버린다 (검색 결과에 그대로 노출됨) */}
+              <p style={{ margin: 0 }}>대표 : 신서준</p>
+              <p style={{ margin: 0 }}>사업자등록번호 : 884-07-03480</p>
+              <p style={{ margin: 0 }}>이메일 : contact@weflowlab.kr</p>
+              <p style={{ margin: 0 }}>운영시간 : 연중무휴 24시간 상담가능</p>
             </div>
           </div>
 
