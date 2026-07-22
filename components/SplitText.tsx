@@ -1,8 +1,9 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, ElementType } from 'react'
 
-type Segment = { text: string; className?: string }
+// br: 이 구간 앞에서 줄을 바꾼다. 'mobile' 은 좁은 화면에서만 (br-mobile 규칙)
+type Segment = { text: string; className?: string; br?: 'always' | 'mobile' }
 
 /**
  * 화면에 들어오면 글자를 한 개씩 등장시키는 텍스트.
@@ -45,7 +46,9 @@ export default function SplitText({
   return (
     <Tag ref={ref} className={`split-text${visible ? ' is-visible' : ''}${className ? ' ' + className : ''}`} style={style}>
       {segments.map((seg, si) => (
-        <span key={si} className={seg.className}>
+        <Fragment key={si}>
+        {seg.br && <br className={seg.br === 'mobile' ? 'br-mobile' : undefined} />}
+        <span className={seg.className}>
           {Array.from(seg.text.replace(/ /g, ' ')).map((ch, i) => {
             if (ch === '\n') return <br key={i} />
             const delay = idx * step
@@ -57,6 +60,7 @@ export default function SplitText({
             )
           })}
         </span>
+        </Fragment>
       ))}
     </Tag>
   )

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Check, ArrowRight, Crown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 // 아이콘 배치 순서 (혜택 카드별) — 3-2-1-2-3-1
 const ICON_ORDER = [3, 2, 1, 2, 3, 1];
@@ -83,7 +84,7 @@ export default function BenefitDetails() {
     <>
       <section
         style={{
-          background: "#fff",
+          background: "var(--section-b)",
           padding: "clamp(3rem, 6vw, 5rem) 1.25rem",
         }}
       >
@@ -103,7 +104,7 @@ export default function BenefitDetails() {
               style={{ margin: "0.75rem 0 0", wordBreak: "keep-all" }}
               segments={[
                 { text: "WEFLOW의 혜택, " },
-                { text: "하나하나 풀어봤습니다", className: "c-accent" },
+                { text: "하나하나 풀어봤습니다", className: "c-accent", br: "mobile" },
               ]}
             />
           </div>
@@ -112,7 +113,7 @@ export default function BenefitDetails() {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "clamp(3rem, 7vw, 5.5rem)",
+              gap: "clamp(2.25rem, 5vw, 3.75rem)",
             }}
           >
             {BENEFITS.map((b, i) => (
@@ -123,33 +124,37 @@ export default function BenefitDetails() {
               >
                 {/* 텍스트 */}
                 <div className="bd-text">
-                  <div style={{ width: 72, display: "flex", justifyContent: "center", marginBottom: "0.3rem" }}>
+                  <div style={{ width: 54, display: "flex", justifyContent: "center", marginBottom: "0.25rem" }}>
                     <Crown
                       strokeWidth={2}
                       color="#f5b301"
                       fill="#f5b301"
-                      style={{ width: "1.7rem", height: "1.7rem" }}
+                      style={{ width: "1.35rem", height: "1.35rem" }}
                     />
                   </div>
                   <div
                     style={{
                       position: "relative",
-                      width: 72,
-                      height: 72,
-                      marginBottom: "1.1rem",
+                      width: 54,
+                      height: 54,
+                      marginBottom: "0.8rem",
                     }}
                   >
                     <Image
                       src={`/images/benefits/benefits-icon-0${ICON_ORDER[i]}.png`}
                       alt=""
                       fill
-                      sizes="72px"
+                      sizes="54px"
                       style={{ objectFit: "contain" }}
                     />
                   </div>
                   <h3
                     className="title-2 emphasized"
-                    style={{ margin: "0 0 1rem", wordBreak: "keep-all" }}
+                    style={{
+                      margin: "0 0 0.8rem",
+                      fontSize: "clamp(1.15rem, 2.4vw, 1.3rem)",
+                      wordBreak: "keep-all",
+                    }}
                   >
                     {b.title}
                   </h3>
@@ -160,7 +165,7 @@ export default function BenefitDetails() {
                       padding: 0,
                       display: "flex",
                       flexDirection: "column",
-                      gap: "0.7rem",
+                      gap: "0.55rem",
                     }}
                   >
                     {b.points.map((p) => (
@@ -173,14 +178,14 @@ export default function BenefitDetails() {
                         }}
                       >
                         <Check
-                          size={18}
+                          size={15}
                           strokeWidth={2.5}
                           color="var(--accent)"
                           style={{ flexShrink: 0, marginTop: "2px" }}
                         />
                         <span
-                          className="callout c-secondary"
-                          style={{ wordBreak: "keep-all" }}
+                          className="footnote c-secondary"
+                          style={{ wordBreak: "keep-all", lineHeight: 1.6 }}
                         >
                           {p}
                         </span>
@@ -191,22 +196,24 @@ export default function BenefitDetails() {
                     <Link
                       href={b.cta.href}
                       className="btn-primary"
-                      style={{ marginTop: "1.5rem", fontSize: "0.95rem" }}
+                      style={{ marginTop: "1.1rem", fontSize: "0.88rem", padding: "0.65rem 1.4rem" }}
                     >
                       {b.cta.label} →
                     </Link>
                   )}
                 </div>
 
-                {/* 이미지 (통계 관리자 페이지는 제외) */}
+                {/* 이미지 — 텍스트 카드와 같은 높이의 칸 안에서 가운데 정렬 */}
                 <div className="bd-img">
-                  <Image
-                    src={`/images/benefits/benefits${i + 1}.png`}
-                    alt={b.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 520px"
-                    style={{ objectFit: "cover" }}
-                  />
+                  <div className="bd-img-inner">
+                    <Image
+                      src={`/images/benefits/benefits${i + 1}.png`}
+                      alt={b.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 520px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -224,7 +231,7 @@ export default function BenefitDetails() {
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
-            <span className="footnote emphasized" style={{ color: "#9dbff6" }}>
+            <span className="footnote emphasized" style={{ color: "var(--accent)" }}>
               24시간 상담 대기
             </span>
           </Reveal>
@@ -233,14 +240,14 @@ export default function BenefitDetails() {
             className="title-1 bd-heading"
             style={{
               margin: "0.75rem 0 0",
-              color: "#fff",
+              color: "var(--text)",
               wordBreak: "keep-all",
               lineHeight: 1.4,
             }}
             step={0.024}
             segments={[
               { text: "모두가 잠든 이 시간에도,\nWEFLOW는 " },
-              { text: "고객을 기다립니다", className: "bd-band-accent" },
+              { text: "고객을 기다립니다", className: "bd-band-accent", br: "mobile" },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
@@ -248,7 +255,7 @@ export default function BenefitDetails() {
               className="callout"
               style={{
                 margin: "1rem 0 1.75rem",
-                color: "rgba(255,255,255,0.72)",
+                color: "var(--text-secondary)",
               }}
             >
               연중무휴 24시간, 언제 문의하셔도 빠르게 응답합니다.
@@ -287,28 +294,24 @@ export default function BenefitDetails() {
               <a
                 href="tel:010-2971-7280"
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "1rem",
+                  ...CTA_BTN,
                   fontWeight: 700,
-                  padding: "0.75rem 1.75rem",
                   borderRadius: "var(--radius-xl)",
-                  border: "1.5px solid rgba(255,255,255,0.85)",
-                  background: "rgba(255,255,255,0.12)",
-                  color: "#fff",
+                  border: "2px solid var(--border)",
+                  background: "var(--surface)",
+                  color: "var(--text)",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                 }}
               >
-                전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+                전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
               </a>
               <Link
                 href="/diagnosis"
                 className="btn-white"
-                style={{ fontSize: "1rem" }}
+                style={CTA_BTN_FILLED}
               >
-                무료 진단 신청하기
+                무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
             </div>
           </Reveal>
@@ -316,38 +319,50 @@ export default function BenefitDetails() {
       </section>
 
       <style>{`
+        /* 전체를 한 단계 줄인다 — 폭을 좁히면 사진·텍스트가 함께 작아진다 */
         .bd-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: clamp(1.5rem, 4vw, 3.5rem);
-          align-items: center;
+          gap: clamp(1.2rem, 3vw, 2.5rem);
+          align-items: stretch;
+          max-width: 880px;
+          margin: 0 auto;
+          width: 100%;
         }
         /* 텍스트 측 푸른 박스 패널 */
         .bd-text {
-          background: #eef3fd;
+          background: var(--surface);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
-          padding: clamp(1.5rem, 3vw, 2.25rem);
+          padding: clamp(1.1rem, 2.2vw, 1.6rem);
         }
         .bd-row--rev .bd-text { order: 2; }
         .bd-row--rev .bd-img { order: 1; }
+        /* 사진 칸 — 텍스트 카드와 같은 높이로 늘어나고, 사진은 그 안에서 가운데 */
         .bd-img {
-          aspect-ratio: 4 / 3;
           border-radius: var(--radius-2xl);
-          position: relative;
           overflow: hidden;
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: clamp(0.6rem, 1.5vw, 1rem);
           color: var(--text-secondary);
           font-size: 0.82rem;
           font-weight: 600;
           letter-spacing: 0.02em;
         }
+        /* 사진 자체 — 원본이 16:9 라 같은 비율로 둬야 잘리지 않는다 */
+        .bd-img-inner {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+        }
         .bd-heading { font-size: clamp(2rem, 4.5vw, 3rem); }
-        .bd-band-accent { color: #9dbff6; }
+        .bd-band-accent { color: var(--accent); }
         .bd-band-imgs {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -365,9 +380,9 @@ export default function BenefitDetails() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.08);
-          border: 1px dashed rgba(255,255,255,0.3);
-          color: rgba(255,255,255,0.6);
+          background: var(--surface);
+          border: 1px dashed var(--border);
+          color: var(--text-muted);
           font-size: 0.82rem;
           font-weight: 600;
           letter-spacing: 0.02em;

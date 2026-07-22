@@ -5,14 +5,16 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-// 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다)
+// 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다).
+// 헤더는 이정표라 짧게 — 자세한 이름은 푸터에 그대로 남겨뒀다.
 const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
+  { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  { href: "/pricing", label: "제작 플랜 & 가격 안내" },
-  { href: "/cases", label: "성공 사례 포트폴리오" },
-  { href: "/reviews", label: "성공 사례 인터뷰 & 후기" },
+  { href: "/pricing", label: "가격" },
+  { href: "/cases", label: "포트폴리오" },
+  { href: "/reviews", label: "인터뷰 & 후기" },
   { href: "/booking", label: "예약" },
 ];
 
@@ -52,7 +54,7 @@ export default function Navbar() {
         style={{
           position: "relative",
           zIndex: 100,
-          background: "rgba(255,255,255,0.95)",
+          background: "rgba(14,14,16,0.92)",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border)",
         }}
@@ -171,7 +173,7 @@ export default function Navbar() {
           position: "fixed",
           inset: 0,
           zIndex: 200,
-          background: "rgba(0,0,0,0.4)",
+          background: "rgba(0,0,0,0.6)",
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
           transition: "opacity 0.28s ease",
@@ -187,8 +189,8 @@ export default function Navbar() {
           bottom: 0,
           zIndex: 201,
           width: "min(280px, 80vw)",
-          background: "#fff",
-          boxShadow: "4px 0 24px rgba(0,0,0,0.12)",
+          background: "var(--surface)",
+          boxShadow: "4px 0 24px rgba(0,0,0,0.5)",
           display: "flex",
           flexDirection: "column",
           transform: open ? "translateX(0)" : "translateX(-100%)",
@@ -268,7 +270,8 @@ export default function Navbar() {
                   pathname === l.href
                     ? "3px solid var(--accent)"
                     : "3px solid transparent",
-                background: pathname === l.href ? "#ebf2ff" : "transparent",
+                background:
+                  pathname === l.href ? "var(--accent-light)" : "transparent",
                 transition: "background 0.15s",
               }}
             >
@@ -290,17 +293,21 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 진단 신청
+            무료 견적 신청
           </Link>
         </div>
       </div>
 
       <style>{`
         @media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }
+        /* 어두운 헤더 위 CTA — 상단 띠·히어로 버튼과 같은 파랑(--accent-strong)에서
+           한 번 밝아졌다 돌아온다. 흰 글씨 최저 대비 5.11:1. */
         .cta-gradient {
-          background: linear-gradient(120deg, #1560c9, #1e93d6, #14c1c8, #1e93d6, #1560c9) !important;
+          background: linear-gradient(120deg, #1b4ea7, #2a6ccb, #1b4ea7) !important;
           background-size: 250% 100% !important;
-          animation: cta-flow 2.4s linear infinite, cta-glow 1.9s ease-in-out infinite;
+          color: #ffffff !important;
+          animation: cta-flow 2.4s linear infinite;
+          box-shadow: none !important;
         }
         .cta-gradient::after {
           content: '';
@@ -324,10 +331,6 @@ export default function Navbar() {
           0% { left: -70%; }
           55% { left: 130%; }
           100% { left: 130%; }
-        }
-        @keyframes cta-glow {
-          0%, 100% { box-shadow: 0 3px 12px rgba(23,160,205,0.45); }
-          50% { box-shadow: 0 6px 22px rgba(20,193,200,0.85); }
         }
         @media (prefers-reduced-motion: reduce) {
           .cta-gradient, .cta-gradient::after { animation: none; }

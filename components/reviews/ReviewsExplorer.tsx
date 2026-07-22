@@ -10,7 +10,7 @@ import { reviews } from '@/data/reviews'
 export default function ReviewsExplorer() {
   return (
     <div>
-      <section style={{ background: '#fff', padding: 'clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3.5rem, 7vw, 5rem)' }}>
+      <section style={{ background: 'var(--section-a)', padding: 'clamp(3rem, 7vw, 4.5rem) 1.5rem clamp(3.5rem, 7vw, 5rem)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           {/* 머리말 */}
           <p
@@ -77,7 +77,7 @@ export default function ReviewsExplorer() {
           {/* 마무리 CTA */}
           <div style={{ textAlign: 'center', marginTop: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
             <Link href="/diagnosis" className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 2.2rem' }}>
-              무료 진단 신청하기 →
+              무료 견적 신청 →
             </Link>
           </div>
         </div>
@@ -88,9 +88,9 @@ export default function ReviewsExplorer() {
           position: relative;
           border: 1.5px solid var(--border);
           border-radius: var(--radius-2xl);
-          background: #fff;
+          background: var(--surface);
           padding: clamp(1.5rem, 4vw, 2.25rem);
-          box-shadow: 0 4px 18px rgba(11, 18, 32, 0.05);
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
         }
         .rv-card + .rv-card {
           margin-top: 1.25rem;
@@ -106,7 +106,7 @@ export default function ReviewsExplorer() {
           flex-shrink: 0;
           padding: 0.25rem 0.7rem;
           border-radius: 9999px;
-          background: #f3f4f6;
+          background: var(--surface-container);
           color: var(--text-muted);
           white-space: nowrap;
         }
@@ -117,12 +117,12 @@ export default function ReviewsExplorer() {
           border-radius: var(--radius-2xl);
           overflow: hidden;
           text-decoration: none;
-          color: var(--text-primary);
+          color: var(--text);
           transition: border-color 0.2s, box-shadow 0.3s;
         }
         .rv-site:hover {
           border-color: var(--accent);
-          box-shadow: 0 10px 26px rgba(11, 18, 32, 0.12);
+          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
         }
         /* 사진 — 원본 비율(약 2.14:1)에 맞춰 잘리지 않게 둔다 */
         .rv-shot {
@@ -130,7 +130,7 @@ export default function ReviewsExplorer() {
           position: relative;
           width: 100%;
           aspect-ratio: 2851 / 1332;
-          background: var(--bg-secondary);
+          background: var(--surface-container);
         }
         .rv-site-meta {
           display: flex;

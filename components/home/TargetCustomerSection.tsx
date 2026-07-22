@@ -27,7 +27,7 @@ export default function TargetCustomerSection() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-b)",
         padding: "clamp(3rem, 6vw, 5rem) 1.25rem",
       }}
     >
@@ -60,7 +60,7 @@ export default function TargetCustomerSection() {
           >
             어떤 분들이{" "}
             <span className="c-accent tilt-hl tilt-hl-red">
-              위플로우의 고객
+              WEFLOW의 고객
             </span>
             이 될 수 있을까요?
           </h2>
@@ -161,46 +161,49 @@ export default function TargetCustomerSection() {
       </div>
 
       <style>{`
+        /* 카드만 좁게 — 위쪽 제목은 1100px 그대로 두고 그리드에만 폭을 준다 */
         .tc-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1.1rem;
+          gap: 0.9rem;
+          max-width: 880px;
+          margin: 0 auto;
         }
         .tc-card {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #f4f6fa;
+          background: var(--surface);
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
-          padding: 1.75rem 1.6rem;
+          padding: 1.4rem 1.3rem;
           transition: background 0.18s, transform 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
         .tc-card:hover {
-          background: #fff;
+          background: var(--surface-container);
           border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .tc-icon {
           display: inline-flex;
-          width: 46px;
-          height: 46px;
+          width: 38px;
+          height: 38px;
           border-radius: var(--radius-xl);
           background: var(--accent-light);
           color: var(--accent);
           align-items: center;
           justify-content: center;
-          margin-bottom: 1.1rem;
+          margin-bottom: 0.85rem;
         }
         .tc-img {
           position: relative;
           overflow: hidden;
           width: 100%;
-          aspect-ratio: 16 / 9;
+          aspect-ratio: 2 / 1;
           margin-top: auto;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 640px) {

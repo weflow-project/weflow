@@ -27,12 +27,13 @@ const POINTS: { Icon: LucideIcon; label: string; desc: string }[] = [
 export default function HomepageDefinitionSection() {
   return (
     <section
+      id="homepage"
       style={{
-        background: "#fff",
-        padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
+        background: "var(--section-b)",
+        padding: "clamp(2.25rem, 5vw, 4rem) 1.25rem",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
         <Reveal variant="up" style={{ marginBottom: "clamp(2rem, 5vw, 3rem)" }}>
           <span className="footnote emphasized c-accent">
@@ -41,6 +42,7 @@ export default function HomepageDefinitionSection() {
           <h2
             className="title-1"
             style={{
+              fontSize: "clamp(1.5rem, 3.2vw, 1.9rem)",
               marginTop: "0.75rem",
               textAlign: "left",
               wordBreak: "keep-all",
@@ -60,7 +62,7 @@ export default function HomepageDefinitionSection() {
                 width: "fit-content",
                 maxWidth: "100%",
                 borderLeft: "3px solid var(--accent)",
-                background: "#fff",
+                background: "var(--surface)",
                 borderRadius: "0 var(--radius-xl) var(--radius-xl) 0",
                 padding: "0.75rem 1.1rem",
                 marginBottom: "1.75rem",
@@ -219,7 +221,7 @@ export default function HomepageDefinitionSection() {
                 aspectRatio: "16 / 9",
                 borderRadius: "var(--radius-2xl)",
                 overflow: "hidden",
-                background: "#e6eaf1",
+                background: "var(--surface-container)",
                 border: "1px solid var(--border)",
                 cursor: "pointer",
               }}
@@ -277,13 +279,13 @@ export default function HomepageDefinitionSection() {
         /* 이미지 — 주기적으로 살짝 흔들려 클릭을 유도 */
         .def-img-frame {
           transform-origin: 50% 62%;
-          box-shadow: 0 10px 30px rgba(11, 18, 32, 0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
           animation: defImgWiggle 3.8s ease-in-out infinite;
         }
         .def-img-frame:hover {
           animation: defImgWiggleHover 0.45s ease-in-out infinite;
-          box-shadow: 0 18px 44px rgba(88, 138, 226, 0.28);
+          box-shadow: 0 18px 44px rgba(106, 146, 215, 0.3);
         }
         @keyframes defImgWiggle {
           0%, 70%, 100% { transform: rotate(0deg) translateY(0); }

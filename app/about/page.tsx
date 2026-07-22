@@ -1,42 +1,21 @@
 // /about — 회사소개 페이지.
-// 인트로 → 이름의 의미 → 철학 → 브랜드 스토리 → 일하는 방식 → 회사 정보 → CTA 순.
-// 화면에 뿌릴 문구는 아래 상수(VALUES·MEANING·STORY·INFO)에 모아뒀고,
+// 인트로 → 이름의 의미 → 철학 → 브랜드 스토리 → 일하는 방식(ListeningSection) → 회사 정보 → CTA 순.
+// 화면에 뿌릴 문구는 아래 상수(MEANING·STORY·INFO)에 모아뒀고,
 // 페이지 전용 스타일은 파일 맨 아래 <style> 블록에 있다.
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { PencilRuler, Workflow, Wrench, ArrowRight } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
+import ListeningSection from "@/components/home/ListeningSection";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 export const metadata: Metadata = {
   title: "회사소개 · WEFLOW",
   description:
     "사람과 기술이 함께 흘러가며 더 좋은 방향을 만드는 회사, WEFLOW.",
 };
-
-// 일하는 방식 카드 3장
-const VALUES: { Icon: LucideIcon; title: string; desc: string; img: string }[] = [
-  {
-    Icon: PencilRuler,
-    title: "직접 기획·설계",
-    desc: "템플릿이 아니라, 사람이 목표부터 구조까지 전략을 세웁니다.",
-    img: "/images/about/about6.png",
-  },
-  {
-    Icon: Workflow,
-    title: "맞춤형 플로우",
-    desc: "업종과 고객 흐름에 맞춰 문의로 이어지는 동선을 설계합니다.",
-    img: "/images/about/about7.png",
-  },
-  {
-    Icon: Wrench,
-    title: "지속 가능한 운영",
-    desc: "제작 이후에도 광고 연동·유지보수·운영까지 함께합니다.",
-    img: "/images/about/about8.png",
-  },
-];
 
 // 사명 풀이 — WE · FLOW 두 카드
 const MEANING: { key: string; desc: string; img: string }[] = [
@@ -62,17 +41,23 @@ const INFO: { label: string; value: string }[] = [
 
 export default function AboutPage() {
   return (
-    <main style={{ background: "#fff" }}>
+    <main style={{ background: "var(--section-a)" }}>
       {/* 인트로 */}
       <section
         style={{
           padding: "clamp(3.5rem, 7vw, 6rem) 1.25rem",
+          background: "var(--section-a)",
           borderBottom: "1px solid var(--border)",
         }}
       >
         <div className="about-hero">
           <Reveal variant="up">
-            <span className="footnote emphasized c-accent">회사소개</span>
+            <span
+              className="caption-2 emphasized c-accent"
+              style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}
+            >
+              ABOUT
+            </span>
           </Reveal>
           <SplitText
             as="h1"
@@ -80,7 +65,7 @@ export default function AboutPage() {
             style={{ margin: "1rem 0 0", wordBreak: "keep-all" }}
             segments={[
               { text: "사람이 움직이면, " },
-              { text: "기술은 따라온다", className: "c-accent" },
+              { text: "기술은 따라온다", className: "c-accent", br: "mobile" },
             ]}
           />
           <Reveal variant="up" delay={0.15}>
@@ -104,34 +89,45 @@ export default function AboutPage() {
               받쳐주고 사람은 앞에서 빛나게 하는 흐름을 만듭니다.
             </p>
           </Reveal>
-          <Reveal variant="up" delay={0.1}>
-            <div
-              className="about-img"
-              style={{
-                aspectRatio: "16 / 9",
-                marginTop: "clamp(2rem, 4vw, 3rem)",
-              }}
-            >
-              <Image
-                src="/images/about/about1.png"
-                alt="WEFLOW"
-                fill
-                sizes="(max-width: 1000px) 100vw, 1000px"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
+          <Reveal as="div" stagger className="about-hero-imgs">
+            {[
+              { src: "/images/about/about1.png", alt: "WEFLOW 사무 공간" },
+              { src: "/images/about/about9.png", alt: "WEFLOW 작업 모습" },
+            ].map(({ src, alt }) => (
+              // 원본(16:9)보다 좁게 잡아 좌우를 조금씩 덜어낸다 (cover 가 양옆을 잘라낸다)
+              <div key={src} className="about-img" style={{ aspectRatio: "924 / 572" }}>
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
 
       {/* WE · FLOW 의미 */}
-      <section style={{ padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem",
+          background: "var(--section-b)",
+        }}
+      >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
+            {/* 아래 카드(820px)와 폭을 맞춰 가운데 정렬.
+                아래 철학 문장(title-1)보다 한 단계 작게 두되 title-2 보다는 키운다 */}
             <h2
               className="title-2 emphasized"
               style={{
-                margin: "0 0 clamp(1.5rem, 4vw, 2.25rem)",
+                margin: "0 auto clamp(2.25rem, 5vw, 3.25rem)",
+                maxWidth: "820px",
+                fontSize: "clamp(1.6rem, 3.6vw, 2rem)",
+                lineHeight: 1.3,
+                textAlign: "center",
                 wordBreak: "keep-all",
               }}
             >
@@ -172,7 +168,7 @@ export default function AboutPage() {
       <section
         style={{
           padding: "clamp(3.5rem, 8vw, 6rem) 1.25rem",
-          background: "var(--bg-secondary)",
+          background: "var(--section-a)",
           textAlign: "center",
         }}
       >
@@ -185,7 +181,8 @@ export default function AboutPage() {
             segments={[
               { text: "기술은 " },
               { text: "뒤에서 받쳐주고", className: "c-accent emphasized" },
-              { text: ", 사람은 " },
+              { text: ", " },
+              { text: "사람은 ", br: "mobile" },
               { text: "앞에서 빛나게", className: "c-accent emphasized" },
               { text: " 하는 흐름" },
             ]}
@@ -194,7 +191,12 @@ export default function AboutPage() {
       </section>
 
       {/* 브랜드 스토리 */}
-      <section style={{ padding: "clamp(3rem, 7vw, 5rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(3rem, 7vw, 5rem) 1.25rem",
+          background: "var(--section-b)",
+        }}
+      >
         <div className="about-story">
           <Reveal variant="up">
             <span className="footnote emphasized c-accent">우리의 시작</span>
@@ -249,7 +251,8 @@ export default function AboutPage() {
               }}
             >
               {[0, 1].map((i) => (
-                <div key={i} className="about-img" style={{ aspectRatio: "4 / 3" }}>
+                // 원본이 16:9 — 자리를 같은 비율로 둬야 잘리지 않는다
+                <div key={i} className="about-img" style={{ aspectRatio: "16 / 9" }}>
                   <Image
                     src={`/images/about/about${i + 4}.png`}
                     alt="WEFLOW 이야기"
@@ -264,60 +267,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 일하는 방식 */}
-      <section
-        style={{
-          padding: "clamp(3rem, 6vw, 4.5rem) 1.25rem",
-          background: "var(--bg-secondary)",
-        }}
-      >
-        <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
-          <Reveal variant="up">
-            <h2
-              className="title-2 emphasized"
-              style={{
-                margin: "0 0 clamp(1.5rem, 4vw, 2.25rem)",
-                wordBreak: "keep-all",
-              }}
-            >
-              WEFLOW가 일하는 방식
-            </h2>
-          </Reveal>
-          <Reveal as="div" stagger className="about-grid-3">
-            {VALUES.map(({ Icon, title, desc, img }) => (
-              <div key={title} className="about-value-card">
-                <span className="about-value-icon">
-                  <Icon size={22} strokeWidth={2} />
-                </span>
-                <h3
-                  className="headline"
-                  style={{ margin: "0 0 0.4rem", wordBreak: "keep-all" }}
-                >
-                  {title}
-                </h3>
-                <p
-                  className="callout"
-                  style={{ margin: 0, wordBreak: "keep-all" }}
-                >
-                  {desc}
-                </p>
-                <div className="about-card-img">
-                  <Image
-                    src={img}
-                    alt={title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 340px"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      {/* 고객의 소리 — 일하는 방식의 연장이라 메인에서 이리로 옮겼다 */}
+      <ListeningSection />
 
       {/* 회사 정보 */}
-      <section style={{ padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem" }}>
+      <section
+        style={{
+          padding: "clamp(2.5rem, 5vw, 4rem) 1.25rem",
+          background: "var(--section-a)",
+        }}
+      >
         <div style={{ maxWidth: "820px", margin: "0 auto", width: "100%" }}>
           <Reveal variant="up">
             <h2 className="title-2 emphasized" style={{ margin: "0 0 1.5rem" }}>
@@ -369,18 +328,19 @@ export default function AboutPage() {
             className="emphasized"
             style={{
               margin: 0,
-              color: "#fff",
+              color: "var(--text)",
               wordBreak: "keep-all",
               fontSize: "clamp(2rem, 5vw, 3.25rem)",
               lineHeight: 1.25,
             }}
           >
-            Flow Together, Grow Beyond.
+            Flow Together, <br className="br-mobile" />
+            Grow Beyond.
           </p>
           <p
             style={{
               margin: "0.9rem 0 2rem",
-              color: "#9dbff6",
+              color: "var(--accent)",
               fontSize: "clamp(1.15rem, 2.6vw, 1.4rem)",
             }}
           >
@@ -390,28 +350,24 @@ export default function AboutPage() {
             <a
               href="tel:010-2971-7280"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "1.15rem",
+                ...CTA_BTN,
                 fontWeight: 700,
-                padding: "0.9rem 2rem",
                 borderRadius: "var(--radius-xl)",
-                border: "1.5px solid rgba(255,255,255,0.85)",
+                border: "2px solid rgba(255,255,255,0.85)",
                 background: "rgba(255,255,255,0.12)",
-                color: "#fff",
+                color: "var(--text)",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
               }}
             >
-              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
               className="btn-white"
-              style={{ fontSize: "1.15rem", padding: "0.9rem 2rem" }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청하기
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>
@@ -440,13 +396,29 @@ export default function AboutPage() {
           overflow: hidden;
           width: 100%;
           border-radius: var(--radius-2xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
-        .about-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-        .about-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+        /* 인트로 사진 2장 — 나란히, 폰에서만 세로로 */
+        .about-hero-imgs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-top: clamp(2rem, 4vw, 3rem);
+        }
+        @media (max-width: 640px) {
+          .about-hero-imgs { grid-template-columns: 1fr; }
+        }
+        /* WE · FLOW 카드 — 메인 회사소개 섹션과 같은 크기로 맞춘다 */
+        .about-grid-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.9rem;
+          max-width: 820px;
+          margin: 0 auto;
+        }
         .about-meaning-card {
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: clamp(1.5rem, 3vw, 2rem);
@@ -455,43 +427,20 @@ export default function AboutPage() {
         .about-meaning-card:hover {
           transform: translateY(-4px);
           border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .about-card-img {
           position: relative;
           overflow: hidden;
           width: 100%;
           aspect-ratio: 16 / 9;
-          margin-top: 1.1rem;
+          margin-top: 0.9rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
-        }
-        .about-value-card {
-          background: #fff;
-          border: 1px solid var(--border);
-          border-radius: var(--radius-2xl);
-          padding: 1.75rem 1.6rem;
-          transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-        }
-        .about-value-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
-        }
-        .about-value-icon {
-          width: 46px;
-          height: 46px;
-          border-radius: var(--radius-xl);
-          background: var(--accent-light);
-          color: var(--accent);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 1.1rem;
         }
         @media (max-width: 768px) {
-          .about-grid-2, .about-grid-3 { grid-template-columns: 1fr; }
+          .about-grid-2 { grid-template-columns: 1fr; }
         }
       `}</style>
     </main>

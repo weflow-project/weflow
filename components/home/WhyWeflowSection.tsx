@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 import { X, PencilRuler, Workflow, ShieldCheck, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 // AI로만 만든 홈페이지의 한계 — 목업 이미지 옆 X 목록을 채운다
 const AI_CONS = [
@@ -43,7 +44,7 @@ export default function WhyWeflowSection() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-a)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >
@@ -92,7 +93,7 @@ export default function WhyWeflowSection() {
               borderRadius: "var(--radius-2xl)",
               border: "1px solid var(--border)",
               overflow: "hidden",
-              background: "#fff",
+              background: "var(--section-a)",
             }}
           >
             <div
@@ -132,7 +133,8 @@ export default function WhyWeflowSection() {
             </div>
             <div
               style={{
-                aspectRatio: "16 / 10",
+                /* 사진 원본 비율(2816×1536)과 같게 — 다르면 cover 가 위아래를 잘라낸다 */
+                aspectRatio: "2816 / 1536",
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -148,7 +150,7 @@ export default function WhyWeflowSection() {
           </div>
 
           {/* 단점 */}
-          <div>
+          <div className="why-cons">
             <h3
               className="title-2 emphasized"
               style={{ margin: "0 0 0.85rem", wordBreak: "keep-all" }}
@@ -170,7 +172,9 @@ export default function WhyWeflowSection() {
             <ul
               style={{
                 listStyle: "none",
-                margin: 0,
+                // 모바일에서 폭이 fit-content 로 줄 때 덩어리째 가운데 오도록 auto.
+                // 데스크탑에서는 폭이 꽉 차 있어 auto 여도 달라지는 게 없다.
+                margin: "0 auto",
                 padding: 0,
                 display: "flex",
                 flexDirection: "column",
@@ -192,7 +196,7 @@ export default function WhyWeflowSection() {
                       width: 26,
                       height: 26,
                       borderRadius: "9999px",
-                      background: "#fef2f2",
+                      background: "rgba(239,68,68,0.16)",
                       color: "#ef4444",
                       display: "flex",
                       alignItems: "center",
@@ -246,25 +250,22 @@ export default function WhyWeflowSection() {
             <br className="wf-br-m" />
             홈페이지였습니다.
           </h2>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              marginTop: "clamp(2rem, 5vw, 3rem)",
-              width: "100%",
-              aspectRatio: "16 / 9",
-              borderRadius: "var(--radius-2xl)",
-              background: "#e6eaf1",
-              border: "1px solid var(--border)",
-            }}
-          >
-            <Image
-              src="/images/main/main-weflow-01.png"
-              alt="홈페이지다운 홈페이지"
-              fill
-              sizes="(max-width: 1100px) 100vw, 1100px"
-              style={{ objectFit: "cover" }}
-            />
+          {/* 결과물 예시 2장 — 원본 비율(약 1.8:1)에 맞춰 잘리지 않게 둔다 */}
+          <div className="wf-shots">
+            {[
+              { src: "/images/main/main-weflow-01.png", alt: "홈페이지다운 홈페이지 예시 1" },
+              { src: "/images/main/main-weflow-05.png", alt: "홈페이지다운 홈페이지 예시 2" },
+            ].map(({ src, alt }) => (
+              <div key={src} className="wf-shot">
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            ))}
           </div>
         </Reveal>
 
@@ -299,7 +300,7 @@ export default function WhyWeflowSection() {
               <div
                 key={title}
                 style={{
-                  background: "#fff",
+                  background: "var(--section-a)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-2xl)",
                   padding: "1.6rem",
@@ -362,16 +363,16 @@ export default function WhyWeflowSection() {
             <a
               href="tel:010-2971-7280"
               className="btn-outline"
-              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+              style={CTA_BTN}
             >
-              전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
               className="btn-primary"
-              style={{ fontSize: "1.1rem", padding: "1rem 2.4rem" }}
+              style={CTA_BTN_FILLED}
             >
-              무료 진단 신청하기
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </div>
@@ -380,9 +381,32 @@ export default function WhyWeflowSection() {
       <style>{`
         .why-split {
           display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
+          /* 사진 칸을 글보다 조금 좁게 — 비율을 유지한 채 사진만 작아진다 */
+          grid-template-columns: 1.05fr 0.95fr;
+          /* 사진 + 문구를 한 덩어리로 보고 가운데에 모은다 */
+          max-width: 1080px;
+          margin-inline: auto;
           gap: clamp(1.5rem, 4vw, 3rem);
           align-items: center;
+        }
+        .wf-shots {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-top: clamp(2rem, 5vw, 3rem);
+        }
+        .wf-shot {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          aspect-ratio: 1024 / 572;
+          border-radius: var(--radius-2xl);
+          background: var(--surface-container);
+          border: 1px solid var(--border);
+        }
+        /* 좁은 화면에서도 두 장을 나란히 — 폰에서만 세로로 쌓는다 */
+        @media (max-width: 480px) {
+          .wf-shots { grid-template-columns: 1fr; }
         }
         .why-diffs {
           display: grid;
@@ -396,12 +420,20 @@ export default function WhyWeflowSection() {
           aspect-ratio: 4 / 3;
           margin-top: 1.25rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .wf-br-m { display: none; }
         @media (max-width: 768px) {
           .why-split, .why-diffs { grid-template-columns: 1fr; }
+          /* 한 단으로 쌓이면 섹션 나머지와 같이 가운데로 —
+             목록은 가장 긴 줄 기준으로 덩어리째 가운데 두고 줄끼리는 왼쪽에 맞춘다.
+             (그래야 X 표시가 세로로 한 줄에 선다) */
+          .why-cons { text-align: center; }
+          .why-cons ul {
+            width: fit-content;
+            text-align: left;
+          }
         }
         @media (max-width: 600px) {
           .wf-br-m { display: inline; }

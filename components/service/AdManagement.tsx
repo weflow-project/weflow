@@ -37,7 +37,7 @@ function AdCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "#ebf2ff" : "#fff",
+        background: hovered ? "var(--accent-light)" : "var(--surface)",
         border: hovered
           ? "1.5px solid var(--accent)"
           : "1.5px solid var(--border)",
@@ -51,7 +51,7 @@ function AdCard({
         style={{
           width: "42px",
           height: "42px",
-          background: hovered ? "var(--accent)" : "#ebf2ff",
+          background: hovered ? "var(--accent)" : "var(--accent-light)",
           borderRadius: "10px",
           display: "flex",
           alignItems: "center",
@@ -62,7 +62,7 @@ function AdCard({
       >
         <Icon
           size={20}
-          color={hovered ? "#fff" : "var(--accent)"}
+          color={hovered ? "var(--on-accent)" : "var(--accent)"}
           strokeWidth={2}
         />
       </div>
@@ -98,7 +98,7 @@ export default function AdManagement() {
     <section
       style={{
         padding: "3.5rem 1.5rem",
-        background: "#fff",
+        background: "var(--section-a)",
         scrollSnapAlign: "start",
         minHeight: "calc(100vh - 64px)",
         display: "flex",
@@ -126,7 +126,9 @@ export default function AdManagement() {
             제휴 마케팅 업체 연결 · 기본제공 시스템
           </h2>
           <p className="body c-muted" style={{ margin: 0 }}>
-            제작 후에도 꾸준히 성장할 수 있도록 전방위 운영을 지원합니다
+            제작 후에도 꾸준히 성장할 수 있도록{" "}
+            <br className="br-mobile" />
+            전방위 운영을 지원합니다
           </p>
         </Reveal>
 
@@ -149,7 +151,7 @@ export default function AdManagement() {
           style={{
             marginTop: "2rem",
             padding: "1rem 1.25rem",
-            background: "#f9fafb",
+            background: "var(--surface)",
             border: "1px solid var(--border)",
             borderRadius: "10px",
             textAlign: "center",
@@ -157,6 +159,7 @@ export default function AdManagement() {
         >
           <p className="footnote c-muted" style={{ margin: 0 }}>
             플랜에 따라 운영 항목이 달라집니다.
+            <br className="br-mobile" />
             <span className="c-accent semibold"> 무료 진단</span>을 통해 맞춤
             운영 플랜을 확인하세요.
           </p>
@@ -172,7 +175,7 @@ export default function AdManagement() {
           aspect-ratio: 16 / 9;
           margin-top: 0.9rem;
           border-radius: 8px;
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .ad-img-ph {

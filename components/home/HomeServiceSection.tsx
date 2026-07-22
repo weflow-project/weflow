@@ -52,7 +52,7 @@ export default function HomeServiceSection() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-b)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >
@@ -134,13 +134,13 @@ export default function HomeServiceSection() {
       <style>{`
         .svc-steps {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.1rem;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.9rem;
         }
         .svc-step {
           position: relative;
           overflow: hidden;
-          background: #fff;
+          background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
           padding: 1.6rem;
@@ -149,7 +149,7 @@ export default function HomeServiceSection() {
         .svc-step:hover {
           transform: translateY(-4px);
           border-color: var(--accent);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.25);
         }
         .svc-step-num {
           position: absolute;
@@ -180,10 +180,19 @@ export default function HomeServiceSection() {
           aspect-ratio: 4 / 3;
           margin-top: 1.1rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
-        @media (max-width: 640px) {
+        /* 3열이라 카드 폭이 좁아진다 — 여백·아이콘·배경 숫자를 함께 줄인다 */
+        .svc-step { padding: 1.3rem 1.1rem; }
+        .svc-step-num { font-size: 4rem; }
+        .svc-step-icon { width: 40px; height: 40px; margin-bottom: 0.8rem; }
+
+        /* 노트북 폭에서는 3열이 너무 좁아 2열로 */
+        @media (max-width: 900px) {
+          .svc-steps { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
           .svc-steps { grid-template-columns: 1fr; }
         }
       `}</style>

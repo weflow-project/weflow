@@ -100,6 +100,8 @@ export default function BookingPage() {
       if (!res.ok) throw new Error('request failed')
       setLoading(false)
       setShowErrors(false)
+      // 완료 화면이 그려지기 전에 미리 상단으로 (스크롤이 움직이는 게 안 보이도록)
+      window.scrollTo(0, 0)
       setSubmitted(true)
       sessionStorage.removeItem('weflow_form_intent')
     } catch {
@@ -111,7 +113,16 @@ export default function BookingPage() {
   if (submitted) {
     return (
       <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ textAlign: 'center', maxWidth: '420px' }}>
+        <style>{`
+          @keyframes done-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: none; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .done-panel { animation: none !important; }
+          }
+        `}</style>
+        <div className="done-panel" style={{ textAlign: 'center', maxWidth: '420px', animation: 'done-in 0.45s ease-out both' }}>
           <div style={{
             width: 72, height: 72, borderRadius: '50%', background: '#dcfce7',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -125,7 +136,7 @@ export default function BookingPage() {
           </p>
           {dateStr && timeStr && (
             <div style={{
-              background: '#f0f7ff', border: '1.5px solid #cdddf9',
+              background: 'var(--accent-light)', border: '1.5px solid var(--border)',
               borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '2.25rem',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem 1.25rem', flexWrap: 'wrap',
             }}>
@@ -164,8 +175,8 @@ export default function BookingPage() {
           padding: '0.32rem 0',
           border: `1.5px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
           borderRadius: '7px', cursor: disabled ? 'not-allowed' : 'pointer',
-          background: active ? '#ebf2ff' : disabled ? '#f9fafb' : '#fff',
-          color: active ? 'var(--accent)' : disabled ? '#d1d5db' : 'var(--text-secondary)',
+          background: active ? 'var(--accent-light)' : disabled ? 'var(--surface)' : 'var(--surface-container)',
+          color: active ? 'var(--accent)' : disabled ? 'var(--outline)' : 'var(--text-secondary)',
           fontSize: '0.92rem', fontWeight: active ? 700 : 500,
           fontFamily: 'inherit', transition: 'all 0.15s', textAlign: 'center',
         }}>
@@ -175,10 +186,10 @@ export default function BookingPage() {
   }
 
   return (
-    <div style={{ background: '#f9fafb', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--section-a)', minHeight: '100vh' }}>
 
       {/* ── 헤더 ── */}
-      <section style={{ background: '#fff', borderBottom: '1px solid var(--border)', padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 2vw, 2rem)' }}>
+      <section style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 2vw, 2rem)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <Reveal variant="up">
             <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>BOOKING</span>
@@ -199,8 +210,8 @@ export default function BookingPage() {
       </section>
 
       {/* ── 본문 ── */}
-      <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) 5rem' }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(1.25rem, 2vw, 2rem) clamp(1rem, 3vw, 1.5rem) clamp(2rem, 5vw, 3rem)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
           <form onSubmit={handleSubmit}>
             <div className="booking-layout">
@@ -216,7 +227,7 @@ export default function BookingPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', marginBottom: '0.35rem' }}>
                 {WEEKDAYS.map((d, i) => (
-                  <div key={d} className="emphasized" style={{ textAlign: 'center', padding: '0.45rem 0', fontSize: '1.05rem', color: i === 0 ? '#ef4444' : i === 6 ? '#3373df' : 'var(--text-muted)' }}>{d}</div>
+                  <div key={d} className="emphasized" style={{ textAlign: 'center', padding: '0.45rem 0', fontSize: '1.05rem', color: i === 0 ? '#ef4444' : i === 6 ? 'var(--accent)' : 'var(--text-muted)' }}>{d}</div>
                 ))}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
@@ -236,7 +247,7 @@ export default function BookingPage() {
                         fontSize: '1.3rem', fontWeight: selected ? 700 : isToday ? 700 : 400,
                         cursor: past ? 'not-allowed' : 'pointer',
                         background: selected ? 'var(--accent)' : 'transparent',
-                        color: selected ? '#fff' : past ? '#d1d5db' : dow === 0 ? '#ef4444' : dow === 6 ? '#3373df' : 'var(--text)',
+                        color: selected ? 'var(--on-accent)' : past ? 'var(--outline)' : dow === 0 ? '#ef4444' : dow === 6 ? 'var(--accent)' : 'var(--text)',
                         fontFamily: 'inherit', transition: 'all 0.15s',
                       }}>
                       {day}
@@ -268,14 +279,14 @@ export default function BookingPage() {
             {/* 3. 시간 직접입력 */}
             <div className="booking-card">
               <p className="bk-section-title"><Clock size={15} color="var(--accent)" strokeWidth={2} /> 시간 직접 입력</p>
-              <input type="text" className="form-input" placeholder="예: 19:00, 오후 2시 반 (위 시간표에 없는 경우)"
+              <input type="text" className="form-input" placeholder="희망 시간을 입력해주세요"
                 value={customTime} onChange={e => { setCustomTime(e.target.value); setSelectedSlot('') }} />
             </div>
 
             {/* 선택 요약 바 */}
             {(dateStr || timeStr) && (
               <div style={{
-                background: '#fff', border: '1.5px solid var(--accent)',
+                background: 'var(--surface)', border: '1.5px solid var(--accent)',
                 borderRadius: '12px', padding: '0.85rem 1.25rem',
                 display: 'flex', alignItems: 'center', gap: '1.5rem',
                 flexWrap: 'wrap',
@@ -352,7 +363,9 @@ export default function BookingPage() {
                 </div>
               )}
               <p className="c-muted" style={{ textAlign: 'center', margin: 0, fontSize: '0.95rem' }}>
-                연중무휴 24시간 · 담당자가 직접 확인 후 연락드립니다
+                연중무휴 24시간 ·{' '}
+                <br className="br-mobile" />
+                담당자가 직접 확인 후 연락드립니다
               </p>
             </div>
 
@@ -372,7 +385,7 @@ export default function BookingPage() {
         }
         .booking-layout {
           display: grid;
-          grid-template-columns: 1.7fr 0.9fr;
+          grid-template-columns: 1fr 420px;
           gap: 1.25rem;
           align-items: start;
         }
@@ -396,7 +409,7 @@ export default function BookingPage() {
         .booking-card .form-input { font-size: 1.08rem; }
         .booking-card .form-label { font-size: 1.02rem; }
         .booking-card {
-          background: #fff;
+          background: var(--surface);
           border: 1.5px solid var(--border);
           border-radius: 16px;
           padding: 1.5rem;
@@ -405,12 +418,12 @@ export default function BookingPage() {
           .booking-card { padding: 1.1rem; border-radius: 12px; }
         }
         .cal-nav-btn {
-          background: #f3f4f6; border: none; border-radius: 8px;
+          background: var(--surface-container); border: none; border-radius: 8px;
           width: 32px; height: 32px;
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; color: var(--text-secondary); transition: background 0.15s;
         }
-        .cal-nav-btn:hover { background: #e5e7eb; }
+        .cal-nav-btn:hover { background: var(--surface-container-high); }
         .slot-grid {
           display: grid;
           grid-template-columns: repeat(5, 1fr);

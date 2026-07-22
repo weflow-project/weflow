@@ -20,7 +20,7 @@ const POINTS: Point[] = [
     stat: '99.9%',
     desc: (
       <>
-        카톡·SNS 폼보다 요청사항까지 남기고 들어와, <strong>니즈가 명확한 고객</strong>이 데이터로 남습니다.
+        카톡·SNS 폼보다 요청사항까지 남기고 들어와, <br /><strong>니즈가 명확한 고객</strong>이 데이터로 남습니다.
         <br />
         유입되는 순간부터 기록돼, 명확한 고객 DB 유입량이 늘어납니다.
       </>
@@ -33,9 +33,9 @@ const POINTS: Point[] = [
     stat: '84%',
     desc: (
       <>
-        SNS를 하지 말라는 게 아니에요. 내 <strong>홈페이지를 가진 상태</strong>로 SNS를 운영하라는 뜻입니다.
+        SNS를 하지 말라는 게 아니에요.<br />내 <strong>홈페이지를 가진 상태</strong>로 SNS를 운영하라는 뜻입니다.
         <br />
-        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰하니, 함께 굴릴수록 광고·유입 효과가 커집니다.
+        소비자의 <strong>84%</strong>가 소셜미디어보다 홈페이지를 더 신뢰하니,<br />함께 굴릴수록 광고·유입 효과가 커집니다.
       </>
     ),
     source: '출처: BusinessDasher, "Statistics About Website" (2026)',
@@ -46,7 +46,7 @@ const POINTS: Point[] = [
     stat: '50%',
     desc: (
       <>
-        각 페이지별 <strong>고유 URL</strong>과 메타·구조화 정보를 최적화하면, 검색 결과에서 <strong>클릭률(CTR)이 20~80%</strong>까지 높아집니다.
+        각 페이지별 <strong>고유 URL</strong>과 메타·구조화 정보를 최적화하면,<br />검색 결과에서 <strong>클릭률(CTR)이 20~80%</strong>까지 높아집니다.
         <br />
         노출 기회가 늘어 상위 노출과 유입 확대에 유리해집니다.
       </>
@@ -123,15 +123,18 @@ export default function WhatIsHomepageSection() {
           observer.disconnect()
         }
       },
-      { threshold: 0.3 },
+      // threshold 는 "요소 높이의 몇 %가 보이는가" 기준이라, 이 섹션처럼
+      // 화면보다 긴 요소에는 0.3 을 영영 못 채워 발동하지 않는다.
+      // 대신 화면 위아래 25% 를 잘라낸 가운데 띠에 걸리는 순간을 본다.
+      { threshold: 0, rootMargin: '-25% 0px -25% 0px' },
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={ref} style={{ background: 'var(--bg-secondary)', padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
+    <section id="why-homepage" ref={ref} style={{ background: 'var(--section-a)', padding: 'clamp(2.25rem, 5vw, 4rem) 1.25rem' }}>
+      <div style={{ maxWidth: '880px', margin: '0 auto', width: '100%' }}>
         {/* 헤더 */}
         <div style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>
           <span className="footnote emphasized c-accent">02 · 홈페이지가 필요한 이유</span>
@@ -173,7 +176,7 @@ export default function WhatIsHomepageSection() {
                     className="large-title emphasized c-accent"
                     style={{
                       lineHeight: 1,
-                      fontSize: 'clamp(2.75rem, 7vw, 4.5rem)',
+                      fontSize: 'clamp(1.7rem, 4.2vw, 2.7rem)',
                       display: 'inline-block',
                     }}
                   >
@@ -183,7 +186,7 @@ export default function WhatIsHomepageSection() {
                     <ArrowUp
                       strokeWidth={2.6}
                       color="var(--accent)"
-                      style={{ width: 'clamp(2rem, 5vw, 3.25rem)', height: 'clamp(2rem, 5vw, 3.25rem)', flexShrink: 0 }}
+                      style={{ width: 'clamp(1.7rem, 4.2vw, 2.75rem)', height: 'clamp(1.7rem, 4.2vw, 2.75rem)', flexShrink: 0 }}
                     />
                   )}
                 </span>
@@ -191,7 +194,7 @@ export default function WhatIsHomepageSection() {
               <p className="body c-muted" style={{ margin: 0, wordBreak: 'keep-all' }}>
                 {p.desc}
               </p>
-              <p style={{ fontSize: '11px', color: '#aaa', margin: '8px 0 0', wordBreak: 'keep-all' }}>
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: '8px 0 0', wordBreak: 'keep-all' }}>
                 {p.source}
               </p>
             </div>
@@ -205,7 +208,7 @@ export default function WhatIsHomepageSection() {
                   aspectRatio: '4 / 3',
                   borderRadius: 'var(--radius-2xl)',
                   overflow: 'hidden',
-                  background: '#e6eaf1',
+                  background: 'var(--surface-container)',
                   border: '1px solid var(--border)',
                 }}
               >
@@ -213,7 +216,7 @@ export default function WhatIsHomepageSection() {
                   src={WHY_IMAGES[i]}
                   alt={p.title}
                   fill
-                  sizes="(max-width: 860px) 100vw, 480px"
+                  sizes="(max-width: 768px) 100vw, 420px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
@@ -223,22 +226,40 @@ export default function WhatIsHomepageSection() {
       </div>
 
       <style>{`
+        /* 그리드로 칸을 반씩 고정한다 — flex 는 내용에 따라 폭이 밀려서
+           줄마다 가운데 경계선이 어긋났다. 좌우가 바뀌어도 경계선은 항상 같은 자리다. */
         .wih-row {
-          display: flex;
+          display: grid;
+          /* 사진과 글을 반반 — 사진이 칸을 꽉 채우므로
+             가운데 경계선과 바깥 끝선이 줄마다 똑같이 떨어진다 */
+          grid-template-columns: 1fr 1fr;
           align-items: center;
           gap: clamp(1.5rem, 4vw, 3.5rem);
         }
-        .wih-row.reverse { flex-direction: row-reverse; }
+        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다 */
+        .wih-row.reverse .wih-text { order: 2; }
+        .wih-row.reverse .wih-img { order: 1; }
         .wih-row + .wih-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
-        .wih-text { flex: 1; min-width: 0; }
-        .wih-img { flex: 1; min-width: 0; }
+        .wih-text { min-width: 0; }
+        /* 줄 전체를 한 단계 작게 — 전역 글씨 클래스는 rem 이라
+           틀만 좁혀서는 글씨가 따라 줄지 않아 여기서 직접 낮춘다 */
+        .wih-text .title-2 { font-size: clamp(1.2rem, 2.6vw, 1.33rem); }
+        .wih-text .body { font-size: 0.92rem; }
+        .wih-img { min-width: 0; }
+        @media (max-width: 768px) {
+          .wih-row { grid-template-columns: 1fr; align-items: stretch; }
+          .wih-row .wih-text, .wih-row.reverse .wih-text { order: 2; }
+          .wih-row .wih-img, .wih-row.reverse .wih-img { order: 1; }
+          /* 한 줄로 쌓이면 사진이 너무 커지지 않게만 잡아둔다 */
+          .wih-img > div { max-width: 480px; margin-inline: auto; }
+        }
         /* 핵심 뱃지 */
         .wih-badge {
           display: inline-block;
           margin-left: 0.5rem;
           vertical-align: middle;
           background: var(--accent);
-          color: #fff;
+          color: var(--on-accent);
           font-size: 0.66rem;
           font-weight: 700;
           padding: 2px 9px;
@@ -247,14 +268,10 @@ export default function WhatIsHomepageSection() {
         }
         /* 1·2·3 핵심 강조 패널 */
         .wih-text--key {
-          background: rgba(51,115,223,0.05);
+          background: var(--accent-light);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
-          padding: clamp(1.25rem, 3vw, 2rem);
-        }
-        @media (max-width: 768px) {
-          /* 모바일: 이미지 → 설명 순서(column-reverse) + stretch로 이미지 폭 붕괴 방지 */
-          .wih-row, .wih-row.reverse { flex-direction: column-reverse; align-items: stretch; }
+          padding: clamp(1rem, 2.2vw, 1.5rem);
         }
         /* 파란 숫자 흔들림 효과 (화면 진입 후 7초마다 잠깐 흔들림) */
         .wih-stat { transform-origin: center bottom; }

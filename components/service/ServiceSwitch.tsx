@@ -10,7 +10,7 @@ export default function ServiceSwitch() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "var(--section-b)",
         padding: "clamp(4rem, 9vw, 7rem) 1.25rem",
         textAlign: "center",
       }}
@@ -68,11 +68,17 @@ export default function ServiceSwitch() {
           width: 100%;
           aspect-ratio: 16 / 9;
           border-radius: var(--radius-2xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 760px) {
           .svc-switch-boxes { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+        }
+        @media (max-width: 600px) {
+          /* "타 서비스에서 전환하신다면?" 을 한 줄에 —
+             SplitText 가 공백을 줄바꿈 없는 공백으로 바꿔 통째로 한 덩어리라,
+             폭이 모자라면 글자 중간에서 잘린다. 폭에 맞춰 글씨를 줄여 막는다 */
+          .svc-switch-title { font-size: min(2.2rem, 6.6vw); }
         }
       `}</style>
     </section>

@@ -77,8 +77,8 @@ function ImagePlaceholder({
           flexShrink: 0,
           borderRadius: "var(--radius-xl)",
           overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(0,0,0,0.18)",
+          border: "1px solid var(--border)",
+          background: "var(--surface-container)",
           ...style,
         }}
       >
@@ -99,12 +99,12 @@ function ImagePlaceholder({
         aspectRatio,
         flexShrink: 0,
         borderRadius: "var(--radius-xl)",
-        background: "rgba(0,0,0,0.18)",
-        border: "1px dashed rgba(255,255,255,0.18)",
+        background: "var(--surface-container)",
+        border: "1px dashed var(--border)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#9fb0c8",
+        color: "var(--text-muted)",
         fontSize: "0.82rem",
         fontWeight: 600,
         letterSpacing: "0.02em",
@@ -193,15 +193,15 @@ export default function PartnershipSection() {
       }}
     >
       <InstagramGradientDef />
-      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+      <div style={{ maxWidth: "1240px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 (좌측 정렬) */}
         <Reveal variant="up" style={{ marginBottom: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-          <span className="footnote emphasized" style={{ color: "#9dbff6" }}>
+          <span className="footnote emphasized" style={{ color: "var(--accent)" }}>
             제휴 마케팅과의 협약
           </span>
           <h2
             className="title-1"
-            style={{ marginTop: "0.75rem", textAlign: "left", color: "#fff" }}
+            style={{ marginTop: "0.75rem", textAlign: "left", color: "var(--text)" }}
           >
             <span style={{ display: "block" }}>
               홈페이지 제작에서 끝나지 않습니다
@@ -214,7 +214,7 @@ export default function PartnershipSection() {
                   <span
                     key={i}
                     className="c-accent"
-                    style={{ position: "relative", display: "inline-block", color: "#8fb4ff" }}
+                    style={{ position: "relative", display: "inline-block", color: "var(--accent)" }}
                   >
                     <span
                       aria-hidden
@@ -226,7 +226,7 @@ export default function PartnershipSection() {
                         width: "5px",
                         height: "5px",
                         borderRadius: "9999px",
-                        background: "#8fb4ff",
+                        background: "var(--accent)",
                       }}
                     />
                     {ch}
@@ -243,9 +243,7 @@ export default function PartnershipSection() {
           {/* ① 대형 개요 카드 (가로 전체 · 상단 텍스트+로고 · 하단 이미지 2개) */}
           <div className="bento-card bento-lead">
             {/* 브랜드 로고 (왼쪽 상단) */}
-            <div
-              style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem" }}
-            >
+            <div className="bento-head" style={{ display: "flex", gap: "0.75rem" }}>
               <IconChip Icon={SiNaver} {...BRAND.naver} />
               <IconChip Icon={FaInstagram} {...BRAND.instagram} />
               <IconChip Icon={FaYoutube} {...BRAND.youtube} />
@@ -253,15 +251,7 @@ export default function PartnershipSection() {
             </div>
 
             {/* 제목 + 협약 혜택 뱃지 (나란히) */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "0.6rem",
-                marginBottom: "0.75rem",
-              }}
-            >
+            <div className="bento-title-row">
               <h3
                 className="title-3 emphasized"
                 style={{ margin: 0, wordBreak: "keep-all" }}
@@ -280,16 +270,13 @@ export default function PartnershipSection() {
                 협약 혜택
               </span>
             </div>
-            <p
-              className="callout"
-              style={{ margin: 0, maxWidth: "420px", wordBreak: "keep-all" }}
-            >
+            <p className="callout bento-desc" style={{ margin: 0, wordBreak: "keep-all" }}>
               블로그·인스타그램·유튜브 숏폼·네이버 플레이스까지, 제작 이후에도
               새 고객을 데려오는 마케팅 채널이 함께 작동합니다.
             </p>
 
             {/* 하단: 이미지 1개 */}
-            <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
+            <div className="bento-img">
               <ImagePlaceholder
                 aspectRatio="16 / 9"
                 src="/images/main/main-partner-01.png"
@@ -300,20 +287,14 @@ export default function PartnershipSection() {
 
           {/* ② 지속 유입 카드 */}
           <div className="bento-card bento-sub">
-            <IconChip
-              Icon={TrendingUp}
-              color="#8fb4ff"
-              background="rgba(143,180,255,0.16)"
-            />
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "0.6rem",
-                margin: "1rem 0 0.5rem",
-              }}
-            >
+            <div className="bento-head">
+              <IconChip
+                Icon={TrendingUp}
+                color="var(--accent)"
+                background="var(--accent-light)"
+              />
+            </div>
+            <div className="bento-title-row">
               <h3
                 className="title-3 emphasized"
                 style={{ margin: 0, wordBreak: "keep-all" }}
@@ -331,11 +312,11 @@ export default function PartnershipSection() {
                 누적 효과
               </span>
             </div>
-            <p className="callout" style={{ margin: 0, wordBreak: "keep-all" }}>
+            <p className="callout bento-desc" style={{ margin: 0, wordBreak: "keep-all" }}>
               콘텐츠가 쌓일수록 검색·추천 유입이 누적되어, 시간이 지날수록 더
               강해집니다.
             </p>
-            <div style={{ marginTop: "auto", paddingTop: "clamp(1.25rem, 3vw, 1.75rem)" }}>
+            <div className="bento-img">
               <ImagePlaceholder
                 aspectRatio="16 / 9"
                 src="/images/main/main-partner-02.png"
@@ -347,15 +328,10 @@ export default function PartnershipSection() {
           {/* ③④⑤ 채널 카드 (아이콘 상단 · 텍스트 · 하단 이미지 — 지속 유입 카드와 동일 구조) */}
           {CHANNELS.map(({ area, Icon, name, tag, desc, brand, img }) => (
             <div key={name} className={`bento-card ${area}`}>
-              <IconChip Icon={Icon} {...brand} />
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.6rem",
-                  margin: "1rem 0 0.5rem",
-                }}
-              >
+              <div className="bento-head">
+                <IconChip Icon={Icon} {...brand} />
+              </div>
+              <div className="bento-title-row">
                 <h3 className="title-3 emphasized" style={{ margin: 0 }}>
                   {name}
                 </h3>
@@ -370,18 +346,12 @@ export default function PartnershipSection() {
                   {tag}
                 </span>
               </div>
-              <p
-                className="callout"
-                style={{ margin: 0, wordBreak: "keep-all" }}
-              >
+              <p className="callout bento-desc" style={{ margin: 0, wordBreak: "keep-all" }}>
                 {desc}
               </p>
-              <ImagePlaceholder
-                aspectRatio="16 / 9"
-                src={img}
-                label={name}
-                style={{ marginTop: "clamp(1rem, 3vw, 1.5rem)" }}
-              />
+              <div className="bento-img">
+                <ImagePlaceholder aspectRatio="16 / 9" src={img} label={name} />
+              </div>
             </div>
           ))}
         </Reveal>

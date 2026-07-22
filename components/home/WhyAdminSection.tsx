@@ -87,13 +87,14 @@ export default function WhyAdminSection() {
 
   return (
     <section
+      id="why-admin"
       ref={ref}
       style={{
-        background: "var(--bg-secondary)",
-        padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
+        background: "var(--section-a)",
+        padding: "clamp(2.25rem, 5vw, 4rem) 1.25rem",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
         <div style={{ marginBottom: "clamp(2rem, 5vw, 3.5rem)" }}>
           <span className="footnote emphasized c-accent">
@@ -157,7 +158,7 @@ export default function WhyAdminSection() {
                   style={{
                     display: "inline-block",
                     lineHeight: 1.05,
-                    fontSize: "clamp(2.1rem, 5vw, 3.3rem)",
+                    fontSize: "clamp(1.6rem, 3.6vw, 2.4rem)",
                     wordBreak: "keep-all",
                   }}
                 >
@@ -188,28 +189,85 @@ export default function WhyAdminSection() {
                   border: "1px solid var(--border)",
                 }}
               />
+
+              {/* 곡선 화살표 + 캡션 — 실제 화면 캡처임을 알린다 */}
+              <div className="wa-img-note">
+                <svg
+                  className="wa-img-arrow"
+                  width="30"
+                  height="26"
+                  viewBox="0 0 64 56"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M56 29 C 32 41, 13 33, 17 13"
+                    stroke="var(--accent)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M8 22 L17 10 L28 20"
+                    stroke="var(--accent)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <p className="wa-img-note-text">
+                  WEFLOW <strong>관리자 페이지</strong>의 실제 화면입니다.
+                </p>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
       <style>{`
+        /* 그리드로 칸을 반씩 고정한다 — flex 는 내용에 따라 폭이 밀려서
+           줄마다 가운데 경계선이 어긋났다. 좌우가 바뀌어도 경계선은 항상 같은 자리다. */
         .wa-row {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           align-items: center;
           gap: clamp(1.5rem, 4vw, 3.5rem);
         }
-        .wa-row.reverse { flex-direction: row-reverse; }
+        /* 번갈아 놓기는 order 로 — 칸 자체는 그대로 두고 내용만 자리를 바꾼다 */
+        .wa-row.reverse .wa-text { order: 2; }
+        .wa-row.reverse .wa-img { order: 1; }
         .wa-row + .wa-row { margin-top: clamp(2.5rem, 6vw, 4rem); }
-        .wa-text { flex: 1; min-width: 0; }
-        .wa-img { flex: 1; min-width: 0; }
+        .wa-text { min-width: 0; }
+        .wa-img { min-width: 0; }
+        /* 사진 아래 안내 — 화살표가 사진을 가리키고 문구가 옆에 붙는다 */
+        .wa-img-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 0.7rem;
+        }
+        .wa-img-arrow { flex-shrink: 0; }
+        .wa-img-note-text {
+          margin: 0;
+          font-size: 0.92rem;
+          font-weight: 600;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .wa-img-note-text strong { color: var(--accent); }
+        @media (max-width: 768px) {
+          .wa-row { grid-template-columns: 1fr; align-items: stretch; }
+          .wa-row .wa-text, .wa-row.reverse .wa-text { order: 2; }
+          .wa-row .wa-img, .wa-row.reverse .wa-img { order: 1; }
+        }
         /* 핵심 뱃지 */
         .wa-badge {
           display: inline-block;
           margin-left: 0.5rem;
           vertical-align: middle;
           background: var(--accent);
-          color: #fff;
+          color: var(--on-accent);
           font-size: 0.66rem;
           font-weight: 700;
           padding: 2px 9px;
@@ -218,14 +276,10 @@ export default function WhyAdminSection() {
         }
         /* 핵심 강조 파란 패널 */
         .wa-text--key {
-          background: rgba(51,115,223,0.05);
+          background: var(--accent-light);
           border: 1px solid var(--accent-light);
           border-radius: var(--radius-2xl);
           padding: clamp(1.25rem, 3vw, 2rem);
-        }
-        @media (max-width: 768px) {
-          /* 모바일: 이미지 → 설명 순서(column-reverse) + stretch로 이미지 폭 붕괴 방지 */
-          .wa-row, .wa-row.reverse { flex-direction: column-reverse; align-items: stretch; }
         }
         /* 파란 키워드 흔들림 (화면 진입 후 7초마다 잠깐) — WhatIs와 동일 */
         .wa-stat { transform-origin: center bottom; }

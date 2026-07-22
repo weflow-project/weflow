@@ -6,23 +6,41 @@
 
 @layer base {
   :root {
-    /* ── weflow_v3 디자인 시스템 토큰 ── */
-    --bg: #ffffff;
-    --bg-secondary: #f7f9fc; /* weflow SURFACE */
-    --surface: #ffffff;
-    --surface-container: #eef2f8;
-    --surface-container-high: #e7ecf4;
-    --text: #0b1220; /* weflow TEXT_PRIMARY */
-    --text-secondary: #3d4759; /* weflow TEXT_SECONDARY */
-    --text-muted: #8a94a6; /* weflow TEXT_MUTED */
-    --border: #eceff3;
-    --border-subtle: #f3f5f9;
-    --outline: #727785;
-    --outline-variant: #c2c6d6;
-    --accent: #3373df; /* weflow PRIMARY */
-    --accent-light: #ebf2ff; /* weflow PRIMARY_LIGHT */
-    --accent-dim: #1b2a4a; /* weflow SECONDARY (navy) */
-    --accent-hover: #2861c9;
+    /* ── weflow_v3 디자인 시스템 토큰 (다크) ──
+       무채색 검정 기조. 파란색은 버튼·라벨 같은 강조에만 쓰고 배경에는 쓰지 않는다.
+       남색 배경 + 파란 강조는 흔한 조합이라 일부러 피했다. */
+    --bg: #0e0e10;
+    --bg-secondary: #151517; /* weflow SURFACE */
+    /* 섹션 배경 교차용 — 위아래로 이어지는 섹션이 a, b 를 번갈아 쓴다.
+       배경이 어두울수록 두 색 차이가 묻히므로, 밝기 간격을 넉넉히 벌려뒀다. */
+    --section-a: #0e0e10;
+    --section-b: #151517;
+    --surface: #1c1c1f; /* 카드·박스 — 섹션보다 한 단계 밝게 */
+    --surface-container: #232326;
+    --surface-container-high: #2b2b2f;
+    --text: #f2f2f4; /* weflow TEXT_PRIMARY */
+    --text-secondary: #c4c4cc; /* weflow TEXT_SECONDARY */
+    /* 배경(#0e0e10) 대비 7.7:1 */
+    --text-muted: #a3a3aa; /* weflow TEXT_MUTED */
+    --border: #2b2b2f;
+    --border-subtle: #212124;
+    --outline: #5a5a63;
+    --outline-variant: #3f3f46;
+    
+    /* 파란색 한 가족 — 색조 218° 고정, 밝기만 다르다.
+       어두운 배경에서는 요구가 반대라 두 단계로 나눈다:
+       작은 요소는 밝아야 눈에 띄고, 넓은 면은 어두워야 그 위 흰 글씨가 읽힌다. */
+    --accent: #6a92d7; /* weflow PRIMARY — 배경 대비 6.16:1 */
+    --accent-light: #1b2840; /* 파란 기가 도는 어두운 면 (배지·칩 배경) */
+    --accent-dim: #212126; /* 강조 섹션 — 남색 대신 한 단계 밝은 무채색 */
+    --accent-hover: #8aabe3;
+    /* 강조색 위에 얹는 글자 — 파란 배경이 밝아 어두운 글자가 잘 읽힌다 */
+    --on-accent: #0e0e10;
+    /* 넓은 면을 파랗게 채울 때 쓰는 진한 파랑 — 흰 글자 대비 6.88:1.
+       상단 프로모션 띠와 히어로 버튼처럼 "파란 면 + 흰 글씨"가 필요한 곳이 여기를 쓴다.
+       작은 요소(아이콘·링크·칩)는 밝은 --accent 를 그대로 쓴다. */
+    --accent-strong: #1b4ea7; /* 흰 글자 대비 7.79:1 */
+    --on-accent-strong: #ffffff;
     --radius-sm: 2px;
     --radius: 4px;
     --radius-md: 6px;
@@ -30,8 +48,8 @@
     --radius-xl: 12px;
     --radius-2xl: 16px;
     --radius-full: 9999px;
-    --shadow-btn: 0 4px 14px rgba(51, 115, 223, 0.28);
-    --shadow-card: 0 1px 4px rgba(11, 18, 32, 0.06);
+    --shadow-btn: 0 4px 14px rgba(106, 146, 215, 0.25);
+    --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   html {
@@ -79,7 +97,7 @@
     justify-content: center;
     gap: 0.5rem;
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 0.95rem;
     padding: 0.85rem 1.75rem;
@@ -96,7 +114,7 @@
   }
   .btn-primary:hover {
     opacity: 0.92;
-    box-shadow: 0 6px 18px rgba(51, 115, 223, 0.32);
+    box-shadow: 0 6px 18px rgba(106, 146, 215, 0.32);
   }
   .btn-primary:active {
     transform: scale(0.97);
@@ -132,8 +150,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: #fff;
-    color: var(--accent);
+    background: var(--text);
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 0.95rem;
     padding: 0.75rem 1.75rem;
@@ -143,10 +161,10 @@
     transition: all 0.18s;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(11, 18, 32, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
   .btn-white:hover {
-    background: var(--accent-light);
+    background: var(--text-secondary);
   }
   .btn-white:active {
     transform: scale(0.97);
@@ -179,23 +197,6 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-2xl);
     padding: 1.5rem;
-  }
-
-  /* ── 체크리스트 아이템 ── */
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    padding: 0.3rem 0;
-  }
-  .check-item::before {
-    content: "✓";
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1rem;
-    flex-shrink: 0;
   }
 
   /* ══════════════════════════════════════════════════
@@ -307,13 +308,6 @@
     line-height: 1.18;
     color: var(--text);
   }
-  .section-subtitle {
-    font-size: 0.9375rem;
-    font-weight: 400;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-    line-height: 1.55;
-  }
 
   /* ── 태그 배지 ── */
   .tag-badge {
@@ -331,12 +325,11 @@
   /* ── 제휴 마케팅 벤토 그리드 ── */
   .bento-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
-      "lead sub"
-      "ch1  ch2"
-      "ch3  ch4";
-    gap: 1.1rem;
+      "lead sub  ch1"
+      "ch2  ch3  ch4";
+    gap: 0.9rem;
   }
   .bento-lead {
     grid-area: lead;
@@ -360,7 +353,7 @@
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-2xl);
-    padding: 1.6rem;
+    padding: 1.25rem 1.1rem;
     display: flex;
     flex-direction: column;
     transition: background 0.18s;
@@ -368,13 +361,49 @@
   .bento-card:hover {
     background: rgba(255, 255, 255, 0.1);
   }
+  /* 카드 6개의 아이콘·제목·설명·사진 줄을 서로 맞춘다.
+     제목이 한 줄이든 두 줄이든 아래 요소가 밀리지 않도록 각 칸에 최소 높이를 준다. */
+  .bento-head {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    margin-bottom: 0.9rem;
+  }
+  .bento-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 3.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .bento-desc {
+    min-height: 4.2rem;
+  }
+  .bento-img {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  @media (max-width: 1000px) {
+    .bento-title-row { min-height: 0; }
+    .bento-desc { min-height: 0; }
+  }
   /* 다크 섹션 위 카드 — 텍스트 밝게 */
   .bento-card .title-3,
   .bento-card .headline {
-    color: #f1f5f9;
+    color: var(--text);
   }
   .bento-card .callout {
-    color: #c2cde0;
+    color: var(--text-secondary);
+  }
+  @media (max-width: 1000px) {
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "lead sub"
+        "ch1  ch2"
+        "ch3  ch4";
+    }
   }
   @media (max-width: 768px) {
     .bento-grid {
@@ -401,9 +430,10 @@
     border: 1px solid var(--border);
     border-radius: 9999px;
     background: rgba(255, 255, 255, 0.9);
-    color: var(--text);
+    /* 흰 버튼 위에 얹히므로 아이콘은 어둡게 고정한다 */
+    color: var(--on-accent);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(11, 18, 32, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     opacity: 0;
     transition:
       opacity 0.2s,
@@ -423,49 +453,14 @@
     }
   }
 
-  /* ── 히어로 CTA 말풍선 배지 ── */
-  .hero-cta {
-    position: relative;
-    display: inline-flex;
-  }
-  .hero-cta-badge {
-    position: absolute;
-    bottom: calc(100% + 11px);
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: #fff;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 14px rgba(11, 18, 32, 0.1);
-    border-radius: 9999px;
-    padding: 5px 14px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-  }
-  .hero-cta-badge strong {
-    color: var(--accent);
-    font-weight: 800;
-  }
-  .hero-cta-badge::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-1px);
-    border: 6px solid transparent;
-    border-top-color: #fff;
-    filter: drop-shadow(0 1px 0 var(--border));
-  }
-
   /* ── 무료 진단 CTA 마퀴 버튼 ── */
   .cta-marquee {
     padding: 0 !important;
     overflow: hidden;
     position: relative;
+    /* 트랙을 왼쪽 기준으로 붙인다 — 가운데 정렬이면 보이는 창이 트랙 중앙에서
+       시작해 -50% 이동 시 트랙 끝을 넘어가며 빈칸이 스쳐 보인다(루프 끊김) */
+    justify-content: flex-start !important;
   }
   .cta-marquee-track {
     display: flex;
@@ -473,6 +468,7 @@
     height: 100%;
     animation: ctaMarquee 6.5s linear infinite;
     will-change: transform;
+    backface-visibility: hidden;
   }
   .cta-marquee:hover .cta-marquee-track {
     animation-play-state: paused;
@@ -485,28 +481,12 @@
   }
   @keyframes ctaMarquee {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     to {
-      transform: translateX(-50%);
+      /* 문구 4개 중 정확히 2개 분량 — 이동 후 3·4번이 1·2번 자리를 그대로 잇는다 */
+      transform: translate3d(-50%, 0, 0);
     }
-  }
-
-  /* ── 네비게이션 링크 ── */
-  .nav-link {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.15s;
-    white-space: nowrap;
-  }
-  .nav-link:hover {
-    color: var(--text);
-  }
-  .nav-link.active {
-    color: var(--accent);
-    font-weight: 700;
   }
 
   /* ── 폼 인풋 ── */
@@ -526,7 +506,7 @@
   }
   .form-input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(51, 115, 223, 0.14);
+    box-shadow: 0 0 0 3px rgba(106, 146, 215, 0.2);
   }
   .form-input::placeholder {
     color: var(--text-muted);
@@ -534,7 +514,7 @@
   select.form-input {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239a9aa4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.85rem center;
     padding-right: 2.25rem;
@@ -556,13 +536,6 @@
     margin-bottom: 0.35rem;
   }
 
-  /* ── 가격 취소선 ── */
-  .price-strike {
-    font-size: 1rem;
-    color: var(--text-muted);
-    text-decoration: line-through;
-    font-weight: 500;
-  }
   .price-main {
     font-size: 1.6rem;
     font-weight: 800;
@@ -680,44 +653,6 @@
     }
   }
 
-  /* ── 후기 캐러셀 ── */
-  .review-track {
-    display: flex;
-    gap: 1rem;
-    animation: scrollReview 40s linear infinite;
-    will-change: transform;
-  }
-  .review-track:hover {
-    animation-play-state: paused;
-  }
-
-  .review-track-reverse {
-    display: flex;
-    gap: 1rem;
-    animation: scrollReviewReverse 40s linear infinite;
-    will-change: transform;
-  }
-  .review-track-reverse:hover {
-    animation-play-state: paused;
-  }
-
-  @keyframes scrollReview {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes scrollReviewReverse {
-    0% {
-      transform: translateX(-50%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
   /* ── 하단바 ── */
   .bottom-action-bar {
     position: fixed;
@@ -727,7 +662,7 @@
     z-index: 200;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #fff;
+    background: var(--surface);
     border-top: 1px solid var(--border);
   }
 
@@ -764,39 +699,6 @@
   }
   .bottom-action-item:nth-child(3) {
     border-right: 1px solid var(--border);
-  }
-
-  /* ── 케이스 카드 호버 ── */
-  .case-card > div {
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
-  }
-  .case-card:hover > div {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-  }
-
-  /* ── 피처 카드 호버 ── */
-  .feature-card {
-    transition:
-      box-shadow 0.2s,
-      transform 0.2s;
-  }
-  .feature-card:hover {
-    box-shadow: 0 8px 24px rgba(51, 115, 223, 0.13);
-    transform: translateY(-2px);
-  }
-
-  /* ── 서비스 카드 호버 ── */
-  .service-card {
-    transition:
-      box-shadow 0.2s,
-      transform 0.2s;
-  }
-  .service-card:hover {
-    box-shadow: 0 6px 20px rgba(51, 115, 223, 0.1);
-    transform: translateY(-2px);
   }
 
   /* ── 파티클 캔버스 ── */

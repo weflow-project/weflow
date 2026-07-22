@@ -74,7 +74,7 @@ const FEATURES: {
 export default function ServiceFeatures() {
   return (
     <section
-      style={{ background: "#fff", padding: "clamp(3rem, 6vw, 5rem) 1.25rem" }}
+      style={{ background: "var(--section-b)", padding: "clamp(3rem, 6vw, 5rem) 1.25rem" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         {/* 헤더 */}
@@ -109,7 +109,7 @@ export default function ServiceFeatures() {
                     top: "1.1rem",
                     right: "1.1rem",
                     background: "var(--accent)",
-                    color: "#fff",
+                    color: "var(--on-accent)",
                     padding: "3px 9px",
                     borderRadius: "9999px",
                     letterSpacing: "0.04em",
@@ -196,17 +196,17 @@ export default function ServiceFeatures() {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: #f4f6fa;
+          background: var(--surface);
           border: 1px solid transparent;
           border-radius: var(--radius-2xl);
           padding: 1.75rem 1.6rem;
           transition: background 0.18s, transform 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
         .svc-feat-card:hover {
-          background: #fff;
+          background: var(--surface-container);
           border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(51,115,223,0.13);
+          box-shadow: 0 12px 28px rgba(106, 146, 215,0.16);
         }
         .svc-feat-img {
           position: relative;
@@ -215,7 +215,7 @@ export default function ServiceFeatures() {
           aspect-ratio: 16 / 9;
           margin-top: auto;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         .svc-img-ph {

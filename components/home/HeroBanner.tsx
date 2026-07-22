@@ -42,7 +42,7 @@ export default function HeroBanner() {
       style={{
         position: "relative",
         overflow: "hidden",
-        background: "#fff",
+        background: "var(--section-a)",
         scrollSnapAlign: "start",
         display: "flex",
         flexDirection: "column",
@@ -76,7 +76,10 @@ export default function HeroBanner() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(255,255,255,0.3)",
+          // 제목·버튼이 전부 흰색이라 배경을 어둡게 눌러야 대비가 산다.
+          // 위아래를 더 어둡게 해서 헤더 영역과 하단 캐러셀 쪽 글씨도 함께 보호한다.
+          background:
+            "linear-gradient(to bottom, rgba(8,13,24,0.55) 0%, rgba(8,13,24,0.38) 45%, rgba(8,13,24,0.6) 100%)",
           zIndex: 1,
         }}
       />
@@ -170,39 +173,18 @@ export default function HeroBanner() {
             marginTop: "clamp(2.75rem, 5vw, 3.5rem)",
           }}
         >
-          {/* 채움 버튼 + 말풍선 배지 */}
-          <span className="hero-cta">
-            <span className="hero-cta-badge">
-              🎁 최근 한달 <strong>1,549명</strong> 신청중
-            </span>
-            <Link
-              href="/diagnosis"
-              className="btn-primary"
-              style={{
-                fontSize: "1.3rem",
-                borderRadius: "9999px",
-                padding: "1.15rem 1rem",
-                width: "min(240px, 80vw)",
-                whiteSpace: "nowrap",
-                justifyContent: "center",
-              }}
-            >
-              홈페이지 견적 받기
-            </Link>
-          </span>
+          <Link
+            href="/diagnosis"
+            className="btn-primary hero-btn"
+            style={{ width: "min(240px, 80vw)" }}
+          >
+            홈페이지 견적 받기
+          </Link>
 
           <Link
             href="/#benefits"
-            className="btn-primary"
-            style={{
-              fontSize: "1.3rem",
-              borderRadius: "9999px",
-              padding: "1.15rem 1rem",
-              width: "min(240px, 80vw)",
-              whiteSpace: "nowrap",
-              justifyContent: "center",
-              background: "var(--accent-dim)",
-            }}
+            className="btn-primary hero-btn hero-btn--ghost"
+            style={{ width: "min(240px, 80vw)" }}
           >
             WEFLOW 혜택보기
           </Link>
@@ -213,8 +195,30 @@ export default function HeroBanner() {
       </div>
 
       <style>{`
-        /* 히어로 배지(신청중) 글씨 확대 */
-        .hero-cta-badge { font-size: 0.92rem; }
+        /* 히어로 버튼 — 영상 위 어두운 화면이라 제목과 같은 흰 글씨로 맞춘다.
+           사이트 기본 파랑(--accent)은 밝아서 흰 글씨가 안 읽히므로 여기서만 진한 파랑을 쓴다. */
+        .hero-btn {
+          font-size: 1.3rem;
+          border-radius: 9999px;
+          padding: 1.15rem 1rem;
+          white-space: nowrap;
+          justify-content: center;
+          background: var(--accent-strong);   /* 상단 프로모션 띠와 같은 파랑 */
+          color: var(--on-accent-strong);
+          border: 1.5px solid transparent;
+        }
+        .hero-btn:hover { background: #2262cc; }
+
+        /* 보조 버튼 — 영상이 비쳐 보이도록 반투명 테두리형 */
+        .hero-btn--ghost {
+          background: rgba(255, 255, 255, 0.10);
+          border-color: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(4px);
+        }
+        .hero-btn--ghost:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: #ffffff;
+        }
 
         /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
         .hero-section {
@@ -239,12 +243,6 @@ export default function HeroBanner() {
           .hero-eyebrow { margin-bottom: 0.85rem; }
           .hero-line2 { white-space: normal; }
           .hero-weflow { display: block; }
-          /* 모바일: '최근 한달…' 말풍선 축소 */
-          .hero-cta-badge {
-            font-size: 0.72rem;
-            padding: 4px 10px;
-            gap: 4px;
-          }
         }
       `}</style>
     </section>

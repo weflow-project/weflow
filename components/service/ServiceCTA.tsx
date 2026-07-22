@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 /** 서비스 페이지 맨 아래 전환 유도 섹션 — 전화상담 · 무료 진단 신청 두 버튼으로 보낸다 */
 export default function ServiceCTA() {
@@ -8,7 +9,7 @@ export default function ServiceCTA() {
     <section
       style={{
         padding: "clamp(2.5rem, 5vw, 3.5rem) 1.5rem",
-        background: "#f9fafb",
+        background: "var(--section-b)",
         borderTop: "1px solid var(--border)",
         scrollSnapAlign: "start",
       }}
@@ -70,28 +71,16 @@ export default function ServiceCTA() {
           <a
             href="tel:010-2971-7280"
             className="btn-outline"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.45rem",
-              fontSize: "1.1rem",
-              padding: "1rem 2.1rem",
-            }}
+            style={CTA_BTN}
           >
-            전화상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
           </a>
           <Link
             href="/diagnosis"
             className="btn-primary"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.45rem",
-              fontSize: "1.1rem",
-              padding: "1rem 2.1rem",
-            }}
+            style={CTA_BTN_FILLED}
           >
-            무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </div>
       </Reveal>

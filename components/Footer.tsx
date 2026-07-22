@@ -11,6 +11,7 @@ const INSTAGRAM_URL = 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2b
 const SERVICE_LINKS = [
   { label: '회사소개',            href: '/about' },
   { label: '서비스',              href: '/service' },
+  { label: '제작 라인업',           href: '/guide' },
   { label: 'WEFLOW 혜택',         href: '/benefits' },
   { label: '제작 플랜 & 가격 안내', href: '/pricing' },
 ]
@@ -19,7 +20,7 @@ const CARE_LINKS = [
   { label: '성공 사례 포트폴리오',    href: '/cases' },
   { label: '성공 사례 인터뷰 & 후기', href: '/reviews' },
   { label: '예약',                   href: '/booking' },
-  { label: '무료 진단',               href: '/diagnosis' },
+  { label: '무료 견적',               href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */
@@ -61,7 +62,7 @@ const CONTACT_LINKS = [
  */
 export default function Footer() {
   return (
-    <footer style={{ background: '#0f172a', color: '#64748b', paddingBottom: '72px' }}>
+    <footer style={{ background: 'var(--section-b)', color: 'var(--text-muted)', paddingBottom: '72px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 1.5rem 0' }}>
 
         {/* ── 메인 그리드 ── */}
@@ -72,12 +73,12 @@ export default function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
               <Image src="/logo.png" alt="WEFLOW" width={28} height={28}
                 style={{ width: 28, height: 28, objectFit: 'contain' }} />
-              <span className="headline emphasized" style={{ color: '#f1f5f9', letterSpacing: '-0.02em' }}>WEFLOW</span>
+              <span className="headline emphasized" style={{ color: 'var(--text)', letterSpacing: '-0.02em' }}>WEFLOW</span>
             </div>
-            <p className="footnote" style={{ lineHeight: 1.8, margin: '0 0 1.25rem', color: '#94a3b8', wordBreak: 'keep-all' }}>
+            <p className="footnote" style={{ lineHeight: 1.8, margin: '0 0 1.25rem', color: 'var(--text-secondary)', wordBreak: 'keep-all' }}>
               제작부터 관리까지<br />비즈니스 성장을 함께합니다.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: '#475569' }} className="footnote">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: 'var(--text-muted)' }} className="footnote">
               <span>대표 : 신서준</span>
               <span>사업자등록번호 : 884-07-03480</span>
               <span>이메일 : contact@weflowlab.kr</span>
@@ -91,7 +92,7 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               {SERVICE_LINKS.map(l => (
                 <li key={l.label}>
-                  <Link href={l.href} className="footnote" style={{ color: '#94a3b8', textDecoration: 'none' }}>
+                  <Link href={l.href} className="footnote" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
                     {l.label}
                   </Link>
                 </li>
@@ -105,7 +106,7 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               {CARE_LINKS.map(l => (
                 <li key={l.label}>
-                  <Link href={l.href} className="footnote" style={{ color: '#94a3b8', textDecoration: 'none' }}>
+                  <Link href={l.href} className="footnote" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
                     {l.label}
                   </Link>
                 </li>
@@ -122,7 +123,7 @@ export default function Footer() {
                   <a href={href}
                     target={external ? '_blank' : undefined}
                     rel={external ? 'noopener noreferrer' : undefined}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: '#94a3b8', textDecoration: 'none' }} className="footnote">
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-secondary)', textDecoration: 'none' }} className="footnote">
                     <span style={{ display: 'inline-flex', color }}>
                       <Icon />
                     </span>
@@ -136,23 +137,23 @@ export default function Footer() {
 
         {/* ── 하단 카피라이트 ── */}
         <div style={{
-          borderTop: '1px solid #1e293b', marginTop: '2.5rem',
+          borderTop: '1px solid var(--border)', marginTop: '2.5rem',
           paddingTop: '1.25rem', paddingBottom: '1.5rem',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           flexWrap: 'wrap', gap: '0.5rem',
         }}>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <span className="caption-2" style={{ color: '#334155', cursor: 'pointer' }}>개인정보처리방침</span>
-            <span className="caption-2" style={{ color: '#334155', cursor: 'pointer' }}>이용약관</span>
-            <Link href="/admin" className="caption-2" style={{ color: '#334155', textDecoration: 'none' }}>관리자</Link>
+            <span className="caption-2" style={{ color: 'var(--text-muted)', cursor: 'pointer' }}>개인정보처리방침</span>
+            <span className="caption-2" style={{ color: 'var(--text-muted)', cursor: 'pointer' }}>이용약관</span>
+            <Link href="/admin" className="caption-2" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>관리자</Link>
           </div>
-          <span className="caption-2" style={{ color: '#334155' }}>© 2026 WEFLOW. All rights reserved.</span>
+          <span className="caption-2" style={{ color: 'var(--text-muted)' }}>© 2026 WEFLOW. All rights reserved.</span>
         </div>
       </div>
 
       <style>{`
         .ft-col-title {
-          font-size: 1.05rem; font-weight: 600; color: #f1f5f9;
+          font-size: 1.05rem; font-weight: 600; color: var(--text);
           letter-spacing: -0.01em;
           margin: 0 0 0.95rem;
         }

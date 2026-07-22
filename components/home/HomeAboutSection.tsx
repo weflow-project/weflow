@@ -16,7 +16,7 @@ export default function HomeAboutSection() {
   return (
     <section
       style={{
-        background: "var(--bg-secondary)",
+        background: "var(--section-a)",
         padding: "clamp(3rem, 7vw, 5.5rem) 1.25rem",
       }}
     >
@@ -58,7 +58,7 @@ export default function HomeAboutSection() {
             <div
               key={key}
               style={{
-                background: "#fff",
+                background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius-2xl)",
                 padding: "clamp(1.5rem, 3vw, 2rem)",
@@ -102,19 +102,23 @@ export default function HomeAboutSection() {
       </div>
 
       <style>{`
+        /* 카드를 좁혀 전체를 줄인다 — 사진은 비율 그대로라 잘리지 않는다 */
         .about-meaning {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1.1rem;
+          gap: 0.9rem;
+          max-width: 820px;
+          margin: 0 auto;
         }
         .about-card-img {
           position: relative;
           overflow: hidden;
           width: 100%;
+          /* 사진 원본 비율(16:9)과 같게 — 다르면 cover 가 잘라낸다 */
           aspect-ratio: 16 / 9;
-          margin-top: 1.1rem;
+          margin-top: 0.9rem;
           border-radius: var(--radius-xl);
-          background: #e6eaf1;
+          background: var(--surface-container);
           border: 1px solid var(--border);
         }
         @media (max-width: 640px) {
