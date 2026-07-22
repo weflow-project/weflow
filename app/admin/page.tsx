@@ -56,14 +56,14 @@ const STATUS_STYLE: Record<
   pending: {
     bg: "var(--bg-secondary)",
     color: "var(--text-secondary)",
-    border: "1px solid #d1d5db",
+    border: "1px solid var(--border)",
   },
   in_progress: {
     bg: "var(--accent-light)",
     color: "var(--accent-hover)",
-    border: "1px solid #b9d0f7",
+    border: "1px solid var(--accent)",
   },
-  done: { bg: "#f0fdf4", color: "#15803d", border: "1px solid #86efac" },
+  done: { bg: "var(--success-dim)", color: "var(--success-text)", border: "1px solid var(--success)" },
 };
 
 // /api/bookings 응답 한 건 — 상담 예약(희망 날짜·시간 포함)
@@ -162,7 +162,7 @@ function PeriodSelect({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       style={{
-        background: "#fff",
+        background: "var(--surface)",
         border: "1px solid var(--border)",
         borderRadius: "10px",
         padding: "0.5rem 0.9rem",
@@ -213,12 +213,12 @@ function StatCard({
   value: number;
   color: "blue" | "green";
 }) {
-  const accent = color === "blue" ? "var(--accent)" : "#16a34a";
+  const accent = color === "blue" ? "var(--accent)" : "var(--success)";
   return (
     <div
       className="admin-stat-card"
       style={{
-        background: "#fff",
+        background: "var(--surface)",
         border: "1px solid var(--border)",
         borderRadius: "14px",
         padding: "1.25rem 1.4rem",
@@ -357,7 +357,7 @@ function RequestTable({
               display: "inline-flex",
               alignItems: "center",
               gap: "0.4rem",
-              background: "#fff",
+              background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: "999px",
               padding: "0.45rem 1rem",
@@ -378,7 +378,7 @@ function RequestTable({
           overflowX: "auto",
           borderRadius: "16px",
           border: "1px solid var(--border)",
-          background: "#fff",
+          background: "var(--surface)",
         }}
       >
         <table
@@ -644,20 +644,20 @@ function ActionBtn({
   green?: boolean;
   active?: boolean;
 }) {
-  let bg = "#fff",
+  let bg = "var(--surface)",
     border = "var(--border)",
     color = "var(--text-secondary)";
   if (active && green) {
-    bg = "#dcfce7";
-    border = "#86efac";
-    color = "#15803d";
+    bg = "var(--success-dim)";
+    border = "var(--success)";
+    color = "var(--success-text)";
   } else if (active) {
     bg = "var(--accent-light)";
-    border = "#b9d0f7";
+    border = "var(--accent)";
     color = "var(--accent-hover)";
   } else if (red) {
-    bg = "#fff";
-    border = "#fca5a5";
+    bg = "var(--surface)";
+    border = "var(--danger)";
     color = "#ef4444";
   }
   return (
@@ -837,7 +837,7 @@ function AnalyticsView({
   const C_I = "#ec4899";
 
   const card: React.CSSProperties = {
-    background: "#fff",
+    background: "var(--surface)",
     border: "1px solid var(--border)",
     borderRadius: "16px",
     padding: "1.4rem 1.5rem",
@@ -925,7 +925,7 @@ function AnalyticsView({
                 cx={cx(n)}
                 cy={y(d.b)}
                 r={4}
-                fill="#fff"
+                fill="var(--surface)"
                 stroke={C_B}
                 strokeWidth={2}
               >
@@ -937,7 +937,7 @@ function AnalyticsView({
                 cx={cx(n)}
                 cy={y(d.i)}
                 r={4}
-                fill="#fff"
+                fill="var(--surface)"
                 stroke={C_I}
                 strokeWidth={2}
               >
@@ -1121,7 +1121,7 @@ const SOURCE_COLOR: Record<string, string> = {
   facebook: "#1877f2",
   google: "#ea4335",
   daum: "#06b6d4",
-  twitter: "#111",
+  twitter: "#e7e9ea",
   youtube: "#ff0000",
   band: "#00c73c",
   direct: "#94a3b8",
@@ -1195,7 +1195,7 @@ function TrafficMetric({
   return (
     <div
       style={{
-        background: "#fff",
+        background: "var(--surface)",
         border: "1px solid var(--border)",
         borderRadius: "16px",
         padding: "1.3rem 1.4rem",
@@ -1392,7 +1392,7 @@ function TrafficView({
   loading: boolean;
 }) {
   const card: React.CSSProperties = {
-    background: "#fff",
+    background: "var(--surface)",
     border: "1px solid var(--border)",
     borderRadius: "16px",
     padding: "1.4rem 1.5rem",
@@ -1580,7 +1580,7 @@ function TrafficView({
         )}
         <TrafficMetric
           Icon={Clock}
-          tint="#16a34a"
+          tint="var(--success)"
           label="평균 머문 시간"
           value={avgDur ? fmtDur(avgDur) : "-"}
           sub="한 명이 머문 평균 시간"
@@ -1594,8 +1594,8 @@ function TrafficView({
             display: "flex",
             alignItems: "center",
             gap: "0.9rem",
-            background: "linear-gradient(135deg, #eef4ff, #f7f0ff)",
-            border: "1px solid #dbe6fb",
+            background: "linear-gradient(135deg, var(--accent-light), var(--surface-container))",
+            border: "1px solid var(--border)",
             borderRadius: "16px",
             padding: "1.15rem 1.4rem",
           }}
@@ -1607,7 +1607,7 @@ function TrafficView({
               height: 44,
               borderRadius: 12,
               background: SOURCE_COLOR[sourceRows[0][0]] || "var(--accent)",
-              color: "#fff",
+              color: "var(--on-accent)",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
@@ -1626,12 +1626,9 @@ function TrafficView({
           >
             고객이 가장 많이 들어온 곳은{" "}
             <strong
-              style={{
-                color:
-                  SOURCE_COLOR[sourceRows[0][0]] === "#fae100"
-                    ? "#b59b00"
-                    : SOURCE_COLOR[sourceRows[0][0]] || "var(--accent)",
-              }}
+              // 어두운 배경이라 채널 고유색을 그대로 써도 잘 읽힌다
+              // (흰 배경이던 시절엔 카카오 노랑만 어둡게 눌러 썼었다)
+              style={{ color: SOURCE_COLOR[sourceRows[0][0]] || "var(--accent)" }}
             >
               {SOURCE_KO[sourceRows[0][0]] || sourceRows[0][0]}
             </strong>{" "}
@@ -1704,7 +1701,7 @@ function TrafficView({
       <section style={card}>
         <SectionHead
           Icon={TrendingUp}
-          tint="#16a34a"
+          tint="var(--success)"
           title="날짜별 방문자"
           desc="최근 14일 동안 하루에 몇 명이 왔는지"
         />
@@ -1797,7 +1794,7 @@ function TrafficView({
                       height: `${(h / maxHour) * 100}%`,
                       minHeight: h ? 3 : 0,
                       background:
-                        i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
+                        i >= 9 && i <= 18 ? "var(--accent)" : "var(--outline)",
                       borderRadius: "3px 3px 0 0",
                     }}
                   />
@@ -1891,7 +1888,7 @@ function TrafficView({
                       height: `${(h / maxHour) * 100}%`,
                       minHeight: h ? 3 : 0,
                       background:
-                        i >= 9 && i <= 18 ? "var(--accent)" : "#c7d7f5",
+                        i >= 9 && i <= 18 ? "var(--accent)" : "var(--outline)",
                       borderRadius: "3px 3px 0 0",
                     }}
                   />
@@ -2102,13 +2099,13 @@ export default function AdminPage() {
       >
         <div
           style={{
-            background: "#fff",
+            background: "var(--surface)",
             border: "1px solid var(--border)",
             borderRadius: "18px",
             padding: "1.75rem 2.75rem 2.75rem",
             width: "100%",
             maxWidth: "440px",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}
         >
           <div style={{ textAlign: "center", marginBottom: "2.25rem" }}>
@@ -2214,7 +2211,7 @@ export default function AdminPage() {
       <aside
         className="admin-sidebar"
         style={{
-          background: "#fff",
+          background: "var(--surface)",
           borderRight: "1px solid var(--border)",
           flexShrink: 0,
           display: "flex",
@@ -2277,7 +2274,7 @@ export default function AdminPage() {
               onClick={() => setTab(t.key)}
               style={{
                 background: tab === t.key ? "var(--accent)" : "none",
-                color: tab === t.key ? "#fff" : "var(--text-secondary)",
+                color: tab === t.key ? "var(--on-accent)" : "var(--text-secondary)",
                 border: "none",
                 borderRadius: "12px",
                 padding: "0.85rem 1.1rem",
@@ -2346,7 +2343,7 @@ export default function AdminPage() {
           position: "sticky",
           top: 0,
           zIndex: 100,
-          background: "#fff",
+          background: "var(--surface)",
           borderBottom: "1px solid var(--border)",
           display: "none",
           alignItems: "center",
@@ -2412,7 +2409,7 @@ export default function AdminPage() {
           position: "fixed",
           inset: 0,
           zIndex: 200,
-          background: "rgba(0,0,0,0.4)",
+          background: "rgba(0,0,0,0.6)",
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
           transition: "opacity 0.28s ease",
@@ -2430,8 +2427,8 @@ export default function AdminPage() {
           bottom: 0,
           zIndex: 201,
           width: "min(260px, 80vw)",
-          background: "#fff",
-          boxShadow: "4px 0 24px rgba(0,0,0,0.12)",
+          background: "var(--surface)",
+          boxShadow: "4px 0 24px rgba(0,0,0,0.5)",
           display: "none",
           flexDirection: "column",
           transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
@@ -2515,7 +2512,7 @@ export default function AdminPage() {
                 width: "100%",
                 textAlign: "left",
                 background: tab === t.key ? "var(--accent)" : "transparent",
-                color: tab === t.key ? "#fff" : "var(--text-secondary)",
+                color: tab === t.key ? "var(--on-accent)" : "var(--text-secondary)",
                 border: "none",
                 borderRadius: "10px",
                 padding: "0.75rem 1rem",
@@ -2697,8 +2694,8 @@ export default function AdminPage() {
                           : "admin-filter-btn"
                       }
                       style={{
-                        background: filter === f ? "var(--accent)" : "#fff",
-                        color: filter === f ? "#fff" : "var(--text-secondary)",
+                        background: filter === f ? "var(--accent)" : "var(--surface)",
+                        color: filter === f ? "var(--on-accent)" : "var(--text-secondary)",
                         border: `1px solid ${filter === f ? "var(--accent)" : "var(--border)"}`,
                         borderRadius: "999px",
                         padding: "0.45rem 1.1rem",
@@ -2722,7 +2719,7 @@ export default function AdminPage() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "0.4rem",
-                  background: "#fff",
+                  background: "var(--surface)",
                   border: "1px solid var(--border)",
                   borderRadius: "999px",
                   padding: "0.45rem 1.1rem",
@@ -2782,7 +2779,7 @@ export default function AdminPage() {
         .admin-wrap { display: flex; flex-direction: row; }
         .admin-sidebar { width: 264px; position: sticky; top: 0; align-self: flex-start; height: 100vh; overflow-y: auto; }
         .admin-stat-card { transition: transform 0.15s ease, box-shadow 0.15s ease; }
-        .admin-stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,18,32,0.06); }
+        .admin-stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
         .admin-row td { transition: background 0.12s ease; }
         .admin-row:hover td { background: var(--bg-secondary); }
         .stat-grid-4 { grid-template-columns: repeat(4, 1fr); }
