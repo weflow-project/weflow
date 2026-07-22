@@ -7,12 +7,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 // 성공 사례 탭(data/cases.ts)과 달리 여기는 골라서 넣는다.
 const SLIDES = [
   {
-    src: '/images/main/main-portfolio-01.jpg',
+    src: '/images/main/main-portfolio-01.webp',
     alt: '특장맨 특장 카니발 홈페이지 제작 사례',
     url: 'https://ksmobility-v2.vercel.app/',
   },
   {
-    src: '/images/main/main-portfolio-02.jpg',
+    src: '/images/main/main-portfolio-02.webp',
     alt: 'CAMP CAMBIO 캄비오 캠핑장 홈페이지 제작 사례',
     url: 'https://cambiocamp.vercel.app/',
   },

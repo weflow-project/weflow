@@ -165,7 +165,7 @@ export default function AdminPageSection() {
               }}
             >
               <Image
-                src="/images/main/main-admin-01.jpg"
+                src="/images/main/main-admin-01.webp"
                 alt="관리자 페이지"
                 fill
                 sizes="(max-width: 768px) 100vw, 520px"

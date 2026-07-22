@@ -11,37 +11,37 @@ const POINTS: { Icon: LucideIcon; title: string; desc: string; img: string }[] =
       Icon: MessageCircle,
       title: "소통",
       desc: "제작 전 충분한 상담으로 고객이 진짜 원하는 것을 먼저 듣고 시작합니다.",
-      img: "/images/main/main-listen-01.png",
+      img: "/images/main/main-listen-01.webp",
     },
     {
       Icon: PencilRuler,
       title: "직접 기획·설계",
       desc: "템플릿이 아니라, 사람이 목표부터 구조까지 전략을 세웁니다.",
-      img: "/images/about/about6.png",
+      img: "/images/about/about6.webp",
     },
     {
       Icon: Workflow,
       title: "맞춤형 플로우",
       desc: "업종과 고객 흐름에 맞춰 문의로 이어지는 동선을 설계합니다.",
-      img: "/images/about/about7.png",
+      img: "/images/about/about7.webp",
     },
     {
       Icon: PenLine,
       title: "맞춤형 워딩",
       desc: "업종과 브랜드 톤에 맞는 문구를 직접 설계해, 방문자에게 전달력 있게 다가갑니다.",
-      img: "/images/main/main-listen-02.png",
+      img: "/images/main/main-listen-02.webp",
     },
     {
       Icon: Users,
       title: "1:1 맞춤 시스템",
       desc: "전담 담당자가 고객 한 분을 전담하는 1:1 케어로 디테일까지 챙깁니다.",
-      img: "/images/main/main-listen-03.png",
+      img: "/images/main/main-listen-03.webp",
     },
     {
       Icon: Wrench,
       title: "지속 가능한 운영",
       desc: "제작 이후에도 광고 연동·유지보수·운영까지 함께합니다.",
-      img: "/images/about/about8.png",
+      img: "/images/about/about8.webp",
     },
   ];
 

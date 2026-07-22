@@ -41,7 +41,7 @@ export default function ServiceSwitch() {
           {[0, 1].map((i) => (
             <div key={i} className="svc-switch-img">
               <Image
-                src={`/images/service/service${i + 16}.png`}
+                src={`/images/service/service${i + 16}.webp`}
                 alt="타 서비스 전환"
                 fill
                 sizes="(max-width: 760px) 100vw, 420px"

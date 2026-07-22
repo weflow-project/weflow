@@ -170,7 +170,7 @@ export default function ServiceFeatures() {
               {/* 이미지 (관리자 페이지 제공 카드는 제외) */}
               <div className="svc-feat-img">
                 <Image
-                  src={`/images/service/service${i + 1}.png`}
+                  src={`/images/service/service${i + 1}.webp`}
                   alt={title}
                   fill
                   sizes="(max-width: 768px) 100vw, 340px"

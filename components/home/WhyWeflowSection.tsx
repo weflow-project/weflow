@@ -20,19 +20,19 @@ const DIFFS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = 
     Icon: PencilRuler,
     title: "사람이 직접 기획·설계",
     desc: "템플릿이 아니라, 전문가가 목표부터 구조까지 전략을 세웁니다.",
-    img: "/images/main/main-weflow-02.png",
+    img: "/images/main/main-weflow-02.webp",
   },
   {
     Icon: Workflow,
     title: "고객만의 맞춤 플로우",
     desc: "업종·고객 흐름에 맞춰 방문자가 문의에 이르는 동선을 설계합니다.",
-    img: "/images/main/main-weflow-03.png",
+    img: "/images/main/main-weflow-03.webp",
   },
   {
     Icon: ShieldCheck,
     title: "신뢰감 있는 완성도",
     desc: "브랜드를 담은 디자인으로 고객이 믿고 연락하는 홈페이지를 만듭니다.",
-    img: "/images/main/main-weflow-04.png",
+    img: "/images/main/main-weflow-04.webp",
   },
 ];
 
@@ -140,7 +140,7 @@ export default function WhyWeflowSection() {
               }}
             >
               <Image
-                src="/images/main/main-ai-homepage.png"
+                src="/images/main/main-ai-homepage.webp"
                 alt="AI로만 만든 홈페이지 예시"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -253,8 +253,8 @@ export default function WhyWeflowSection() {
           {/* 결과물 예시 2장 — 원본 비율(약 1.8:1)에 맞춰 잘리지 않게 둔다 */}
           <div className="wf-shots">
             {[
-              { src: "/images/main/main-weflow-01.png", alt: "홈페이지다운 홈페이지 예시 1" },
-              { src: "/images/main/main-weflow-05.png", alt: "홈페이지다운 홈페이지 예시 2" },
+              { src: "/images/main/main-weflow-01.webp", alt: "홈페이지다운 홈페이지 예시 1" },
+              { src: "/images/main/main-weflow-05.webp", alt: "홈페이지다운 홈페이지 예시 2" },
             ].map(({ src, alt }) => (
               <div key={src} className="wf-shot">
                 <Image

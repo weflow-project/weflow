@@ -20,7 +20,7 @@ export const steps: Step[] = [
     desc: "업종 및 제작 방향 확인",
     detail:
       "고객의 업종, 타겟 고객, 경쟁사 분석을 통해 최적의 제작 방향을 설정합니다.",
-    image: "/images/process/process-01-consult.png",
+    image: "/images/process/process-01-consult.webp",
   },
   {
     num: "02",
@@ -28,7 +28,7 @@ export const steps: Step[] = [
     desc: "문의 구조 및 전략 설계",
     detail:
       "고객이 문의로 이어지는 동선을 설계하고, 버튼 위치와 CTA 구조를 최적화합니다.",
-    image: "/images/process/process-02-plan.png",
+    image: "/images/process/process-02-plan.webp",
   },
   {
     num: "03",
@@ -36,14 +36,14 @@ export const steps: Step[] = [
     desc: "브랜드 맞춤 화면 구성",
     detail:
       "업종별 특성에 맞는 컬러, 레이아웃, 폰트를 선정하여 브랜드 아이덴티티를 구현합니다.",
-    image: "/images/process/process-03-design.png",
+    image: "/images/process/process-03-design.webp",
   },
   {
     num: "04",
     title: "개발",
     desc: "필요한 기능 구현 및 페이지 개발",
     detail: "설계안을 바탕으로 페이지와 기능을 안정적으로 개발합니다.",
-    image: "/images/process/process-04-dev.png",
+    image: "/images/process/process-04-dev.webp",
   },
   {
     num: "05",
@@ -51,7 +51,7 @@ export const steps: Step[] = [
     desc: "반응형 검수 · 실제 배포",
     detail:
       "PC·모바일 반응형과 속도·오류·크로스브라우저까지 최종 점검한 뒤, 실제 도메인에 배포해 사이트를 오픈합니다.",
-    image: "/images/process/process-05-responsive.png",
+    image: "/images/process/process-05-responsive.webp",
   },
   {
     num: "06",
@@ -59,6 +59,6 @@ export const steps: Step[] = [
     desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스",
     detail:
       "WEFLOW만의 제휴 채널(블로그·인스타그램·\n유튜브 숏폼·네이버 플레이스)에 연결하고\n검색 상단 노출까지 관리해, 제작 이후에도 노출과 유입을 만듭니다.",
-    image: "/images/process/process-06-marketing.png",
+    image: "/images/process/process-06-marketing.webp",
   },
 ];

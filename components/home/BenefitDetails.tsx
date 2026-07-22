@@ -11,7 +11,6 @@ const ICON_ORDER = [3, 2, 1, 2, 3, 1];
 type Benefit = {
   title: string;
   points: string[];
-  image: string;
   icon: string;
   cta?: { label: string; href: string };
 };
@@ -26,7 +25,6 @@ const BENEFITS: Benefit[] = [
       "네이버 플레이스 — 지역 검색·지도 노출",
       "제휴 채널 통합 운영으로 검색 상단 관리",
     ],
-    image: "/images/benefits/benefit-01-partnership.png",
     icon: "/images/3d-icon/benefit001.svg",
   },
   {
@@ -36,7 +34,6 @@ const BENEFITS: Benefit[] = [
       "문의·예약 접수 내역을 한곳에서 관리",
       "통계로 유입·전환 추이를 한눈에 파악",
     ],
-    image: "/images/benefits/benefit-03-fast.png",
     icon: "/images/3d-icon/benefit003.svg",
   },
   {
@@ -45,7 +42,6 @@ const BENEFITS: Benefit[] = [
       "PC·모바일 등 모든 기기에서 최적화",
       "화면 잘림 없는 깔끔한 반응형 전환",
     ],
-    image: "/images/benefits/benefit-06-responsive.png",
     icon: "/images/3d-icon/benefit006.svg",
   },
   {
@@ -54,7 +50,6 @@ const BENEFITS: Benefit[] = [
       "정가 대비 100만원 이내로 제작 가능",
       "필요한 기능만 구성한 합리적인 비용",
     ],
-    image: "/images/benefits/benefit-02-price.png",
     icon: "/images/3d-icon/benefit002.svg",
     cta: { label: "제작 플랜 보기", href: "/pricing" },
   },
@@ -64,7 +59,6 @@ const BENEFITS: Benefit[] = [
       "충분한 소통으로 고객의 니즈 파악",
       "전담 담당자가 고객 한 분을 1:1로 전담",
     ],
-    image: "/images/benefits/benefit-04-listen.png",
     icon: "/images/3d-icon/benefit004.svg",
   },
   {
@@ -74,7 +68,6 @@ const BENEFITS: Benefit[] = [
       "도메인·서버 관리 지원",
       "텍스트 문구 / 이미지 수정 지원",
     ],
-    image: "/images/benefits/benefit-05-maintain.png",
     icon: "/images/3d-icon/benefit005.svg",
   },
 ];
@@ -141,7 +134,7 @@ export default function BenefitDetails() {
                     }}
                   >
                     <Image
-                      src={`/images/benefits/benefits-icon-0${ICON_ORDER[i]}.png`}
+                      src={`/images/benefits/benefits-icon-0${ICON_ORDER[i]}.webp`}
                       alt=""
                       fill
                       sizes="54px"
@@ -207,7 +200,7 @@ export default function BenefitDetails() {
                 <div className="bd-img">
                   <div className="bd-img-inner">
                     <Image
-                      src={`/images/benefits/benefits${i + 1}.png`}
+                      src={`/images/benefits/benefits${i + 1}.webp`}
                       alt={b.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 520px"
@@ -264,7 +257,7 @@ export default function BenefitDetails() {
           <Reveal as="div" stagger className="bd-band-imgs">
             <div className="bd-band-img">
               <Image
-                src="/images/benefits/benefits7.png"
+                src="/images/benefits/benefits7.webp"
                 alt="24시간 상담 대기"
                 fill
                 sizes="(max-width: 768px) 100vw, 360px"
@@ -273,7 +266,7 @@ export default function BenefitDetails() {
             </div>
             <div className="bd-band-img">
               <Image
-                src="/images/benefits/benefits8.png"
+                src="/images/benefits/benefits8.webp"
                 alt="24시간 상담 대기"
                 fill
                 sizes="(max-width: 768px) 100vw, 360px"

@@ -140,7 +140,7 @@ export default function AdManagement() {
               Icon={Icon}
               title={title}
               desc={desc}
-              img={`/images/service/service${i + 18}.png`}
+              img={`/images/service/service${i + 18}.webp`}
             />
           ))}
         </Reveal>

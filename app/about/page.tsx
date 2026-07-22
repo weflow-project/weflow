@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 // 사명 풀이 — WE · FLOW 두 카드
 const MEANING: { key: string; desc: string; img: string }[] = [
-  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/about/about2.png" },
-  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 앞으로 나아가는 움직임", img: "/images/about/about3.png" },
+  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/about/about2.webp" },
+  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 앞으로 나아가는 움직임", img: "/images/about/about3.webp" },
 ];
 
 // 브랜드 스토리 본문 — 한 줄씩 순차 등장
@@ -91,8 +91,8 @@ export default function AboutPage() {
           </Reveal>
           <Reveal as="div" stagger className="about-hero-imgs">
             {[
-              { src: "/images/about/about1.png", alt: "WEFLOW 사무 공간" },
-              { src: "/images/about/about9.png", alt: "WEFLOW 작업 모습" },
+              { src: "/images/about/about1.webp", alt: "WEFLOW 사무 공간" },
+              { src: "/images/about/about9.webp", alt: "WEFLOW 작업 모습" },
             ].map(({ src, alt }) => (
               // 원본(16:9)보다 좁게 잡아 좌우를 조금씩 덜어낸다 (cover 가 양옆을 잘라낸다)
               <div key={src} className="about-img" style={{ aspectRatio: "924 / 572" }}>
@@ -254,7 +254,7 @@ export default function AboutPage() {
                 // 원본이 16:9 — 자리를 같은 비율로 둬야 잘리지 않는다
                 <div key={i} className="about-img" style={{ aspectRatio: "16 / 9" }}>
                   <Image
-                    src={`/images/about/about${i + 4}.png`}
+                    src={`/images/about/about${i + 4}.webp`}
                     alt="WEFLOW 이야기"
                     fill
                     sizes="(max-width: 768px) 100vw, 480px"

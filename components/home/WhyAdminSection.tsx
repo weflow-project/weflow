@@ -176,7 +176,7 @@ export default function WhyAdminSection() {
             {/* 이미지 — 원본 비율 그대로(자르지 않음) */}
             <div className="wa-img">
               <Image
-                src={`/images/main/main-adminwhy-0${i + 1}.png`}
+                src={`/images/main/main-adminwhy-0${i + 1}.webp`}
                 alt={p.title}
                 width={IMG_DIMS[i].w}
                 height={IMG_DIMS[i].h}

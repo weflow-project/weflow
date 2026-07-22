@@ -9,13 +9,13 @@ const CARDS: { Icon: LucideIcon; title: string; desc: string; img: string }[] = 
     Icon: Wrench,
     title: "타 서비스 전환 고객",
     desc: "현재 홈페이지에 아쉬움이 있어 점검과 개선이 필요한 분",
-    img: "/images/main/main-customer-01.png",
+    img: "/images/main/main-customer-01.webp",
   },
   {
     Icon: Rocket,
     title: "신규 고객",
     desc: "업종을 준비 중이거나 이미 운영 중이지만, 아직 홈페이지 방향을 잡지 못한 분",
-    img: "/images/main/main-customer-02.png",
+    img: "/images/main/main-customer-02.webp",
   },
 ];
 

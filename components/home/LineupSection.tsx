@@ -26,12 +26,12 @@ const ITEMS: {
   no: string; name: string; tag: string; img: string; anchor: string
   cardLines?: string[]
 }[] = [
-  { no: '01', name: '홈페이지',        tag: 'WHAT IS A HOMEPAGE',   img: '/images/main/main-guide-01.png',    anchor: 'homepage'  },
-  { no: '02', name: '홈페이지가 필요한 이유',      tag: 'WHY YOU NEED ONE',     img: '/images/main/main-guide-02.png',         anchor: 'why-homepage'  },
-  { no: '03', name: '랜딩형 홈페이지',   tag: 'LANDING HOMEPAGE',     img: '/images/main/main-guide-03.png', anchor: 'landing-home'  },
-  { no: '04', name: '랜딩페이지',       tag: 'LANDING PAGE',         img: '/images/main/main-guide-04.png',     anchor: 'landing'  },
-  { no: '05', name: '관리자 페이지',     tag: 'ADMIN PAGE',           img: '/images/main/main-guide-05.png',       anchor: 'admin'  },
-  { no: '06', name: '관리자 페이지가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.png',    anchor: 'why-admin', cardLines: ['관리자 페이지가', '필요한 이유'] },
+  { no: '01', name: '홈페이지',        tag: 'WHAT IS A HOMEPAGE',   img: '/images/main/main-guide-01.webp',    anchor: 'homepage'  },
+  { no: '02', name: '홈페이지가 필요한 이유',      tag: 'WHY YOU NEED ONE',     img: '/images/main/main-guide-02.webp',         anchor: 'why-homepage'  },
+  { no: '03', name: '랜딩형 홈페이지',   tag: 'LANDING HOMEPAGE',     img: '/images/main/main-guide-03.webp', anchor: 'landing-home'  },
+  { no: '04', name: '랜딩페이지',       tag: 'LANDING PAGE',         img: '/images/main/main-guide-04.webp',     anchor: 'landing'  },
+  { no: '05', name: '관리자 페이지',     tag: 'ADMIN PAGE',           img: '/images/main/main-guide-05.webp',       anchor: 'admin'  },
+  { no: '06', name: '관리자 페이지가 필요한 이유', tag: 'WHY ADMIN MATTERS',  img: '/images/main/main-guide-06.webp',    anchor: 'why-admin', cardLines: ['관리자 페이지가', '필요한 이유'] },
 ]
 
 export default function LineupSection() {

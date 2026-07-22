@@ -80,7 +80,7 @@ export default function HomePage() {
           </>
         }
         body={<>WEFLOW가 직접 제작한 결과물,<br />실제 고객 인터뷰로 확인하세요.</>}
-        image="/images/main/main-review-01.png"
+        image="/images/main/main-review-01.webp"
         imageAlt="WEFLOW 고객 인터뷰"
         imageCount={1}
       />

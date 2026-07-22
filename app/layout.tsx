@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
     url: 'https://weflowlab.kr',
     siteName: 'WEFLOW',
-    images: [{ url: '/images/main/og-main.png', width: 1200, height: 630 }],
+    images: [{ url: '/images/main/og-main.webp', width: 1200, height: 630 }],
     type: 'website',
     locale: 'ko_KR',
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'WEFLOW — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
     description: '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
-    images: ['/images/main/og-main.png'],
+    images: ['/images/main/og-main.webp'],
   },
   verification: {
     other: {
@@ -56,7 +56,7 @@ const ORGANIZATION_JSON_LD = {
   alternateName: '위플로우',
   url: 'https://weflowlab.kr',
   logo: 'https://weflowlab.kr/logo.png',
-  image: 'https://weflowlab.kr/images/main/og-main.png',
+  image: 'https://weflowlab.kr/images/main/og-main.webp',
   description:
     '홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계하는 홈페이지 제작 전문 업체.',
   email: 'contact@weflowlab.kr',

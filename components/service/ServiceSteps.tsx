@@ -49,7 +49,7 @@ export default function ServiceSteps() {
                 {/* 이미지 */}
                 <div className="pt-img">
                   <Image
-                    src={`/images/service/service${i + 10}.png`}
+                    src={`/images/service/service${i + 10}.webp`}
                     alt={s.title}
                     fill
                     sizes="(max-width: 900px) 100vw, 340px"

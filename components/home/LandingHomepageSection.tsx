@@ -158,7 +158,7 @@ export default function LandingHomepageSection() {
               aria-label="참고 랜딩형 홈페이지 새 탭으로 열기"
             >
               <Image
-                src="/images/main/main-landing-home-01.png"
+                src="/images/main/main-landing-home-01.webp"
                 alt="랜딩형 홈페이지란"
                 width={751}
                 height={820}

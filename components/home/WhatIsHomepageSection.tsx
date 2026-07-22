@@ -96,12 +96,12 @@ const POINTS: Point[] = [
 
 // POINTS 순서와 1:1 매핑 (03만 .jpg)
 const WHY_IMAGES = [
-  '/images/main/main-why-01.png',
-  '/images/main/main-why-02.png',
-  '/images/main/main-why-03.png',
-  '/images/main/main-why-04.png',
-  '/images/main/main-why-05.png',
-  '/images/main/main-why-06.png',
+  '/images/main/main-why-01.webp',
+  '/images/main/main-why-02.webp',
+  '/images/main/main-why-03.webp',
+  '/images/main/main-why-04.webp',
+  '/images/main/main-why-05.webp',
+  '/images/main/main-why-06.webp',
 ]
 
 /**

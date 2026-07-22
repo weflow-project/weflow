@@ -110,7 +110,7 @@ export default function HomeServiceSection() {
               </p>
               <div className="svc-step-img">
                 <Image
-                  src={`/images/main/main-service-${num}.png`}
+                  src={`/images/main/main-service-${num}.webp`}
                   alt={title}
                   fill
                   sizes="(max-width: 768px) 100vw, 340px"

@@ -6,19 +6,19 @@ import Reveal from "@/components/Reveal";
 const BENEFITS = [
   {
     no: "혜택 01",
-    icon: "/images/main/main-benefit-01.png",
+    icon: "/images/main/main-benefit-01.webp",
     title: ["제휴 마케팅 협업", "SEO 상단 관리"],
     desc: "제휴 마케팅 협업으로\n검색 상단 관리",
   },
   {
     no: "혜택 02",
-    icon: "/images/main/main-benefit-02.png",
+    icon: "/images/main/main-benefit-02.webp",
     title: ["확실한", "고객 DB 확보"],
     desc: "문의·예약을 통계로\n관리하는 나만의 관리자 페이지",
   },
   {
     no: "혜택 03",
-    icon: "/images/main/main-benefit-03.png",
+    icon: "/images/main/main-benefit-03.webp",
     title: ["신규 런칭 기념", "50% 특별 프로모션"],
     desc: "전상품 50% 할인 · 도메인 제공 ·\n정기 유지보수",
   },

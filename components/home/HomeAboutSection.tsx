@@ -4,8 +4,8 @@ import Reveal from "@/components/Reveal";
 
 // 사명 WEFLOW를 WE / FLOW 두 글자로 나눠 각각의 뜻을 담은 카드 2개
 const MEANING = [
-  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/main/main-about-01.png" },
-  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 나아가는 움직임", img: "/images/main/main-about-02.png" },
+  { key: "WE", desc: "우리 · 사람 · 관계 · 함께하는 가치", img: "/images/main/main-about-01.webp" },
+  { key: "FLOW", desc: "흐름 · 성장 · 연결 · 나아가는 움직임", img: "/images/main/main-about-02.webp" },
 ];
 
 /**

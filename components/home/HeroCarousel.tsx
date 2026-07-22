@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // 히어로 대표 이미지 10장 (main-hero-01 ~ 10)
 const SLIDES = Array.from({ length: 10 }, (_, i) => ({
-  src: `/images/main/main-hero-${String(i + 1).padStart(2, '0')}.png`,
+  src: `/images/main/main-hero-${String(i + 1).padStart(2, '0')}.webp`,
   label: `대표 이미지 ${i + 1}`,
 }))
 const COUNT = SLIDES.length

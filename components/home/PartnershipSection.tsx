@@ -145,7 +145,7 @@ const CHANNELS: {
     tag: "검색 노출",
     desc: "정보성 콘텐츠를 발행해 네이버 검색 상단에서 잠재 고객을 꾸준히 만납니다.",
     brand: BRAND.naver,
-    img: "/images/main/main-partner-03.png",
+    img: "/images/main/main-partner-03.webp",
   },
   {
     area: "bento-ch2",
@@ -154,7 +154,7 @@ const CHANNELS: {
     tag: "브랜드 도달",
     desc: "메타 광고로 브랜드 분위기를 전하고 팔로워를 잠재 고객으로 전환합니다.",
     brand: BRAND.instagram,
-    img: "/images/main/main-partner-04.png",
+    img: "/images/main/main-partner-04.webp",
   },
   {
     area: "bento-ch3",
@@ -163,7 +163,7 @@ const CHANNELS: {
     tag: "바이럴 확산",
     desc: "짧고 강한 숏폼 영상으로 빠르게 브랜드 인지도를 확산시킵니다.",
     brand: BRAND.youtube,
-    img: "/images/main/main-partner-05.png",
+    img: "/images/main/main-partner-05.webp",
   },
   {
     area: "bento-ch4",
@@ -172,7 +172,7 @@ const CHANNELS: {
     tag: "지역 노출",
     desc: "지역 검색·지도에서 우리 매장을 먼저 노출해 방문과 문의로 연결합니다.",
     brand: BRAND.naver,
-    img: "/images/main/main-partner-06.png",
+    img: "/images/main/main-partner-06.webp",
   },
 ];
 
@@ -279,7 +279,7 @@ export default function PartnershipSection() {
             <div className="bento-img">
               <ImagePlaceholder
                 aspectRatio="16 / 9"
-                src="/images/main/main-partner-01.png"
+                src="/images/main/main-partner-01.webp"
                 label="4개 채널 동시 노출"
               />
             </div>
@@ -319,7 +319,7 @@ export default function PartnershipSection() {
             <div className="bento-img">
               <ImagePlaceholder
                 aspectRatio="16 / 9"
-                src="/images/main/main-partner-02.png"
+                src="/images/main/main-partner-02.webp"
                 label="제작 이후에도 지속되는 유입"
               />
             </div>

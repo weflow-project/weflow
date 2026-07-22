@@ -69,7 +69,7 @@ export default function ComparisonCTA() {
           {/* 캐릭터 이미지 */}
           <div className="cmp-char">
             <Image
-              src="/images/main/main-character.png"
+              src="/images/main/main-character.webp"
               alt="위플로우 캐릭터"
               fill
               sizes="(max-width: 768px) 240px, 720px"

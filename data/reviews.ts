@@ -29,7 +29,7 @@ export const reviews: Review[] = [
     category: '영업 직종',
     site: '메타리치THE한빛 박나라 컨설턴트',
     siteUrl: 'https://parknara.vercel.app/',
-    siteImage: '/images/cases/cases-parknara-01.png',
+    siteImage: '/images/cases/cases-parknara-01.webp',
     paragraphs: [
       '저는 광고에 크게 관심이 없어서 홈페이지 만들고까지는 생각 안 해봤는데, 우연한 계기로 위플로우를 알게 됐습니다.',
       '사설 광고에 사기를 당해본 저로서는 광고라 하면 부정적인 생각으로 안 한다 그러고 마는데, 대표님의 설명에 혹해서 제작을 하게 되었는데요.',

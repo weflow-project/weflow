@@ -157,7 +157,7 @@ export default function LandingPageSection() {
               }}
             >
               <Image
-                src="/images/main/main-landing-01.png"
+                src="/images/main/main-landing-01.webp"
                 alt="랜딩페이지란"
                 fill
                 sizes="(max-width: 768px) 100vw, 520px"

@@ -227,7 +227,7 @@ export default function HomepageDefinitionSection() {
               }}
             >
               <Image
-                src="/images/main/main-homepage-01.png"
+                src="/images/main/main-homepage-01.webp"
                 alt="홈페이지란"
                 fill
                 sizes="(max-width: 768px) 100vw, 520px"
