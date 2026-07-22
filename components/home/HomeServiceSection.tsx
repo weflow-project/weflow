@@ -102,7 +102,9 @@ export default function HomeServiceSection() {
               </h3>
               <p
                 className="callout c-muted"
-                style={{ margin: 0, wordBreak: "keep-all" }}
+                // marginBottom: auto — 설명 줄 수가 달라도 남는 공간을 여기서 흡수해
+                // 아래 사진이 카드 바닥에 붙는다 (칸마다 사진 높이가 같아 위쪽 선도 맞는다)
+                style={{ margin: 0, marginBottom: "auto", wordBreak: "keep-all" }}
               >
                 {desc}
               </p>
@@ -140,6 +142,10 @@ export default function HomeServiceSection() {
         .svc-step {
           position: relative;
           overflow: hidden;
+          /* 세로 흐름으로 두고 설명이 남는 공간을 밀어내게 한다 —
+             설명이 한 줄인 칸과 두 줄인 칸의 사진 위치가 어긋나지 않는다 */
+          display: flex;
+          flex-direction: column;
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-2xl);
