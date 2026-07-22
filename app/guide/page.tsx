@@ -145,13 +145,13 @@ export default function GuidePage() {
               flexWrap: "wrap",
             }}
           >
-            <Link
-              href="/pricing"
+            <a
+              href="tel:010-2971-7280"
               className="btn-outline"
               style={CTA_BTN}
             >
-              가격 먼저 보기 <ArrowRight size={18} strokeWidth={2.5} />
-            </Link>
+              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            </a>
             <Link
               href="/diagnosis"
               className="btn-primary"
