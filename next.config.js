@@ -10,6 +10,26 @@ const nextConfig = {
       { protocol: 'https', hostname: '**' },
     ],
   },
+
+  // 모든 페이지에 붙는 보안 헤더.
+  // HTTPS 강제(strict-transport-security)는 Vercel 이 자동으로 넣어주므로 여기선 생략.
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          // 다른 사이트가 우리 페이지를 iframe 으로 끼워 넣지 못하게 (클릭재킹 차단)
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          // 브라우저가 파일 형식을 제멋대로 추측하지 않게 (스크립트로 오인식되는 것 방지)
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          // 외부 사이트로 이동할 때 도메인까지만 넘기고 전체 주소는 감춘다
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          // 쓰지 않는 기기 권한은 아예 막아 둔다
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
