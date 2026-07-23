@@ -6,6 +6,7 @@ import '../styles/globals.css'
 import ClientLayout from '@/components/ClientLayout'
 import Analytics from '@/components/Analytics'
 import PageTracker from '@/components/PageTracker'
+import FontLoader from '@/components/FontLoader'
 
 /**
  * 리뉴얼 미리보기 사이트(weflow-pied.vercel.app)를 검색에서 가린다.
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" data-scroll-behavior="smooth">
       <body>
+        <FontLoader />
         {/*
          * 브라우저의 스크롤 위치 복원을 끈다.
          * 화면이 그려지기 전(HTML 파싱 중)에 실행돼야 복원 자체가 일어나지 않는다.
