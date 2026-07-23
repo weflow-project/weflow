@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from 'react'
 /**
  * 히어로 배경 영상.
  *
- * 처음에는 검은 배경만 두고, 페이지의 나머지가 다 뜬 뒤에 영상(10MB)을 받는다.
- * 영상을 처음부터 받으면 글자·사진과 대역폭을 다퉈 첫 화면이 뜨는 시간(LCP)이
- * 4초 넘게 밀린다.
- *
- * 재생이 시작되면 서서히 나타나게 해 검정에서 툭 튀지 않도록 한다.
+ * 검은 배경 위에서 영상이 서서히 나타난다(어제 확정한 연출).
+ * 영상(4MB)은 faststart(재생 정보가 파일 앞) + 서버 Range 지원 덕에
+ * 전체를 다 받지 않고 앞부분만 받아 바로 재생된다(프로그레시브 스트리밍).
+ * 그래서 window load 까지 기다리지 않고 마운트 직후 곧바로 로드를 시작한다.
  */
 export default function HeroVideo() {
   const ref = useRef<HTMLVideoElement>(null)
@@ -18,28 +17,17 @@ export default function HeroVideo() {
     const el = ref.current
     if (!el) return
 
-    let timer: number
-    const start = () => {
-      // 로드 직후는 아직 바쁘므로 한 박자 뒤에
-      timer = window.setTimeout(() => {
-        el.src = '/video/hero-video.mp4'
-        el.load()
-        el.play().catch(() => {}) // 자동재생이 막히면 검은 배경이 그대로 남는다
-      }, 200)
-    }
+    const id = requestAnimationFrame(() => {
+      el.src = '/video/hero-video.mp4'
+      el.load()
+      el.play().catch(() => {}) // 자동재생이 막히면 검은 배경이 그대로 남는다
+    })
 
-    if (document.readyState === 'complete') start()
-    else window.addEventListener('load', start, { once: true })
-
-    return () => {
-      window.clearTimeout(timer)
-      window.removeEventListener('load', start)
-    }
+    return () => cancelAnimationFrame(id)
   }, [])
 
   return (
     // 검은 판을 뒤에 깔고 그 위에서 영상을 서서히 띄운다.
-    // (영상만 두면 투명해지는 동안 섹션 배경색이 비친다)
     <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundColor: '#000' }}>
       <video
         ref={ref}

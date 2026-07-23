@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Pretendard', 'system-ui', 'sans-serif'],
+        sans: ['Pretendard Variable', 'Pretendard', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
