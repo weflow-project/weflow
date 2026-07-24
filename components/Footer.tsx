@@ -18,7 +18,7 @@ const SERVICE_LINKS = [
 ]
 
 const CARE_LINKS = [
-  { label: '포트폴리오 성공 사례', href: '/cases' },
+  { label: '제작 사례', href: '/cases' },
   { label: '인터뷰 & 후기',       href: '/reviews' },
   { label: '예약',               href: '/booking' },
   { label: '무료 견적',           href: '/diagnosis' },

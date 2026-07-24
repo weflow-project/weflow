@@ -46,7 +46,7 @@ export default function HomePage() {
       {/* 2~7. 새 섹션 (임시 문구 · 텍스트 아래 이미지) */}
       {/* 2. 포트폴리오 — 이미지를 누르면 실제 제작 사이트로 이동 */}
       <PlaceholderSection
-        eyebrow="포트폴리오"
+        eyebrow="제작 사례"
         stars
         title={
           <>
