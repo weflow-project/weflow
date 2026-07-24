@@ -89,7 +89,9 @@ export default function HeroBackground() {
       const fx = W / 2 - fw / 2, fy = anchorY - fh * 0.05
       const X = (r: number) => fx + r * fw, Y = (r: number) => fy + r * fh
       const total = 13
-      const cyc = (t * 0.11) % total
+      // 조립 속도를 프레임 크기(fh)에 반비례시켜, 큰 프레임(모바일)도
+      // 실제 그려지는 속도(픽셀/초)가 데스크탑과 같게 한다 (기준 fh 370)
+      const cyc = (t * 0.11 * (370 / fh)) % total
       const out = Math.max(0, Math.min(1, (cyc - (total - 2)) / 1.6))
       const base = (1 - out) * am
       const seg = (d: number) => Math.max(0, Math.min(1, cyc - d))
