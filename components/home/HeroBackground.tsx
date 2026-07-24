@@ -28,6 +28,7 @@ export default function HeroBackground() {
     // 아이브로우 배지(상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
     const ebEl = document.querySelector('.hero-eyebrow') as HTMLElement | null
     const ctaEl = document.querySelector('.hero-btn--ghost') as HTMLElement | null
+    const h1El = document.querySelector('.hero-section h1') as HTMLElement | null
     let W = 0, H = 0
 
     const resize = () => {
@@ -73,9 +74,16 @@ export default function HeroBackground() {
 
     // 와이어프레임 — 브라우저 목업이 커서 따라 그려짐
     const drawWireframe = (t: number, am: number) => {
-      // 모바일은 화면 대비 크게, 데스크탑은 상한을 둔다
-      const fw = W < 700 ? W * 0.86 : Math.min(W * 0.46, 560)
-      let fh = fw * 0.66
+      // 모바일은 화면 대비 크게, 데스크탑은 가로를 넓혀 타이틀을 감싼다(세로는 고정)
+      let fw = W < 700 ? W * 0.86 : Math.min(W * 0.72, 940)
+      // 타이틀의 실제 렌더 폭을 재서 그보다 넓게 감싼다 (화면은 넘지 않게)
+      if (h1El) {
+        const rng = document.createRange()
+        rng.selectNodeContents(h1El)
+        const tw = rng.getBoundingClientRect().width
+        fw = Math.min(W - 4, Math.max(fw, tw + 26))
+      }
+      let fh = W < 700 ? fw * 0.66 : 370
       const cr = cv.getBoundingClientRect()
       // 브라우저 상단바(세로 0.05fh 지점)가 아이브로우 배지 중앙에 오도록 맞춘다
       let anchorY = H * 0.27
@@ -83,7 +91,7 @@ export default function HeroBackground() {
         const er = ebEl.getBoundingClientRect()
         anchorY = er.top - cr.top + er.height / 2
       }
-      // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다
+      // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
       if (W < 700 && ctaEl) {
         const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
         fh = Math.max(fh, (ctaBottom + 12 - anchorY) / 0.95)

@@ -10,18 +10,18 @@ const YOUTUBE_URL = 'https://www.youtube.com/channel/UCc3SKVxpHSLeIoZJ5IE6fcA'
 
 /* 헤더(Navbar) 메뉴와 동일하게 맞춤 */
 const SERVICE_LINKS = [
-  { label: '회사소개',            href: '/about' },
-  { label: '서비스',              href: '/service' },
-  { label: '제작 라인업',           href: '/guide' },
-  { label: 'WEFLOW 혜택',         href: '/benefits' },
-  { label: '제작 플랜 & 가격 안내', href: '/pricing' },
+  { label: '회사소개',        href: '/about' },
+  { label: '서비스',          href: '/service' },
+  { label: '가격',            href: '/pricing' },
+  { label: '제작 라인업',       href: '/guide' },
+  { label: 'WEFLOW 혜택',     href: '/benefits' },
 ]
 
 const CARE_LINKS = [
-  { label: '성공 사례 포트폴리오',    href: '/cases' },
-  { label: '성공 사례 인터뷰 & 후기', href: '/reviews' },
-  { label: '예약',                   href: '/booking' },
-  { label: '무료 견적',               href: '/diagnosis' },
+  { label: '포트폴리오 성공 사례', href: '/cases' },
+  { label: '인터뷰 & 후기',       href: '/reviews' },
+  { label: '예약',               href: '/booking' },
+  { label: '무료 견적',           href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */

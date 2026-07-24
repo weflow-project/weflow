@@ -10,10 +10,10 @@ import { Menu, X } from "lucide-react";
 const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
+  { href: "/pricing", label: "가격" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  { href: "/pricing", label: "가격" },
-  { href: "/cases", label: "포트폴리오" },
+  { href: "/cases", label: "포트폴리오 성공 사례" },
   { href: "/reviews", label: "인터뷰 & 후기" },
   { href: "/booking", label: "예약" },
 ];
