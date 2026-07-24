@@ -747,12 +747,11 @@
     opacity: 1;
     padding-left: 18px;
   }
-  /* 터치 기기(마우스 hover 불가)는 아이콘만 */
+  /* 터치 기기(마우스 hover 불가)는 라벨을 아예 렌더하지 않는다 —
+     아이콘만 노출하고 탭하면 바로 해당 링크로 이동 */
   @media (hover: none) {
-    .fab:hover .fab-label {
-      max-width: 0;
-      opacity: 0;
-      padding-left: 0;
+    .fab-label {
+      display: none;
     }
   }
 

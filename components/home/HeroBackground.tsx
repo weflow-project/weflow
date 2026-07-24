@@ -25,6 +25,9 @@ export default function HeroBackground() {
     const ctx = cv.getContext('2d')
     if (!ctx) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // 아이브로우 배지(상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
+    const ebEl = document.querySelector('.hero-eyebrow') as HTMLElement | null
+    const ctaEl = document.querySelector('.hero-btn--ghost') as HTMLElement | null
     let W = 0, H = 0
 
     const resize = () => {
@@ -40,20 +43,23 @@ export default function HeroBackground() {
 
     // 네트워크 — 부유 노드 + 근접 연결선
     const drawNetwork = (t: number) => {
-      const N = 120
+      // 노드 수·연결거리·부유폭을 화면 크기에 비례시켜 모바일/데스크탑 밀도를 맞춘다
+      const N = Math.max(50, Math.min(150, Math.round((W * H) / 12000)))
+      const LINK = Math.min(W, H) * 0.2
+      const drift = Math.min(W, H) * 0.05
       const nodes: { x: number; y: number }[] = []
       for (let i = 0; i < N; i++) {
         // 화면 밖 6%까지 분포시켜 가장자리·모서리도 채운다
         const fx = rnd(i, 4) * 1.12 - 0.06, fy = rnd(i, 5) * 1.12 - 0.06
-        nodes.push({ x: fx * W + Math.sin(t * 0.1 + i) * 34, y: fy * H + Math.cos(t * 0.12 + i * 1.3) * 34 })
+        nodes.push({ x: fx * W + Math.sin(t * 0.1 + i) * drift, y: fy * H + Math.cos(t * 0.12 + i * 1.3) * drift })
       }
       for (let i = 0; i < N; i++) {
         for (let j = i + 1; j < N; j++) {
           const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y
           const d = Math.hypot(dx, dy)
-          if (d < 160) {
+          if (d < LINK) {
             ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y)
-            ctx.strokeStyle = PAL[(i + j) % PAL.length]; ctx.globalAlpha = (1 - d / 160) * 0.32; ctx.lineWidth = 1.1; ctx.stroke()
+            ctx.strokeStyle = PAL[(i + j) % PAL.length]; ctx.globalAlpha = (1 - d / LINK) * 0.32; ctx.lineWidth = 1.1; ctx.stroke()
           }
         }
       }
@@ -65,8 +71,22 @@ export default function HeroBackground() {
 
     // 와이어프레임 — 브라우저 목업이 커서 따라 그려짐
     const drawWireframe = (t: number, am: number) => {
-      const fw = Math.min(W * 0.66, 580), fh = fw * 0.66
-      const fx = W / 2 - fw / 2, fy = H * 0.27 - fh / 2
+      // 모바일은 화면 대비 크게, 데스크탑은 상한을 둔다
+      const fw = W < 700 ? W * 0.86 : Math.min(W * 0.46, 560)
+      let fh = fw * 0.66
+      const cr = cv.getBoundingClientRect()
+      // 브라우저 상단바(세로 0.05fh 지점)가 아이브로우 배지 중앙에 오도록 맞춘다
+      let anchorY = H * 0.27
+      if (ebEl) {
+        const er = ebEl.getBoundingClientRect()
+        anchorY = er.top - cr.top + er.height / 2
+      }
+      // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다
+      if (W < 700 && ctaEl) {
+        const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
+        fh = Math.max(fh, (ctaBottom + 12 - anchorY) / 0.95)
+      }
+      const fx = W / 2 - fw / 2, fy = anchorY - fh * 0.05
       const X = (r: number) => fx + r * fw, Y = (r: number) => fy + r * fh
       const total = 13
       const cyc = (t * 0.11) % total
@@ -94,7 +114,7 @@ export default function HeroBackground() {
         ctx.strokeStyle = ACC; ctx.globalAlpha = base * 0.55
         ctx.strokeRect(fx, fy, fw * pf, fh)
         if (pf < 1) cursor = [fx + fw * pf, fy]
-        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(X(0.035) + i * 11, Y(0) + 15, 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
+        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(X(0.035) + i * 11, Y(0.05), 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
       }
       line(0, 0.1, 1, 0.7)
       box(0.045, 0.14, 0.1, 0.045, 1.2, DIM)
@@ -125,7 +145,7 @@ export default function HeroBackground() {
       drawWireframe(t, 0.83)
       ctx.globalCompositeOperation = 'source-over'
       ctx.globalAlpha = 1
-      if (!reduce) { t += 0.13; raf = requestAnimationFrame(frame) }
+      if (!reduce) { t += 0.1; raf = requestAnimationFrame(frame) }
     }
     frame()
     setReady(true)

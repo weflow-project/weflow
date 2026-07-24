@@ -29,7 +29,7 @@ function Chars({
 
 // 히어로 타이틀 문구 — 세 토막을 이어 한 문장으로 등장시킨다
 const LINE1 = "내가 진짜 원하는 페이지";
-const LINE2A = "우리만의 플로우를 담다, ";
+const LINE2A = "우리만의 플로우를 담다,";
 const LINE2B = "WEFLOW";
 
 /**
@@ -120,6 +120,8 @@ export default function HeroBanner() {
                 fontSize: "clamp(2.8rem, 11.8vw, 5.5rem)",
                 fontWeight: 900,
                 letterSpacing: "0.02em",
+                marginLeft: "0.12em",
+                verticalAlign: "-0.06em",
                 textShadow:
                   "0 0 30px rgba(88,138,226,0.9), 0 0 12px rgba(88,138,226,0.7), 0 3px 12px rgba(0,0,0,0.3)",
               }}
@@ -223,7 +225,9 @@ export default function HeroBanner() {
           }
           .hero-eyebrow { margin-bottom: 0.85rem; }
           .hero-line2 { white-space: normal; }
-          .hero-weflow { display: block; }
+          /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격(0.95rem)과 맞춘다.
+             데스크탑용 margin-left 는 여기서 0 으로 되돌려 중앙 정렬을 지킨다 */
+          .hero-weflow { display: block; margin-top: 0.95rem; margin-left: 0; line-height: 1.1; }
         }
       `}</style>
     </section>
