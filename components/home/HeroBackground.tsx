@@ -44,7 +44,9 @@ export default function HeroBackground() {
     // 네트워크 — 부유 노드 + 근접 연결선
     const drawNetwork = (t: number) => {
       // 노드 수·연결거리·부유폭을 화면 크기에 비례시켜 모바일/데스크탑 밀도를 맞춘다
-      const N = Math.max(50, Math.min(150, Math.round((W * H) / 12000)))
+      const N = W < 700
+        ? Math.max(115, Math.min(150, Math.round((W * H) / 5000)))
+        : Math.max(80, Math.min(200, Math.round((W * H) / 8500)))
       const LINK = Math.min(W, H) * 0.2
       const drift = Math.min(W, H) * 0.05
       const nodes: { x: number; y: number }[] = []

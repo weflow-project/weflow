@@ -10,11 +10,13 @@ const SLIDES = [
     src: '/images/main/main-portfolio-01.webp',
     alt: '특장맨 특장 카니발 홈페이지 제작 사례',
     url: 'https://ksmobility-v2.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAwCdASoYAAsAPxGCtFIsKaUisAgBgCIJZwAAWeSShKv1huRWHQAA/p2Ge4KjjY/XvJMQgNeM+sK0U2oVjAQA',
   },
   {
     src: '/images/main/main-portfolio-02.webp',
     alt: 'CAMP CAMBIO 캄비오 캠핑장 홈페이지 제작 사례',
     url: 'https://cambiocamp.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAwCdASoYAAsAPxFyslAsJqSisAgBgCIJZwAAXBsFhl4KbBH72SAA+kmVferobhABT0HPfeMnttNRNRL72gcAAAA=',
   },
 ]
 const COUNT = SLIDES.length
@@ -126,6 +128,8 @@ export default function PortfolioCarousel() {
               sizes="(max-width: 1100px) 100vw, 1100px"
               style={{ objectFit: 'fill' }}
               priority={i === 0}
+              placeholder="blur"
+              blurDataURL={s.blur}
             />
           </a>
         ))}
