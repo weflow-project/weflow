@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import PromoBanner from './PromoBanner'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import BottomBar from './BottomBar'
+import FloatingButtons from './FloatingButtons'
 
 /**
  * 모든 페이지를 감싸는 공통 껍데기 — 상단 배너·헤더 · 본문 · 푸터 · 하단 바.
@@ -23,9 +23,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <PromoBanner />
         <Navbar />
       </div>
-      <main style={{ paddingBottom: '56px' }}>{children}</main>
+      <main>{children}</main>
       <Footer />
-      <BottomBar />
+      <FloatingButtons />
     </>
   )
 }

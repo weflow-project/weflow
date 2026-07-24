@@ -1,6 +1,6 @@
 import Link from "next/link";
 import HeroCarousel from "./HeroCarousel";
-import HeroVideo from "./HeroVideo";
+import HeroBackground from "./HeroBackground";
 
 // 글자 단위 등장 — 자리는 유지하고 투명→나타남 (start: 앞선 글자 수, step: 글자 간격)
 function Chars({
@@ -51,18 +51,16 @@ export default function HeroBanner() {
         textAlign: "center",
       }}
     >
-      {/* 배경 영상 */}
-      <HeroVideo />
-      {/* 가독성 오버레이 */}
+      {/* 배경 애니메이션 (네트워크 + 와이어프레임) */}
+      <HeroBackground />
+      {/* 가독성 오버레이 — 위아래를 살짝 눌러 헤더·하단 캐러셀 글씨를 보호한다 */}
       <div
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
-          // 제목·버튼이 전부 흰색이라 배경을 어둡게 눌러야 대비가 산다.
-          // 위아래를 더 어둡게 해서 헤더 영역과 하단 캐러셀 쪽 글씨도 함께 보호한다.
           background:
-            "linear-gradient(to bottom, rgba(8,13,24,0.55) 0%, rgba(8,13,24,0.38) 45%, rgba(8,13,24,0.6) 100%)",
+            "linear-gradient(to bottom, rgba(6,10,20,0.5) 0%, rgba(6,10,20,0) 40%, rgba(6,10,20,0) 60%, rgba(6,10,20,0.55) 100%)",
           zIndex: 1,
         }}
       />
@@ -165,11 +163,11 @@ export default function HeroBanner() {
           </Link>
 
           <Link
-            href="/#benefits"
+            href="/guide"
             className="btn-primary hero-btn hero-btn--ghost"
             style={{ width: "min(240px, 80vw)" }}
           >
-            WEFLOW 혜택보기
+            제작 라인업 바로가기
           </Link>
         </div>
 

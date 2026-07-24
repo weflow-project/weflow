@@ -662,52 +662,98 @@
     }
   }
 
-  /* ── 하단바 ── */
-  .bottom-action-bar {
+  /* ── 우측 세로 플로팅 CTA ── */
+  .floating-cta {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    right: 16px;
+    bottom: 20px;
     z-index: 200;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-  }
-
-  .bottom-action-item {
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    transition:
+      transform 0.35s ease,
+      opacity 0.35s ease;
+  }
+  /* 모바일 스크롤 멈춤 시 우측으로 숨김 (JS로 토글) */
+  .floating-cta.is-hidden {
+    transform: translateX(calc(100% + 16px));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .fab {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    border-radius: 9999px;
+    background: var(--fab-bg);
+    color: var(--fab-fg);
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+  }
+  /* 3초 견적 버튼만 살짝 흔들림 (웹·모바일 공통) */
+  .fab-wiggle {
+    animation: fab-wiggle 2.4s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes fab-wiggle {
+    0%,
+    82%,
+    100% {
+      transform: rotate(0deg);
+    }
+    85% {
+      transform: rotate(-6deg);
+    }
+    89% {
+      transform: rotate(6deg);
+    }
+    93% {
+      transform: rotate(-4deg);
+    }
+    97% {
+      transform: rotate(2deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fab-wiggle {
+      animation: none;
+    }
+  }
+  .fab-icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 0.5rem;
-    color: var(--item-color, var(--text-muted));
-    text-decoration: none;
-    font-size: 0.72rem;
+  }
+  .fab-label {
+    white-space: nowrap;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
     font-weight: 700;
-    gap: 0.3rem;
+    font-size: 0.92rem;
     transition:
-      background 0.15s,
-      color 0.15s;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    font-family: inherit;
+      max-width 0.3s ease,
+      opacity 0.3s ease,
+      padding 0.3s ease;
   }
-  .bottom-action-item:hover {
-    color: var(--accent);
+  .fab:hover .fab-label {
+    max-width: 180px;
+    opacity: 1;
+    padding-left: 18px;
   }
-  .bottom-action-item.active {
-    color: var(--accent);
-  }
-  .bottom-action-item:first-child {
-    border-right: 1px solid var(--border);
-  }
-  .bottom-action-item:nth-child(2) {
-    border-right: 1px solid var(--border);
-  }
-  .bottom-action-item:nth-child(3) {
-    border-right: 1px solid var(--border);
+  /* 터치 기기(마우스 hover 불가)는 아이콘만 */
+  @media (hover: none) {
+    .fab:hover .fab-label {
+      max-width: 0;
+      opacity: 0;
+      padding-left: 0;
+    }
   }
 
   /* ── 파티클 캔버스 ── */

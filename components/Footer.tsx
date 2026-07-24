@@ -2,10 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 
-// 외부 채널 주소 (BottomBar와 동일한 곳을 가리킨다)
+// 외부 채널 주소 (플로팅 버튼과 동일한 곳을 가리킨다)
 const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 const BLOG_URL = 'https://m.blog.naver.com/weflowlab'
 const INSTAGRAM_URL = 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2bWRt'
+const YOUTUBE_URL = 'https://www.youtube.com/channel/UCc3SKVxpHSLeIoZJ5IE6fcA'
 
 /* 헤더(Navbar) 메뉴와 동일하게 맞춤 */
 const SERVICE_LINKS = [
@@ -46,6 +47,11 @@ const NaverIcon = () => (
     <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
   </svg>
 )
+const YoutubeIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.39.53A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12c1.89.53 9.39.53 9.39.53s7.5 0 9.39-.53a3 3 0 0 0 2.11-2.12A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.57V8.43L15.82 12z"/>
+  </svg>
+)
 
 // 상담문의 열 — 아이콘은 각 채널 브랜드 색으로 표시
 const CONTACT_LINKS = [
@@ -54,11 +60,12 @@ const CONTACT_LINKS = [
   { label: '카카오 채널 문의',  href: KAKAO_URL,                         Icon: KakaoIcon,    external: true,  color: '#FEE500' },
   { label: '인스타 문의',       href: INSTAGRAM_URL,                     Icon: InstagramIcon, external: true, color: '#E4405F' },
   { label: '블로그',            href: BLOG_URL,                          Icon: NaverIcon,    external: true,  color: '#03C75A' },
+  { label: '유튜브',            href: YOUTUBE_URL,                       Icon: YoutubeIcon,  external: true,  color: '#FF0000' },
 ]
 
 /**
  * 모든 페이지 하단의 푸터 — 브랜드·사업자 정보 + 링크 4열 + 카피라이트.
- * 아래 BottomBar에 가리지 않도록 paddingBottom을 둔다.
+ * 하단에 약간의 여백(paddingBottom)을 둔다.
  */
 export default function Footer() {
   return (
