@@ -747,9 +747,10 @@
     opacity: 1;
     padding-left: 18px;
   }
-  /* 터치 기기(마우스 hover 불가)는 라벨을 아예 렌더하지 않는다 —
-     아이콘만 노출하고 탭하면 바로 해당 링크로 이동 */
-  @media (hover: none) {
+  /* 모바일에서는 라벨을 아예 렌더하지 않는다 — 아이콘만 노출하고 탭하면 바로 이동.
+     hover 감지(@media hover:none)는 갤럭시 등 일부 안드로이드에서 hover:hover 로 잡혀
+     탭 시 라벨이 뜨는 문제가 있어, 화면 너비 기준으로 숨긴다. */
+  @media (max-width: 768px) {
     .fab-label {
       display: none;
     }

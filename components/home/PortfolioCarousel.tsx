@@ -9,7 +9,7 @@ const SLIDES = [
   {
     src: '/images/main/main-portfolio-01.webp',
     alt: '특장맨 특장 카니발 홈페이지 제작 사례',
-    url: 'https://ksmobility-v2.vercel.app/',
+    url: 'https://teukjangman.kr/',
     blur: 'data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAwCdASoYAAsAPxGCtFIsKaUisAgBgCIJZwAAWeSShKv1huRWHQAA/p2Ge4KjjY/XvJMQgNeM+sK0U2oVjAQA',
   },
   {

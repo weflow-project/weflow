@@ -25,7 +25,7 @@ export const portfolios: Portfolio[] = [
     name: '특장카니발 특장맨',
     category: '영업 직종',
     desc: '프리미엄 특장 카니발 전문',
-    url: 'https://ksmobility-v2.vercel.app/',
+    url: 'https://teukjangman.kr/',
     images: [
       '/images/cases/cases-ksmobility-01.webp',
       '/images/cases/cases-ksmobility-02.webp',
