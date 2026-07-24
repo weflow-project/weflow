@@ -138,16 +138,20 @@ export default function HeroBackground() {
 
     let t = 0
     let raf = 0
-    const frame = () => {
+    let last = 0
+    // 화면 주사율(60/120Hz)과 무관하게 실제 경과 시간 기준으로 진행시킨다
+    const frame = (now: number) => {
+      const dt = last ? Math.min((now - last) / 16.667, 3) : 1
+      last = now
       ctx.clearRect(0, 0, W, H)
       ctx.globalCompositeOperation = 'lighter'
       drawNetwork(t)
       drawWireframe(t, 0.83)
       ctx.globalCompositeOperation = 'source-over'
       ctx.globalAlpha = 1
-      if (!reduce) { t += 0.1; raf = requestAnimationFrame(frame) }
+      if (!reduce) { t += 0.1 * dt; raf = requestAnimationFrame(frame) }
     }
-    frame()
+    raf = requestAnimationFrame(frame)
     setReady(true)
 
     return () => { cancelAnimationFrame(raf); ro.disconnect() }
