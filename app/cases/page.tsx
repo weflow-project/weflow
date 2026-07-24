@@ -3,7 +3,7 @@ import Link from "next/link";
 import PortfolioShowcase from "@/components/cases/PortfolioShowcase";
 
 /**
- * 성공 사례 페이지(/cases) — 실제 제작 사례만 보여준다.
+ * 제작 사례 페이지(/cases) — 실제 제작 사례만 보여준다.
  * 업종별 예시 사례(칩 필터 + 카드 그리드)는 실제 사례가 아니어서 걷어냈고,
  * 필터는 PortfolioShowcase가 자체적으로 갖고 있다.
  */
@@ -40,7 +40,7 @@ export default function CasesPage() {
             SUCCESS CASES
           </p>
           <h1 className="title-1" style={{ margin: "0 0 0.75rem" }}>
-            성공 사례 포트폴리오
+            제작 사례 포트폴리오
           </h1>
           <p
             className="callout c-muted"

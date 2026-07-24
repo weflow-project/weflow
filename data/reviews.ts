@@ -15,7 +15,7 @@ export interface Review {
   site: string
   /** 그 사이트 주소 — 카드에서 새 창으로 열린다 */
   siteUrl: string
-  /** 그 사이트 화면 사진 — 성공 사례 탭에 쓰는 것과 같은 파일 */
+  /** 그 사이트 화면 사진 — 제작 사례 탭에 쓰는 것과 같은 파일 */
   siteImage: string
   /** 후기 본문 — 문단별로 나눠 담는다 */
   paragraphs: string[]

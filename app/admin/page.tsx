@@ -1147,7 +1147,7 @@ const PAGE_KO: Record<string, string> = {
   "/about": "회사 소개",
   "/benefits": "WEFLOW 혜택",
   "/booking": "예약",
-  "/cases": "성공 사례",
+  "/cases": "제작 사례",
   "/diagnosis": "무료 진단",
   "/guide": "제작 라인업",
   "/pricing": "가격 안내",

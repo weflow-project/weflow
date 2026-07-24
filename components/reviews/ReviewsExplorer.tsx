@@ -20,7 +20,7 @@ export default function ReviewsExplorer() {
             CUSTOMER REVIEWS
           </p>
           <h1 className="title-1" style={{ margin: '0 0 0.75rem' }}>
-            성공 사례 인터뷰 &amp; 후기
+            제작 사례 인터뷰 &amp; 후기
           </h1>
           <p className="callout c-muted" style={{ margin: '0 0 2.25rem', maxWidth: '520px', wordBreak: 'keep-all' }}>
             WEFLOW와 함께한 분들이 직접 남겨주신 이야기입니다.

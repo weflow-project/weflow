@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 // 메인에 노출할 사례 — 사진을 누르면 해당 사이트가 새 창으로 열린다.
-// 성공 사례 탭(data/cases.ts)과 달리 여기는 골라서 넣는다.
+// 제작 사례 탭(data/cases.ts)과 달리 여기는 골라서 넣는다.
 const SLIDES = [
   {
     src: '/images/main/main-portfolio-01.webp',
