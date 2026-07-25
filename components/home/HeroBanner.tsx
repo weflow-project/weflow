@@ -157,11 +157,11 @@ export default function HeroBanner() {
           }}
         >
           <Link
-            href="/diagnosis"
+            href="/booking"
             className="btn-primary hero-btn"
             style={{ width: "min(240px, 80vw)" }}
           >
-            홈페이지 견적 받기
+            이벤트 신청 바로가기
           </Link>
 
           <Link

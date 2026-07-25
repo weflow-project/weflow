@@ -199,8 +199,8 @@ export default function BookingPage() {
             className="title-1 bk-heading"
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
-              { text: '상담 ' },
-              { text: '예약', className: 'c-accent' },
+              { text: '예약 ' },
+              { text: '신청', className: 'c-accent' },
             ]}
           />
           <Reveal variant="up" delay={0.1}>

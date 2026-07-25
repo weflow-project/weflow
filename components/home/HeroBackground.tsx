@@ -91,6 +91,8 @@ export default function HeroBackground() {
         const er = ebEl.getBoundingClientRect()
         anchorY = er.top - cr.top + er.height / 2
       }
+      // 모바일: 프레임 상단 라인을 살짝 위로 올려 "우리만의 플로우를 담다" 타이틀을 프레임 안에 넣는다
+      if (W < 700) anchorY -= 25
       // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
       if (W < 700 && ctaEl) {
         const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
