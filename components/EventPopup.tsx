@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,30 +8,35 @@ import { usePathname } from 'next/navigation'
 const HIDE_KEY = 'weflow_popup_hide_until'
 
 /**
- * 첫 방문 시 뜨는 이벤트 팝업 — 이미지를 누르면 예약(/booking)으로 이동.
- * · 닫기 / 오버레이 클릭 / X : 이번 세션만 닫음 (새로고침하면 다시 뜸)
+ * 이벤트 팝업 — 어느 페이지든 진입할 때마다 뜬다. 이미지를 누르면 예약(/booking)으로 이동.
+ * · 이미지 클릭(예약 이동) : 세션을 끝내지 않음 → 다른 페이지로 갔다 돌아오면 다시 뜸
+ * · 닫기 / 오버레이 클릭 / X : 이번 세션 동안 안 뜸 (새로고침하면 다시)
  * · 오늘 하루 보지 않기 : 다음 자정까지 안 뜨게 localStorage 저장
  * 관리자(/admin)에선 뜨지 않는다.
  */
 export default function EventPopup() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const closedRef = useRef(false) // 닫기/X/오버레이 → 이번 세션 동안 안 뜸
+  const skipRef = useRef(false) // 이미지 클릭으로 이동한 그 페이지에선 안 뜸(돌아오면 다시)
 
   useEffect(() => {
-    // 홈(/)에서만 노출
-    if (pathname !== '/') return
+    if (closedRef.current) return // 이번 세션에 닫음
     let hideUntil = 0
     try {
       hideUntil = Number(localStorage.getItem(HIDE_KEY) || 0)
     } catch {
       /* localStorage 접근 불가(프라이빗 모드 등)면 그냥 노출 */
     }
-    if (Date.now() < hideUntil) return
-    const t = setTimeout(() => setOpen(true), 100) // 진입 직후 살짝 뒤에 등장
+    if (Date.now() < hideUntil) return // 오늘 하루 보지 않기 유효
+    if (skipRef.current) {
+      // 예약 이동 직후 도착 페이지에선 건너뛴다
+      skipRef.current = false
+      return
+    }
+    const t = setTimeout(() => setOpen(true), 100)
     return () => clearTimeout(t)
-    // 최초 1회만 판단 (경로 바뀔 때마다 다시 뜨지 않게)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pathname])
 
   // 팝업 열려 있는 동안 배경 스크롤 잠금
   useEffect(() => {
@@ -43,7 +48,20 @@ export default function EventPopup() {
     }
   }, [open])
 
-  const close = () => setOpen(false)
+  // 닫기 / X / 오버레이 — 이번 세션 동안 안 뜨게
+  const close = () => {
+    closedRef.current = true
+    setOpen(false)
+  }
+
+  // 이미지(예약하러 가기) 클릭 — 예약 페이지로 이동하되 세션은 유지(돌아오면 다시 뜸)
+  const goBooking = () => {
+    skipRef.current = true
+    setOpen(false)
+  }
+
+  // 바깥(오버레이) 클릭 — 이번 화면만 닫음. 다른 페이지로 가면 다시 뜸(세션 종료 아님)
+  const softClose = () => setOpen(false)
 
   const hideToday = () => {
     try {
@@ -53,6 +71,7 @@ export default function EventPopup() {
     } catch {
       /* 저장 실패해도 닫기만 */
     }
+    closedRef.current = true
     setOpen(false)
   }
 
@@ -60,7 +79,7 @@ export default function EventPopup() {
 
   return (
     <div
-      onClick={close}
+      onClick={softClose}
       className="evt-overlay"
       style={{
         position: 'fixed',
@@ -107,7 +126,7 @@ export default function EventPopup() {
         {/* 이미지 클릭 → 예약 페이지 */}
         <Link
           href="/booking"
-          onClick={close}
+          onClick={goBooking}
           aria-label="예약하러 가기"
           style={{ display: 'block', borderRadius: '18px 18px 0 0', overflow: 'hidden', lineHeight: 0 }}
         >
@@ -165,11 +184,11 @@ export default function EventPopup() {
         }
         /* 데스크탑: 화면 가운데 */
         .evt-overlay { align-items: center; padding: 1.25rem; }
-        .evt-modal { width: min(430px, 92vw); }
+        .evt-modal { width: min(500px, 94vw); }
         /* 모바일: 상단에서 아래로 내려 배치 (padding-top 숫자로 조절) */
         @media (max-width: 768px) {
-          .evt-overlay { align-items: flex-start; padding: 9vh 1.25rem 1.25rem; }
-          .evt-modal { width: min(320px, 78vw); }
+          .evt-overlay { align-items: flex-start; padding: 9vh 1rem 1.25rem; }
+          .evt-modal { width: min(400px, 90vw); }
         }
       `}</style>
     </div>

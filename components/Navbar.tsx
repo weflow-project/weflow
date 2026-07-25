@@ -15,7 +15,7 @@ const NAV_LINKS = [
   { href: "/benefits", label: "WEFLOW 혜택" },
   { href: "/cases", label: "제작 사례" },
   { href: "/reviews", label: "인터뷰 & 후기" },
-  { href: "/booking", label: "예약" },
+  { href: "/booking", label: "예약 신청" },
 ];
 
 // 같은 페이지에서 다시 눌렀을 때 폼을 새로 시작해야 하는 경로
