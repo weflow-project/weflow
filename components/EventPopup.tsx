@@ -185,9 +185,9 @@ export default function EventPopup() {
         /* 데스크탑: 화면 가운데 */
         .evt-overlay { align-items: center; padding: 1.25rem; }
         .evt-modal { width: min(500px, 94vw); }
-        /* 모바일: 상단에서 아래로 내려 배치 (padding-top 숫자로 조절) */
+        /* 모바일: 화면 정중앙 */
         @media (max-width: 768px) {
-          .evt-overlay { align-items: flex-start; padding: 9vh 1rem 1.25rem; }
+          .evt-overlay { align-items: center; padding: 1rem; }
           .evt-modal { width: min(400px, 90vw); }
         }
       `}</style>
