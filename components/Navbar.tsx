@@ -88,8 +88,8 @@ export default function Navbar() {
               style={{ width: 27, height: 27, objectFit: "contain" }}
             />
             <span
-              className="title-3 emphasized c-accent"
-              style={{ letterSpacing: "-0.02em" }}
+              className="title-3 emphasized"
+              style={{ color: "var(--text)", letterSpacing: "-0.02em" }}
             >
               WEFLOW
             </span>
@@ -229,8 +229,8 @@ export default function Navbar() {
               style={{ width: 22, height: 22, objectFit: "contain" }}
             />
             <span
-              className="headline emphasized c-accent"
-              style={{ letterSpacing: "-0.02em" }}
+              className="headline emphasized"
+              style={{ color: "var(--text)", letterSpacing: "-0.02em" }}
             >
               WEFLOW
             </span>
