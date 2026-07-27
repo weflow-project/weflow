@@ -83,9 +83,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="WEFLOW"
-              width={32}
-              height={32}
-              style={{ width: 32, height: 32, objectFit: "contain" }}
+              width={27}
+              height={27}
+              style={{ width: 27, height: 27, objectFit: "contain" }}
             />
             <span
               className="title-3 emphasized c-accent"
@@ -224,9 +224,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="WEFLOW"
-              width={26}
-              height={26}
-              style={{ width: 26, height: 26, objectFit: "contain" }}
+              width={22}
+              height={22}
+              style={{ width: 22, height: 22, objectFit: "contain" }}
             />
             <span
               className="headline emphasized c-accent"

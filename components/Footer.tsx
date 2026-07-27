@@ -78,8 +78,8 @@ export default function Footer() {
           {/* 브랜드 + 사업자 정보 */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              <Image src="/logo.png" alt="WEFLOW" width={28} height={28}
-                style={{ width: 28, height: 28, objectFit: 'contain' }} />
+              <Image src="/logo.png" alt="WEFLOW" width={24} height={24}
+                style={{ width: 24, height: 24, objectFit: 'contain' }} />
               <span className="headline emphasized" style={{ color: 'var(--text)', letterSpacing: '-0.02em' }}>WEFLOW</span>
             </div>
             <p className="footnote" style={{ lineHeight: 1.8, margin: '0 0 1.25rem', color: 'var(--text-secondary)', wordBreak: 'keep-all' }}>

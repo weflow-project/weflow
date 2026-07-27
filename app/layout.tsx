@@ -25,7 +25,8 @@ export const metadata: Metadata = {
   // 쿼리스트링·www 변형이 별개 URL로 색인되지 않도록 대표 주소를 지정한다.
   // './' 는 각 페이지 경로에 맞춰 자동으로 해석된다.
   alternates: { canonical: './' },
-  icons: { icon: '/logo.png' },
+  // 탭 제목 글자와 나란히 놓이므로 로고를 살짝 내려 그린 전용 파일을 쓴다
+  icons: { icon: '/favicon.png' },
   openGraph: {
     title: '위플로우(WEFLOW) — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
     description: '위플로우(WEFLOW)는 홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
