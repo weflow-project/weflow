@@ -9,18 +9,23 @@ const HIDE_KEY = 'weflow_popup_hide_until'
 
 /**
  * 이벤트 팝업 — 어느 페이지든 진입할 때마다 뜬다. 이미지를 누르면 예약(/booking)으로 이동.
- * · 이미지 클릭(예약 이동) : 세션을 끝내지 않음 → 다른 페이지로 갔다 돌아오면 다시 뜸
  * · 닫기 / 오버레이 클릭 / X : 이번 세션 동안 안 뜸 (새로고침하면 다시)
  * · 오늘 하루 보지 않기 : 다음 자정까지 안 뜨게 localStorage 저장
+ * 예약(/booking)은 팝업이 유도하는 목적지라 그 위에 또 띄우지 않는다.
  * 관리자(/admin)에선 뜨지 않는다.
  */
 export default function EventPopup() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const closedRef = useRef(false) // 닫기/X/오버레이 → 이번 세션 동안 안 뜸
-  const skipRef = useRef(false) // 이미지 클릭으로 이동한 그 페이지에선 안 뜸(돌아오면 다시)
+
+  const isBooking = pathname?.startsWith('/booking') ?? false
 
   useEffect(() => {
+    if (isBooking) {
+      setOpen(false) // 다른 페이지에서 열린 채 넘어왔더라도 닫는다
+      return
+    }
     if (closedRef.current) return // 이번 세션에 닫음
     let hideUntil = 0
     try {
@@ -29,14 +34,9 @@ export default function EventPopup() {
       /* localStorage 접근 불가(프라이빗 모드 등)면 그냥 노출 */
     }
     if (Date.now() < hideUntil) return // 오늘 하루 보지 않기 유효
-    if (skipRef.current) {
-      // 예약 이동 직후 도착 페이지에선 건너뛴다
-      skipRef.current = false
-      return
-    }
     const t = setTimeout(() => setOpen(true), 100)
     return () => clearTimeout(t)
-  }, [pathname])
+  }, [pathname, isBooking])
 
   // 팝업 열려 있는 동안 배경 스크롤 잠금
   useEffect(() => {
@@ -54,11 +54,8 @@ export default function EventPopup() {
     setOpen(false)
   }
 
-  // 이미지(예약하러 가기) 클릭 — 예약 페이지로 이동하되 세션은 유지(돌아오면 다시 뜸)
-  const goBooking = () => {
-    skipRef.current = true
-    setOpen(false)
-  }
+  // 이미지(예약하러 가기) 클릭 — 예약 페이지로 이동. 세션은 유지(돌아오면 다시 뜸)
+  const goBooking = () => setOpen(false)
 
   // 바깥(오버레이) 클릭 — 이번 화면만 닫음. 다른 페이지로 가면 다시 뜸(세션 종료 아님)
   const softClose = () => setOpen(false)
