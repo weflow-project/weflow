@@ -85,19 +85,6 @@ export const portfolios: Portfolio[] = [
     ],
   },
   {
-    slug: 'parknara',
-    name: '박나라 컨설턴트',
-    category: '보험',
-    plan: '랜딩형 홈페이지',
-    desc: '메타리치THE한빛 박나라 컨설턴트',
-    url: 'https://parknara.vercel.app/',
-    images: [
-      '/images/cases/cases-parknara-01.webp',
-      '/images/cases/cases-parknara-02.webp',
-      '/images/cases/cases-parknara-03.webp',
-    ],
-  },
-  {
     slug: 'incar',
     name: '인카금융서비스 베스트사업단',
     category: '보험',
@@ -108,6 +95,19 @@ export const portfolios: Portfolio[] = [
       '/images/cases/cases-incar-01.webp',
       '/images/cases/cases-incar-02.webp',
       '/images/cases/cases-incar-03.webp',
+    ],
+  },
+  {
+    slug: 'parknara',
+    name: '박나라 컨설턴트',
+    category: '보험',
+    plan: '랜딩형 홈페이지',
+    desc: '메타리치THE한빛 박나라 컨설턴트',
+    url: 'https://parknara.vercel.app/',
+    images: [
+      '/images/cases/cases-parknara-01.webp',
+      '/images/cases/cases-parknara-02.webp',
+      '/images/cases/cases-parknara-03.webp',
     ],
   },
 ]
