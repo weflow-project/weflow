@@ -18,6 +18,30 @@ const SLIDES = [
     url: 'https://cambiocamp.vercel.app/',
     blur: 'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAwCdASoYAAsAPxFyslAsJqSisAgBgCIJZwAAXBsFhl4KbBH72SAA+kmVferobhABT0HPfeMnttNRNRL72gcAAAA=',
   },
+  {
+    src: '/images/cases/cases-leesiyeon-01.webp',
+    alt: '이시연 설계사 보험 상담 홈페이지 제작 사례',
+    url: 'https://leesiyeon.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAwCdASoYAAsAPzmIvlSvKSajMAgB4CcJQBhmhghwDauPkAAA/u4BB6RlxJcfGHe7ntroJ2UaQpa9kYt1/PXEe/BmkV+P7FMIW+Oq4vE1g0QfBJJnttPlqLWzDOJeIbhvyoRXVbDdcXCyGZjBJAAA',
+  },
+  {
+    src: '/images/cases/cases-ruricompany-02.webp',
+    alt: '루리컴퍼니 신차 할부·리스·장기렌트 홈페이지 제작 사례',
+    url: 'https://ruricompany.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADwAwCdASoYAAsAPzmGulQvKSWjMAgB4CcJYwCw7Btm5UY8mn9DPcQAAP7jSoZVR9ccHNhOQYcifFY6bhEJtig4YQvsio7p2yh24UuS3Uo6PRfSfIr4yaNJLXtVhqhyC3CCAAAA',
+  },
+  {
+    src: '/images/cases/cases-parknara-01.webp',
+    alt: '박나라 컨설턴트 홈페이지 제작 사례',
+    url: 'https://parknara.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADQAwCdASoYAAsAPzmKulOvKaWisAgB4CcJQBdgAySZ4RcWEiRYOXwA/unXZxTumV93M0CVtOwFwbE1SaR3dkqS3N0bqVUZtpmLzCQ+K8hN8boxUAVcHujrXZouK7Ho77j5oJaCwrJQ8zDHJdgAAA==',
+  },
+  {
+    src: '/images/cases/cases-incar-01.webp',
+    alt: '인카금융서비스 베스트사업단 보험설계사 채용 홈페이지 제작 사례',
+    url: 'https://incarr.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACQAwCdASoYAAsAPzmIvlOvKScisAgB4CcJQBWABD4alo5Nv2oAAP7Y4VFd77tVgagDaTnYcXW46sfCFe21T0QgvtsT5/HfN3xFkAAA',
+  },
 ]
 const COUNT = SLIDES.length
 const INTERVAL = 4000

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
-import { portfolios, type Portfolio } from '@/data/cases'
+import { portfolios, categoryOrder, type Portfolio } from '@/data/cases'
 
 const ROTATE_MS = 3500
 // 사진 3장 모두 약 2.19:1 — 원본 비율에 맞춰야 좌우가 잘리지 않는다
@@ -49,6 +49,27 @@ function PortfolioCard({ p }: { p: Portfolio }) {
             }}
           />
         ))}
+
+        {/* 어떤 플랜으로 만든 사례인지 — 가격표와 같은 이름을 쓴다.
+            띄우지만 z-index는 올리지 않는다 (위를 덮은 카드 링크가 계속 눌려야 한다) */}
+        <span
+          className="footnote"
+          style={{
+            position: 'absolute',
+            top: '0.8rem',
+            left: '0.8rem',
+            padding: '0.32rem 0.8rem',
+            borderRadius: '9999px',
+            fontWeight: 700,
+            color: '#fff',
+            background: 'var(--accent)',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.35)',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+          }}
+        >
+          {p.plan}
+        </span>
 
         {/* 현재 사진 표시 — 눌러서 바로 넘길 수도 있다 (카드 링크보다 위에 둔다) */}
         {p.images.length > 1 && (
@@ -104,7 +125,14 @@ function PortfolioCard({ p }: { p: Portfolio }) {
 
 // 업종 칩 — '전체' + 사례에 실제로 있는 업종들 (사례가 늘면 업종도 따라 늘어난다)
 const ALL = '전체'
-const CATEGORIES = [ALL, ...Array.from(new Set(portfolios.map(p => p.category)))]
+const rank = (c: string) => {
+  const i = categoryOrder.indexOf(c)
+  return i === -1 ? categoryOrder.length : i
+}
+const CATEGORIES = [
+  ALL,
+  ...Array.from(new Set(portfolios.map(p => p.category))).sort((a, b) => rank(a) - rank(b)),
+]
 
 /** 실제 제작 사례 — 업종 칩으로 거르고, 한 줄에 두 칸(화면 반)씩 채운다 */
 export default function PortfolioShowcase() {
