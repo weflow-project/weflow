@@ -12,6 +12,7 @@ import LandingHomepageSection from "@/components/home/LandingHomepageSection";
 import LandingPageSection from "@/components/home/LandingPageSection";
 import AdminPageSection from "@/components/home/AdminPageSection";
 import WhyAdminSection from "@/components/home/WhyAdminSection";
+import FaqSection from "@/components/FaqSection";
 import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
 export const metadata: Metadata = {
@@ -82,6 +83,9 @@ export default function GuidePage() {
       {/* 05~06 관리자 페이지 */}
       <AdminPageSection />
       <WhyAdminSection />
+
+      {/* 자주 묻는 질문 — 구조화 데이터까지 이 컴포넌트가 함께 들고 있어 다른 페이지로 옮겨도 된다 */}
+      <FaqSection />
 
       {/* 마무리 CTA — 서비스 페이지 ServiceCTA와 같은 서식 */}
       <section
