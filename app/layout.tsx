@@ -7,6 +7,7 @@ import ClientLayout from '@/components/ClientLayout'
 import Analytics from '@/components/Analytics'
 import PageTracker from '@/components/PageTracker'
 import FontLoader from '@/components/FontLoader'
+import { makePlans } from '@/data/pricing'
 
 /**
  * 리뉴얼 미리보기 사이트(weflow-pied.vercel.app)를 검색에서 가린다.
@@ -65,6 +66,8 @@ const ORGANIZATION_JSON_LD = {
   telephone: '+82-10-2971-7280',
   founder: { '@type': 'Person', name: '신서준' },
   taxID: '884-07-03480',
+  // 제작 플랜의 최저~최고 금액. data/pricing.ts 에서 만들어 쓴다 (값을 고치면 여기도 따라온다)
+  priceRange: `${makePlans[0].price} ~ ${makePlans[makePlans.length - 1].price}`,
   areaServed: { '@type': 'Country', name: '대한민국' },
   serviceType: ['홈페이지 제작', '랜딩페이지 제작', '광고 운영 대행'],
 }
