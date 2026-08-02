@@ -4,27 +4,37 @@ import type { MetadataRoute } from 'next'
 
 const BASE = 'https://weflowlab.kr'
 
-// 아래 경로 목록을 sitemap 항목으로 변환한다
+/**
+ * updated 는 그 페이지 내용을 실제로 고친 날짜다 (YYYY-MM-DD).
+ *
+ * 배포 시각을 그대로 쓰면 한 페이지만 고쳐도 열 페이지가 전부 "방금 바뀜"으로 나가고,
+ * 그런 사이트맵을 몇 번 보면 검색엔진이 lastmod 자체를 믿지 않는다.
+ * 그러니 페이지 내용을 의미 있게 고쳤을 때만 그 줄의 날짜를 손으로 올린다.
+ * (오타 수정·색상 변경처럼 내용이 그대로면 굳이 안 올려도 된다)
+ */
+const paths: {
+  path: string
+  updated: string
+  priority: number
+  freq: MetadataRoute.Sitemap[number]['changeFrequency']
+}[] = [
+  { path: '', updated: '2026-07-31', priority: 1.0, freq: 'weekly' },
+  { path: '/service', updated: '2026-07-22', priority: 0.9, freq: 'weekly' },
+  { path: '/guide', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },
+  { path: '/pricing', updated: '2026-07-22', priority: 0.9, freq: 'weekly' },
+  { path: '/cases', updated: '2026-07-31', priority: 0.8, freq: 'weekly' },
+  { path: '/reviews', updated: '2026-07-24', priority: 0.8, freq: 'weekly' },
+  { path: '/about', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
+  { path: '/benefits', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
+  { path: '/diagnosis', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },
+  { path: '/booking', updated: '2026-07-26', priority: 0.6, freq: 'monthly' },
+]
+
+// 위 목록을 sitemap 항목으로 변환한다 (관리자 /admin 은 애초에 넣지 않는다)
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date()
-
-  // 공개 정적 페이지 (관리자 /admin 은 제외)
-  const paths: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
-    { path: '', priority: 1.0, freq: 'weekly' },
-    { path: '/service', priority: 0.9, freq: 'weekly' },
-    { path: '/guide', priority: 0.8, freq: 'monthly' },
-    { path: '/pricing', priority: 0.9, freq: 'weekly' },
-    { path: '/cases', priority: 0.8, freq: 'weekly' },
-    { path: '/reviews', priority: 0.8, freq: 'weekly' },
-    { path: '/about', priority: 0.7, freq: 'monthly' },
-    { path: '/benefits', priority: 0.7, freq: 'monthly' },
-    { path: '/diagnosis', priority: 0.8, freq: 'monthly' },
-    { path: '/booking', priority: 0.6, freq: 'monthly' },
-  ]
-
-  return paths.map(({ path, priority, freq }) => ({
+  return paths.map(({ path, updated, priority, freq }) => ({
     url: `${BASE}${path}`,
-    lastModified,
+    lastModified: new Date(`${updated}T00:00:00Z`),
     changeFrequency: freq,
     priority,
   }))
