@@ -284,13 +284,13 @@ export default function DiagnosisPage() {
 
                 <div>
                   <label className="form-label">업종</label>
-                  <input className="form-input" placeholder="예: 필라테스, 법률사무소 등" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
+                  <input className="form-input" placeholder="예: 차량 관련 업종, 캠핑 관련 업종 등" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
                 </div>
 
                 <div>
                   <label className="form-label">현재 고민 / 추가 요청사항</label>
                   <textarea className="form-input" rows={3}
-                    placeholder="예: 문의가 없어요 / 검색이 안 돼요 / 홈페이지가 없어요"
+                    placeholder="예: 홈페이지가 있는데 별로라 바꿔보고 싶어요 / 홈페이지가 없어서 알아보는 중이에요"
                     value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
                     style={{ resize: 'vertical' }} />
                 </div>
