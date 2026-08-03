@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Check, MessageSquare, FileSearch, Lightbulb, Zap, Phone, XCircle } from 'lucide-react'
+import { Check, MessageSquare, FileSearch, Lightbulb, Zap, Phone, XCircle, User } from 'lucide-react'
 import { projectTypes } from '@/data/common'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
@@ -256,15 +256,11 @@ export default function DiagnosisPage() {
             </div>
 
             {/* ── 오른쪽: 폼 ── */}
-            <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.75rem', position: 'sticky', top: '84px', alignSelf: 'start' }}>
-              <div style={{ marginBottom: '1.4rem' }}>
-                <p className="footnote emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.45rem' }}>FREE · 무료</p>
-                <h2 className="title-1 emphasized" style={{ margin: 0 }}>
-                  무료 견적 신청
-                </h2>
-              </div>
+            <div className="dg-card" style={{ position: 'sticky', top: '84px', alignSelf: 'start' }}>
+              {/* 예약 페이지(/booking)의 "예약 정보"와 같은 서식으로 맞춘다 */}
+              <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 견적 정보</p>
 
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem' }}>
                 <div>
                   <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
                   <input id="dg-name" className="form-input" placeholder="홍길동" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
@@ -327,6 +323,25 @@ export default function DiagnosisPage() {
 
       <style>{`
         .diag-heading { font-size: clamp(1.93rem, 4.33vw, 2.87rem); line-height: 1.2; }
+        /* 견적 폼은 예약 페이지(/booking)의 .booking-card 와 같은 여백·글씨 크기를 쓴다 */
+        .dg-card {
+          background: var(--surface);
+          border: 1.5px solid var(--border);
+          border-radius: 16px;
+          padding: 1.5rem;
+        }
+        @media (max-width: 640px) {
+          .dg-card { padding: 1.1rem; border-radius: 12px; }
+        }
+        .dg-card .form-input { font-size: 1.08rem; }
+        .dg-card .form-label { font-size: 1.02rem; }
+
+        /* 예약 페이지의 .bk-section-title 과 같은 서식 */
+        .dg-section-title {
+          font-weight: 600; font-size: 1.28rem; color: var(--text);
+          letter-spacing: -0.01em;
+          margin: 0 0 1rem; display: flex; align-items: center; gap: 0.4rem;
+        }
         /* 폼 글씨 확대 (diagnosis 전용) */
         .diag-grid .form-input { font-size: 1.05rem; }
         .diag-grid .form-label { font-size: 1rem; }
