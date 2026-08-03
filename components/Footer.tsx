@@ -153,7 +153,7 @@ export default function Footer() {
           flexWrap: 'wrap', gap: '0.5rem',
         }}>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <span className="caption-2" style={{ color: 'var(--text-muted)', cursor: 'pointer' }}>개인정보처리방침</span>
+            <Link href="/privacy" className="caption-2" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>개인정보처리방침</Link>
             <span className="caption-2" style={{ color: 'var(--text-muted)', cursor: 'pointer' }}>이용약관</span>
             <Link href="/admin" className="caption-2" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>관리자</Link>
           </div>
