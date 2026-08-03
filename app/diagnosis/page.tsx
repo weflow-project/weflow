@@ -161,6 +161,11 @@ export default function DiagnosisPage() {
               { text: ' 받기' },
             ]}
           />
+          <Reveal variant="up" delay={0.1}>
+            <p className="subhead c-muted" style={{ margin: 0 }}>
+              무료로 진단받고 맞춤 제작 방향을 안내받으세요
+            </p>
+          </Reveal>
         </div>
       </section>
 

@@ -19,7 +19,9 @@ export default function EventPopup() {
   const [open, setOpen] = useState(false)
   const closedRef = useRef(false) // 닫기/X/오버레이 → 이번 세션 동안 안 뜸
 
-  const isBooking = pathname?.startsWith('/booking') ?? false
+  // 예약·견적 페이지에서는 띄우지 않는다 — 이미 신청하러 들어온 사람의 화면을 가린다
+  const isBooking =
+    (pathname?.startsWith('/booking') || pathname?.startsWith('/diagnosis')) ?? false
 
   useEffect(() => {
     if (isBooking) {

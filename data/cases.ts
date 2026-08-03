@@ -34,7 +34,7 @@ export const categoryOrder = ['보험', '차량', '캠핑/레저']
 export const portfolios: Portfolio[] = [
   {
     slug: 'ksmobility',
-    name: '특장카니발 특장맨',
+    name: '특장카니발 OO맨',
     category: '차량',
     plan: '랜딩페이지',
     desc: '프리미엄 특장 카니발 전문',
