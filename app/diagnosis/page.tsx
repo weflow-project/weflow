@@ -256,11 +256,15 @@ export default function DiagnosisPage() {
             </div>
 
             {/* ── 오른쪽: 폼 ── */}
-            <div className="dg-card" style={{ position: 'sticky', top: '84px', alignSelf: 'start' }}>
-              {/* 예약 페이지(/booking)의 "예약 정보"와 같은 서식으로 맞춘다 */}
+            {/* 예약 페이지(/booking)의 예약 정보 카드와 구조까지 같게 맞춘다 —
+                제목과 입력칸이 같은 flex 상자 안에 있어야 간격이 똑같이 떨어진다 */}
+            <form
+              onSubmit={handleSubmit}
+              className="dg-card"
+              style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
+            >
               <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 견적 정보</p>
 
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem' }}>
                 <div>
                   <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
                   <input id="dg-name" className="form-input" placeholder="홍길동" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
@@ -289,13 +293,13 @@ export default function DiagnosisPage() {
 
                 <div>
                   <label className="form-label">현재 고민 / 추가 요청사항</label>
-                  <textarea className="form-input" rows={3}
-                    placeholder="예: 홈페이지가 있는데 별로라 바꿔보고 싶어요 / 홈페이지가 없어서 알아보는 중이에요"
+                  <textarea className="form-input" rows={4}
+                    placeholder="예: 홈페이지가 있는데 별로라 바꿔보고 싶어요 / 홈페이지가 있는데 리뉴얼하고 싶어요 등"
                     value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
                     style={{ resize: 'vertical' }} />
                 </div>
 
-                <label className="c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1rem' }}>
+                <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
                   <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
                     style={{ marginTop: '3px', width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
                   개인정보 수집 및 상담 동의 <span style={{ color: '#ef4444' }}>*</span>
@@ -305,7 +309,7 @@ export default function DiagnosisPage() {
                 )}
 
                 <button type="submit" className="btn-primary" disabled={loading}
-                  style={{ fontSize: '1.05rem', padding: '1rem', justifyContent: 'center', width: '100%', marginTop: '0.25rem' }}>
+                  style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
                   {loading ? '제출 중...' : '견적 결과 확인하기 →'}
                 </button>
                 {submitError && (
@@ -315,8 +319,7 @@ export default function DiagnosisPage() {
                   </div>
                 )}
 
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </section>
