@@ -326,7 +326,7 @@ export default function DiagnosisPage() {
       </section>
 
       <style>{`
-        .diag-heading { font-size: clamp(1.85rem, 4.15vw, 2.75rem); line-height: 1.2; }
+        .diag-heading { font-size: clamp(1.93rem, 4.33vw, 2.87rem); line-height: 1.2; }
         /* 폼 글씨 확대 (diagnosis 전용) */
         .diag-grid .form-input { font-size: 1.05rem; }
         .diag-grid .form-label { font-size: 1rem; }
