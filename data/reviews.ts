@@ -25,9 +25,9 @@ export interface Review {
 export const reviews: Review[] = [
   {
     star: 5,
-    name: '박나라 컨설턴트',
+    name: 'OOO 컨설턴트',
     category: '영업 직종',
-    site: '메타리치THE한빛 박나라 컨설턴트',
+    site: 'OOO 컨설턴트',
     siteUrl: 'https://parknara.vercel.app/',
     siteImage: '/images/cases/cases-parknara-01.webp',
     paragraphs: [

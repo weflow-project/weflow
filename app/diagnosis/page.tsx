@@ -161,11 +161,6 @@ export default function DiagnosisPage() {
               { text: ' 받기' },
             ]}
           />
-          <Reveal variant="up" delay={0.1}>
-            <p className="subhead c-muted" style={{ margin: 0 }}>
-              홈페이지의 문제를 무료로 진단받고 맞춤 제작 방향을 안내받으세요
-            </p>
-          </Reveal>
         </div>
       </section>
 
@@ -258,11 +253,10 @@ export default function DiagnosisPage() {
             {/* ── 오른쪽: 폼 ── */}
             <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.75rem', position: 'sticky', top: '84px', alignSelf: 'start' }}>
               <div style={{ marginBottom: '1.4rem' }}>
-                <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>FREE · 무료</p>
-                <h2 className="title-2 emphasized" style={{ margin: '0 0 0.35rem' }}>
+                <p className="footnote emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.45rem' }}>FREE · 무료</p>
+                <h2 className="title-1 emphasized" style={{ margin: 0 }}>
                   무료 견적 신청
                 </h2>
-                <p className="c-muted" style={{ margin: 0, fontSize: '0.95rem' }}>2분이면 충분합니다. 부담 없이 신청하세요.</p>
               </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

@@ -62,11 +62,11 @@ export default function GuidePage() {
             <br />— 제작을 결정하기 전에 알아두면 좋은 것들을 정리했습니다.
           </p>
           <Link
-            href="/diagnosis"
+            href="/cases"
             className="btn-primary"
             style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
           >
-            바로 무료 견적 신청 →
+            실제 고객 제작 사례 →
           </Link>
         </div>
       </section>

@@ -47,10 +47,10 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'cambiocamp',
-    name: 'CAMP CAMBIO',
+    name: 'CAMP OOOOOO',
     category: '캠핑/레저',
     plan: '홈페이지',
-    desc: '캄비오 캠핑장',
+    desc: 'OOO 캠핑장',
     url: 'https://cambiocamp.vercel.app/',
     images: [
       '/images/cases/cases-cambiocamp-01.webp',
@@ -60,7 +60,7 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'leesiyeon',
-    name: '이시연 설계사',
+    name: 'OOO 설계사',
     category: '보험',
     plan: '랜딩형 홈페이지',
     desc: '보장분석 · 연금 · 자산관리 보험 설계',
@@ -73,7 +73,7 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'ruricompany',
-    name: '루리컴퍼니',
+    name: 'OO컴퍼니',
     category: '차량',
     plan: '랜딩페이지',
     desc: '신차 할부 · 리스 · 장기렌트 상담',
@@ -86,7 +86,7 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'incar',
-    name: '인카금융서비스 베스트사업단',
+    name: 'OOOOOOO 베스트사업단',
     category: '보험',
     plan: '랜딩형 홈페이지',
     desc: '보험설계사 신입 · 경력 공개채용',
@@ -99,10 +99,10 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'parknara',
-    name: '박나라 컨설턴트',
+    name: 'OOO 컨설턴트',
     category: '보험',
     plan: '랜딩형 홈페이지',
-    desc: '메타리치THE한빛 박나라 컨설턴트',
+    desc: '보장분석 · 연금 · 자산관리 보험 설계',
     url: 'https://parknara.vercel.app/',
     images: [
       '/images/cases/cases-parknara-01.webp',
