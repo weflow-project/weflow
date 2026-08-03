@@ -96,7 +96,7 @@ export default function PricingPage() {
             <Reveal variant="up">
               <span className="pricing-badge-pill">
                 <BadgePercent size={15} strokeWidth={2.5} />
-                런칭 기념 50% 할인 진행 중
+                특별 프로모션 50% 할인 진행 중
               </span>
             </Reveal>
             {/* 이 페이지의 대표 제목이라 h1 — 아래 관리자 옵션 섹션 제목이 h2 다 */}
@@ -217,7 +217,7 @@ export default function PricingPage() {
                     className="caption-1 c-muted"
                     style={{ margin: "0.4rem 0 0" }}
                   >
-                    월 유지보수 {plan.maintenance} · {plan.note}
+                    유지보수 월 {plan.maintenance} · {plan.note}
                   </p>
                 </div>
 
@@ -280,16 +280,13 @@ export default function PricingPage() {
         }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
-          {/* 헤더 — 선택 옵션 안내 */}
+          {/* 헤더 */}
           <div
             style={{
               textAlign: "center",
               marginBottom: "clamp(1.75rem, 4vw, 2.5rem)",
             }}
           >
-            <Reveal variant="up">
-              <p className="footnote emphasized c-accent">선택 옵션</p>
-            </Reveal>
             <SplitText
               as="h2"
               className="pricing-heading"
@@ -298,9 +295,9 @@ export default function PricingPage() {
             />
             <Reveal variant="up" delay={0.1}>
               <p className="callout c-muted">
-                직접 콘텐츠를 관리할 수 있는 관리자 페이지를{" "}
+                내 페이지를 직접 관리할 수 있는 관리자 페이지를{" "}
                 <br className="br-mobile" />
-                옵션으로 추가하세요
+                이용해보세요
               </p>
             </Reveal>
           </div>

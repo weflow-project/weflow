@@ -59,7 +59,7 @@ export default function PricingSection() {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem', marginTop: '0.5rem' }}>
                   <span className="title-2 emphasized">{plan.price}</span>
                 </div>
-                <p className="caption-1 c-muted" style={{ margin: '0.4rem 0 0' }}>{`월 유지보수 ${plan.maintenance} · ${plan.note}`}</p>
+                <p className="caption-1 c-muted" style={{ margin: '0.4rem 0 0' }}>{`유지보수 월 ${plan.maintenance} · ${plan.note}`}</p>
               </div>
 
               {/* 기능 */}
