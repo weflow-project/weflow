@@ -287,6 +287,9 @@ export default function PricingPage() {
               marginBottom: "clamp(1.75rem, 4vw, 2.5rem)",
             }}
           >
+            <Reveal variant="up">
+              <p className="footnote emphasized c-accent">추천 옵션</p>
+            </Reveal>
             <SplitText
               as="h2"
               className="pricing-heading"
