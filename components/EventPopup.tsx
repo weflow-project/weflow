@@ -8,23 +8,21 @@ import { usePathname } from 'next/navigation'
 const HIDE_KEY = 'weflow_popup_hide_until'
 
 /**
- * 이벤트 팝업 — 어느 페이지든 진입할 때마다 뜬다. 이미지를 누르면 예약(/booking)으로 이동.
+ * 이벤트 팝업 — 메인 홈(/)에서만 뜬다. 이미지를 누르면 예약(/booking)으로 이동.
  * · 닫기 / 오버레이 클릭 / X : 이번 세션 동안 안 뜸 (새로고침하면 다시)
  * · 오늘 하루 보지 않기 : 다음 자정까지 안 뜨게 localStorage 저장
- * 예약(/booking)은 팝업이 유도하는 목적지라 그 위에 또 띄우지 않는다.
- * 관리자(/admin)에선 뜨지 않는다.
+ * 다른 페이지에서는 띄우지 않는다 — 둘러보는 화면을 가리지 않기 위해 메인 진입 시 한 번만.
  */
 export default function EventPopup() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const closedRef = useRef(false) // 닫기/X/오버레이 → 이번 세션 동안 안 뜸
 
-  // 예약·견적 페이지에서는 띄우지 않는다 — 이미 신청하러 들어온 사람의 화면을 가린다
-  const isBooking =
-    (pathname?.startsWith('/booking') || pathname?.startsWith('/diagnosis')) ?? false
+  // 메인 홈이 아니면 띄우지 않는다
+  const isHome = pathname === '/'
 
   useEffect(() => {
-    if (isBooking) {
+    if (!isHome) {
       setOpen(false) // 다른 페이지에서 열린 채 넘어왔더라도 닫는다
       return
     }
@@ -38,7 +36,7 @@ export default function EventPopup() {
     if (Date.now() < hideUntil) return // 오늘 하루 보지 않기 유효
     const t = setTimeout(() => setOpen(true), 100)
     return () => clearTimeout(t)
-  }, [pathname, isBooking])
+  }, [pathname, isHome])
 
   // 팝업 열려 있는 동안 배경 스크롤 잠금
   useEffect(() => {

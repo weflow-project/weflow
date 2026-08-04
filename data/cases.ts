@@ -59,6 +59,19 @@ export const portfolios: Portfolio[] = [
     ],
   },
   {
+    slug: 'incar',
+    name: 'OOOOOOO 베스트사업단',
+    category: '보험',
+    plan: '랜딩형 홈페이지',
+    desc: '보험설계사 신입 · 경력 공개채용',
+    url: 'https://incarr.vercel.app/',
+    images: [
+      '/images/cases/cases-incar-01.webp',
+      '/images/cases/cases-incar-02.webp',
+      '/images/cases/cases-incar-03.webp',
+    ],
+  },
+  {
     slug: 'leesiyeon',
     name: 'OOO 설계사',
     category: '보험',
@@ -82,19 +95,6 @@ export const portfolios: Portfolio[] = [
       '/images/cases/cases-ruricompany-01.webp',
       '/images/cases/cases-ruricompany-02.webp',
       '/images/cases/cases-ruricompany-03.webp',
-    ],
-  },
-  {
-    slug: 'incar',
-    name: 'OOOOOOO 베스트사업단',
-    category: '보험',
-    plan: '랜딩형 홈페이지',
-    desc: '보험설계사 신입 · 경력 공개채용',
-    url: 'https://incarr.vercel.app/',
-    images: [
-      '/images/cases/cases-incar-01.webp',
-      '/images/cases/cases-incar-02.webp',
-      '/images/cases/cases-incar-03.webp',
     ],
   },
   {
