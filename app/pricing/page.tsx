@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Check, Info, BadgePercent, Sparkles, Star, ArrowRight } from "lucide-react";
-import { makePlans } from "@/data/pricing";
+import { Check, Info, BadgePercent, ArrowRight } from "lucide-react";
+import { makePlans, renewPlan, adminFeatures } from "@/data/pricing";
+import PlanCard from "@/components/PlanCard";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
 import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
@@ -22,13 +23,13 @@ const MAKE_ICONS = [
   "/images/3d-icon/image-5.svg",
 ];
 
-// 관리자 페이지 옵션 카드의 공통 기능 목록 — 플랜과 무관하게 세 카드 모두 동일
-const ADMIN_FEATURES = [
-  "문의·예약 확인",
-  "회원 관리",
-  "실시간 사이트 반영",
-  "방문·유입 통계 제공",
-];
+
+// 모든 카드가 같은 CTA 를 쓴다 — 가격을 본 직후엔 견적 폼이 다음 행동이다
+const CTA_QUOTE = (
+  <Link href="/diagnosis" className="plan-cta">
+    무료 견적 신청
+  </Link>
+);
 
 export default function PricingPage() {
   // 제작 플랜 섹션 — 닷 네비의 스크롤 목적지 겸 활성 감지 대상
@@ -117,156 +118,40 @@ export default function PricingPage() {
           {/* 제작 플랜 카드 3장 — 순서대로 하나씩 등장 */}
           <Reveal as="div" stagger className="pricing-grid">
             {makePlans.map((plan, i) => (
-              <div
+              <PlanCard
                 key={plan.id}
-                className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}
-              >
-                {/* 인기 플랜만 — 별 5개 태그 + 카드 안쪽 반짝이 */}
-                {plan.highlight && (
-                  <>
-                    <span className="pricing-tag" aria-label="가장 인기">
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <Star
-                          key={s}
-                          size={16}
-                          fill="#ffd23f"
-                          strokeWidth={0}
-                        />
-                      ))}
-                    </span>
-                    <span className="hl-sparkle-layer" aria-hidden="true">
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-1"
-                        size={150}
-                        strokeWidth={1.25}
-                      />
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-2"
-                        size={110}
-                        strokeWidth={1.25}
-                      />
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-3"
-                        size={130}
-                        strokeWidth={1.25}
-                      />
-                    </span>
-                  </>
-                )}
-
-                {/* 상단: 아이콘 + 이름 */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.7rem",
-                  }}
-                >
-                  <Image
-                    src={MAKE_ICONS[i]}
-                    alt=""
-                    width={48}
-                    height={48}
-                    style={{ width: 48, height: 48, objectFit: "contain" }}
-                  />
-                  <div>
-                    <h3 className="headline emphasized" style={{ margin: 0 }}>
-                      {plan.sub}
-                    </h3>
-                    <span className="caption-1 c-muted">{plan.tagline}</span>
-                  </div>
-                </div>
-
-                {/* 가격 */}
-                <div style={{ margin: "1.1rem 0 1.25rem" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    <span
-                      className="caption-1 emphasized c-accent"
-                      style={{
-                        background: "var(--accent-light)",
-                        padding: "2px 8px",
-                        borderRadius: "9999px",
-                      }}
-                    >
-                      {plan.discount} 할인
-                    </span>
-                    <span
-                      className="footnote c-muted"
-                      style={{ textDecoration: "line-through" }}
-                    >
-                      {plan.originalPrice}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "baseline",
-                      gap: "0.25rem",
-                      marginTop: "0.5rem",
-                    }}
-                  >
-                    <span className="title-2 emphasized">{plan.price}</span>
-                  </div>
-                  <p
-                    className="caption-1 c-muted"
-                    style={{ margin: "0.4rem 0 0" }}
-                  >
-                    유지보수 월 {plan.maintenance} · {plan.note}
-                  </p>
-                </div>
-
-                {/* 기능 */}
-                <ul
-                  style={{
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                    flex: 1,
-                  }}
-                >
-                  {plan.features.map((f) => (
-                    <li
-                      key={f}
-                      style={{
-                        display: "flex",
-                        gap: "0.5rem",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Check
-                        size={16}
-                        strokeWidth={2.5}
-                        style={{
-                          color: "var(--accent)",
-                          flexShrink: 0,
-                          marginTop: "0.15rem",
-                        }}
-                      />
-                      <span
-                        className="callout"
-                        style={{ wordBreak: "keep-all" }}
-                      >
-                        {f}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <Link href="/diagnosis" className="plan-cta">
-                  무료 견적 신청
-                </Link>
-              </div>
+                icon={MAKE_ICONS[i]}
+                title={plan.sub}
+                subtitle={plan.tagline}
+                discount={plan.discount}
+                originalPrice={plan.originalPrice}
+                price={plan.price}
+                foot={`유지보수 월 ${plan.maintenance} · ${plan.note}`}
+                features={plan.features}
+                highlight={plan.highlight}
+                cta={CTA_QUOTE}
+              />
             ))}
+          </Reveal>
+
+          {/* 리뉴얼 — 신규 제작과 성격이 다른 상품이라 3장과 한 줄에 섞지 않고
+              구분선 아래에 한 장으로 떨어뜨린다 (가운데 칸 정렬) */}
+          <div className="pricing-solo-head">
+            <span className="footnote emphasized">기존 홈페이지가 있다면</span>
+          </div>
+          <Reveal as="div" stagger className="pricing-solo">
+            <PlanCard
+              icon={renewPlan.img}
+              title={renewPlan.sub}
+              subtitle={renewPlan.tagline}
+              price={renewPlan.price}
+              foot={`유지보수 ${renewPlan.maintenance} · ${renewPlan.note}`}
+              features={renewPlan.features}
+              highlight
+              tone="violet"
+              tagLabel="추천"
+              cta={CTA_QUOTE}
+            />
           </Reveal>
         </div>
       </section>
@@ -308,157 +193,39 @@ export default function PricingPage() {
           {/* 관리자 페이지 옵션 카드 3장 — 같은 플랜을 옵션 가격 기준으로 다시 보여준다 */}
           <Reveal as="div" stagger className="pricing-grid">
             {makePlans.map((plan, i) => (
-              <div
+              <PlanCard
                 key={plan.id}
-                className={`pricing-card${plan.highlight ? " is-highlight" : ""}`}
-              >
-                {/* 인기 플랜만 — 별 5개 태그 + 카드 안쪽 반짝이 */}
-                {plan.highlight && (
-                  <>
-                    <span className="pricing-tag" aria-label="가장 인기">
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <Star
-                          key={s}
-                          size={16}
-                          fill="#ffd23f"
-                          strokeWidth={0}
-                        />
-                      ))}
-                    </span>
-                    <span className="hl-sparkle-layer" aria-hidden="true">
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-1"
-                        size={150}
-                        strokeWidth={1.25}
-                      />
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-2"
-                        size={110}
-                        strokeWidth={1.25}
-                      />
-                      <Sparkles
-                        className="hl-sparkle hl-sparkle-3"
-                        size={130}
-                        strokeWidth={1.25}
-                      />
-                    </span>
-                  </>
-                )}
-                {/* 상단: 아이콘 + 이름 */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.7rem",
-                  }}
-                >
-                  <Image
-                    src={MAKE_ICONS[i]}
-                    alt=""
-                    width={48}
-                    height={48}
-                    style={{ width: 48, height: 48, objectFit: "contain" }}
-                  />
-                  <div>
-                    <h3 className="headline emphasized" style={{ margin: 0 }}>
-                      {plan.sub}
-                    </h3>
-                    <span className="caption-1 c-muted">관리자 페이지</span>
-                  </div>
-                </div>
-
-                {/* 가격 */}
-                <div style={{ margin: "1.1rem 0 1.25rem" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      marginBottom: "0.35rem",
-                    }}
-                  >
-                    <span
-                      className="caption-1 emphasized c-accent"
-                      style={{
-                        background: "var(--accent-light)",
-                        padding: "2px 8px",
-                        borderRadius: "9999px",
-                      }}
-                    >
-                      {plan.discount} 할인
-                    </span>
-                    <span
-                      className="footnote c-muted"
-                      style={{ textDecoration: "line-through" }}
-                    >
-                      {plan.adminOriginalPrice}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "baseline",
-                      gap: "0.25rem",
-                    }}
-                  >
-                    <span className="title-2 emphasized">
-                      {plan.adminPrice}
-                    </span>
-                  </div>
-                  <p
-                    className="caption-1 c-muted"
-                    style={{ margin: "0.4rem 0 0" }}
-                  >
-                    유지보수 월 {plan.adminMaintenance} · VAT 별도
-                  </p>
-                </div>
-
-                {/* 기능 */}
-                <ul
-                  style={{
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                    flex: 1,
-                  }}
-                >
-                  {ADMIN_FEATURES.map((f) => (
-                    <li
-                      key={f}
-                      style={{
-                        display: "flex",
-                        gap: "0.5rem",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Check
-                        size={16}
-                        strokeWidth={2.5}
-                        style={{
-                          color: "var(--accent)",
-                          flexShrink: 0,
-                          marginTop: "0.15rem",
-                        }}
-                      />
-                      <span
-                        className="callout"
-                        style={{ wordBreak: "keep-all" }}
-                      >
-                        {f}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <Link href="/diagnosis" className="plan-cta">
-                  무료 견적 신청
-                </Link>
-              </div>
+                icon={MAKE_ICONS[i]}
+                title={plan.sub}
+                subtitle="관리자 페이지"
+                discount={plan.discount}
+                originalPrice={plan.adminOriginalPrice}
+                price={plan.adminPrice}
+                foot={`유지보수 월 ${plan.adminMaintenance} · ${plan.note}`}
+                features={adminFeatures}
+                highlight={plan.highlight}
+                cta={CTA_QUOTE}
+              />
             ))}
+          </Reveal>
+
+          {/* 리뉴얼 관리자 페이지 — 위 제작 플랜과 동일한 3+1 배치 */}
+          <div className="pricing-solo-head">
+            <span className="footnote emphasized">기존 홈페이지가 있다면</span>
+          </div>
+          <Reveal as="div" stagger className="pricing-solo">
+            <PlanCard
+              icon={renewPlan.img}
+              title={renewPlan.sub}
+              subtitle="관리자 페이지"
+              price={renewPlan.adminPrice}
+              foot={`유지보수 ${renewPlan.adminMaintenance} · ${renewPlan.note}`}
+              features={adminFeatures}
+              highlight
+              tone="violet"
+              tagLabel="추천"
+              cta={CTA_QUOTE}
+            />
           </Reveal>
         </div>
       </section>
@@ -870,6 +637,24 @@ export default function PricingPage() {
         .pricing-card.is-highlight:hover {
           box-shadow: 0 20px 50px rgba(106, 146, 215,0.36);
         }
+        /* 리뉴얼 카드 — 강조 서식은 그대로 두고 색만 바이올렛으로 갈아끼운다.
+           MASTER(파랑)와 나란히 놓였을 때 다른 축의 상품임을 색으로 알린다.
+           .is-highlight 와 특정도가 같으므로 반드시 그 아래에 와야 덮어쓴다. */
+        .pricing-card.is-violet {
+          border-color: #c4b5fd;
+          box-shadow: 0 16px 42px rgba(196,181,253,0.24);
+        }
+        .pricing-card.is-violet:hover {
+          border-color: #c4b5fd;
+          box-shadow: 0 20px 50px rgba(196,181,253,0.34);
+        }
+        .pricing-card.is-violet .pricing-tag {
+          background: linear-gradient(120deg, #9575f0, #b39dfb, #ddd6fe, #b39dfb, #9575f0);
+          background-size: 250% 100%;
+          box-shadow: 0 4px 10px rgba(196,181,253,0.42);
+        }
+        /* 반짝이도 라벤더로 — 파란 카드의 금빛을 그대로 두면 강조색과 따로 논다 */
+        .pricing-card.is-violet .hl-sparkle { color: #e9e0ff; }
         /* 반짝이 레이어 — 카드 안쪽으로만 보이게(클립), 텍스트·버튼 뒤 */
         .hl-sparkle-layer {
           position: absolute;
@@ -902,7 +687,9 @@ export default function PricingPage() {
         .pricing-tag {
           position: absolute;
           top: -12px;
-          left: 1.6rem;
+          /* 카드 상단 가운데 — 리뉴얼은 단독 카드라 왼쪽에 붙으면 무게가 한쪽으로 쏠린다 */
+          left: 50%;
+          transform: translateX(-50%);
           display: inline-flex;
           align-items: center;
           gap: 2px;
@@ -934,8 +721,32 @@ export default function PricingPage() {
           transition: background 0.16s ease, color 0.16s ease;
         }
         .plan-cta:hover { background: var(--surface-container); color: var(--accent); }
+        /* 리뉴얼 단독 카드 — 위 3장과 폭·간격을 정확히 맞추려고 같은 3열 그리드를 깔고
+           가운데 칸에만 카드를 놓는다 (고정 px 로 계산하면 중간 화면폭에서 어긋난다) */
+        .pricing-solo {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.1rem;
+          align-items: stretch;
+        }
+        .pricing-solo > * { grid-column: 2; }
+        /* 구분선 — 새 제작과 성격이 다른 상품이라는 걸 시각적으로 끊어준다 */
+        .pricing-solo-head {
+          display: flex; align-items: center; gap: 0.9rem;
+          margin: clamp(2rem, 4vw, 2.75rem) 0 clamp(2rem, 4vw, 2.75rem);
+          color: var(--text-muted);
+        }
+        .pricing-solo-head::before,
+        .pricing-solo-head::after {
+          content: ""; flex: 1; height: 1px; background: var(--border);
+        }
         @media (max-width: 860px) {
           .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+          .pricing-solo {
+            grid-template-columns: 1fr; max-width: 420px; margin: 0 auto;
+          }
+          .pricing-solo > * { grid-column: auto; }
+          .pricing-solo-head { max-width: 420px; margin-left: auto; margin-right: auto; }
         }
 
         .pricing-grid-3 {

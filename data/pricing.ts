@@ -121,6 +121,52 @@ export const makePlans: MakePlan[] = [
   },
 ];
 
+/**
+ * 관리자 페이지 옵션 카드의 기능 목록 — 플랜과 무관하게 모든 카드가 같다.
+ * /pricing 과 메인페이지 가격 섹션이 함께 쓴다.
+ */
+export const adminFeatures = [
+  "문의·예약 확인",
+  "회원 관리",
+  "실시간 사이트 반영",
+  "방문·유입 통계 제공",
+];
+
+/**
+ * 리뉴얼 플랜 — 신규 제작이 아니라 "기존 사이트 개편"이라 규모 사다리(START·GROW·MASTER)와
+ * 축이 달라 makePlans 배열에 넣지 않고 따로 둔다. 화면에서도 3장 아래에 한 장으로 떨어뜨린다.
+ * 섞으면 안 되는 실무적 이유도 있다 — app/pricing/layout.tsx 가 makePlans 의 price 를 숫자로
+ * 파싱해 구조화 데이터의 lowPrice·highPrice 를 만드는데, "가격 협의"는 NaN 이 된다.
+ * 금액이 확정되면 아래 문자열만 채우면 카드가 그대로 따라온다.
+ */
+export const renewPlan: MakePlan = {
+  id: "renew",
+  name: "RENEW",
+  sub: "홈페이지 리뉴얼",
+  tagline: "기존 사이트 개편형",
+  emoji: "🔄",
+  img: "/images/3d-icon/renew.png",
+  highlight: false,
+  // 금액 미확정 — discount·originalPrice 가 비면 카드가 할인 배지 줄을 통째로 접는다
+  discount: "",
+  // 당분간 MASTER(홈페이지)와 동일 구성으로 안내한다
+  features: [
+    "홈페이지 1페이지 ~",
+    "반응형 PC & 모바일 최적화",
+    "희망 SNS 문의폼 연동",
+    "페이지 로딩 속도 최적화",
+    "각 페이지별 URL 생성",
+    "SEO 상위 노출 증가",
+  ],
+  originalPrice: "",
+  price: "가격 협의",
+  maintenance: "협의",
+  adminPrice: "가격 협의",
+  adminOriginalPrice: "",
+  adminMaintenance: "협의",
+  note: "VAT 별도",
+};
+
 /* 케어플랜 전체 - 주석처리
 export const carePlans: Plan[] = [
   {
