@@ -25,8 +25,9 @@ export default function HeroBackground() {
     const ctx = cv.getContext('2d')
     if (!ctx) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // 아이브로우 배지(상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
+    // 아이브로우 배지(상단바 기준) · 신규 칩(모바일 상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
     const ebEl = document.querySelector('.hero-eyebrow') as HTMLElement | null
+    const chipEl = document.querySelector('.hero-chip--new') as HTMLElement | null
     const ctaEl = document.querySelector('.hero-btn--ghost') as HTMLElement | null
     const h1El = document.querySelector('.hero-section h1') as HTMLElement | null
     let W = 0, H = 0
@@ -84,21 +85,28 @@ export default function HeroBackground() {
         fw = Math.min(W - 4, Math.max(fw, tw + 26))
       }
       let fh = W < 700 ? fw * 0.66 : 370
+      // 브라우저 상단바(크롬) 높이 비율 — 모바일은 낮춰서 칩 높이에 딱 맞게
+      const barR = W < 700 ? 0.07 : 0.1
       const cr = cv.getBoundingClientRect()
       // 브라우저 상단바(세로 0.05fh 지점)가 아이브로우 배지 중앙에 오도록 맞춘다
       let anchorY = H * 0.27
-      if (ebEl) {
+      if (W < 700 && chipEl) {
+        // 모바일: 신규 칩("솔루션 · 신규 제작")이 상단바 칸 정중앙에 오도록 앵커
+        const chr = chipEl.getBoundingClientRect()
+        anchorY = chr.top - cr.top + chr.height / 2
+      } else if (ebEl) {
         const er = ebEl.getBoundingClientRect()
         anchorY = er.top - cr.top + er.height / 2
+        // 모바일 폴백: 프레임 상단 라인을 살짝 위로 올려 타이틀을 프레임 안에 넣는다
+        if (W < 700) anchorY -= 25
       }
-      // 모바일: 프레임 상단 라인을 살짝 위로 올려 "우리만의 플로우를 담다" 타이틀을 프레임 안에 넣는다
-      if (W < 700) anchorY -= 25
       // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
       if (W < 700 && ctaEl) {
         const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
-        fh = Math.max(fh, (ctaBottom + 12 - anchorY) / 0.95)
+        fh = Math.max(fh, (ctaBottom + 12 - anchorY) / (1 - barR / 2))
       }
-      const fx = W / 2 - fw / 2, fy = anchorY - fh * 0.05
+      // 앵커(칩 중앙)가 상단바 칸의 세로 정중앙에 오도록 프레임 상단을 잡는다
+      const fx = W / 2 - fw / 2, fy = anchorY - fh * (barR / 2)
       const X = (r: number) => fx + r * fw, Y = (r: number) => fy + r * fh
       const total = 13
       // 조립 속도를 프레임 크기(fh)에 반비례시켜, 큰 프레임(모바일)도
@@ -128,9 +136,9 @@ export default function HeroBackground() {
         ctx.strokeStyle = ACC; ctx.globalAlpha = base * 0.55
         ctx.strokeRect(fx, fy, fw * pf, fh)
         if (pf < 1) cursor = [fx + fw * pf, fy]
-        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(X(0.035) + i * 11, Y(0.05), 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
+        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(X(0.035) + i * 11, Y(barR / 2), 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
       }
-      line(0, 0.1, 1, 0.7)
+      line(0, barR, 1, 0.7)
       box(0.045, 0.14, 0.1, 0.045, 1.2, DIM)
       line(0.56, 0.162, 0.09, 1.6); line(0.7, 0.162, 0.09, 1.85); line(0.84, 0.162, 0.1, 2.05)
       box(0.045, 0.25, 0.91, 0.3, 2.4, ACC)

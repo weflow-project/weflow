@@ -76,13 +76,18 @@ export default function HeroBanner() {
           alignItems: "center",
         }}
       >
-        {/* 아이브로우 */}
-        <span
-          className="tag-badge hero-eyebrow"
-          style={{ fontSize: "0.95rem" }}
-        >
-          홈페이지 메인 제작 솔루션
-        </span>
+        {/* 아이브로우 — 데스크탑은 두 칩을 나란히, 모바일은 신규 칩을 위로 쌓는다 */}
+        <div className="hero-eyebrow">
+          <span
+            className="tag-badge hero-chip--new"
+            style={{ fontSize: "0.95rem" }}
+          >
+            리뉴얼 · 신규 제작
+          </span>
+          <span className="tag-badge" style={{ fontSize: "0.95rem" }}>
+            홈페이지 메인 제작 솔루션
+          </span>
+        </div>
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
         <h1 style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.5 }}>
@@ -210,8 +215,23 @@ export default function HeroBanner() {
           padding: clamp(5.5rem, 13vh, 9.75rem) 1.25rem clamp(3rem, 6vw, 5rem);
         }
 
-        /* 아이브로우 배지 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
-        .hero-eyebrow { margin-bottom: 1.4rem; }
+        /* 아이브로우 배지 — 데스크탑은 가로 배치(신규 칩이 오른쪽), 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
+        .hero-eyebrow {
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          justify-content: center;
+          gap: 0.6rem;
+          margin-bottom: 1.4rem;
+        }
+        /* 두 칩의 높이를 강제로 동일하게 — 글리프별 라인박스 차이 방지 */
+        .hero-eyebrow .tag-badge {
+          height: 2.1rem;
+          line-height: 1;
+          white-space: nowrap;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
 
         /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 */
         .hero-line2 { white-space: nowrap; }
@@ -223,7 +243,12 @@ export default function HeroBanner() {
             justify-content: flex-start;
             padding-top: clamp(2.5rem, 12vh, 8rem);
           }
-          .hero-eyebrow { margin-bottom: 0.85rem; }
+          /* 모바일: 신규 칩을 기존 칩 위로 세로 배치 */
+          .hero-eyebrow {
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+          }
           .hero-line2 { white-space: normal; }
           /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격(0.95rem)과 맞춘다.
              데스크탑용 margin-left 는 여기서 0 으로 되돌려 중앙 정렬을 지킨다 */

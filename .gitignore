@@ -51,3 +51,5 @@ coverage/
 
 # Claude
 CLAUDE.md
+.vercel
+.env*
