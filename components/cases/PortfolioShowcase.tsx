@@ -145,7 +145,6 @@ export default function PortfolioShowcase() {
       <div className="portfolio-chips">
         {CATEGORIES.map(cat => {
           const isActive = cat === active
-          const count = cat === ALL ? portfolios.length : portfolios.filter(p => p.category === cat).length
           return (
             <button
               key={cat}
@@ -162,21 +161,9 @@ export default function PortfolioShowcase() {
                 color: isActive ? 'var(--on-accent)' : 'var(--text-muted)',
                 transition: 'all 0.18s ease',
                 whiteSpace: 'nowrap',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
               }}
             >
               {cat}
-              <span
-                className="caption-2 semibold"
-                style={{
-                  color: isActive ? 'rgba(14,14,16,0.7)' : 'var(--text-muted)',
-                  opacity: isActive ? 1 : 0.7,
-                }}
-              >
-                {count}
-              </span>
             </button>
           )
         })}

@@ -24,11 +24,11 @@ export interface Portfolio {
 }
 
 /**
- * 업종 칩을 늘어놓는 순서 — 사례가 많은 업종부터 둔다.
+ * 업종 칩을 늘어놓는 순서 — 여기 적힌 차례 그대로 노출된다.
  * 카드 순서(아래 portfolios)와 따로 노니 여기서 정해준다.
  * 여기 없는 업종은 뒤에 붙는다.
  */
-export const categoryOrder = ['보험', '차량', '캠핑/레저', '회사/기업']
+export const categoryOrder = ['회사/기업', '차량', '캠핑/레저', '보험']
 
 // 목록 페이지의 PortfolioShowcase가 그리는 실제 제작 사례 목록
 export const portfolios: Portfolio[] = [
