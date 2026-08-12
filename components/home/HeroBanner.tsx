@@ -156,10 +156,10 @@ export default function HeroBanner() {
         >
           <Link
             href="/diagnosis"
-            className="btn-primary hero-btn"
+            className="btn-primary hero-btn hero-btn--ghost hero-btn--accent"
             style={{ width: "min(240px, 80vw)" }}
           >
-            무료 견적 바로보기
+            무료 견적 바로가기
           </Link>
 
           <Link
@@ -199,6 +199,14 @@ export default function HeroBanner() {
         .hero-btn--ghost:hover {
           background: rgba(255, 255, 255, 0.2);
           border-color: #ffffff;
+        }
+
+        /* 주 버튼 — 보조 버튼과 같은 흰 테두리에 안은 파랑으로 채운다 */
+        .hero-btn--accent {
+          background: #2563eb;
+        }
+        .hero-btn--accent:hover {
+          background: #1d4ed8;
         }
 
         /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
