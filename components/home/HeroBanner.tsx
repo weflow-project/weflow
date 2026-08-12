@@ -78,15 +78,8 @@ export default function HeroBanner() {
       >
         {/* 아이브로우 — 데스크탑은 두 칩을 나란히, 모바일은 신규 칩을 위로 쌓는다 */}
         <div className="hero-eyebrow">
-          <span
-            className="tag-badge hero-chip--new"
-            style={{ fontSize: "0.95rem" }}
-          >
-            리뉴얼 · 신규 제작
-          </span>
-          <span className="tag-badge" style={{ fontSize: "0.95rem" }}>
-            홈페이지 메인 제작 솔루션
-          </span>
+          <span className="tag-badge hero-chip--new">리뉴얼 · 신규 제작</span>
+          <span className="tag-badge">홈페이지 메인 제작 솔루션</span>
         </div>
 
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
@@ -226,6 +219,7 @@ export default function HeroBanner() {
         }
         /* 두 칩의 높이를 강제로 동일하게 — 글리프별 라인박스 차이 방지 */
         .hero-eyebrow .tag-badge {
+          font-size: 0.95rem;
           height: 2.1rem;
           line-height: 1;
           white-space: nowrap;
@@ -243,11 +237,16 @@ export default function HeroBanner() {
             justify-content: flex-start;
             padding-top: clamp(2.5rem, 12vh, 8rem);
           }
-          /* 모바일: 신규 칩을 기존 칩 위로 세로 배치 */
+          /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {
-            flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
             margin-bottom: 0.85rem;
+          }
+          .hero-eyebrow .tag-badge {
+            font-size: clamp(0.72rem, 3.4vw, 0.95rem);
+            height: 1.9rem;
+            padding-left: 10px;
+            padding-right: 10px;
           }
           .hero-line2 { white-space: normal; }
           /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격(0.95rem)과 맞춘다.

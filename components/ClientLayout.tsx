@@ -4,7 +4,6 @@ import PromoBanner from './PromoBanner'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import FloatingButtons from './FloatingButtons'
-import EventPopup from './EventPopup'
 
 /**
  * 모든 페이지를 감싸는 공통 껍데기 — 상단 배너·헤더 · 본문 · 푸터 · 하단 바.
@@ -27,7 +26,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <main>{children}</main>
       <Footer />
       <FloatingButtons />
-      <EventPopup />
     </>
   )
 }
