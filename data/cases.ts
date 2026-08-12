@@ -28,10 +28,23 @@ export interface Portfolio {
  * 카드 순서(아래 portfolios)와 따로 노니 여기서 정해준다.
  * 여기 없는 업종은 뒤에 붙는다.
  */
-export const categoryOrder = ['보험', '차량', '캠핑/레저']
+export const categoryOrder = ['보험', '차량', '캠핑/레저', '회사/기업']
 
 // 목록 페이지의 PortfolioShowcase가 그리는 실제 제작 사례 목록
 export const portfolios: Portfolio[] = [
+  {
+    slug: 'kpsc',
+    name: 'KPSC',
+    category: '회사/기업',
+    plan: '홈페이지',
+    desc: '지속 가능한 미래 에너지 생태계 구축',
+    url: 'https://kpschelpus.vercel.app/',
+    images: [
+      '/images/cases/cases-kpsc-01.webp',
+      '/images/cases/cases-kpsc-02.webp',
+      '/images/cases/cases-kpsc-03.webp',
+    ],
+  },
   {
     slug: 'ksmobility',
     name: '특장카니발 OO맨',
