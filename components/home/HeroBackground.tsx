@@ -206,7 +206,9 @@ export default function HeroBackground() {
       ctx.clearRect(0, 0, W, H)
       ctx.globalCompositeOperation = 'lighter'
       drawNetwork(t)
-      drawWireframe(t, 0.83)
+      // 와이어프레임 잠시 비활성화 — 되살리려면 아래 한 줄 주석만 풀면 된다
+      // drawWireframe(t, 0.83)
+      void drawWireframe
       ctx.globalCompositeOperation = 'source-over'
       ctx.globalAlpha = 1
       if (!reduce) { t += 0.1 * dt; raf = requestAnimationFrame(frame) }
