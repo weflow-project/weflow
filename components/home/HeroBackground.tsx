@@ -180,7 +180,8 @@ export default function HeroBackground() {
           W < 700 && btnTop !== Infinity ? btnTop - 24 : title.bottom + 24
         const cardH = cardsBottom - cardsTop
         for (let i = 0; i < 3; i++) {
-          const cx = fx + fw * (0.045 + i * 0.325)
+          // 카드 3개(폭 0.28)와 사이 간격(0.045×2)을 빼면 양옆 여백이 0.035씩 동일
+          const cx = fx + fw * (0.035 + i * 0.325)
           box(cx, cardsTop, fw * 0.28, cardH, 3.4 + i * 0.9, i === 1 ? ACC : DIM)
           // 밑줄 스텁 — 카드 가로 중앙 정렬 (카드 0.28 - 선 0.2 = 양쪽 0.04씩)
           line(cx + fw * 0.04, underY, fw * 0.2, 4.4 + i * 0.9)
