@@ -81,8 +81,16 @@ export default function HeroBanner() {
           <span className="tag-badge">홈페이지 메인 제작 솔루션</span>
         </div>
 
-        {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
-        <h1 style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.5 }}>
+        {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층)
+            translateY: 칩·타이틀만 살짝 올린다 (버튼은 제자리 — 내려와 보인다는 피드백 보정) */}
+        <h1
+          style={{
+            margin: 0,
+            wordBreak: "keep-all",
+            lineHeight: 1.5,
+            transform: "translateY(-10px)",
+          }}
+        >
           <span
             className="title-2"
             style={{
@@ -144,6 +152,7 @@ export default function HeroBanner() {
 
         {/* CTA 버튼 */}
         <div
+          className="hero-cta"
           style={{
             display: "flex",
             gap: "0.9rem",
@@ -225,6 +234,7 @@ export default function HeroBanner() {
           justify-content: center;
           gap: 0.6rem;
           margin-bottom: 1.4rem;
+          transform: translateY(-10px); /* 타이틀과 함께 살짝 위로 */
         }
         /* 두 칩의 높이를 강제로 동일하게 — 글리프별 라인박스 차이 방지 */
         .hero-eyebrow .tag-badge {
@@ -236,8 +246,11 @@ export default function HeroBanner() {
           padding-bottom: 0;
         }
 
-        /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 */
+        /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 + 버튼도 살짝 위로 */
         .hero-line2 { white-space: nowrap; }
+        @media (min-width: 769px) {
+          .hero-cta { transform: translateY(-8px); }
+        }
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
