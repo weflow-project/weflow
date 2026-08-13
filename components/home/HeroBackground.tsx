@@ -87,7 +87,8 @@ export default function HeroBackground() {
         const tw = rng.getBoundingClientRect().width
         fw = Math.min(W - 4, Math.max(fw, tw + 26))
       }
-      let fh = W < 700 ? fw * 0.66 : 370
+      // 데스크탑 프레임 세로 — 화면 중앙 배치라 위아래로 균등하게 커진다
+      let fh = W < 700 ? fw * 0.66 : 470
       // 브라우저 상단바(크롬) 높이 비율 — 모바일은 칩 실제 높이에 맞춰 다시 계산한다
       let barR = W < 700 ? 0.07 : 0.1
       const cr = cv.getBoundingClientRect()
@@ -104,19 +105,20 @@ export default function HeroBackground() {
           fh = Math.max(fh, ctaBottom + 12 - (anchorY - barH / 2))
         }
         barR = barH / fh
-      } else if (ebEl) {
+      } else if (W < 700 && ebEl) {
         const er = ebEl.getBoundingClientRect()
         anchorY = er.top - cr.top + er.height / 2
         // 모바일 폴백: 프레임 상단 라인을 살짝 위로 올려 타이틀을 프레임 안에 넣는다
-        if (W < 700) anchorY -= 25
-        // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
-        if (W < 700 && ctaEl) {
+        anchorY -= 25
+        // 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다
+        if (ctaEl) {
           const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
           fh = Math.max(fh, (ctaBottom + 12 - anchorY) / (1 - barR / 2))
         }
       }
-      // 앵커(칩 중앙)가 상단바 칸의 세로 정중앙에 오도록 프레임 상단을 잡는다
-      const fx = W / 2 - fw / 2, fy = anchorY - fh * (barR / 2)
+      // 모바일은 앵커(칩 중앙)가 상단바 정중앙에 오도록, 데스크탑은 프레임을 화면 세로 중앙에
+      const fx = W / 2 - fw / 2
+      const fy = W < 700 ? anchorY - fh * (barR / 2) : (H - fh) / 2
       const X = (r: number) => fx + r * fw, Y = (r: number) => fy + r * fh
       const total = 13
       // 조립 속도를 프레임 크기(fh)에 반비례시켜, 큰 프레임(모바일)도

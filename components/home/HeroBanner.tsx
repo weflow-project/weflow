@@ -154,11 +154,11 @@ export default function HeroBanner() {
           }}
         >
           <Link
-            href="/diagnosis"
+            href="/cases"
             className="btn-primary hero-btn hero-btn--ghost hero-btn--accent"
             style={{ width: "min(240px, 80vw)" }}
           >
-            무료 견적 바로가기
+            제작 사례 바로가기
           </Link>
 
           <Link
