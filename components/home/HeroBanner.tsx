@@ -272,7 +272,7 @@ export default function HeroBanner() {
           /* 칩은 내리고(+12) 타이틀은 올려서(-12) 둘 사이 중간 지점에서 만나게 —
              벌어져 있던 간격(약 34px)을 10px 정도로 좁힌다 */
           .hero-eyebrow { transform: translateY(2px); }
-          .hero-title { transform: translateY(-2px) !important; }
+          .hero-title { transform: translateY(8px) !important; }
           .hero-eyebrow .tag-badge {
             font-size: clamp(0.72rem, 3.4vw, 0.95rem);
             height: 1.9rem;
