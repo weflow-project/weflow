@@ -108,11 +108,15 @@ export default function HeroBackground() {
       // 콘텐츠(칩~버튼) 위아래로 같은 여백 → 그려진 프레임의 위아래가 대칭이 된다
       const contentTop = chip?.top ?? title?.top ?? H * 0.3
       const contentBottom = Math.max(btn1?.bottom ?? 0, btn2?.bottom ?? 0)
-      // 모바일도 하단 카드 3개가 들어갈 만큼 위아래 여백을 동일하게 준다
-      const padV = 72
-      const fy = contentTop - padV
+      // 모바일은 프레임 세로를 조금 눌러 카드가 길쭉해지지 않게 한다
+      const padTop = W < 700 ? 60 : 72
+      const fy = contentTop - padTop
+      // 하단은 개편 전 구성 — 카드 3개가 버튼 영역을 감싸고, 밑줄 스텁이 그 아래 온다
+      // PC는 프레임 하단 돌출(카드+밑줄+여백 합 72px)이 위 여백(72px)과 같아지도록 잡는다
+      const cardsBottom = contentBottom + (W < 700 ? 20 : 26)
+      const underY = cardsBottom + (W < 700 ? 14 : 16)
       const fh = contentBottom > 0
-        ? contentBottom + padV - fy
+        ? underY + (W < 700 ? 24 : 30) - fy
         : (W < 700 ? fw * 0.66 : 470)
       const fx = W / 2 - fw / 2
       const barMid = fy + barH / 2
@@ -167,35 +171,19 @@ export default function HeroBackground() {
       }
       // 타이틀 칸 — 아래 행간 공백이 커 보여서 바닥을 4px 끌어올려 시각적으로 맞춘다
       if (title) box(fx + 12, title.top - 6, fw - 24, title.height + 8, 2.4, ACC)
-      // 타이틀과 버튼 사이 본문 스텁 라인 — 공간이 넉넉할 때만 (글씨는 없는 구간)
-      const btnTop = Math.min(btn1?.top ?? Infinity, btn2?.top ?? Infinity)
-      if (title && btnTop !== Infinity) {
-        const gapTop = title.bottom + 12, gapBottom = btnTop - 10
-        const gapH = gapBottom - gapTop
-        if (gapH >= 24) {
-          line(W / 2 - fw * 0.17, gapTop + gapH * 0.35, fw * 0.34, 3.2)
-          line(W / 2 - fw * 0.13, gapTop + gapH * 0.72, fw * 0.26, 3.5)
-        }
-      }
-      // 버튼 묶음 칸 — 두 버튼을 한 칸으로 감싼다 (버튼마다 칸을 두면 사이 라인이 겹쳐 진해진다)
-      if (btn1 && btn2) {
-        const bx = Math.min(btn1.left, btn2.left) - 10
-        const by = Math.min(btn1.top, btn2.top) - 8
-        const bw = Math.max(btn1.left + btn1.width, btn2.left + btn2.width) + 10 - bx
-        const bh = Math.max(btn1.bottom, btn2.bottom) + 8 - by
-        box(bx, by, bw, bh, 4.1, ACC)
-      }
-      // 하단 카드 3개 + 카드 안 텍스트 스텁 — 버튼 아래 공간이 충분할 때만 (모바일은 생략됨)
-      if (contentBottom > 0) {
-        const cardsTop = contentBottom + 16
-        const cardsH = fy + fh - 12 - cardsTop
-        if (cardsH >= 34) {
-          for (let i = 0; i < 3; i++) {
-            const cx = fx + fw * (0.045 + i * 0.325)
-            box(cx, cardsTop, fw * 0.28, cardsH, 5 + i * 0.8, i === 1 ? ACC : DIM)
-            // 카드 안 스텁 라인 — 카드 정중앙(가로·세로)에
-            if (cardsH >= 40) line(cx + fw * 0.045, cardsTop + cardsH / 2, fw * 0.19, 5.6 + i * 0.8)
-          }
+      // 타이틀 칸 아래 — 개편 전처럼 카드 3개가 버튼 영역을 감싸며 내려가고,
+      // 각 카드 아래에 밑줄 스텁이 온다 (버튼을 감싸는 개별 칸은 없음)
+      if (title && contentBottom > 0) {
+        // 모바일은 버튼이 세로로 쌓여 카드가 너무 길어지므로, 버튼 조금 위에서 시작한다
+        const btnTop = Math.min(btn1?.top ?? Infinity, btn2?.top ?? Infinity)
+        const cardsTop =
+          W < 700 && btnTop !== Infinity ? btnTop - 24 : title.bottom + 24
+        const cardH = cardsBottom - cardsTop
+        for (let i = 0; i < 3; i++) {
+          const cx = fx + fw * (0.045 + i * 0.325)
+          box(cx, cardsTop, fw * 0.28, cardH, 3.4 + i * 0.9, i === 1 ? ACC : DIM)
+          // 밑줄 스텁 — 카드 가로 중앙 정렬 (카드 0.28 - 선 0.2 = 양쪽 0.04씩)
+          line(cx + fw * 0.04, underY, fw * 0.2, 4.4 + i * 0.9)
         }
       }
       if (cursor) {
