@@ -28,7 +28,10 @@ export default function HeroBackground() {
     // 아이브로우 배지(상단바 기준) · 신규 칩(모바일 상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
     const ebEl = document.querySelector('.hero-eyebrow') as HTMLElement | null
     const chipEl = document.querySelector('.hero-chip--new') as HTMLElement | null
-    const ctaEl = document.querySelector('.hero-btn--ghost') as HTMLElement | null
+    // 주 버튼에도 --ghost 가 붙어 있으므로, 보조 버튼(제작 라인업)만 정확히 집는다
+    const ctaEl = document.querySelector(
+      '.hero-btn--ghost:not(.hero-btn--accent)'
+    ) as HTMLElement | null
     const h1El = document.querySelector('.hero-section h1') as HTMLElement | null
     let W = 0, H = 0
 
@@ -85,25 +88,32 @@ export default function HeroBackground() {
         fw = Math.min(W - 4, Math.max(fw, tw + 26))
       }
       let fh = W < 700 ? fw * 0.66 : 370
-      // 브라우저 상단바(크롬) 높이 비율 — 모바일은 낮춰서 칩 높이에 딱 맞게
-      const barR = W < 700 ? 0.07 : 0.1
+      // 브라우저 상단바(크롬) 높이 비율 — 모바일은 칩 실제 높이에 맞춰 다시 계산한다
+      let barR = W < 700 ? 0.07 : 0.1
       const cr = cv.getBoundingClientRect()
       // 브라우저 상단바(세로 0.05fh 지점)가 아이브로우 배지 중앙에 오도록 맞춘다
       let anchorY = H * 0.27
       if (W < 700 && chipEl) {
-        // 모바일: 신규 칩("솔루션 · 신규 제작")이 상단바 칸 정중앙에 오도록 앵커
+        // 모바일: 칩이 상단바 칸에 딱 들어가는 높이로 — 칩 중앙 앵커 + 위아래 2px 여유
         const chr = chipEl.getBoundingClientRect()
         anchorY = chr.top - cr.top + chr.height / 2
+        const barH = chr.height + 4
+        // 프레임 하단이 2차 CTA(제작 라인업) 버튼 아래 12px까지 오도록 세로를 늘린다
+        if (ctaEl) {
+          const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
+          fh = Math.max(fh, ctaBottom + 12 - (anchorY - barH / 2))
+        }
+        barR = barH / fh
       } else if (ebEl) {
         const er = ebEl.getBoundingClientRect()
         anchorY = er.top - cr.top + er.height / 2
         // 모바일 폴백: 프레임 상단 라인을 살짝 위로 올려 타이틀을 프레임 안에 넣는다
         if (W < 700) anchorY -= 25
-      }
-      // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
-      if (W < 700 && ctaEl) {
-        const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
-        fh = Math.max(fh, (ctaBottom + 12 - anchorY) / (1 - barR / 2))
+        // 모바일: 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다(데스크탑은 세로 고정)
+        if (W < 700 && ctaEl) {
+          const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
+          fh = Math.max(fh, (ctaBottom + 12 - anchorY) / (1 - barR / 2))
+        }
       }
       // 앵커(칩 중앙)가 상단바 칸의 세로 정중앙에 오도록 프레임 상단을 잡는다
       const fx = W / 2 - fw / 2, fy = anchorY - fh * (barR / 2)
