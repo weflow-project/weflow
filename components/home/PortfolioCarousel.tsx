@@ -13,6 +13,12 @@ const SLIDES = [
     blur: 'data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwBACdASoYAAsAPrVMnkonJCKhsAgA4BaJbACdMoMljEnE5nI/h+OjDRiDAAD+743PnTLOoI6ZGasVek/kGRwaV/+X4fyhUfLFoPiYQ7HZ7Uj4dOHt41gFOrNsYMhYG/0cRQqJoUidzsaraI5AYeHZXG5joM7pUfkZhW8/UqGnKfR+MYHAJNUC3iKSbzw8tUAAAA==',
   },
   {
+    src: '/images/cases/cases-saedure-01.webp',
+    alt: '새두레 융복합 공연 문화기업 홈페이지 제작 사례',
+    url: 'https://saedure.vercel.app/',
+    blur: 'data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACQBACdASoYAAsAPrVKoEonJCMhsAgA4BaJagCsKABif2f/Ad2tzaiWcahZQwAA/vfpmt66E1W6Vdg1NkaEFF6YHrGP8ILyULCE+6v6WYN7V+ikpOwZS/eURwh9BKzk8Renft7GeWJPRF6z4lZeAA==',
+  },
+  {
     src: '/images/main/main-portfolio-01.webp',
     alt: '특장맨 특장 카니발 홈페이지 제작 사례',
     url: 'https://teukjangman.kr/',

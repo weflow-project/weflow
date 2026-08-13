@@ -46,6 +46,19 @@ export const portfolios: Portfolio[] = [
     ],
   },
   {
+    slug: 'saedure',
+    name: '새두레',
+    category: '회사/기업',
+    plan: '랜딩페이지',
+    desc: '역사와 첨단기술을 잇는 융복합 공연 문화기업',
+    url: 'https://saedure.vercel.app/',
+    images: [
+      '/images/cases/cases-saedure-01.webp',
+      '/images/cases/cases-saedure-02.webp',
+      '/images/cases/cases-saedure-03.webp',
+    ],
+  },
+  {
     slug: 'ksmobility',
     name: '특장카니발 OO맨',
     category: '차량',
