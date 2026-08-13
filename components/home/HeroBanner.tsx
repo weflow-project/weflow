@@ -1,5 +1,4 @@
 import Link from "next/link";
-import HeroCarousel from "./HeroCarousel";
 import HeroBackground from "./HeroBackground";
 
 // 글자 단위 등장 — 자리는 유지하고 투명→나타남 (start: 앞선 글자 수, step: 글자 간격)
@@ -171,8 +170,6 @@ export default function HeroBanner() {
           </Link>
         </div>
 
-        {/* 대표 이미지 캐러셀 (10장 · 3초 자동 좌우 슬라이드) */}
-        <HeroCarousel />
       </div>
 
       <style>{`
@@ -201,24 +198,22 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 주 버튼 — 보조 버튼과 같은 유리 질감에 반투명 파랑을 얹고,
-           은은한 글로우로 주 버튼임을 알린다 (솔리드 채움은 너무 튀어서 뺌) */
+        /* 주 버튼 — 보조 버튼과 같은 유리 질감에 반투명 파랑(68%)을 얹는다
+           (솔리드 채움은 너무 튀고, 글로우도 과해서 뺌) */
         .hero-btn--accent {
-          background: rgba(37, 99, 235, 0.55);
+          background: rgba(37, 99, 235, 0.68);
           border-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 22px rgba(59, 118, 235, 0.35);
         }
         .hero-btn--accent:hover {
-          background: rgba(37, 99, 235, 0.7);
+          background: rgba(37, 99, 235, 0.82);
           border-color: #ffffff;
-          box-shadow: 0 0 26px rgba(59, 118, 235, 0.45);
         }
 
-        /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
+        /* 히어로 섹션 패딩 — 캐러셀을 뺀 뒤로는 화면을 강제로 채우지 않고
+           콘텐츠 높이만큼만 차지한다 */
         .hero-section {
-          min-height: calc(100vh + 80px);
           justify-content: center;
-          padding: clamp(5.5rem, 13vh, 9.75rem) 1.25rem clamp(3rem, 6vw, 5rem);
+          padding: clamp(3.5rem, 8vh, 6rem) 1.25rem;
         }
 
         /* 아이브로우 배지 — 데스크탑은 가로 배치(신규 칩이 오른쪽), 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
@@ -245,10 +240,10 @@ export default function HeroBanner() {
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
+          /* 모바일도 콘텐츠 높이만큼만 — 위아래 여백 동일 */
           .hero-section {
-            min-height: 100svh;
-            justify-content: flex-start;
-            padding-top: clamp(2.5rem, 12vh, 8rem);
+            padding-top: 3rem;
+            padding-bottom: 3rem;
           }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {

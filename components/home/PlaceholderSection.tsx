@@ -39,6 +39,7 @@ export default function PlaceholderSection({
   title,
   body,
   background = 'var(--section-a)',
+  padding = 'clamp(3rem, 7vw, 5.5rem) 1.25rem',
   imageCount = 1,
   imageCols,
   imageAspect = '1 / 1',
@@ -57,6 +58,8 @@ export default function PlaceholderSection({
   /** 줄바꿈이 필요하면 <br />를 넣은 JSX 를 넘긴다 */
   body?: ReactNode
   background?: string
+  /** 섹션 안쪽 여백 — 위아래를 없애고 싶은 섹션은 '0 1.25rem' 처럼 넘긴다 */
+  padding?: string
   /** true면 아이브로우와 제목 사이에 별 5개 노출 */
   stars?: boolean
   imageCount?: number
@@ -82,7 +85,7 @@ export default function PlaceholderSection({
     <section
       style={{
         background,
-        padding: 'clamp(3rem, 7vw, 5.5rem) 1.25rem',
+        padding,
       }}
     >
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
