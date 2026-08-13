@@ -25,13 +25,13 @@ export default function HeroBackground() {
     const ctx = cv.getContext('2d')
     if (!ctx) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // 아이브로우 배지(상단바 기준) · 신규 칩(모바일 상단바 기준) · 2차 CTA 버튼(모바일에서 프레임 하단 기준)
+    // 아이브로우 칩 줄(상단바 기준) · 버튼들(칸 배치·프레임 하단 기준) · 타이틀(본문 칸 기준)
     const ebEl = document.querySelector('.hero-eyebrow') as HTMLElement | null
-    const chipEl = document.querySelector('.hero-chip--new') as HTMLElement | null
     // 주 버튼에도 --ghost 가 붙어 있으므로, 보조 버튼(제작 라인업)만 정확히 집는다
     const ctaEl = document.querySelector(
       '.hero-btn--ghost:not(.hero-btn--accent)'
     ) as HTMLElement | null
+    const btnEl = document.querySelector('.hero-btn--accent') as HTMLElement | null
     const h1El = document.querySelector('.hero-section h1') as HTMLElement | null
     let W = 0, H = 0
 
@@ -76,9 +76,11 @@ export default function HeroBackground() {
       }
     }
 
-    // 와이어프레임 — 브라우저 목업이 커서 따라 그려짐
+    // 와이어프레임 — 브라우저 목업이 커서 따라 그려짐.
+    // 칩·타이틀·버튼의 실제 위치를 재서 각자 자기 칸 안에 들어가게 하고,
+    // 어떤 선도 글씨를 지나가지 않게 한다.
     const drawWireframe = (t: number, am: number) => {
-      // 모바일은 화면 대비 크게, 데스크탑은 가로를 넓혀 타이틀을 감싼다(세로는 고정)
+      // 모바일은 화면 대비 크게, 데스크탑은 가로를 넓혀 타이틀을 감싼다
       let fw = W < 700 ? W * 0.86 : Math.min(W * 0.72, 940)
       // 타이틀의 실제 렌더 폭을 재서 그보다 넓게 감싼다 (화면은 넘지 않게)
       if (h1El) {
@@ -87,43 +89,37 @@ export default function HeroBackground() {
         const tw = rng.getBoundingClientRect().width
         fw = Math.min(W - 4, Math.max(fw, tw + 26))
       }
-      // 데스크탑 프레임 세로 — 화면 중앙 배치라 위아래로 균등하게 커진다
-      let fh = W < 700 ? fw * 0.66 : 470
-      // 브라우저 상단바(크롬) 높이 비율 — 모바일은 칩 실제 높이에 맞춰 다시 계산한다
-      let barR = W < 700 ? 0.07 : 0.1
       const cr = cv.getBoundingClientRect()
-      // 브라우저 상단바(세로 0.05fh 지점)가 아이브로우 배지 중앙에 오도록 맞춘다
-      let anchorY = H * 0.27
-      if (W < 700 && chipEl) {
-        // 모바일: 칩이 상단바 칸에 딱 들어가는 높이로 — 칩 중앙 앵커 + 위아래 2px 여유
-        const chr = chipEl.getBoundingClientRect()
-        anchorY = chr.top - cr.top + chr.height / 2
-        const barH = chr.height + 4
-        // 프레임 하단이 2차 CTA(제작 라인업) 버튼 아래 12px까지 오도록 세로를 늘린다
-        if (ctaEl) {
-          const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
-          fh = Math.max(fh, ctaBottom + 12 - (anchorY - barH / 2))
-        }
-        barR = barH / fh
-      } else if (W < 700 && ebEl) {
-        const er = ebEl.getBoundingClientRect()
-        anchorY = er.top - cr.top + er.height / 2
-        // 모바일 폴백: 프레임 상단 라인을 살짝 위로 올려 타이틀을 프레임 안에 넣는다
-        anchorY -= 25
-        // 프레임 하단이 2차 CTA 버튼 아래까지 오도록 세로를 늘린다
-        if (ctaEl) {
-          const ctaBottom = ctaEl.getBoundingClientRect().bottom - cr.top
-          fh = Math.max(fh, (ctaBottom + 12 - anchorY) / (1 - barR / 2))
+      const rect = (el: HTMLElement | null) => {
+        if (!el) return null
+        const r = el.getBoundingClientRect()
+        return {
+          top: r.top - cr.top, bottom: r.bottom - cr.top,
+          left: r.left - cr.left, width: r.width, height: r.height,
         }
       }
-      // 모바일은 앵커(칩 중앙)가 상단바 정중앙에 오도록, 데스크탑은 프레임을 화면 세로 중앙에
+      const chip = rect(ebEl)   // 칩 줄 (프레임 상단 기준점)
+      const title = rect(h1El)  // 타이틀 → 본문 큰 칸 안에
+      const btn1 = rect(btnEl)  // 주 버튼
+      const btn2 = rect(ctaEl)  // 보조 버튼
+
+      // 상단바 — 장식용 고정 높이 (칩을 억지로 넣지 않는다)
+      const barH = W < 700 ? 34 : 42
+      // 콘텐츠(칩~버튼) 위아래로 같은 여백 → 그려진 프레임의 위아래가 대칭이 된다
+      const contentTop = chip?.top ?? title?.top ?? H * 0.3
+      const contentBottom = Math.max(btn1?.bottom ?? 0, btn2?.bottom ?? 0)
+      // 모바일도 하단 카드 3개가 들어갈 만큼 위아래 여백을 동일하게 준다
+      const padV = 72
+      const fy = contentTop - padV
+      const fh = contentBottom > 0
+        ? contentBottom + padV - fy
+        : (W < 700 ? fw * 0.66 : 470)
       const fx = W / 2 - fw / 2
-      const fy = W < 700 ? anchorY - fh * (barR / 2) : (H - fh) / 2
-      const X = (r: number) => fx + r * fw, Y = (r: number) => fy + r * fh
+      const barMid = fy + barH / 2
+
       const total = 13
-      // 조립 속도를 프레임 크기(fh)에 반비례시켜, 큰 프레임(모바일)도
-      // 실제 그려지는 속도(픽셀/초)가 데스크탑과 같게 한다 (기준 fh 370)
-      const cyc = (t * 0.11 * (370 / fh)) % total
+      // 프레임 크기와 무관하게 모바일·데스크탑이 같은 시간 안에 그려진다
+      const cyc = (t * 0.11) % total
       const out = Math.max(0, Math.min(1, (cyc - (total - 2)) / 1.6))
       const base = (1 - out) * am
       const seg = (d: number) => Math.max(0, Math.min(1, cyc - d))
@@ -131,35 +127,76 @@ export default function HeroBackground() {
       let cursor: [number, number] | null = null
 
       ctx.lineWidth = 1.7
-      const box = (rx: number, ry: number, rw: number, rh: number, d: number, col: string) => {
+      // px 좌표 헬퍼 — 왼쪽에서 오른쪽으로 진행률 p 만큼 그려진다
+      const box = (x: number, y: number, w: number, h: number, d: number, col: string) => {
         const p = seg(d); if (p <= 0) return
         ctx.strokeStyle = col; ctx.globalAlpha = base * (0.28 + p * 0.32)
-        ctx.strokeRect(X(rx), Y(ry), rw * fw * p, rh * fh)
-        if (p < 1) cursor = [X(rx) + rw * fw * p, Y(ry) + rh * fh / 2]
+        ctx.strokeRect(x, y, w * p, h)
+        if (p < 1) cursor = [x + w * p, y + h / 2]
       }
-      const line = (rx: number, ry: number, rw: number, d: number) => {
+      const line = (x: number, y: number, w: number, d: number) => {
         const p = seg(d); if (p <= 0) return
         ctx.strokeStyle = DIM; ctx.globalAlpha = base * 0.5
-        ctx.beginPath(); ctx.moveTo(X(rx), Y(ry)); ctx.lineTo(X(rx) + rw * fw * p, Y(ry)); ctx.stroke()
-        if (p < 1) cursor = [X(rx) + rw * fw * p, Y(ry)]
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + w * p, y); ctx.stroke()
+        if (p < 1) cursor = [x + w * p, y]
       }
+
+      // 바깥 프레임 + 좌측 신호등 점 3개 (점은 상단바 세로 중앙)
       const pf = seg(0)
       if (pf > 0) {
         ctx.strokeStyle = ACC; ctx.globalAlpha = base * 0.55
         ctx.strokeRect(fx, fy, fw * pf, fh)
         if (pf < 1) cursor = [fx + fw * pf, fy]
-        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(X(0.035) + i * 11, Y(barR / 2), 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
+        if (pf >= 1) for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(fx + fw * 0.035 + i * 11, barMid, 2.6, 0, 7); ctx.fillStyle = ACC; ctx.globalAlpha = base * 0.5; ctx.fill() }
       }
-      line(0, barR, 1, 0.7)
-      box(0.045, 0.14, 0.1, 0.045, 1.2, DIM)
-      line(0.56, 0.162, 0.09, 1.6); line(0.7, 0.162, 0.09, 1.85); line(0.84, 0.162, 0.1, 2.05)
-      box(0.045, 0.25, 0.91, 0.3, 2.4, ACC)
-      line(0.3, 0.35, 0.4, 3.1); line(0.34, 0.41, 0.32, 3.4)
-      box(0.37, 0.47, 0.11, 0.05, 4, ACC); box(0.52, 0.47, 0.11, 0.05, 4.3, DIM)
-      for (let i = 0; i < 3; i++) {
-        const cx = 0.045 + i * 0.325
-        box(cx, 0.62, 0.28, 0.26, 5 + i * 0.9, i === 1 ? ACC : DIM)
-        line(cx + 0.03, 0.93, 0.2, 6 + i * 0.9)
+      // 상단바 하단 라인
+      line(fx, fy + barH, fw, 0.7)
+      // 주소창 알약 — 신호등 점 오른쪽 (칩이 상단바 밖에 있어 항상 안전)
+      {
+        const ph = Math.min(barH * 0.52, 16)
+        const pillX = Math.max(fx + fw * 0.08, fx + fw * 0.035 + 34)
+        box(pillX, barMid - ph / 2, fw * (W < 700 ? 0.3 : 0.18), ph, 1.1, DIM)
+      }
+      // 상단바 내비 스텁 — 오른쪽 끝 정렬
+      {
+        const stubs = W < 700 ? 2 : 3
+        const stubW = W < 700 ? 30 : 42
+        const stubGap = W < 700 ? 14 : 20
+        const navX = fx + fw - 14 - (stubs * stubW + (stubs - 1) * stubGap)
+        for (let i = 0; i < stubs; i++) line(navX + i * (stubW + stubGap), barMid, stubW, 1.6 + i * 0.22)
+      }
+      // 타이틀 칸 — 아래 행간 공백이 커 보여서 바닥을 4px 끌어올려 시각적으로 맞춘다
+      if (title) box(fx + 12, title.top - 6, fw - 24, title.height + 8, 2.4, ACC)
+      // 타이틀과 버튼 사이 본문 스텁 라인 — 공간이 넉넉할 때만 (글씨는 없는 구간)
+      const btnTop = Math.min(btn1?.top ?? Infinity, btn2?.top ?? Infinity)
+      if (title && btnTop !== Infinity) {
+        const gapTop = title.bottom + 12, gapBottom = btnTop - 10
+        const gapH = gapBottom - gapTop
+        if (gapH >= 24) {
+          line(W / 2 - fw * 0.17, gapTop + gapH * 0.35, fw * 0.34, 3.2)
+          line(W / 2 - fw * 0.13, gapTop + gapH * 0.72, fw * 0.26, 3.5)
+        }
+      }
+      // 버튼 묶음 칸 — 두 버튼을 한 칸으로 감싼다 (버튼마다 칸을 두면 사이 라인이 겹쳐 진해진다)
+      if (btn1 && btn2) {
+        const bx = Math.min(btn1.left, btn2.left) - 10
+        const by = Math.min(btn1.top, btn2.top) - 8
+        const bw = Math.max(btn1.left + btn1.width, btn2.left + btn2.width) + 10 - bx
+        const bh = Math.max(btn1.bottom, btn2.bottom) + 8 - by
+        box(bx, by, bw, bh, 4.1, ACC)
+      }
+      // 하단 카드 3개 + 카드 안 텍스트 스텁 — 버튼 아래 공간이 충분할 때만 (모바일은 생략됨)
+      if (contentBottom > 0) {
+        const cardsTop = contentBottom + 16
+        const cardsH = fy + fh - 12 - cardsTop
+        if (cardsH >= 34) {
+          for (let i = 0; i < 3; i++) {
+            const cx = fx + fw * (0.045 + i * 0.325)
+            box(cx, cardsTop, fw * 0.28, cardsH, 5 + i * 0.8, i === 1 ? ACC : DIM)
+            // 카드 안 스텁 라인 — 카드 정중앙(가로·세로)에
+            if (cardsH >= 40) line(cx + fw * 0.045, cardsTop + cardsH / 2, fw * 0.19, 5.6 + i * 0.8)
+          }
+        }
       }
       if (cursor) {
         const [cxp, cyp] = cursor
