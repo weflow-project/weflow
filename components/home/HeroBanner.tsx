@@ -85,6 +85,7 @@ export default function HeroBanner() {
         {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층)
             translateY: 칩·타이틀만 살짝 올린다 (버튼은 제자리 — 내려와 보인다는 피드백 보정) */}
         <h1
+          className="hero-title"
           style={{
             margin: 0,
             wordBreak: "keep-all",
@@ -251,7 +252,7 @@ export default function HeroBanner() {
         .hero-line2 { white-space: nowrap; }
         @media (min-width: 769px) {
           /* PC: 콘텐츠 전체를 한 번 더 올리고, 버튼은 그 위에 추가로 */
-          .hero-inner { transform: translateY(-10px); }
+          .hero-inner { transform: translateY(-20px); }
           .hero-cta { transform: translateY(-8px); }
         }
 
@@ -263,13 +264,14 @@ export default function HeroBanner() {
             padding-top: 3rem;
             padding-bottom: 3rem;
           }
-          /* 모바일: 버튼 두 개만 살짝 위로 */
-          .hero-cta { transform: translateY(-8px); }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {
             gap: 0.4rem;
             margin-bottom: 0.85rem;
           }
+          /* 타이틀만 아래로 내려 칩(위 13.6px)과 버튼(아래 54px)의 정가운데로 —
+             칩·버튼 위치는 그대로 두고 타이틀 위치만 옮긴다 */
+          .hero-title { transform: translateY(10px) !important; }
           .hero-eyebrow .tag-badge {
             font-size: clamp(0.72rem, 3.4vw, 0.95rem);
             height: 1.9rem;
