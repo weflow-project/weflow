@@ -201,12 +201,17 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 주 버튼 — 보조 버튼과 같은 흰 테두리에 안은 파랑으로 채운다 */
+        /* 주 버튼 — 보조 버튼과 같은 유리 질감에 반투명 파랑을 얹고,
+           은은한 글로우로 주 버튼임을 알린다 (솔리드 채움은 너무 튀어서 뺌) */
         .hero-btn--accent {
-          background: #2563eb;
+          background: rgba(37, 99, 235, 0.55);
+          border-color: rgba(255, 255, 255, 0.8);
+          box-shadow: 0 0 22px rgba(59, 118, 235, 0.35);
         }
         .hero-btn--accent:hover {
-          background: #1d4ed8;
+          background: rgba(37, 99, 235, 0.7);
+          border-color: #ffffff;
+          box-shadow: 0 0 26px rgba(59, 118, 235, 0.45);
         }
 
         /* 히어로 섹션 패딩 (모바일에서 상단 여백 축소) */
