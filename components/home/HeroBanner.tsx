@@ -209,9 +209,10 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 히어로 섹션 패딩 — 캐러셀을 뺀 뒤로는 화면을 강제로 채우지 않고
-           콘텐츠 높이만큼만 차지한다 */
+        /* 히어로 섹션 — 헤더(프로모션 띠 46px + 네비바 64px)를 뺀 나머지 화면을
+           꽉 채워, 스크롤 없이 첫 화면에 히어로 바닥까지 보이게 한다 */
         .hero-section {
+          min-height: calc(100vh - 110px);
           justify-content: center;
           padding: clamp(3.5rem, 8vh, 6rem) 1.25rem;
         }
@@ -240,8 +241,9 @@ export default function HeroBanner() {
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
-          /* 모바일도 콘텐츠 높이만큼만 — 위아래 여백 동일 */
+          /* 모바일도 헤더를 뺀 첫 화면에 딱 (주소창 변화에 안전한 svh 단위) */
           .hero-section {
+            min-height: calc(100svh - 110px);
             padding-top: 3rem;
             padding-bottom: 3rem;
           }
