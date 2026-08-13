@@ -65,6 +65,7 @@ export default function HeroBanner() {
       />
 
       <div
+        className="hero-inner"
         style={{
           position: "relative",
           zIndex: 2,
@@ -249,6 +250,8 @@ export default function HeroBanner() {
         /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 + 버튼도 살짝 위로 */
         .hero-line2 { white-space: nowrap; }
         @media (min-width: 769px) {
+          /* PC: 콘텐츠 전체를 한 번 더 올리고, 버튼은 그 위에 추가로 */
+          .hero-inner { transform: translateY(-10px); }
           .hero-cta { transform: translateY(-8px); }
         }
 
@@ -260,6 +263,8 @@ export default function HeroBanner() {
             padding-top: 3rem;
             padding-bottom: 3rem;
           }
+          /* 모바일: 버튼 두 개만 살짝 위로 */
+          .hero-cta { transform: translateY(-8px); }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {
             gap: 0.4rem;
