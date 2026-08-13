@@ -269,9 +269,10 @@ export default function HeroBanner() {
             gap: 0.4rem;
             margin-bottom: 0.85rem;
           }
-          /* 타이틀만 아래로 내려 칩(위 13.6px)과 버튼(아래 54px)의 정가운데로 —
-             칩·버튼 위치는 그대로 두고 타이틀 위치만 옮긴다 */
-          .hero-title { transform: translateY(10px) !important; }
+          /* 칩은 내리고(+12) 타이틀은 올려서(-12) 둘 사이 중간 지점에서 만나게 —
+             벌어져 있던 간격(약 34px)을 10px 정도로 좁힌다 */
+          .hero-eyebrow { transform: translateY(2px); }
+          .hero-title { transform: translateY(-2px) !important; }
           .hero-eyebrow .tag-badge {
             font-size: clamp(0.72rem, 3.4vw, 0.95rem);
             height: 1.9rem;
