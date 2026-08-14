@@ -253,7 +253,7 @@ export default function HeroBanner() {
         @media (min-width: 769px) {
           /* PC: 콘텐츠 전체를 한 번 더 올리고, 버튼은 그 위에 추가로 */
           .hero-inner { transform: translateY(-20px); }
-          .hero-cta { transform: translateY(-8px); }
+          .hero-cta { transform: translateY(-32px); }
         }
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */

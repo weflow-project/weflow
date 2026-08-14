@@ -28,9 +28,10 @@ export const metadata: Metadata = {
   alternates: { canonical: './' },
   // 탭 제목 글자와 나란히 놓이므로 로고를 살짝 내려 그린 전용 파일을 쓴다
   icons: { icon: '/favicon.png' },
+  // 카톡·SNS 링크 미리보기 — 제목은 짧게, 설명에 히어로 문구를 그대로 싣는다
   openGraph: {
-    title: '위플로우(WEFLOW) — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
-    description: '위플로우(WEFLOW)는 홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
+    title: '위플로우 WEFLOW',
+    description: '내가 진짜 원하는 페이지 - 우리만의 플로우를 담다, WEFLOW',
     url: 'https://weflowlab.kr',
     siteName: 'WEFLOW',
     images: [{ url: '/images/main/og-main.webp', width: 1200, height: 630 }],
@@ -39,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '위플로우(WEFLOW) — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
-    description: '위플로우(WEFLOW)는 홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
+    title: '위플로우 WEFLOW',
+    description: '내가 진짜 원하는 페이지 - 우리만의 플로우를 담다, WEFLOW',
     images: ['/images/main/og-main.webp'],
   },
   verification: {
