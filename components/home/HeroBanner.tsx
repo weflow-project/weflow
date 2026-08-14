@@ -269,6 +269,8 @@ export default function HeroBanner() {
             gap: 0.4rem;
             margin-bottom: 0.85rem;
           }
+          /* 모바일: 히어로 콘텐츠 전체 3px 위로 */
+          .hero-inner { transform: translateY(-3px); }
           /* 칩은 내리고(+12) 타이틀은 올려서(-12) 둘 사이 중간 지점에서 만나게 —
              벌어져 있던 간격(약 34px)을 10px 정도로 좁힌다 */
           .hero-eyebrow { transform: translateY(2px); }

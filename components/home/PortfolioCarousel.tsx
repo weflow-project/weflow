@@ -16,7 +16,7 @@ const SLIDES = [
     src: '/images/cases/cases-saedure-01.webp',
     alt: '새두레 융복합 공연 문화기업 홈페이지 제작 사례',
     url: 'https://saedure.vercel.app/',
-    blur: 'data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACQBACdASoYAAsAPrVKoEonJCMhsAgA4BaJagCsKABif2f/Ad2tzaiWcahZQwAA/vfpmt66E1W6Vdg1NkaEFF6YHrGP8ILyULCE+6v6WYN7V+ikpOwZS/eURwh9BKzk8Renft7GeWJPRF6z4lZeAA==',
+    blur: 'data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQAwCdASoYAAsAPrVInkmnJCKhMAgA4BaJYgAAW+yEc0tMP8LtRgAA/vaSElIns3t/WX6+LLd4OmXwfjIStGs17Zf/yezcHPqI9ylnVbT1+xrKnUMjuYeuLA6nIDNJPtvbvEAA',
   },
   {
     src: '/images/main/main-portfolio-01.webp',
