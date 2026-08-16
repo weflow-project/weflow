@@ -323,12 +323,12 @@ export default function BookingPage() {
                 {showErrors && !form.phone && <p className="field-error">연락처를 입력해 주세요</p>}
               </div>
               <div>
-                <label className="form-label">예약 종류 <span style={{ color: '#ef4444' }}>*</span></label>
+                <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
                 <select id="bk-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                   <option value="">선택해 주세요</option>
                   {projectTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
-                {showErrors && !form.type && <p className="field-error">예약 종류를 선택해 주세요</p>}
+                {showErrors && !form.type && <p className="field-error">제작 종류를 선택해 주세요</p>}
               </div>
             </div>
 

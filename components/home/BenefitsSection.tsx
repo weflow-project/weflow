@@ -7,8 +7,8 @@ const BENEFITS = [
   {
     no: "혜택 01",
     icon: "/images/main/main-benefit-01.webp",
-    title: ["제휴 마케팅 협업", "SEO 상단 관리"],
-    desc: "제휴 마케팅 협업으로\n검색 상단 관리",
+    title: ["제휴 마케팅", "채널 연결"],
+    desc: "블로그·인스타·유튜브 숏폼·플레이스\n제휴 채널로 제작 후 홍보까지",
   },
   {
     no: "혜택 02",

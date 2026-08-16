@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
-import { FileEdit, Camera, PlaySquare, MapPin, BarChart2, Globe } from "lucide-react";
+import { FileEdit, Camera, PlaySquare, MapPin } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 // 제휴 마케팅 운영 항목 6가지 — 카드 그리드를 채우는 데이터
@@ -11,12 +11,6 @@ const AD_SERVICES: { Icon: LucideIcon; title: string; desc: string }[] = [
   { Icon: Camera, title: "인스타 업로드", desc: "인스타그램·메타 광고 정기 업로드" },
   { Icon: PlaySquare, title: "유튜브 숏폼", desc: "유튜브 숏폼 제작·업로드 운영" },
   { Icon: MapPin, title: "네이버 플레이스", desc: "지역 검색·지도 노출 등록·관리" },
-  {
-    Icon: BarChart2,
-    title: "네이버 서치어드바이저",
-    desc: "사이트 맵을 활용한 네이버 검색 상단 등록",
-  },
-  { Icon: Globe, title: "구글 콘솔", desc: "사이트 맵을 활용한 구글 검색 상단 등록" },
 ];
 
 // 운영 항목 카드 한 장 (마우스를 올리면 배경·아이콘 색이 강조된다)
@@ -123,7 +117,7 @@ export default function AdManagement() {
             AD MANAGEMENT
           </p>
           <h2 className="title-1 ad-title" style={{ margin: "0 0 0.5rem" }}>
-            제휴 마케팅 업체 연결 · 기본제공 시스템
+            제휴 마케팅 업체 연결
           </h2>
           <p className="body c-muted" style={{ margin: 0 }}>
             제작 후에도 꾸준히 성장할 수 있도록{" "}
@@ -189,13 +183,11 @@ export default function AdManagement() {
           font-weight: 600;
           letter-spacing: 0.02em;
         }
+        /* 카드 4장 — 2×2 로 배치 (3열이면 마지막 한 장이 혼자 남는다) */
         .ad-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 0.9rem;
-        }
-        @media (max-width: 768px) {
-          .ad-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
           .ad-grid { grid-template-columns: 1fr; }

@@ -277,12 +277,12 @@ export default function DiagnosisPage() {
                 </div>
 
                 <div>
-                  <label className="form-label">견적 종류 <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
                   <select id="dg-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                     <option value="">선택해 주세요</option>
                     {projectTypes.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
-                  {showErrors && !form.type && <p className="field-error">견적 종류를 선택해 주세요</p>}
+                  {showErrors && !form.type && <p className="field-error">제작 종류를 선택해 주세요</p>}
                 </div>
 
                 <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
