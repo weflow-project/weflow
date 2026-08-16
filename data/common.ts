@@ -10,8 +10,6 @@ export const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 
 /** 제작 종류 선택지 — 배열 순서가 곧 셀렉트·집계 목록 순서 */
 export const projectTypes = [
-  '랜딩페이지 제작',
-  '랜딩형 홈페이지 제작',
-  '홈페이지 제작',
+  '홈페이지 신규 제작',
   '홈페이지 리뉴얼',
 ]

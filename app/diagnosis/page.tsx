@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Check, MessageSquare, FileSearch, Lightbulb, Zap, Phone, XCircle, User } from 'lucide-react'
+import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle, User } from 'lucide-react'
 import { projectTypes } from '@/data/common'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
@@ -8,7 +8,6 @@ import SplitText from '@/components/SplitText'
 const CHECKS = [
   { icon: FileSearch, title: '문의 구조 진단', desc: '방문자가 문의로 이어지지 않는 이유를 분석합니다' },
   { icon: MessageSquare, title: '디자인 점검', desc: '업종에 맞는 디자인 방향과 개선 포인트를 제안합니다' },
-  { icon: Zap, title: '검색 노출 분석', desc: '네이버·구글 노출 현황과 개선 방안을 확인합니다' },
   { icon: Lightbulb, title: '맞춤 제작 방향 제안', desc: '업종·예산에 맞는 최적의 제작 방향을 안내합니다' },
 ]
 
@@ -261,7 +260,7 @@ export default function DiagnosisPage() {
             <form
               onSubmit={handleSubmit}
               className="dg-card"
-              style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
             >
               <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 견적 정보</p>
 
@@ -278,25 +277,12 @@ export default function DiagnosisPage() {
                 </div>
 
                 <div>
-                  <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label className="form-label">견적 종류 <span style={{ color: '#ef4444' }}>*</span></label>
                   <select id="dg-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                     <option value="">선택해 주세요</option>
                     {projectTypes.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
-                  {showErrors && !form.type && <p className="field-error">제작 종류를 선택해 주세요</p>}
-                </div>
-
-                <div>
-                  <label className="form-label">업종</label>
-                  <input className="form-input" placeholder="예: 차량 관련 업종, 캠핑 관련 업종 등" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
-                </div>
-
-                <div>
-                  <label className="form-label">현재 고민 / 추가 요청사항</label>
-                  <textarea className="form-input" rows={4}
-                    placeholder="예: 홈페이지가 있는데 리뉴얼하고 싶어요 / 홈페이지가 없어서 알아보는 중이에요 등"
-                    value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                    style={{ resize: 'vertical' }} />
+                  {showErrors && !form.type && <p className="field-error">견적 종류를 선택해 주세요</p>}
                 </div>
 
                 <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
@@ -331,10 +317,11 @@ export default function DiagnosisPage() {
           background: var(--surface);
           border: 1.5px solid var(--border);
           border-radius: 16px;
-          padding: 1.5rem;
+          /* 아래는 버튼이 딱 떨어져 위(제목 행간 여백 포함)보다 좁아 보여서 살짝 더 준다 */
+          padding: 1.5rem 1.5rem 1.85rem;
         }
         @media (max-width: 640px) {
-          .dg-card { padding: 1.1rem; border-radius: 12px; }
+          .dg-card { padding: 1.1rem 1.1rem 1.4rem; border-radius: 12px; }
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
@@ -343,7 +330,7 @@ export default function DiagnosisPage() {
         .dg-section-title {
           font-weight: 600; font-size: 1.28rem; color: var(--text);
           letter-spacing: -0.01em;
-          margin: 0 0 1rem; display: flex; align-items: center; gap: 0.4rem;
+          margin: 0 0 -0.4rem; display: flex; align-items: center; gap: 0.4rem;
         }
         /* 폼 글씨 확대 (diagnosis 전용) */
         .diag-grid .form-input { font-size: 1.05rem; }

@@ -308,9 +308,9 @@ export default function BookingPage() {
             {/* ── 오른쪽: 예약 정보·제출 ── */}
             <div className="booking-right">
 
-            {/* 예약 정보 */}
-            <div className="booking-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <p className="bk-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 예약 정보</p>
+            {/* 예약 정보 — 아래 여백을 위(제목 행간 포함)와 시각적으로 같게 살짝 더 준다 */}
+            <div className="booking-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '1.85rem' }}>
+              <p className="bk-section-title bk-form-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 예약 정보</p>
 
               <div>
                 <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
@@ -323,22 +323,12 @@ export default function BookingPage() {
                 {showErrors && !form.phone && <p className="field-error">연락처를 입력해 주세요</p>}
               </div>
               <div>
-                <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
+                <label className="form-label">예약 종류 <span style={{ color: '#ef4444' }}>*</span></label>
                 <select id="bk-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                   <option value="">선택해 주세요</option>
                   {projectTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
-                {showErrors && !form.type && <p className="field-error">제작 종류를 선택해 주세요</p>}
-              </div>
-              <div>
-                <label className="form-label">업종</label>
-                <input className="form-input" placeholder="예: 필라테스, 법률사무소 등" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
-              </div>
-              <div>
-                <label className="form-label">추가 요청사항</label>
-                <textarea className="form-input" rows={4} placeholder="자유롭게 적어주세요."
-                  value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                  style={{ resize: 'vertical' }} />
+                {showErrors && !form.type && <p className="field-error">예약 종류를 선택해 주세요</p>}
               </div>
             </div>
 
@@ -405,6 +395,8 @@ export default function BookingPage() {
           letter-spacing: -0.01em;
           margin: 0 0 1rem; display: flex; align-items: center; gap: 0.4rem;
         }
+        /* 오른쪽 예약 정보 카드만 — 필드 간격(1.5rem gap)이 있어 제목 아래를 좁힌다 */
+        .bk-form-title { margin-bottom: -0.4rem; }
         /* 폼 내부 글씨 키우기 (booking 페이지 전용) */
         .booking-card .form-input { font-size: 1.08rem; }
         .booking-card .form-label { font-size: 1.02rem; }
