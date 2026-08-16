@@ -55,10 +55,9 @@ export const steps: Step[] = [
   },
   {
     num: "06",
-    title: "제휴 마케팅 (선택형)",
+    title: "제휴 마케팅 연결 (선택형)",
     desc: "블로그·인스타·유튜브 숏폼·네이버 플레이스",
-    detail:
-      "WEFLOW만의 제휴 채널(블로그·인스타그램·\n유튜브 숏폼·네이버 플레이스)에 연결하고\n검색 상단 노출까지 관리해, 제작 이후에도 노출과 유입을 만듭니다.",
+    detail: "제작 이후 홍보와 유입까지 이어질 수 있도록 돕습니다.",
     image: "/images/process/process-06-marketing.webp",
   },
 ];

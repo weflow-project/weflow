@@ -6,12 +6,12 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: '서비스 안내 · WEFLOW',
   description:
-    '기획·디자인·개발부터 광고 연동과 운영 관리까지, WEFLOW의 홈페이지 제작 서비스 전 과정을 안내합니다.',
+    '기획·디자인·개발부터 운영 관리까지, WEFLOW의 홈페이지 제작 서비스 전 과정을 안내합니다.',
   alternates: { canonical: '/service' },
   openGraph: {
     title: '서비스 안내 · WEFLOW',
     description:
-      '기획·디자인·개발부터 광고 연동과 운영 관리까지, WEFLOW의 홈페이지 제작 서비스 전 과정을 안내합니다.',
+      '기획·디자인·개발부터 운영 관리까지, WEFLOW의 홈페이지 제작 서비스 전 과정을 안내합니다.',
     url: '/service',
   },
 }

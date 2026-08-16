@@ -256,8 +256,7 @@ export default function PartnershipSection() {
                 className="title-3 emphasized"
                 style={{ margin: 0, wordBreak: "keep-all" }}
               >
-                협약 한 번으로 <span className="c-accent">4개 채널</span>에 동시
-                노출
+                제휴 한 번, <span className="c-accent">4채널</span> 동시 노출
               </h3>
               <span
                 className="caption-1 emphasized c-accent"

@@ -26,7 +26,7 @@ export default function BenefitsPage() {
         }
         body={
           <>
-            제작 이후에도 검색 노출 관리와 운영을 이어갑니다.
+            제작 이후에도 운영 관리를 이어갑니다.
             <br />
             WEFLOW가 기본으로 챙기는 것들을 정리했습니다.
           </>

@@ -25,7 +25,7 @@ export default function ServicePage() {
             제작부터 관리까지, <span className="c-accent">한 번에</span>
           </>
         }
-        body="기획·디자인·개발부터 광고 연동과 운영 관리까지 함께합니다."
+        body="기획·디자인·개발부터 운영 관리까지 함께합니다."
       />
       <ServiceFeatures />
       <ServiceSteps />
