@@ -20,7 +20,7 @@ const BENEFITS = [
     no: "혜택 03",
     icon: "/images/main/main-benefit-03.webp",
     title: ["50% 특가", "특별 프로모션"],
-    desc: "전상품 50% 할인\n• 도메인 제공  • 정기 유지보수",
+    desc: "전상품 50% 할인\n도메인 제공  • 정기 유지보수",
   },
 ];
 

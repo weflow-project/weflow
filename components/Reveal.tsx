@@ -36,6 +36,13 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    // 첫 진입 시 이미 화면 안(또는 바로 아래)에 있는 요소는 바로 보여준다.
+    // 관찰자의 하단 마진(-12%) 때문에 첫 화면 아래쪽 카드가 스크롤 전까지 안 보이던 문제 방지.
+    const r = el.getBoundingClientRect()
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      setVisible(true)
+      if (once) return
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
