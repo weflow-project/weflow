@@ -7,7 +7,7 @@ const BENEFITS = [
   {
     no: "혜택 01",
     icon: "/images/main/main-benefit-01.webp",
-    title: ["제휴 마케팅 연결", "(선택형)"],
+    title: ["제휴 마케팅", "연결 (선택형)"],
     desc: "블로그·인스타·유튜브 숏폼·플레이스\n제휴 채널로 제작 후 홍보까지",
   },
   {
@@ -19,8 +19,8 @@ const BENEFITS = [
   {
     no: "혜택 03",
     icon: "/images/main/main-benefit-03.webp",
-    title: ["신규 런칭 기념", "50% 특별 프로모션"],
-    desc: "전상품 50% 할인 · 도메인 제공 ·\n정기 유지보수",
+    title: ["50% 특가", "특별 프로모션"],
+    desc: "전상품 50% 할인\n• 도메인 제공  • 정기 유지보수",
   },
 ];
 
