@@ -51,7 +51,7 @@ export const portfolios: Portfolio[] = [
     category: '회사/기업',
     plan: '랜딩페이지',
     desc: '역사와 첨단기술을 잇는 융복합 공연 문화기업',
-    url: 'https://saedure.vercel.app/',
+    url: 'https://mazigut.com/',
     images: [
       '/images/cases/cases-saedure-01.webp',
       '/images/cases/cases-saedure-02.webp',

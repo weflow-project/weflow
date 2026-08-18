@@ -15,7 +15,7 @@ const SLIDES = [
   {
     src: '/images/cases/cases-saedure-01.webp',
     alt: '새두레 융복합 공연 문화기업 홈페이지 제작 사례',
-    url: 'https://saedure.vercel.app/',
+    url: 'https://mazigut.com/',
     blur: 'data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQAwCdASoYAAsAPrVInkmnJCKhMAgA4BaJYgAAW+yEc0tMP8LtRgAA/vaSElIns3t/WX6+LLd4OmXwfjIStGs17Zf/yezcHPqI9ylnVbT1+xrKnUMjuYeuLA6nIDNJPtvbvEAA',
   },
   {
