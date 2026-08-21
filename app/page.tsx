@@ -3,8 +3,8 @@
 "use client";
 import { useEffect } from "react";
 import HeroBanner from "@/components/home/HeroBanner";
-import PlaceholderSection from "@/components/home/PlaceholderSection";
-import PortfolioCarousel from "@/components/home/PortfolioCarousel";
+import TrustBand from "@/components/home/TrustBand";
+import SolutionSection from "@/components/home/SolutionSection";
 import LineupSection from "@/components/home/LineupSection";
 import PartnershipSection from "@/components/home/PartnershipSection";
 import WhyWeflowSection from "@/components/home/WhyWeflowSection";
@@ -43,47 +43,13 @@ export default function HomePage() {
       {/* 1. 대표 이미지 (캐러셀) */}
       <HeroBanner />
 
-      {/* 2~7. 새 섹션 (임시 문구 · 텍스트 아래 이미지) */}
-      {/* 2. 포트폴리오 — 이미지를 누르면 실제 제작 사이트로 이동 */}
-      <PlaceholderSection
-        eyebrow="제작 사례"
-        stars
-        title={
-          <>
-            WEFLOW의 실력,{" "}
-            <span className="c-accent">
-              <span className="tilt-hl tilt-hl-red">결과가 대신 말합니다</span>
-            </span>
-          </>
-        }
-        body={<>WEFLOW가 직접 제작한 결과물,<br />실제 성과로 확인하세요.</>}
-        background="var(--section-b)"
-        hint={
-          <>
-            누르면 <span className="emphasized c-accent">해당 사이트 링크</span>로 이동합니다.
-          </>
-        }
-      >
-        <PortfolioCarousel />
-      </PlaceholderSection>
-      {/* 3. 고객 인터뷰 */}
-      <PlaceholderSection
-        eyebrow="고객 인터뷰"
-        stars
-        title={
-          <>
-            결과보다 확실한 건,{" "}
-            <span className="c-accent">
-              <span className="tilt-hl tilt-hl-red">고객의 실제 목소리</span>
-            </span>
-            입니다
-          </>
-        }
-        body={<>WEFLOW가 직접 제작한 결과물,<br />실제 고객 인터뷰로 확인하세요.</>}
-        image="/images/main/main-review-01.webp"
-        imageAlt="WEFLOW 고객 인터뷰"
-        imageCount={1}
-      />
+      {/* 2. 신뢰 밴드 — 히어로 바로 아래. 모바일에서는 히어로와 함께 첫 화면에 걸치게 둔다 */}
+      <TrustBand />
+
+      {/* 3. 솔루션 — 통계 밴드 + 실시간 문의 + 강점 6종.
+             제작 사례·고객 인터뷰 섹션을 대신한다 (사례는 /cases 로, 히어로 CTA가 연결) */}
+      <SolutionSection />
+
       {/* 홈페이지·랜딩페이지·관리자 페이지 설명은 /guide 로 옮겼다.
           메인은 이미 제작을 마음먹은 방문자가 보는 자리라, 정의부터 설명하면 문의까지 너무 멀어진다. */}
 

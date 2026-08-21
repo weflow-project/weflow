@@ -258,11 +258,12 @@ export default function HeroBanner() {
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
-          /* 모바일도 헤더를 뺀 첫 화면에 딱 (주소창 변화에 안전한 svh 단위) */
+          /* 모바일은 히어로를 한 화면보다 낮게 잡아, 바로 아래 신뢰 밴드(월계수)가
+             첫 화면에 함께 걸치도록 한다. 260px 은 밴드 높이만큼 덜어낸 값이다. */
           .hero-section {
-            min-height: calc(100svh - 110px);
-            padding-top: 3rem;
-            padding-bottom: 3rem;
+            min-height: calc(100svh - 110px - 260px);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
           }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {

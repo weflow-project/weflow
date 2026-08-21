@@ -28,10 +28,23 @@ export interface Portfolio {
  * 카드 순서(아래 portfolios)와 따로 노니 여기서 정해준다.
  * 여기 없는 업종은 뒤에 붙는다.
  */
-export const categoryOrder = ['회사/기업', '차량', '캠핑/레저', '보험']
+export const categoryOrder = ['회사/기업', '인테리어', '차량', '캠핑/레저', '보험']
 
 // 목록 페이지의 PortfolioShowcase가 그리는 실제 제작 사례 목록
 export const portfolios: Portfolio[] = [
+  {
+    slug: 'atelier',
+    name: '커튼장인 아뜰리에',
+    category: '인테리어',
+    plan: '랜딩형 홈페이지',
+    desc: '공간에 맞춰 실측·제작하는 커튼·블라인드 전문',
+    url: 'https://ateliercurtain.kr/',
+    images: [
+      '/images/cases/cases-atelier-01.webp',
+      '/images/cases/cases-atelier-02.webp',
+      '/images/cases/cases-atelier-03.webp',
+    ],
+  },
   {
     slug: 'kpsc',
     name: 'KPSC',
