@@ -115,7 +115,7 @@ export default function DiagnosisPage() {
             <Check size={34} color="#16a34a" strokeWidth={2.5} />
           </div>
           <h2 className="title-1 emphasized" style={{ marginBottom: '1rem' }}>
-            무료 견적 신청 완료!
+            무료 진단 신청 완료!
           </h2>
           <p className="c-muted" style={{ lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '1.1rem' }}>
             담당자가 확인 후 <strong style={{ color: 'var(--text)' }}>24시간 내</strong>에 연락드리겠습니다.<br />
@@ -156,7 +156,7 @@ export default function DiagnosisPage() {
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
               { text: '무료 ' },
-              { text: '견적', className: 'c-accent' },
+              { text: '진단', className: 'c-accent' },
               { text: ' 받기' },
             ]}
           />
@@ -262,7 +262,7 @@ export default function DiagnosisPage() {
               className="dg-card"
               style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
             >
-              <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 견적 정보</p>
+              <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 정보 입력</p>
 
                 <div>
                   <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
@@ -296,7 +296,7 @@ export default function DiagnosisPage() {
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
-                  {loading ? '제출 중...' : '견적 결과 확인하기 →'}
+                  {loading ? '제출 중...' : '진단 결과 확인하기 →'}
                 </button>
                 {submitError && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>

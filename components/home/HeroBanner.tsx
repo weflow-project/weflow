@@ -82,15 +82,13 @@ export default function HeroBanner() {
           <span className="tag-badge">홈페이지 메인 제작 솔루션</span>
         </div>
 
-        {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층)
-            translateY: 칩·타이틀만 살짝 올린다 (버튼은 제자리 — 내려와 보인다는 피드백 보정) */}
+        {/* 메인 타이틀 — 리드 문구(낮은 계층) → weflow(최상위 계층) */}
         <h1
           className="hero-title"
           style={{
             margin: 0,
             wordBreak: "keep-all",
             lineHeight: 1.5,
-            transform: "translateY(-10px)",
           }}
         >
           <span
@@ -221,7 +219,9 @@ export default function HeroBanner() {
         }
 
         /* 히어로 섹션 — 헤더(프로모션 띠 46px + 네비바 64px)를 뺀 나머지 화면을
-           꽉 채워, 스크롤 없이 첫 화면에 히어로 바닥까지 보이게 한다 */
+           꽉 채워, 스크롤 없이 첫 화면에 히어로 바닥까지 보이게 한다.
+           모바일에서는 아래 미디어쿼리에서 이 값을 걷어내고, 부모(.first-screen)가
+           신뢰 밴드와 높이를 나눠 준다. */
         .hero-section {
           min-height: calc(100vh - 110px);
           justify-content: center;
@@ -236,7 +236,6 @@ export default function HeroBanner() {
           justify-content: center;
           gap: 0.6rem;
           margin-bottom: 1.4rem;
-          transform: translateY(-10px); /* 타이틀과 함께 살짝 위로 */
         }
         /* 두 칩의 높이를 강제로 동일하게 — 글리프별 라인박스 차이 방지 */
         .hero-eyebrow .tag-badge {
@@ -254,21 +253,24 @@ export default function HeroBanner() {
           /* PC: 콘텐츠 전체를 한 번 더 올리고, 버튼은 그 위에 추가로 */
           .hero-inner { transform: translateY(-20px); }
           .hero-cta { transform: translateY(-32px); }
+          /* 칩·타이틀도 살짝 위로 (버튼은 제자리 — 내려와 보인다는 피드백 보정) */
+          .hero-eyebrow { transform: translateY(-10px); }
+          .hero-title { transform: translateY(-10px); }
         }
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
         @media (max-width: 768px) {
-          /* 모바일은 히어로를 한 화면보다 낮게 잡아, 바로 아래 신뢰 밴드(월계수)가
-             첫 화면에 함께 걸치도록 한다. 260px 은 밴드 높이만큼 덜어낸 값이다. */
+          /* 모바일은 높이를 부모(.first-screen)가 정한다 — 위 min-height 를 걷어내
+             신뢰 밴드와 첫 화면을 나눠 갖게 한다. 여백은 좁혀 자리를 만든다 */
           .hero-section {
-            min-height: calc(100svh - 110px - 260px);
-            padding-top: 2rem;
-            padding-bottom: 2rem;
+            min-height: 0;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
           }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {
             gap: 0.4rem;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.6rem;
           }
           /* 모바일: 히어로 콘텐츠 전체 3px 위로 */
           .hero-inner { transform: translateY(-3px); }
@@ -282,10 +284,12 @@ export default function HeroBanner() {
             padding-left: 10px;
             padding-right: 10px;
           }
-          .hero-line2 { white-space: normal; }
-          /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격(0.95rem)과 맞춘다.
+          /* 줄 간격·버튼 여백을 좁혀, 신뢰 밴드까지 한 화면에 들어갈 자리를 만든다 */
+          .hero-line2 { white-space: normal; margin-top: 0.6rem !important; }
+          /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격과 맞춘다.
              데스크탑용 margin-left 는 여기서 0 으로 되돌려 중앙 정렬을 지킨다 */
-          .hero-weflow { display: block; margin-top: 0.95rem; margin-left: 0; line-height: 1.1; }
+          .hero-weflow { display: block; margin-top: 0.6rem; margin-left: 0; line-height: 1.1; }
+          .hero-cta { margin-top: 1.5rem !important; }
         }
       `}</style>
     </section>

@@ -3,12 +3,12 @@
 // 8~15초 간격으로 새 문의가 맨 위로 슬라이드 인, 기존 행은 시간이 밀려 내려가고 마지막 행 제거.
 import { useEffect, useRef, useState } from 'react'
 import {
+  LIVE_INDUSTRIES,
   LIVE_INQUIRY_TYPES,
-  LIVE_REGIONS,
   LIVE_SURNAMES,
 } from '@/data/solution'
 
-type Row = { id: number; region: string; name: string; inquiry: string }
+type Row = { id: number; industry: string; name: string; inquiry: string }
 
 // 표시 시간 — 행 위치별 고정 라벨 (위에서부터)
 const AGE_LABELS = ['방금 전', '1분 전', '3분 전', '9분 전', '14분 전']
@@ -26,7 +26,7 @@ function pick<T>(arr: T[]): T {
 function makeRow(id: number): Row {
   return {
     id,
-    region: pick(LIVE_REGIONS),
+    industry: pick(LIVE_INDUSTRIES),
     name: `${pick(LIVE_SURNAMES)}*${pick(NAME_TAILS)}`,
     inquiry: pick(LIVE_INQUIRY_TYPES),
   }
@@ -90,7 +90,8 @@ export default function LiveInquiries() {
       <ul aria-label="실시간 홈페이지 문의 목록" className="live-list">
         {rows.map((r, i) => (
           <li key={r.id} className={`live-row ${i === 0 ? 'live-row--in' : ''}`}>
-            <span className="live-region">
+            <span className="live-industry">
+              {/* 업종 — 차양 달린 상점 아이콘 (lucide store) */}
               <svg
                 width="13"
                 height="13"
@@ -103,10 +104,13 @@ export default function LiveInquiries() {
                 aria-hidden="true"
                 style={{ flexShrink: 0, color: 'var(--accent)' }}
               >
-                <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z" />
-                <circle cx="12" cy="10" r="3" />
+                <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
+                <path d="M2 7h20" />
+                <path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7" />
               </svg>
-              <span className="live-region__text">{r.region}</span>
+              <span className="live-industry__text">{r.industry}</span>
             </span>
             <span className="live-name">{r.name}</span>
             <span className="live-inquiry">{r.inquiry}</span>
@@ -176,28 +180,30 @@ export default function LiveInquiries() {
         .live-row {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 1.1rem;
           padding: 0.7rem 1.25rem;
           border-top: 1px solid var(--border-subtle);
           font-size: 0.8rem;
         }
         .live-row--skeleton { height: 2.9rem; }
         .live-row--in { animation: liveRowIn 0.5s ease; }
-        .live-region {
+        /* 업종 칸 — 가장 긴 "역사 관련 업종"이 들어갈 만큼만.
+           넓게 잡으면 오른쪽 "랜딩형 홈페이지 문의"가 잘린다 */
+        .live-industry {
           display: flex;
           align-items: center;
           gap: 0.35rem;
-          width: 7.4rem;
+          width: 5.9rem;
           flex-shrink: 0;
         }
-        .live-region__text {
+        .live-industry__text {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           font-weight: 600;
           color: var(--text);
         }
-        .live-name { width: 3rem; flex-shrink: 0; color: var(--text-muted); }
+        .live-name { width: 2.8rem; flex-shrink: 0; color: var(--text-muted); }
         .live-inquiry {
           flex: 1;
           min-width: 0;
@@ -212,8 +218,8 @@ export default function LiveInquiries() {
           .live-head { padding: 1rem 1.5rem; }
           .live-title { font-size: 1rem; }
           .live-updated { font-size: 0.75rem; }
-          .live-row { gap: 1.5rem; padding: 0.85rem 1.5rem; font-size: 0.875rem; }
-          .live-region { width: 9rem; }
+          .live-row { gap: 2.25rem; padding: 0.85rem 1.5rem; font-size: 0.875rem; }
+          .live-industry { width: 8rem; }
           .live-name { width: 4rem; }
         }
 

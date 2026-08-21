@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
         <Section title="1. 수집하는 개인정보와 수집 방법">
           <p style={{ margin: 0 }}>
-            홈페이지의 무료 견적 신청·상담 예약 폼, 그리고 SNS 광고의 신청 양식을 통해 이용자가 직접 입력한 정보를 수집합니다.
+            홈페이지의 무료 진단 신청·상담 예약 폼, 그리고 SNS 광고의 신청 양식을 통해 이용자가 직접 입력한 정보를 수집합니다.
           </p>
           <ul style={ul}>
             <li>필수: 이름, 연락처</li>

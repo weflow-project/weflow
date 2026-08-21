@@ -23,7 +23,6 @@ const paths: {
   { path: '/guide', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },
   { path: '/pricing', updated: '2026-07-22', priority: 0.9, freq: 'weekly' },
   { path: '/cases', updated: '2026-07-31', priority: 0.8, freq: 'weekly' },
-  { path: '/reviews', updated: '2026-07-24', priority: 0.8, freq: 'weekly' },
   { path: '/about', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
   { path: '/benefits', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
   { path: '/diagnosis', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },

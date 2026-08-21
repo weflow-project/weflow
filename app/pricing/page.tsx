@@ -27,7 +27,7 @@ const MAKE_ICONS = [
 // 모든 카드가 같은 CTA 를 쓴다 — 가격을 본 직후엔 견적 폼이 다음 행동이다
 const CTA_QUOTE = (
   <Link href="/diagnosis" className="plan-cta">
-    무료 견적 신청
+    무료 진단 신청
   </Link>
 );
 
@@ -464,7 +464,7 @@ export default function PricingPage() {
               className="btn-primary"
               style={CTA_BTN_FILLED}
             >
-              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>
@@ -509,7 +509,7 @@ export default function PricingPage() {
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
                   <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
-                    무료 견적 신청 →
+                    무료 진단 신청 →
                   </Link>
                 </div>
               </div>
@@ -555,7 +555,7 @@ export default function PricingPage() {
                   </div>
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
-                  <Link href="/diagnosis" className="pcard-cta">무료 견적 신청 →</Link>
+                  <Link href="/diagnosis" className="pcard-cta">무료 진단 신청 →</Link>
                 </div>
               </div>
             ))}

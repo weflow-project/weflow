@@ -80,7 +80,7 @@ export default function ServiceCTA() {
             className="btn-primary"
             style={CTA_BTN_FILLED}
           >
-            무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </div>
       </Reveal>

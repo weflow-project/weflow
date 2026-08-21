@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
   { href: "/cases", label: "제작 사례" },
-  { href: "/reviews", label: "인터뷰 & 후기" },
   { href: "/booking", label: "예약 신청" },
 ];
 
@@ -130,7 +129,7 @@ export default function Navbar() {
           {/* 데스크탑 견적 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
           <Link
             href="/diagnosis"
-            aria-label="지금 바로 견적 받기"
+            aria-label="지금 바로 진단 받기"
             className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
@@ -140,7 +139,7 @@ export default function Navbar() {
             }}
           >
             <span className="cta-marquee-track">
-              {["지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기"].map((t, i) => (
+              {["지금 바로 진단 받기", "지금 바로 진단 받기", "지금 바로 진단 받기", "지금 바로 진단 받기"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>
@@ -293,7 +292,7 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 견적 신청
+            무료 진단 신청
           </Link>
         </div>
       </div>

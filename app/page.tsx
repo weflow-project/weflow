@@ -40,11 +40,13 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. 대표 이미지 (캐러셀) */}
-      <HeroBanner />
-
-      {/* 2. 신뢰 밴드 — 히어로 바로 아래. 모바일에서는 히어로와 함께 첫 화면에 걸치게 둔다 */}
-      <TrustBand />
+      {/* 1~2. 첫 화면 — 히어로와 신뢰 밴드를 한 덩어리로 묶어 화면 높이를 나눠 갖는다.
+             밴드 높이를 픽셀로 빼면 기종·브라우저마다 글씨·여백이 달라 어긋나므로,
+             밴드는 제 높이만 쓰고 히어로가 남은 공간을 채우게 한다 (flex: 1). */}
+      <div className="first-screen">
+        <HeroBanner />
+        <TrustBand />
+      </div>
 
       {/* 3. 솔루션 — 통계 밴드 + 실시간 문의 + 강점 6종.
              제작 사례·고객 인터뷰 섹션을 대신한다 (사례는 /cases 로, 히어로 CTA가 연결) */}
@@ -76,6 +78,22 @@ export default function HomePage() {
 
       {/* 16. 마지막 CTA (기존) */}
       <FinalCTA />
+
+      <style>{`
+        .first-screen { display: flex; flex-direction: column; }
+
+        /* 모바일만 히어로+밴드를 한 화면에 묶는다.
+           첫 화면 = 뷰포트 - 헤더(프로모션 띠 46 + 네비 64). svh 라 주소창 변화에 안전하다.
+           히어로가 남은 높이를 전부 가져가고(flex:1) 밴드는 제 높이만 쓰므로,
+           밴드 높이가 기종마다 달라도 항상 첫 화면에 함께 들어온다.
+
+           PC 는 화면 세로가 짧은 노트북에서 히어로가 잘려서 적용하지 않는다 —
+           히어로가 화면을 꽉 채우고, 밴드는 살짝 스크롤하면 나온다. */
+        @media (max-width: 768px) {
+          .first-screen { min-height: calc(100svh - 110px); }
+          .first-screen > .hero-section { flex: 1 1 0; min-height: 0; }
+        }
+      `}</style>
     </>
   );
 }
