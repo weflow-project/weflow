@@ -70,10 +70,7 @@ export default function TrustBand() {
             <br className="br-mobile" />
             누적 제작 {TOTAL_PROJECTS}건 이상
           </p>
-          <p
-            className="body"
-            style={{ margin: '0.75rem 0 0', color: 'var(--text-secondary)' }}
-          >
+          <p className="body trustband-sub">
             고객의 브랜드를 가장 효과적으로 완성합니다
           </p>
         </div>
@@ -99,6 +96,28 @@ export default function TrustBand() {
           display: block;
           width: clamp(1.6rem, 4vw, 2.5rem);
           height: clamp(4.5rem, 11vw, 7rem);
+        }
+        .trustband-sub {
+          margin: 0.75rem 0 0;
+          color: var(--text-secondary);
+        }
+        /* 모바일: 월계수 두 개가 좌우를 먹어 폭이 좁다 —
+           글씨를 화면 폭에 맞춰 줄여 한 줄로 떨어지게 한다 */
+        @media (max-width: 768px) {
+          .trustband-sub {
+            font-size: clamp(0.58rem, 2.9vw, 0.95rem);
+            white-space: nowrap;
+          }
+          /* 월계수를 크게. SVG 는 비율(32:80)을 유지하며 맞춰지므로
+             세로만 늘리면 가로에 걸려 안 커진다 — 가로·세로를 2.5:1 로 함께 키운다 */
+          .laurel {
+            width: clamp(2.13rem, 8.7vw, 2.5rem);
+            height: clamp(5.32rem, 21.75vw, 6.25rem);
+          }
+        }
+        /* 아주 좁은 화면(SE 등)은 월계수가 커진 만큼 글씨를 한 단계 더 줄인다 */
+        @media (max-width: 360px) {
+          .trustband-sub { font-size: 2.75vw; }
         }
         .trustband-headline {
           margin: 0.7rem 0 0;
