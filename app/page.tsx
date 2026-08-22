@@ -80,18 +80,18 @@ export default function HomePage() {
       <FinalCTA />
 
       <style>{`
-        .first-screen { display: flex; flex-direction: column; }
-
-        /* 모바일만 히어로+밴드를 한 화면에 묶는다.
+        /* 히어로 + 신뢰 밴드를 한 화면에 묶는다.
            첫 화면 = 뷰포트 - 헤더(프로모션 띠 46 + 네비 64). svh 라 주소창 변화에 안전하다.
            히어로가 남은 높이를 전부 가져가고(flex:1) 밴드는 제 높이만 쓰므로,
-           밴드 높이가 기종마다 달라도 항상 첫 화면에 함께 들어온다.
-
-           PC 는 화면 세로가 짧은 노트북에서 히어로가 잘려서 적용하지 않는다 —
-           히어로가 화면을 꽉 채우고, 밴드는 살짝 스크롤하면 나온다. */
-        @media (max-width: 768px) {
-          .first-screen { min-height: calc(100svh - 110px); }
-          .first-screen > .hero-section { flex: 1 1 0; min-height: 0; }
+           밴드 높이가 기기마다 달라도 항상 첫 화면에 함께 들어온다. */
+        .first-screen {
+          display: flex;
+          flex-direction: column;
+          min-height: calc(100svh - 110px);
+        }
+        .first-screen > .hero-section {
+          flex: 1 1 0;
+          min-height: 0;
         }
       `}</style>
     </>

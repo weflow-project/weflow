@@ -88,7 +88,7 @@ export default function TrustBand() {
           gap: clamp(0.75rem, 3vw, 2rem);
           max-width: 900px;
           margin: 0 auto;
-          padding: clamp(1.5rem, 4vw, 2.5rem) 1.25rem;
+          padding: clamp(1rem, 2vw, 1.25rem) 1.25rem;
           text-align: center;
         }
         .laurel-wrap { flex-shrink: 0; display: block; }

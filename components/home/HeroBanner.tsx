@@ -88,7 +88,6 @@ export default function HeroBanner() {
           style={{
             margin: 0,
             wordBreak: "keep-all",
-            lineHeight: 1.5,
           }}
         >
           <span
@@ -218,14 +217,12 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 히어로 섹션 — 헤더(프로모션 띠 46px + 네비바 64px)를 뺀 나머지 화면을
-           꽉 채워, 스크롤 없이 첫 화면에 히어로 바닥까지 보이게 한다.
-           모바일에서는 아래 미디어쿼리에서 이 값을 걷어내고, 부모(.first-screen)가
-           신뢰 밴드와 높이를 나눠 준다. */
+        /* 높이는 부모(.first-screen)가 정한다 — 히어로는 신뢰 밴드를 뺀 나머지를
+           flex 로 받아 채운다. 여백을 8vh → 3vh 로 줄여 밴드가 올라올 자리를 만든다
+           (글자 크기는 그대로 두고 낭비되던 빈 공간만 걷어냈다). */
         .hero-section {
-          min-height: calc(100vh - 110px);
           justify-content: center;
-          padding: clamp(3.5rem, 8vh, 6rem) 1.25rem;
+          padding: clamp(1rem, 3vh, 2.5rem) 1.25rem;
         }
 
         /* 아이브로우 배지 — 데스크탑은 가로 배치(신규 칩이 오른쪽), 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
@@ -247,15 +244,24 @@ export default function HeroBanner() {
           padding-bottom: 0;
         }
 
-        /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 + 버튼도 살짝 위로 */
+        /* 모바일은 타이틀이 세 줄이라 PC(1.2)보다는 넉넉하게 둔다.
+           1.5 는 줄 사이 빈 공간이 과해 여백을 깎게 만들었다 */
+        .hero-title { line-height: 1.35; }
+
+        /* 데스크톱: 타이틀 2번째 줄 한 줄 유지 */
         .hero-line2 { white-space: nowrap; }
         @media (min-width: 769px) {
-          /* PC: 콘텐츠 전체를 한 번 더 올리고, 버튼은 그 위에 추가로 */
-          .hero-inner { transform: translateY(-20px); }
-          .hero-cta { transform: translateY(-32px); }
-          /* 칩·타이틀도 살짝 위로 (버튼은 제자리 — 내려와 보인다는 피드백 보정) */
-          .hero-eyebrow { transform: translateY(-10px); }
-          .hero-title { transform: translateY(-10px); }
+          /* PC 는 두 줄뿐이라 줄 간격을 좁혀도 답답하지 않다.
+             1.5 → 1.2 로 낮추면 큰 글자(WEFLOW) 위아래에 붙던 빈 공간이 사라져
+             글자 크기를 그대로 두고도 히어로가 60px 남짓 줄어든다. */
+          .hero-title { line-height: 1.2; }
+          /* 칩·버튼 여백도 한 단계 줄여 밴드가 올라올 자리를 마저 만든다 */
+          .hero-eyebrow { margin-bottom: 1rem; }
+          .hero-cta { margin-top: 2rem !important; }
+          /* 아래쪽 여백을 더 줘서 콘텐츠를 위로 올린다 —
+             기하학적 중앙(justify-content:center)은 눈에는 살짝 내려앉아 보인다.
+             transform 으로 당기면 overflow:hidden 에 잘리므로 패딩으로 민다. */
+          .hero-section { padding-bottom: calc(clamp(1rem, 3vh, 2.5rem) + 1rem); }
         }
 
         /* 모바일: WEFLOW를 다음 줄로 + 2번째 줄 줄바꿈 허용(넘침·잘림 방지) */
@@ -264,13 +270,13 @@ export default function HeroBanner() {
              신뢰 밴드와 첫 화면을 나눠 갖게 한다. 여백은 좁혀 자리를 만든다 */
           .hero-section {
             min-height: 0;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
           }
           /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
           .hero-eyebrow {
             gap: 0.4rem;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.7rem;
           }
           /* 모바일: 히어로 콘텐츠 전체 3px 위로 */
           .hero-inner { transform: translateY(-3px); }
@@ -285,11 +291,11 @@ export default function HeroBanner() {
             padding-right: 10px;
           }
           /* 줄 간격·버튼 여백을 좁혀, 신뢰 밴드까지 한 화면에 들어갈 자리를 만든다 */
-          .hero-line2 { white-space: normal; margin-top: 0.6rem !important; }
+          .hero-line2 { white-space: normal; margin-top: 0.7rem !important; }
           /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격과 맞춘다.
              데스크탑용 margin-left 는 여기서 0 으로 되돌려 중앙 정렬을 지킨다 */
-          .hero-weflow { display: block; margin-top: 0.6rem; margin-left: 0; line-height: 1.1; }
-          .hero-cta { margin-top: 1.5rem !important; }
+          .hero-weflow { display: block; margin-top: 0.7rem; margin-left: 0; line-height: 1.1; }
+          .hero-cta { margin-top: 2rem !important; }
         }
       `}</style>
     </section>
