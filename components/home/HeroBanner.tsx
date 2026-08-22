@@ -282,8 +282,9 @@ export default function HeroBanner() {
             gap: 0.4rem;
             margin-bottom: 1.45rem;
           }
-          /* 모바일: 히어로 콘텐츠 전체 3px 위로 */
-          .hero-inner { transform: translateY(-3px); }
+          /* 콘텐츠를 3px 위로 당기던 보정도 걷어냈다 —
+             위 여백만 3px 줄고 아래가 3px 늘어 위아래가 6px 어긋나 있었다.
+             지금은 padding 이 위아래 같으므로 정확히 대칭이다. */
           .hero-eyebrow .tag-badge {
             font-size: clamp(0.72rem, 3.4vw, 0.95rem);
             height: 1.9rem;
