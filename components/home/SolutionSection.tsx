@@ -224,13 +224,21 @@ export default function SolutionSection() {
           .strength-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
         }
         @media (min-width: 1025px) {
-          .trust-grid { grid-template-columns: repeat(4, 1fr); }
+          .trust-grid { grid-template-columns: repeat(4, 1fr); max-width: 1320px; }
           .trust-cell--toprow { border-bottom: none; }
           .trust-cell--right { border-left: none; }
           .trust-cell + .trust-cell { border-left: 1px solid var(--border-subtle); }
-          .strength-grid { grid-template-columns: repeat(6, 1fr); gap: 0.75rem; }
+          /* 6열은 카드가 좁아진다 — 그리드 폭을 넓히고 간격을 줄여 카드 가로를 키운다.
+             (통계 밴드도 같은 1320px 를 써서 좌우 선이 맞는다) */
+          .strength-grid { grid-template-columns: repeat(6, 1fr); gap: 0.65rem; max-width: 1320px; }
           /* PC: order 를 되돌려 배열 순서대로 놓으면 강조 두 칸이 3·4번째(가운데)에 온다 */
           .strength-item--hl { order: 0; }
+          /* PC 는 6열이라 카드가 작아 보인다 — 여백·아이콘·글씨를 한 단계씩 키운다 */
+          .strength-card { padding: 2.5rem 1rem; }
+          .strength-icon { margin-bottom: 1.4rem; }
+          .strength-icon svg { width: 54px; height: 54px; }
+          .strength-title { font-size: 1.05rem; }
+          .strength-desc { margin-top: 0.65rem; font-size: 0.875rem; }
         }
       `}</style>
     </section>

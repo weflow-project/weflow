@@ -273,17 +273,17 @@ export default function HeroBanner() {
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
           }
-          /* 모바일: 두 칩을 한 줄로 — 데스크탑과 같이 신규 칩이 오른쪽, 글자를 줄여 좁은 화면에도 들어가게 */
+          /* 칩·타이틀에 걸려 있던 translateY 보정은 걷어냈다 — 타이틀만 내려가 있으면
+             위 간격은 그만큼 벌어지고 아래 간격은 좁아져, CSS 값과 실제가 어긋난다.
+             지금은 아래 margin 값이 곧 화면에 보이는 간격이다.
+
+             칩 ↔ 첫 줄 = 23.2px + line-height 가 글자 위에 남기는 3.9px ≒ 27px */
           .hero-eyebrow {
             gap: 0.4rem;
-            margin-bottom: 0.7rem;
+            margin-bottom: 1.45rem;
           }
           /* 모바일: 히어로 콘텐츠 전체 3px 위로 */
           .hero-inner { transform: translateY(-3px); }
-          /* 칩은 내리고(+12) 타이틀은 올려서(-12) 둘 사이 중간 지점에서 만나게 —
-             벌어져 있던 간격(약 34px)을 10px 정도로 좁힌다 */
-          .hero-eyebrow { transform: translateY(2px); }
-          .hero-title { transform: translateY(14px) !important; }
           .hero-eyebrow .tag-badge {
             font-size: clamp(0.72rem, 3.4vw, 0.95rem);
             height: 1.9rem;
@@ -295,7 +295,13 @@ export default function HeroBanner() {
           /* WEFLOW 를 다음 줄로 내리되, 위 두 줄 간격과 맞춘다.
              데스크탑용 margin-left 는 여기서 0 으로 되돌려 중앙 정렬을 지킨다 */
           .hero-weflow { display: block; margin-top: 0.7rem; margin-left: 0; line-height: 1.1; }
-          .hero-cta { margin-top: 2rem !important; }
+          /* WEFLOW ↔ 버튼 = 24.8px + line-height 가 글자 아래 남기는 2.3px ≒ 27px
+             (위 칩 간격과 같은 값) */
+          .hero-cta {
+            margin-top: 1.55rem !important;
+            /* 가로 폭이 넉넉해져도(가로 모드·큰 모바일) 두 버튼을 세로로 쌓는다 */
+            flex-direction: column;
+          }
         }
       `}</style>
     </section>
