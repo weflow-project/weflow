@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
@@ -116,51 +117,67 @@ export default async function CaseDetailPage({
           {/* ── 2. 어떤 요청이었나 ──
                  실제로 받은 말을 말풍선으로 띄운다. 지어낸 문장이 아니라
                  고객이 보내온 그대로라서, 어떤 설명보다 상황이 잘 전달된다. */}
-          <div className="case-block">
-            <Reveal variant="up">
-              <h2 className="case-h2">이런 요청을 받았습니다</h2>
-            </Reveal>
+          {/* 블록 하나만 관찰하고 내부는 CSS 로 순서대로 재생한다.
+              요소마다 따로 관찰하면 빠르게 스크롤할 때 여러 개가 동시에 걸려 순서가 뒤섞인다. */}
+          <Reveal variant="fade" className="case-block case-seq">
+            <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
+              이런 요청을 받았습니다
+            </h2>
             {d.quotes && d.quotes.length > 0 && (
               <ul className="case-chat">
                 {d.quotes.map((q, i) => (
-                  <Reveal as="li" key={q} variant="up" delay={0.06 * i} className="case-chat__item">
+                  <li
+                    key={q}
+                    className="case-chat__item case-seq__item"
+                    style={{ '--i': i + 1 } as CSSProperties}
+                  >
                     <span className="case-chat__bubble">{q}</span>
-                  </Reveal>
+                  </li>
                 ))}
               </ul>
             )}
-            {/* 지연을 짧게 둔다 — 길면 빠르게 스크롤할 때 아래 섹션이 먼저 떠 순서가 뒤집힌다 */}
-            <Reveal variant="up" delay={0.05}>
-              <p className="case-lead">{d.background}</p>
-            </Reveal>
-          </div>
+            <p
+              className="case-lead case-seq__item"
+              style={{ '--i': (d.quotes?.length ?? 0) + 1 } as CSSProperties}
+            >
+              {d.background}
+            </p>
+          </Reveal>
 
           {/* ── 3. 무엇에 집중했나 ── */}
-          <div className="case-block">
-            <Reveal variant="up">
-              <h2 className="case-h2">이렇게 풀었습니다</h2>
-            </Reveal>
+          <Reveal variant="fade" className="case-block case-seq">
+            <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
+              이렇게 풀었습니다
+            </h2>
             <ol className="case-points">
               {d.points.map((pt, i) => (
-                <Reveal as="li" key={pt.title} variant="up" delay={0.06 * i} className="case-point">
+                <li
+                  key={pt.title}
+                  className="case-point case-seq__item"
+                  style={{ '--i': i + 1 } as CSSProperties}
+                >
                   <span className="case-point__no">{String(i + 1).padStart(2, '0')}</span>
                   <div>
                     <h3 className="case-point__title">{pt.title}</h3>
                     <p className="case-point__body">{pt.body}</p>
                   </div>
-                </Reveal>
+                </li>
               ))}
             </ol>
-          </div>
+          </Reveal>
 
           {/* ── 4. 화면 ── */}
-          <div className="case-block">
-            <Reveal variant="up">
-              <h2 className="case-h2">이렇게 나왔습니다</h2>
-            </Reveal>
+          <Reveal variant="fade" className="case-block case-seq">
+            <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
+              이렇게 나왔습니다
+            </h2>
             <div className="case-shots">
               {p.images.map((src, i) => (
-                <Reveal key={src} variant="up" delay={0.08 * i} className="case-shot">
+                <div
+                  key={src}
+                  className="case-shot case-seq__item"
+                  style={{ '--i': i + 1 } as CSSProperties}
+                >
                   {/* 브라우저 창 흉내 — 완성된 사이트를 들여다보는 느낌 */}
                   <span aria-hidden="true" className="case-shot__bar">
                     <span className="case-shot__dot case-shot__dot--red" />
@@ -177,10 +194,10 @@ export default async function CaseDetailPage({
                       style={{ width: '100%', height: 'auto', display: 'block' }}
                     />
                   </span>
-                </Reveal>
+                </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
         </div>
       </section>
@@ -365,6 +382,26 @@ export default async function CaseDetailPage({
         }
 
         .case-block { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+
+        /* 블록이 화면에 들어오면 내부 요소가 --i 순서대로 하나씩 등장한다.
+           개별 관찰 대신 이 방식을 쓰면 스크롤이 아무리 빨라도 순서가 지켜진다. */
+        /* transform 이 아니라 translate 속성을 쓴다 —
+           카드 hover 의 transform 과 부딪히지 않게 하기 위함이다. */
+        .case-seq__item {
+          opacity: 0;
+          translate: 0 12px;
+        }
+        .case-seq.is-visible .case-seq__item {
+          animation: caseSeqIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: calc(var(--i, 0) * 0.13s);
+        }
+        @keyframes caseSeqIn {
+          to { opacity: 1; translate: 0 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .case-seq__item { opacity: 1; translate: 0 0; }
+          .case-seq.is-visible .case-seq__item { animation: none; }
+        }
         .case-h2 {
           margin: 0 0 1.1rem;
           font-size: clamp(1.1rem, 2.6vw, 1.35rem);
