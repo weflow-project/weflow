@@ -140,7 +140,7 @@ export const portfolios: Portfolio[] = [
             '오랜 경력과 누적 시공 건수를 상단에 배치했습니다. 긴 설명보다 숫자 하나가 먼저 신뢰를 만듭니다.',
         },
       ],
-      features: ['관리자 페이지', '상담 문의 접수', '제품 갤러리', '방문자 통계'],
+      features: ['관리자 페이지', '상담 문의 접수', 'FAQ 직접 관리', '제품 갤러리', '방문자 통계', '엑셀 내보내기'],
       results: [
         '/images/cases/cases-atelier/cases-atelier-04.webp',
         '/images/cases/cases-atelier/cases-atelier-07.webp',
@@ -257,7 +257,7 @@ export const portfolios: Portfolio[] = [
             '뿌리에서 프로젝트, 협업으로 이어지는 순서를 잡았습니다. 따로 읽지 않아도 넘기다 보면 어떤 팀인지 전해집니다.',
         },
       ],
-      features: ['관리자 페이지', '이미지 중심 구성', '프로젝트 소개', '문의 접수', '방문자 통계'],
+      features: ['이미지 중심 구성', '스크롤 전환 연출', '프로젝트 소개'],
       results: [
         '/images/cases/cases-saedure/cases-saedure-02.webp',
         '/images/cases/cases-saedure/cases-saedure-06.webp',
