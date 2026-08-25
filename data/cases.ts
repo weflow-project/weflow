@@ -20,12 +20,29 @@ export interface CasePoint {
   body: string
 }
 
+/**
+ * 상세 상단 포스터 배색 — 사례의 브랜드 색으로 첫 화면을 채운다.
+ * 스크린샷만 놓는 것보다 "이 프로젝트의 포스터"처럼 보여야 첫인상이 남는다.
+ */
+export interface CasePoster {
+  /** 배경 그라데이션 시작 색 — 더 짙은 쪽 */
+  from: string
+  /** 배경 그라데이션 끝 색 */
+  to: string
+  /** 포스터 위 글자 색 — 배경이 어두우면 밝게, 밝으면 어둡게 */
+  ink: string
+  /** 배경에 크게 깔리는 워터마크 글자 */
+  mark: string
+}
+
 /** 상세 페이지에만 쓰는 내용 — 없으면 상세를 만들지 않는다 */
 export interface CaseDetail {
   /** 상단 한 줄 요약 — 목록의 desc 보다 길게 써도 된다 */
   summary: string
   /** 제작 기간 (예: '1주') */
   duration: string
+  /** 상단 포스터 배색 */
+  poster: CasePoster
   /**
    * 고객이 실제로 보내온 말 — 각색하지 않고 받은 그대로 쓴다.
    * 지어낸 문장을 따옴표에 넣으면 사실과 달라지므로, 실제 대화가 있을 때만 채운다.
@@ -82,6 +99,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '상담 요청을 받는 데 집중한 홈페이지입니다.',
       duration: '1주',
+      poster: { from: '#382c1e', to: '#6b563e', ink: '#f6efe3', mark: 'ATELIER' },
       quotes: [
         '예약이랑 상담 문의를 받는 게 목적이에요',
         '뉴트럴·베이지 톤으로 따뜻했으면 좋겠어요',
@@ -130,6 +148,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '보이는 모습은 그대로 두고, 속만 새로 지었습니다.',
       duration: '2주',
+      poster: { from: '#0e2c63', to: '#2266cf', ink: '#f2f7ff', mark: 'KPSC' },
       quotes: [
         '지금 홈페이지 구성은 그대로 유지하고 싶어요',
         '주소창에 안전하지 않다고 뜨는 게 신경 쓰입니다',
@@ -172,6 +191,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '읽는 홈페이지가 아니라, 넘겨 보는 홈페이지로 만들었습니다.',
       duration: '1주',
+      poster: { from: '#131040', to: '#2f2b78', ink: '#efeeff', mark: 'SAEDURE' },
       quotes: [
         '글로 읽는 게 아니라 그림책 보듯이 넘어갔으면 좋겠어요',
         '이미지를 최대한 활용해주세요',
@@ -213,6 +233,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '차의 값어치가 화면에서도 느껴지도록 만들었습니다.',
       duration: '1주',
+      poster: { from: '#121317', to: '#3a3e46', ink: '#f5f6f7', mark: 'CARNIVAL' },
       quotes: [
         'SNS 활동을 한다는 걸로 신뢰감을 주고 싶어요',
         '고객 나이대를 고려한 구성이랑 글씨였으면 좋겠어요',
@@ -261,6 +282,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '첫 화면에서 쉬고 싶어지는 캠핑장 홈페이지입니다.',
       duration: '1주',
+      poster: { from: '#152b1d', to: '#3c684a', ink: '#edf8ef', mark: 'CAMP' },
       quotes: [
         '메인 화면에서 휴식하는 감정이 느껴졌으면 좋겠어요',
         '정보는 깔끔하게 전달됐으면 합니다',
@@ -308,6 +330,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '직업을 바꾸는 결정에 필요한 답을 순서대로 놓았습니다.',
       duration: '1주',
+      poster: { from: '#101f3c', to: '#2a4f88', ink: '#eaf2ff', mark: 'RECRUIT' },
       quotes: [
         '설계사 채용이 목적이에요',
         '블루 계열로 신뢰감 있게 해주세요',
@@ -350,6 +373,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '보험 이야기를 부드럽게 풀어 상담으로 잇습니다.',
       duration: '1주',
+      poster: { from: '#163a2a', to: '#2f6b4c', ink: '#eaf7ee', mark: 'INSURANCE' },
       quotes: [
         '상담 문의를 받는 게 목적이에요',
         '그린 계열이랑 파스텔톤으로 부드럽게',
@@ -392,6 +416,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '금액을 앞세우지 않고, 오래 머무르게 만들었습니다.',
       duration: '1주',
+      poster: { from: '#0b1424', to: '#223c5f', ink: '#e8f0fb', mark: 'MOBILITY' },
       quotes: [
         '고객이 오래 머무르면서 편하게 상담을 남겼으면 해요',
         '조잡해 보이거나 금액이 그대로 노출되는 건 피하고 싶습니다',
@@ -434,6 +459,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '끝까지 책임진다는 인상을 화면으로 만들었습니다.',
       duration: '1주',
+      poster: { from: '#0a0c11', to: '#1c2740', ink: '#eef3ff', mark: 'TRUST' },
       quotes: [
         '끝까지 책임진다는 느낌을 주고 싶어요',
         '블랙 바탕에 블루 계열 포인트로',

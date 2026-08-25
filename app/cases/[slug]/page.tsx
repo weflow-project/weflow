@@ -49,21 +49,28 @@ export default async function CaseDetailPage({
 
   return (
     <div style={{ background: 'var(--section-a)' }}>
-      {/* ── 1. 개요 ── */}
+      {/* ── 1. 개요 — 사례 브랜드 색을 깐 포스터형 첫 화면 ──
+             스크린샷만 놓으면 밋밋해서, 배경·워터마크·글자를 브랜드 색으로 합성해
+             프로젝트마다 다른 "포스터"가 되게 한다. */}
       <section
-        style={{
-          background: 'var(--section-b)',
-          borderBottom: '1px solid var(--border-subtle)',
-          padding: 'clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem)',
-        }}
+        className="case-poster"
+        style={
+          {
+            '--po-a': d.poster.from,
+            '--po-b': d.poster.to,
+            '--po-ink': d.poster.ink,
+            background: 'linear-gradient(135deg, var(--po-a), var(--po-b))',
+            padding: 'clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem)',
+          } as CSSProperties
+        }
       >
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        {/* 배경에 크게 깔리는 워터마크 — 읽는 글자가 아니라 무늬라서 aria 에서 뺀다 */}
+        <span aria-hidden="true" className="case-poster__mark">
+          {d.poster.mark}
+        </span>
+        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <Reveal variant="up">
-            <Link
-              href="/cases"
-              className="footnote"
-              style={{ color: 'var(--text-muted)', textDecoration: 'none' }}
-            >
+            <Link href="/cases" className="footnote case-poster__back">
               ← 제작 사례
             </Link>
             <p className="case-eyebrow">{p.category} · {p.plan} 제작 사례</p>
@@ -346,6 +353,63 @@ export default async function CaseDetailPage({
       )}
 
       <style>{`
+        /* 포스터 — 브랜드 색 배경 위에 워터마크 타이포를 깔고 그 위에 내용이 선다 */
+        .case-poster {
+          position: relative;
+          overflow: hidden;
+        }
+        .case-poster__mark {
+          position: absolute;
+          right: -0.06em;
+          bottom: -0.14em;
+          z-index: 0;
+          font-size: clamp(6.5rem, 24vw, 17rem);
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.05em;
+          white-space: nowrap;
+          color: var(--po-ink);
+          opacity: 0.07;
+          pointer-events: none;
+          user-select: none;
+        }
+        .case-poster__back {
+          color: var(--po-ink);
+          opacity: 0.7;
+          text-decoration: none;
+          transition: opacity 0.2s;
+        }
+        .case-poster__back:hover { opacity: 1; }
+        .case-poster .case-eyebrow { color: var(--po-ink); opacity: 0.65; }
+        .case-poster .case-title { color: var(--po-ink); }
+        .case-poster .case-summary { color: var(--po-ink); opacity: 0.85; }
+        /* 버튼은 잉크색 채움 — 어느 배색에서든 가장 눈에 띈다 */
+        .case-poster .case-visit {
+          background: var(--po-ink);
+          color: var(--po-a);
+          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+        }
+        .case-poster .case-visit:hover {
+          opacity: 1;
+          box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+        }
+        .case-poster .case-hero__frame {
+          border-color: color-mix(in srgb, var(--po-ink) 25%, transparent);
+          box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+        }
+        .case-poster .case-hero__frame:hover {
+          border-color: var(--po-ink);
+          box-shadow: 0 38px 90px rgba(0, 0, 0, 0.5);
+        }
+        .case-poster .case-spec__cell dt { color: var(--po-ink); opacity: 0.6; }
+        .case-poster .case-spec__cell dd { color: var(--po-ink); }
+        .case-poster .case-spec__label { color: var(--po-ink); opacity: 0.6; }
+        .case-poster .case-feature {
+          border-color: color-mix(in srgb, var(--po-ink) 28%, transparent);
+          background: color-mix(in srgb, var(--po-ink) 10%, transparent);
+          color: var(--po-ink);
+        }
+
         .case-eyebrow {
           margin: 1.4rem 0 0.5rem;
           font-size: 0.85rem;
