@@ -11,9 +11,9 @@ const NAV_LINKS = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
   { href: "/pricing", label: "가격" },
+  { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  { href: "/cases", label: "제작 사례" },
   { href: "/booking", label: "예약 신청" },
 ];
 
