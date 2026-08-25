@@ -88,7 +88,7 @@ export const categoryOrder = ['회사/기업', '인테리어', '차량', '캠핑
 export const portfolios: Portfolio[] = [
   {
     slug: 'atelier',
-    name: '아뜰리에',
+    name: '커튼장인',
     category: '인테리어',
     plan: '랜딩형 홈페이지',
     desc: '공간에 맞춰 실측·제작하는 커튼·블라인드 전문',
