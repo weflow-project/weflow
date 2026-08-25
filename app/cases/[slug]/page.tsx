@@ -223,6 +223,7 @@ export default async function CaseDetailPage({
               <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
                 이렇게 만들어봤습니다
               </h2>
+              {/* 브라우저 프레임은 위에서 이미 두 번 썼다 — 여기선 사진만 깔끔하게 */}
               <div className="case-shots">
                 {d.results.map((src, i) => (
                   <figure
@@ -230,11 +231,6 @@ export default async function CaseDetailPage({
                     className="case-shot case-seq__item"
                     style={{ '--i': i + 1 } as CSSProperties}
                   >
-                    <span aria-hidden="true" className="case-shot__bar">
-                      <span className="case-shot__dot case-shot__dot--red" />
-                      <span className="case-shot__dot case-shot__dot--yellow" />
-                      <span className="case-shot__dot case-shot__dot--green" />
-                    </span>
                     <Image
                       src={src}
                       alt={`${p.name} 홈페이지 완성 화면 ${i + 1}`}

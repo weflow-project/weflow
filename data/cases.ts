@@ -109,7 +109,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '상담 요청을 받는 데 집중한 홈페이지입니다.',
       duration: '1주',
-      poster: { from: '#f3ece0', to: '#d8c9b2', ink: '#4b3a27', mark: 'ATELIER' },
+      poster: { from: '#faf6ed', to: '#eadfcb', ink: '#4b3a27', mark: 'ATELIER' },
       quotes: [
         '예약이랑 상담 문의를 받는 게 목적이에요',
         '뉴트럴·베이지 톤으로 따뜻했으면 좋겠어요',
@@ -401,7 +401,7 @@ export const portfolios: Portfolio[] = [
   },
   {
     slug: 'incar',
-    name: 'OO 베스트사업단',
+    name: 'OO 금융서비스',
     category: '보험',
     plan: '랜딩형 홈페이지',
     desc: '보험설계사 신입 · 경력 공개채용',
