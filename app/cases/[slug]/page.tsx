@@ -103,7 +103,6 @@ export default async function CaseDetailPage({
                 <span className="case-shot__dot case-shot__dot--red" />
                 <span className="case-shot__dot case-shot__dot--yellow" />
                 <span className="case-shot__dot case-shot__dot--green" />
-                <span className="case-hero__url">{p.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
               </span>
               <span className="case-hero__img">
                 <Image
@@ -115,9 +114,10 @@ export default async function CaseDetailPage({
                   sizes="(max-width: 900px) 100vw, 900px"
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
-                <span className="case-hero__overlay">
-                  사이트 보러가기 <ArrowUpRight size={18} strokeWidth={2.5} />
-                </span>
+              </span>
+              {/* 안내는 상단바까지 포함한 프레임 전체를 덮는다 — 세로 가운데가 프레임 기준이 되게 */}
+              <span className="case-hero__overlay">
+                사이트 보러가기 <ArrowUpRight size={18} strokeWidth={2.5} />
               </span>
             </a>
           </Reveal>
@@ -460,6 +460,7 @@ export default async function CaseDetailPage({
         /* 첫 화면 대표 이미지 — 글만 보고 나가지 않도록 결과물을 먼저 보여 준다 */
         .case-hero { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
         .case-hero__frame {
+          position: relative;
           display: block;
           overflow: hidden;
           border: 1px solid var(--border);
@@ -473,17 +474,6 @@ export default async function CaseDetailPage({
           transform: translateY(-4px);
           border-color: var(--accent);
           box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
-        }
-        .case-hero__url {
-          margin-left: 0.5rem;
-          padding: 0.15rem 0.7rem;
-          border-radius: 9999px;
-          background: var(--bg);
-          color: var(--text-muted);
-          font-size: 0.72rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
         }
         .case-hero__img {
           position: relative;

@@ -99,7 +99,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '상담 요청을 받는 데 집중한 홈페이지입니다.',
       duration: '1주',
-      poster: { from: '#382c1e', to: '#6b563e', ink: '#f6efe3', mark: 'ATELIER' },
+      poster: { from: '#f3ece0', to: '#d8c9b2', ink: '#4b3a27', mark: 'ATELIER' },
       quotes: [
         '예약이랑 상담 문의를 받는 게 목적이에요',
         '뉴트럴·베이지 톤으로 따뜻했으면 좋겠어요',
@@ -373,7 +373,7 @@ export const portfolios: Portfolio[] = [
     detail: {
       summary: '보험 이야기를 부드럽게 풀어 상담으로 잇습니다.',
       duration: '1주',
-      poster: { from: '#163a2a', to: '#2f6b4c', ink: '#eaf7ee', mark: 'INSURANCE' },
+      poster: { from: '#eaf6ec', to: '#c9e9d3', ink: '#1d5c38', mark: 'INSURANCE' },
       quotes: [
         '상담 문의를 받는 게 목적이에요',
         '그린 계열이랑 파스텔톤으로 부드럽게',
