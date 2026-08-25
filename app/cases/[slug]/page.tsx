@@ -67,7 +67,7 @@ export default async function CaseDetailPage({
               ← 제작 사례
             </Link>
             <p className="case-eyebrow">{p.category} · {p.plan} 제작 사례</p>
-            {/* 제목과 같은 줄 오른쪽에 실제 사이트로 나가는 버튼 */}
+            {/* 제목과 같은 줄 오른쪽에 실제 사이트로 나가는 버튼 — 눈에 띄도록 채움 스타일 */}
             <div className="case-titlerow">
               <h1 className="case-title">{p.name}</h1>
               <a
@@ -76,10 +76,43 @@ export default async function CaseDetailPage({
                 rel="noopener noreferrer"
                 className="case-visit"
               >
-                사이트 바로가기 <ArrowUpRight size={16} strokeWidth={2.5} />
+                사이트 보러가기 <ArrowUpRight size={17} strokeWidth={2.5} />
               </a>
             </div>
             <p className="case-summary">{d.summary}</p>
+          </Reveal>
+
+          {/* 첫 화면에 결과물을 바로 보여 준다 — 글만 있으면 스크롤 전에 나가 버린다.
+              이미지 자체가 실제 사이트로 가는 링크다. */}
+          <Reveal variant="up" delay={0.08} className="case-hero">
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="case-hero__frame"
+              aria-label={`${p.name} 사이트 새 창에서 열기`}
+            >
+              <span aria-hidden="true" className="case-shot__bar">
+                <span className="case-shot__dot case-shot__dot--red" />
+                <span className="case-shot__dot case-shot__dot--yellow" />
+                <span className="case-shot__dot case-shot__dot--green" />
+                <span className="case-hero__url">{p.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+              </span>
+              <span className="case-hero__img">
+                <Image
+                  src={p.images[0]}
+                  alt={`${p.name} 홈페이지 첫 화면`}
+                  width={1600}
+                  height={900}
+                  priority
+                  sizes="(max-width: 900px) 100vw, 900px"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+                <span className="case-hero__overlay">
+                  사이트 보러가기 <ArrowUpRight size={18} strokeWidth={2.5} />
+                </span>
+              </span>
+            </a>
           </Reveal>
 
           {/* 규모를 한눈에 — 라벨을 달아 표처럼 정리한다 */}
@@ -144,6 +177,29 @@ export default async function CaseDetailPage({
             </p>
           </Reveal>
 
+          {/* 글이 이어지는 사이에 화면을 끼워 넣는다 — 읽는 리듬을 끊어 주는 역할 */}
+          {p.images[1] && (
+            <Reveal variant="up" className="case-block">
+              <figure className="case-shot">
+                <span aria-hidden="true" className="case-shot__bar">
+                  <span className="case-shot__dot case-shot__dot--red" />
+                  <span className="case-shot__dot case-shot__dot--yellow" />
+                  <span className="case-shot__dot case-shot__dot--green" />
+                </span>
+                <span className="case-shot__img" style={{ display: 'block' }}>
+                  <Image
+                    src={p.images[1]}
+                    alt={`${p.name} 홈페이지 화면`}
+                    width={1600}
+                    height={900}
+                    sizes="(max-width: 900px) 100vw, 900px"
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                </span>
+              </figure>
+            </Reveal>
+          )}
+
           {/* ── 3. 무엇에 집중했나 ── */}
           <Reveal variant="fade" className="case-block case-seq">
             <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
@@ -166,38 +222,28 @@ export default async function CaseDetailPage({
             </ol>
           </Reveal>
 
-          {/* ── 4. 화면 ── */}
-          <Reveal variant="fade" className="case-block case-seq">
-            <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
-              이렇게 나왔습니다
-            </h2>
-            <div className="case-shots">
-              {p.images.map((src, i) => (
-                <div
-                  key={src}
-                  className="case-shot case-seq__item"
-                  style={{ '--i': i + 1 } as CSSProperties}
-                >
-                  {/* 브라우저 창 흉내 — 완성된 사이트를 들여다보는 느낌 */}
-                  <span aria-hidden="true" className="case-shot__bar">
-                    <span className="case-shot__dot case-shot__dot--red" />
-                    <span className="case-shot__dot case-shot__dot--yellow" />
-                    <span className="case-shot__dot case-shot__dot--green" />
-                  </span>
-                  <span className="case-shot__img" style={{ display: 'block' }}>
-                    <Image
-                      src={src}
-                      alt={`${p.name} 홈페이지 화면 ${i + 1}`}
-                      width={1600}
-                      height={900}
-                      sizes="(max-width: 900px) 100vw, 900px"
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
-                    />
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          {/* 마지막 화면 — 포인트를 다 읽은 뒤 결과를 한 번 더 보여 준다 */}
+          {p.images[2] && (
+            <Reveal variant="up" className="case-block">
+              <figure className="case-shot">
+                <span aria-hidden="true" className="case-shot__bar">
+                  <span className="case-shot__dot case-shot__dot--red" />
+                  <span className="case-shot__dot case-shot__dot--yellow" />
+                  <span className="case-shot__dot case-shot__dot--green" />
+                </span>
+                <span className="case-shot__img" style={{ display: 'block' }}>
+                  <Image
+                    src={p.images[2]}
+                    alt={`${p.name} 홈페이지 화면`}
+                    width={1600}
+                    height={900}
+                    sizes="(max-width: 900px) 100vw, 900px"
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                </span>
+              </figure>
+            </Reveal>
+          )}
 
         </div>
       </section>
@@ -323,27 +369,81 @@ export default async function CaseDetailPage({
           color: var(--text);
           word-break: keep-all;
         }
+        /* 눌러야 할 버튼이라는 게 바로 보이도록 채움 스타일 */
         .case-visit {
           display: inline-flex;
           align-items: center;
-          gap: 0.3rem;
+          gap: 0.35rem;
           flex-shrink: 0;
-          padding: 0.55rem 1.05rem;
-          border: 1px solid var(--border);
+          padding: 0.7rem 1.35rem;
+          border: none;
           border-radius: 9999px;
-          background: var(--surface);
-          color: var(--text-secondary);
-          font-size: 0.88rem;
-          font-weight: 600;
+          background: var(--accent);
+          color: var(--on-accent);
+          font-size: 0.95rem;
+          font-weight: 700;
           text-decoration: none;
           white-space: nowrap;
-          transition: border-color 0.2s, color 0.2s, transform 0.2s;
+          box-shadow: var(--shadow-btn);
+          transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
         }
         .case-visit:hover {
-          border-color: var(--accent);
-          color: var(--accent);
           transform: translateY(-2px);
+          opacity: 0.94;
+          box-shadow: 0 8px 22px rgba(106, 146, 215, 0.4);
         }
+
+        /* 첫 화면 대표 이미지 — 글만 보고 나가지 않도록 결과물을 먼저 보여 준다 */
+        .case-hero { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+        .case-hero__frame {
+          display: block;
+          overflow: hidden;
+          border: 1px solid var(--border);
+          border-radius: var(--radius-2xl);
+          background: var(--surface);
+          text-decoration: none;
+          box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+          transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .case-hero__frame:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent);
+          box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
+        }
+        .case-hero__url {
+          margin-left: 0.5rem;
+          padding: 0.15rem 0.7rem;
+          border-radius: 9999px;
+          background: var(--bg);
+          color: var(--text-muted);
+          font-size: 0.72rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .case-hero__img {
+          position: relative;
+          display: block;
+          overflow: hidden;
+        }
+        .case-hero__img img { transition: transform 0.5s ease; }
+        .case-hero__frame:hover .case-hero__img img { transform: scale(1.02); }
+        /* 마우스를 올리면 눌러도 된다는 안내가 뜬다 */
+        .case-hero__overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          background: rgba(6, 10, 20, 0.55);
+          color: #fff;
+          font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+          font-weight: 700;
+          opacity: 0;
+          transition: opacity 0.25s;
+        }
+        .case-hero__frame:hover .case-hero__overlay { opacity: 1; }
         .case-summary {
           margin: 0.9rem 0 0;
           font-size: clamp(1rem, 2.6vw, 1.15rem);
@@ -522,10 +622,18 @@ export default async function CaseDetailPage({
         /* 화면 — 브라우저 창 안에 넣어 실제 사이트를 보는 느낌을 준다 */
         .case-shots { display: flex; flex-direction: column; gap: 1.25rem; }
         .case-shot {
+          margin: 0;
           overflow: hidden;
           border: 1px solid var(--border);
           border-radius: var(--radius-xl);
           background: var(--surface);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+          transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .case-shot:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent);
+          box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
         }
         .case-shot__bar {
           display: flex;
