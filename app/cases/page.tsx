@@ -79,6 +79,8 @@ export default function CasesPage() {
             }}
           >
             WEFLOW가 직접 제작한 사례입니다.
+            <br />
+            사례별로 어떤 고민이 있었고 어떻게 풀었는지 담았습니다.
           </p>
 
           {/* 실제 제작 사례 목록 */}

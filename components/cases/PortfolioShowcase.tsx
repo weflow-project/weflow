@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
 import { portfolios, categoryOrder, type Portfolio } from '@/data/cases'
 
 const ROTATE_MS = 3500
@@ -94,31 +94,31 @@ function PortfolioCard({ p }: { p: Portfolio }) {
         )}
       </div>
 
-      {/* 설명 */}
-      <div style={{ padding: '0.95rem 1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.6rem' }}>
-        <div>
-          <p className="subhead emphasized c-primary" style={{ margin: '0 0 0.2rem' }}>{p.name}</p>
-          <p className="footnote c-muted" style={{ margin: 0 }}>{p.desc}</p>
-        </div>
-        <ArrowUpRight
-          size={18}
-          strokeWidth={2.5}
-          style={{
-            flexShrink: 0,
-            color: hovered ? 'var(--accent)' : 'var(--text-muted)',
-            transition: 'color 0.2s',
-          }}
-        />
+      {/* 설명 — 새 창으로 나간다는 뜻의 아이콘은 뺐다.
+          지금은 카드를 누르면 사이트 안의 상세 페이지로 들어오기 때문이다. */}
+      <div style={{ padding: '0.95rem 1.1rem' }}>
+        <p className="subhead emphasized c-primary" style={{ margin: '0 0 0.2rem' }}>{p.name}</p>
+        <p className="footnote c-muted" style={{ margin: 0 }}>{p.desc}</p>
       </div>
 
-      {/* 카드 전체를 실제 사이트로 연결 — 사진 넘기는 점은 위(zIndex 3)에 있어 안 가로챈다 */}
-      <a
-        href={p.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`${p.name} 사이트 새 창에서 열기`}
-        style={{ position: 'absolute', inset: 0, zIndex: 2 }}
-      />
+      {/* 카드 전체를 링크로 덮는다 — 사진 넘기는 점은 위(zIndex 3)에 있어 안 가로챈다.
+          상세 내용이 있으면 상세 페이지로 보내 사이트 안에 머물게 하고,
+          아직 없는 사례는 예전처럼 실제 사이트를 새 창으로 연다. */}
+      {p.detail ? (
+        <Link
+          href={`/cases/${p.slug}`}
+          aria-label={`${p.name} 제작 사례 자세히 보기`}
+          style={{ position: 'absolute', inset: 0, zIndex: 2 }}
+        />
+      ) : (
+        <a
+          href={p.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${p.name} 사이트 새 창에서 열기`}
+          style={{ position: 'absolute', inset: 0, zIndex: 2 }}
+        />
+      )}
     </div>
   )
 }
