@@ -20,7 +20,7 @@ const SERVICE_LINKS = [
 const CARE_LINKS = [
   { label: '제작 사례', href: '/cases' },
   { label: '예약 신청',           href: '/booking' },
-  { label: '무료 견적',           href: '/diagnosis' },
+  { label: '무료 진단',           href: '/diagnosis' },
 ]
 
 /* 아이콘 SVG */
