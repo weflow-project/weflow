@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { portfolios, categoryOrder, type Portfolio } from '@/data/cases'
 
 const ROTATE_MS = 3500
-// 사진 3장 모두 약 2.19:1 — 원본 비율에 맞춰야 좌우가 잘리지 않는다
-const PHOTO_ASPECT = '1896 / 867'
+// 사진마다 비율이 조금씩 달라(약 2.0~2.2:1) 중간값으로 고정하고 cover 로 채운다
+const PHOTO_ASPECT = '2.05 / 1'
 
 function PortfolioCard({ p }: { p: Portfolio }) {
   const [index, setIndex] = useState(0)

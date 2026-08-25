@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Reveal from '@/components/Reveal'
+import CaseSlideshow from '@/components/cases/CaseSlideshow'
 import { CTA_BTN, CTA_BTN_FILLED } from '@/lib/ctaButton'
 import { portfolios } from '@/data/cases'
 
@@ -46,6 +47,10 @@ export default async function CaseDetailPage({
   const d = p.detail!
   // 같은 업종 사례를 아래에 붙인다 — 다 읽은 뒤 다음으로 넘어갈 곳
   const related = portfolios.filter(x => x.slug !== p.slug && x.category === p.category).slice(0, 3)
+
+  // 상단과 본문 슬라이드쇼의 시작 사진을 벌린다 — 같은 사진이 동시에 보이지 않게
+  const n = p.images.length
+  const midStart = Math.floor(n / 2)
 
   return (
     <div style={{ background: 'var(--section-a)' }}>
@@ -104,17 +109,7 @@ export default async function CaseDetailPage({
                 <span className="case-shot__dot case-shot__dot--yellow" />
                 <span className="case-shot__dot case-shot__dot--green" />
               </span>
-              <span className="case-hero__img">
-                <Image
-                  src={p.images[0]}
-                  alt={`${p.name} 홈페이지 첫 화면`}
-                  width={1600}
-                  height={900}
-                  priority
-                  sizes="(max-width: 900px) 100vw, 900px"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
-              </span>
+              <CaseSlideshow images={p.images} alt={`${p.name} 홈페이지`} priority />
               {/* 안내는 상단바까지 포함한 프레임 전체를 덮는다 — 세로 가운데가 프레임 기준이 되게 */}
               <span className="case-hero__overlay">
                 사이트 보러가기 <ArrowUpRight size={18} strokeWidth={2.5} />
@@ -184,8 +179,9 @@ export default async function CaseDetailPage({
             </p>
           </Reveal>
 
-          {/* 글이 이어지는 사이에 화면을 끼워 넣는다 — 읽는 리듬을 끊어 주는 역할 */}
-          {p.images[1] && (
+          {/* 글이 이어지는 사이에 화면을 끼워 넣는다 — 읽는 리듬을 끊어 주는 역할.
+              상단과 같은 슬라이드쇼지만 시작 사진을 다르게 해 같은 화면이 겹치지 않는다 */}
+          {n > 1 && (
             <Reveal variant="up" className="case-block">
               <figure className="case-shot">
                 <span aria-hidden="true" className="case-shot__bar">
@@ -193,16 +189,7 @@ export default async function CaseDetailPage({
                   <span className="case-shot__dot case-shot__dot--yellow" />
                   <span className="case-shot__dot case-shot__dot--green" />
                 </span>
-                <span className="case-shot__img" style={{ display: 'block' }}>
-                  <Image
-                    src={p.images[1]}
-                    alt={`${p.name} 홈페이지 화면`}
-                    width={1600}
-                    height={900}
-                    sizes="(max-width: 900px) 100vw, 900px"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                </span>
+                <CaseSlideshow images={p.images} alt={`${p.name} 홈페이지`} start={midStart} />
               </figure>
             </Reveal>
           )}
@@ -229,26 +216,36 @@ export default async function CaseDetailPage({
             </ol>
           </Reveal>
 
-          {/* 마지막 화면 — 포인트를 다 읽은 뒤 결과를 한 번 더 보여 준다 */}
-          {p.images[2] && (
-            <Reveal variant="up" className="case-block">
-              <figure className="case-shot">
-                <span aria-hidden="true" className="case-shot__bar">
-                  <span className="case-shot__dot case-shot__dot--red" />
-                  <span className="case-shot__dot case-shot__dot--yellow" />
-                  <span className="case-shot__dot case-shot__dot--green" />
-                </span>
-                <span className="case-shot__img" style={{ display: 'block' }}>
-                  <Image
-                    src={p.images[2]}
-                    alt={`${p.name} 홈페이지 화면`}
-                    width={1600}
-                    height={900}
-                    sizes="(max-width: 900px) 100vw, 900px"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                </span>
-              </figure>
+          {/* ── 4. 이렇게 만들어봤습니다 — 골라 둔 대표 화면을 나열한다.
+                 슬라이드는 한 장씩 기다려야 하지만, 나열은 스크롤하며 다 보게 된다 ── */}
+          {d.results.length > 0 && (
+            <Reveal variant="fade" className="case-block case-seq">
+              <h2 className="case-h2 case-seq__item" style={{ '--i': 0 } as CSSProperties}>
+                이렇게 만들어봤습니다
+              </h2>
+              <div className="case-shots">
+                {d.results.map((src, i) => (
+                  <figure
+                    key={src}
+                    className="case-shot case-seq__item"
+                    style={{ '--i': i + 1 } as CSSProperties}
+                  >
+                    <span aria-hidden="true" className="case-shot__bar">
+                      <span className="case-shot__dot case-shot__dot--red" />
+                      <span className="case-shot__dot case-shot__dot--yellow" />
+                      <span className="case-shot__dot case-shot__dot--green" />
+                    </span>
+                    <Image
+                      src={src}
+                      alt={`${p.name} 홈페이지 완성 화면 ${i + 1}`}
+                      width={1920}
+                      height={937}
+                      sizes="(max-width: 900px) 100vw, 900px"
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                    />
+                  </figure>
+                ))}
+              </div>
             </Reveal>
           )}
 
@@ -475,13 +472,6 @@ export default async function CaseDetailPage({
           border-color: var(--accent);
           box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
         }
-        .case-hero__img {
-          position: relative;
-          display: block;
-          overflow: hidden;
-        }
-        .case-hero__img img { transition: transform 0.5s ease; }
-        .case-hero__frame:hover .case-hero__img img { transform: scale(1.02); }
         /* 마우스를 올리면 눌러도 된다는 안내가 뜬다 */
         .case-hero__overlay {
           position: absolute;
@@ -706,12 +696,6 @@ export default async function CaseDetailPage({
         .case-shot__dot--red { background: #ff5f57; }
         .case-shot__dot--yellow { background: #febc2e; }
         .case-shot__dot--green { background: #28c840; }
-        .case-shot__img { overflow: hidden; }
-        .case-shot__img img {
-          transition: transform 0.5s ease;
-        }
-        .case-shot:hover .case-shot__img img { transform: scale(1.03); }
-
         /* 다른 페이지 하단 CTA 와 같은 배치 — 왼쪽 전화 상담, 오른쪽 진단 신청 */
         .case-cta__row {
           display: flex;
