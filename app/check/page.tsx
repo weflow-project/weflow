@@ -94,6 +94,7 @@ export default function CheckPage() {
   const [showErrors, setShowErrors] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const resultRef = useRef<HTMLDivElement>(null)
+  const errorRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const overallShown = useCountUp(result?.overall ?? 0, phase === 'done')
@@ -108,6 +109,8 @@ export default function CheckPage() {
 
   useEffect(() => {
     if (phase === 'done') resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // 실패 안내도 화면 밖에 있으면 못 보고 지나친다 — 뜨는 위치로 내려 준다
+    if (phase === 'error') errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [phase])
 
   const runCheck = async () => {
@@ -272,10 +275,22 @@ export default function CheckPage() {
       {/* ── 접속 실패 ── */}
       {phase === 'error' && (
         <section style={{ padding: 'clamp(3rem, 6vw, 4rem) 1.5rem' }}>
-          <div style={{ maxWidth: '520px', margin: '0 auto', textAlign: 'center' }}>
-            <p className="headline c-primary" style={{ marginBottom: '0.6rem' }}>분석하지 못했습니다</p>
-            <p className="c-muted" style={{ marginBottom: '1.5rem', wordBreak: 'keep-all' }}>{error}</p>
-            <button onClick={() => setPhase('idle')} className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+          <div ref={errorRef} style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center', scrollMarginTop: '128px' }}>
+            <p className="emphasized c-primary" style={{ margin: '0 0 0.7rem', fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)', wordBreak: 'keep-all' }}>
+              분석하지 못했습니다
+            </p>
+            <p className="c-muted" style={{ marginBottom: '1.5rem', wordBreak: 'keep-all', fontSize: 'clamp(1.02rem, 2.6vw, 1.15rem)', lineHeight: 1.7 }}>{error}</p>
+            <button
+              onClick={() => {
+                setPhase('idle')
+                // 입력칸이 있는 맨 위로 되돌아가 바로 다시 입력하게 한다
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                inputRef.current?.focus({ preventScroll: true })
+                inputRef.current?.select()
+              }}
+              className="btn-outline"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
+            >
               <RotateCcw size={16} strokeWidth={2.5} /> 다시 시도하기
             </button>
           </div>
@@ -287,7 +302,7 @@ export default function CheckPage() {
         <section style={{ padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             {/* 종합 점수 — 스크롤이 여기로 오도록 잡는다. 여백은 상단 고정 헤더(프로모션 바+메뉴) 높이만큼 */}
-            <div ref={resultRef} style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 3rem)', scrollMarginTop: '96px' }}>
+            <div ref={resultRef} style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 3rem)', scrollMarginTop: '48px' }}>
               <p className="footnote c-muted" style={{ margin: '0 0 0.4rem', wordBreak: 'break-all' }}>{result.finalUrl}</p>
               <p
                 style={{
