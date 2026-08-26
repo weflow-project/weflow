@@ -170,11 +170,11 @@ export default function HeroBanner() {
           </Link>
 
           <Link
-            href="/guide"
+            href="/check"
             className="btn-primary hero-btn hero-btn--ghost"
             style={{ width: "min(240px, 80vw)" }}
           >
-            제작 라인업 바로가기
+            지금 사이트 점검하기
           </Link>
         </div>
 

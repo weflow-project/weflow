@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description:
     '원하는 날짜와 시간을 골라 WEFLOW 홈페이지 제작 상담을 예약하세요.',
   alternates: { canonical: '/booking' },
+  // 메뉴에서 내린 페이지 — 검색 결과에도 나오지 않게 한다 (주소로 직접 오는 건 그대로)
+  robots: { index: false, follow: false },
   openGraph: {
     title: '상담 예약 · WEFLOW',
     description: '원하는 날짜와 시간을 골라 WEFLOW 홈페이지 제작 상담을 예약하세요.',

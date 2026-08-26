@@ -30,7 +30,8 @@ const paths: {
   { path: '/about', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
   { path: '/benefits', updated: '2026-07-22', priority: 0.7, freq: 'monthly' },
   { path: '/diagnosis', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },
-  { path: '/booking', updated: '2026-07-26', priority: 0.6, freq: 'monthly' },
+  { path: '/check', updated: '2026-08-26', priority: 0.8, freq: 'monthly' },
+  // /booking 은 메뉴에서 내리면서 검색 노출도 뺐다 — 페이지는 주소로만 접근 가능
 ]
 
 /**

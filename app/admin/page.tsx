@@ -29,12 +29,13 @@ import {
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { projectTypes } from "@/data/common";
+import { portfolios } from "@/data/cases";
 import { SITE_TYPE } from "@/lib/siteConfig";
 
 // 관리자 비밀번호는 서버 환경변수(ADMIN_PASSWORD)에서만 검증 — 클라이언트 노출 제거
 
 type Status = "pending" | "in_progress" | "done";
-type Tab = "overview" | "reservations" | "inquiries" | "analytics" | "traffic";
+type Tab = "overview" | "checks" | "inquiries" | "analytics" | "traffic";
 type Filter = "전체" | "대기" | "진행중" | "완료";
 
 // 상태 코드 ↔ 화면 표기 (KO: 코드→한글, EN: 한글→코드 / 필터 버튼에서 역변환용)
@@ -112,7 +113,8 @@ const FILTERS: Filter[] = ["전체", "대기", "진행중", "완료"];
 const TABS: { key: Tab; label: string }[] = [
   { key: "overview", label: "전체 현황" },
   { key: "inquiries", label: "문의 관리" },
-  { key: "reservations", label: "예약 관리" },
+  // 자동 진단(/check)에서 연락처를 남긴 리드 — source 'auto-diagnosis' 로 문의와 구분한다
+  { key: "checks", label: "사이트 점검" },
   { key: "analytics", label: "통계 관리" },
   { key: "traffic", label: "유입 관리" },
 ];
@@ -715,14 +717,14 @@ function Legend({ color, label }: { color: string; label: string }) {
 }
 
 /**
- * 통계 관리 탭 — 예약·문의 접수 데이터를 기간별로 집계해 보여준다.
+ * 통계 관리 탭 — 사이트 점검·문의 접수 데이터를 기간별로 집계해 보여준다.
  * 일별 접수 추이(꺾은선), 상태 분포(누적 막대), 제작 종류별 건수(가로 막대).
  */
 function AnalyticsView({
-  bookings: allB,
+  checks: allB,
   inquiries: allI,
 }: {
-  bookings: Booking[];
+  checks: Inquiry[];
   inquiries: Inquiry[];
 }) {
   // 기간 선택
@@ -737,7 +739,7 @@ function AnalyticsView({
 
   // 선택 기간만 집계 ('오늘'은 달력상 오늘 자정부터)
   const cutoff = periodCutoff(period);
-  const bookings = cutoff
+  const checks = cutoff
     ? allB.filter((b) => new Date(b.createdAt).getTime() >= cutoff)
     : allB;
   const inquiries = cutoff
@@ -781,7 +783,7 @@ function AnalyticsView({
     const d = new Date(iso);
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   };
-  bookings.forEach((r) => {
+  checks.forEach((r) => {
     const k = dkey(r.createdAt);
     if (k in bidx) buckets[bidx[k]].b++;
   });
@@ -802,7 +804,7 @@ function AnalyticsView({
     done: arr.filter((r) => r.status === "done").length,
   });
   const statusRows = [
-    { label: "예약", data: stCount(bookings) },
+    { label: "사이트 점검", data: stCount(checks) },
     { label: "문의", data: stCount(inquiries) },
   ];
 
@@ -811,7 +813,7 @@ function AnalyticsView({
   projectTypes.forEach((t) => {
     typeCount[t] = 0;
   });
-  [...bookings, ...inquiries].forEach((r) => {
+  [...checks, ...inquiries].forEach((r) => {
     if (r.type in typeCount) typeCount[r.type]++;
   });
   const maxType = Math.max(1, ...Object.values(typeCount));
@@ -869,7 +871,7 @@ function AnalyticsView({
         >
           <h3 style={h3}>{periodLabel} 접수 추이</h3>
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Legend color={C_B} label="예약" />
+            <Legend color={C_B} label="사이트 점검" />
             <Legend color={C_I} label="문의" />
           </div>
         </div>
@@ -878,7 +880,7 @@ function AnalyticsView({
           width="100%"
           style={{ display: "block", marginTop: "0.9rem" }}
           role="img"
-          aria-label="최근 14일 예약·문의 접수 추이"
+          aria-label="최근 14일 사이트 점검·문의 접수 추이"
         >
           {gridVals.map((v) => (
             <g key={v}>
@@ -930,7 +932,7 @@ function AnalyticsView({
                 strokeWidth={2}
               >
                 <title>
-                  {d.label} · 예약 {d.b}
+                  {d.label} · 사이트 점검 {d.b}
                 </title>
               </circle>
               <circle
@@ -1148,11 +1150,15 @@ const PAGE_KO: Record<string, string> = {
   "/benefits": "WEFLOW 혜택",
   "/booking": "예약",
   "/cases": "제작 사례",
+  "/check": "사이트 점검",
   "/diagnosis": "무료 진단",
   "/guide": "제작 라인업",
   "/pricing": "가격 안내",
   "/reviews": "고객 인터뷰",
   "/service": "서비스 소개",
+  // 사례 상세(/cases/[slug]) — 사례 데이터에서 이름을 가져와 자동으로 붙는다.
+  // 사례를 추가해도 여기를 손댈 필요가 없다.
+  ...Object.fromEntries(portfolios.map((p) => [`/cases/${p.slug}`, `사례 · ${p.name}`])),
 };
 // 경로 → 사람이 알아보는 한글 이름 (쿼리·해시 제거, 미등록 경로는 경로 그대로)
 function pageName(path: string): string {
@@ -1961,7 +1967,6 @@ export default function AdminPage() {
   const [pwError, setPwError] = useState(false);
   const [tab, setTab] = useState<Tab>("overview");
   const [filter, setFilter] = useState<Filter>("전체");
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
   const [pvLoading, setPvLoading] = useState(false);
@@ -1990,11 +1995,7 @@ export default function AdminPage() {
   const load = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const [bRes, iRes] = await Promise.all([
-        fetch("/api/bookings"),
-        fetch("/api/inquiries"),
-      ]);
-      setBookings(await bRes.json());
+      const iRes = await fetch("/api/inquiries");
       setInquiries(await iRes.json());
     } catch {}
     if (!silent) setLoading(false);
@@ -2198,10 +2199,13 @@ export default function AdminPage() {
     );
   }
 
-  const pendingB = bookings.filter((b) => b.status === "pending").length;
-  const pendingI = inquiries.filter((i) => i.status === "pending").length;
-  const filteredB = filterRows(withinPeriod(bookings, listPeriod));
-  const filteredI = filterRows(withinPeriod(inquiries, listPeriod));
+  // 자동 진단(/check) 리드는 source 로 구분해 일반 문의와 따로 관리한다
+  const generalI = inquiries.filter((i) => i.source !== "auto-diagnosis");
+  const checkI = inquiries.filter((i) => i.source === "auto-diagnosis");
+  const pendingC = checkI.filter((c) => c.status === "pending").length;
+  const pendingI = generalI.filter((i) => i.status === "pending").length;
+  const filteredC = filterRows(withinPeriod(checkI, listPeriod));
+  const filteredI = filterRows(withinPeriod(generalI, listPeriod));
 
   return (
     <div
@@ -2620,11 +2624,11 @@ export default function AdminPage() {
                 style={{ display: "grid", gap: "1rem" }}
                 className={tab === "overview" ? "stat-grid-4" : "stat-grid-2"}
               >
-                {tab !== "reservations" && (
+                {tab !== "checks" && (
                   <>
                     <StatCard
                       label="전체 문의"
-                      value={inquiries.length}
+                      value={generalI.length}
                       color="blue"
                     />
                     <StatCard
@@ -2637,13 +2641,13 @@ export default function AdminPage() {
                 {tab !== "inquiries" && (
                   <>
                     <StatCard
-                      label="전체 예약"
-                      value={bookings.length}
+                      label="전체 사이트 점검"
+                      value={checkI.length}
                       color="blue"
                     />
                     <StatCard
-                      label="대기중 예약"
-                      value={pendingB}
+                      label="대기중 사이트 점검"
+                      value={pendingC}
                       color="green"
                     />
                   </>
@@ -2654,7 +2658,7 @@ export default function AdminPage() {
 
           {/* 통계 탭 */}
           {tab === "analytics" && (
-            <AnalyticsView bookings={bookings} inquiries={inquiries} />
+            <AnalyticsView checks={checkI} inquiries={generalI} />
           )}
 
           {/* 유입 통계 탭 */}
@@ -2738,7 +2742,7 @@ export default function AdminPage() {
           )}
 
           {/* 테이블 */}
-          {tab !== "reservations" &&
+          {tab !== "checks" &&
             tab !== "analytics" &&
             tab !== "traffic" && (
               <RequestTable
@@ -2756,20 +2760,20 @@ export default function AdminPage() {
                 }
               />
             )}
+          {/* 사이트 점검 리드 — 같은 inquiries 테이블을 쓰므로 상태 변경·삭제도 같은 API 로 간다 */}
           {tab !== "inquiries" && tab !== "analytics" && tab !== "traffic" && (
             <RequestTable
-              title={tab === "overview" ? "예약 관리" : undefined}
-              rows={filteredB}
-              showSchedule
+              title={tab === "overview" ? "사이트 점검" : undefined}
+              rows={filteredC}
               onStatusChange={(id, s) =>
-                updateStatus("/api/bookings", id, s, setBookings)
+                updateStatus("/api/inquiries", id, s, setInquiries)
               }
-              onDelete={(id) => remove("/api/bookings", id, setBookings)}
+              onDelete={(id) => remove("/api/inquiries", id, setInquiries)}
               onExport={() =>
-                window.open("/api/export?type=bookings", "_blank")
+                window.open("/api/export?type=inquiries", "_blank")
               }
               onSeeAll={
-                tab === "overview" ? () => setTab("reservations") : undefined
+                tab === "overview" ? () => setTab("checks") : undefined
               }
             />
           )}

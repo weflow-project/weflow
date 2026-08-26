@@ -14,11 +14,12 @@ const NAV_LINKS = [
   { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  { href: "/booking", label: "예약 신청" },
+  // 예약 신청(/booking)은 메뉴에서 내리고 그 자리에 사이트 진단을 뒀다 — 페이지 자체는 남아 있다
+  { href: "/check", label: "사이트 점검" },
 ];
 
 // 같은 페이지에서 다시 눌렀을 때 폼을 새로 시작해야 하는 경로
-const RESETTABLE = new Set(["/booking", "/diagnosis"]);
+const RESETTABLE = new Set(["/booking", "/diagnosis", "/check"]);
 
 /**
  * 모든 페이지 상단의 헤더 — 로고 · 메뉴 · 견적 CTA.
