@@ -439,10 +439,10 @@ export default function CheckPage() {
       )}
 
       <style>{`
-        /* 첫 화면 시각 보정 — PC 에서만 살짝 올리고 모바일은 정중앙 그대로 */
+        /* 첫 화면 시각 보정 — 정중앙은 아래로 처져 보여 PC 4% · 모바일 3% 올린다 */
         .ck-hero { translate: 0 -4vh; }
         @media (max-width: 768px) {
-          .ck-hero { translate: 0 0; }
+          .ck-hero { translate: 0 -3vh; }
         }
 
         /* 점수 블록 스크롤 위치 — PC 는 여유를 두고, 모바일은 점수부터 딱 시작 */
