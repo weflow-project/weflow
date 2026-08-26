@@ -279,7 +279,17 @@ export default function CheckPage() {
             <p className="emphasized c-primary" style={{ margin: '0 0 0.7rem', fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)', wordBreak: 'keep-all' }}>
               분석하지 못했습니다
             </p>
-            <p className="c-muted" style={{ marginBottom: '1.5rem', wordBreak: 'keep-all', fontSize: 'clamp(1.02rem, 2.6vw, 1.15rem)', lineHeight: 1.7 }}>{error}</p>
+            <p className="c-muted" style={{ marginBottom: '1.5rem', wordBreak: 'keep-all', fontSize: 'clamp(1.02rem, 2.6vw, 1.15rem)', lineHeight: 1.7 }}>
+              {/* "(예: ...)" 꼬리는 모바일에서 다음 줄로 내린다 */}
+              {error.includes('(예:') ? (
+                <>
+                  {error.slice(0, error.indexOf('(예:')).trim()}
+                  <br className="ck-br-mobile" /> {error.slice(error.indexOf('(예:'))}
+                </>
+              ) : (
+                error
+              )}
+            </p>
             <button
               onClick={() => {
                 setPhase('idle')
@@ -302,7 +312,7 @@ export default function CheckPage() {
         <section style={{ padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             {/* 종합 점수 — 스크롤이 여기로 오도록 잡는다. 여백은 상단 고정 헤더(프로모션 바+메뉴) 높이만큼 */}
-            <div ref={resultRef} style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 3rem)', scrollMarginTop: '48px' }}>
+            <div ref={resultRef} className="ck-scoretop" style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 3rem)' }}>
               <p className="footnote c-muted" style={{ margin: '0 0 0.4rem', wordBreak: 'break-all' }}>{result.finalUrl}</p>
               <p
                 style={{
@@ -427,6 +437,12 @@ export default function CheckPage() {
       )}
 
       <style>{`
+        /* 점수 블록 스크롤 위치 — PC 는 여유를 두고, 모바일은 점수부터 딱 시작 */
+        .ck-scoretop { scroll-margin-top: 48px; }
+        @media (max-width: 768px) {
+          .ck-scoretop { scroll-margin-top: 20px; }
+        }
+
         /* 모바일에서만 제목을 두 줄로 나눈다 */
         .ck-br-mobile { display: none; }
         @media (max-width: 560px) {
