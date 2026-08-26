@@ -196,8 +196,8 @@ export default function CheckPage() {
           justifyContent: 'center',
         }}
       >
-        {/* 수학적 정중앙은 아래로 처져 보인다 — 시각 보정으로 살짝 올린다 */}
-        <div style={{ maxWidth: '720px', width: '100%', margin: '0 auto', textAlign: 'center', translate: '0 -4vh' }}>
+        {/* 수학적 정중앙은 아래로 처져 보인다 — PC 에서만 시각 보정으로 살짝 올린다 */}
+        <div className="ck-hero" style={{ maxWidth: '720px', width: '100%', margin: '0 auto', textAlign: 'center' }}>
           <Reveal variant="up">
             <p
               className="caption-1 emphasized c-accent"
@@ -439,6 +439,12 @@ export default function CheckPage() {
       )}
 
       <style>{`
+        /* 첫 화면 시각 보정 — PC 에서만 살짝 올리고 모바일은 정중앙 그대로 */
+        .ck-hero { translate: 0 -4vh; }
+        @media (max-width: 768px) {
+          .ck-hero { translate: 0 0; }
+        }
+
         /* 점수 블록 스크롤 위치 — PC 는 여유를 두고, 모바일은 점수부터 딱 시작 */
         .ck-scoretop { scroll-margin-top: 48px; }
         @media (max-width: 768px) {
