@@ -59,6 +59,18 @@ export default function PricingSection() {
           ))}
         </Reveal>
 
+        {/* 가격을 가려 둔 이유와 다음 행동 — 물음표만 보고 떠나지 않게 카드 바로 밑에서 안내한다 */}
+        <p
+          className="callout c-secondary"
+          style={{ textAlign: 'center', margin: '1.75rem 0 0', wordBreak: 'keep-all' }}
+        >
+          정확한 금액은{' '}
+          <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+            무료 견적 신청
+          </Link>
+          {' '}후 안내드립니다.
+        </p>
+
         {/* 리뉴얼 — 신규 제작과 성격이 다른 상품이라 3장과 한 줄에 섞지 않고
             구분선 아래에 한 장으로 떨어뜨린다 (가운데 칸 정렬) */}
         <div className="pricing-solo-head">
@@ -78,18 +90,6 @@ export default function PricingSection() {
             cta={detailCta(true)}
           />
         </Reveal>
-
-        {/* 가격을 가려 둔 이유와 다음 행동 — 물음표만 보고 떠나지 않게 안내한다 */}
-        <p
-          className="callout c-secondary"
-          style={{ textAlign: 'center', margin: '1.75rem 0 0', wordBreak: 'keep-all' }}
-        >
-          정확한 금액은{' '}
-          <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            무료 견적 신청
-          </Link>
-          {' '}후 안내드립니다.
-        </p>
 
         {/* 전체 플랜 링크 */}
         <div style={{ marginTop: 'clamp(2.5rem, 5vw, 3.25rem)', textAlign: 'center' }}>
