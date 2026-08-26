@@ -1151,7 +1151,7 @@ const PAGE_KO: Record<string, string> = {
   "/booking": "예약",
   "/cases": "제작 사례",
   "/check": "사이트 점검",
-  "/diagnosis": "무료 진단",
+  "/diagnosis": "무료 견적",
   "/guide": "제작 라인업",
   "/pricing": "가격 안내",
   "/reviews": "고객 인터뷰",
@@ -2199,7 +2199,7 @@ export default function AdminPage() {
     );
   }
 
-  // 자동 진단(/check) 리드는 source 로 구분해 일반 문의와 따로 관리한다
+  // 사이트 점검(/check) 리드는 source 로 구분해 일반 문의와 따로 관리한다
   const generalI = inquiries.filter((i) => i.source !== "auto-diagnosis");
   const checkI = inquiries.filter((i) => i.source === "auto-diagnosis");
   const pendingC = checkI.filter((c) => c.status === "pending").length;

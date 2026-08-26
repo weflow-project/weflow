@@ -22,7 +22,7 @@ export const TRUST: TrustStat[] = [
   { end: CAREER_YEARS, suffix: '년+', label: '홈페이지 제작 경력' },
   { end: TOTAL_PROJECTS, suffix: '건+', label: '누적 제작 사례', format: true },
   { end: 100, suffix: '%', label: '맞춤 제작', animate: true },
-  { end: 0, suffix: '원', label: '무료 진단 비용' },
+  { end: 0, suffix: '원', label: '무료 견적 비용' },
 ]
 
 export type StrengthIconName =
@@ -80,8 +80,8 @@ export const STRENGTH: {
     },
     {
       icon: 'stethoscope',
-      title: '무료 홈페이지 진단',
-      desc: '현재 상태를 먼저 진단하고\n투명한 견적 안내',
+      title: '무료 홈페이지 견적',
+      desc: '현재 상태를 먼저 살펴보고\n투명한 견적 안내',
     },
   ],
 }

@@ -289,7 +289,7 @@ export default async function CaseDetailPage({
               lineHeight: 1.7,
             }}
           >
-            무료 진단을 통해 지금 사이트의 문제를 파악하고, 찾아오는 고객을 늘려보세요.
+            무료 견적으로 제작 방향과 비용을 확인하고, 찾아오는 고객을 늘려보세요.
           </p>
 
           <div className="case-cta__row">
@@ -297,7 +297,7 @@ export default async function CaseDetailPage({
               전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link href="/diagnosis" className="btn-primary" style={CTA_BTN_FILLED}>
-              무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>

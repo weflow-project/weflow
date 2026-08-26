@@ -67,8 +67,9 @@ const ORGANIZATION_JSON_LD = {
   telephone: '+82-10-2971-7280',
   founder: { '@type': 'Person', name: '신서준' },
   taxID: '884-07-03480',
-  // 제작 플랜의 최저~최고 금액. data/pricing.ts 에서 만들어 쓴다 (값을 고치면 여기도 따라온다)
-  priceRange: `${makePlans[0].price} ~ ${makePlans[makePlans.length - 1].price}`,
+  // 판매가를 화면에서 숨긴 상태(price: "?")라 금액 범위 대신 견적 안내로 둔다.
+  // 가격을 다시 공개하면 원래대로 makePlans 에서 조합해 넣는다.
+  priceRange: '견적 문의',
   areaServed: { '@type': 'Country', name: '대한민국' },
   serviceType: ['홈페이지 제작', '랜딩페이지 제작', '광고 운영 대행'],
 }

@@ -7,7 +7,7 @@ import {
 import Reveal from '@/components/Reveal'
 
 /**
- * 자동 진단 도구 — 방문자가 자기 사이트 주소를 넣으면
+ * 자동 점검 도구 — 방문자가 자기 사이트 주소를 넣으면
  * /api/diagnose 가 분석한 결과를 보여 준다.
  *
  * 결과 일부(로딩 속도)는 바로 보여 주고, 나머지 상세는
@@ -155,9 +155,9 @@ export default function CheckPage() {
         body: JSON.stringify({
           name: lead.name,
           phone: lead.phone,
-          type: '자동 진단',
+          type: '사이트 점검',
           industry: '',
-          note: `진단 사이트: ${result.finalUrl}\n종합 ${result.overall}점 (속도 ${c.speed.score} · 검색 ${c.seo.score} · 모바일 ${c.mobile.score} · 문의동선 ${c.contact.score})`,
+          note: `점검 사이트: ${result.finalUrl}\n종합 ${result.overall}점 (속도 ${c.speed.score} · 검색 ${c.seo.score} · 모바일 ${c.mobile.score} · 문의동선 ${c.contact.score})`,
           agree: true,
           source: 'auto-diagnosis',
         }),
@@ -314,7 +314,7 @@ export default function CheckPage() {
         </section>
       )}
 
-      {/* ── 진단 결과 ── */}
+      {/* ── 점검 결과 ── */}
       {phase === 'done' && result && (
         <section style={{ padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -645,7 +645,7 @@ export default function CheckPage() {
           background: var(--surface);
           padding: clamp(1.4rem, 4vw, 2rem);
         }
-        /* 입력 오류 안내 — 진단·예약 페이지와 같은 스타일 */
+        /* 입력 오류 안내 — 견적·예약 페이지와 같은 스타일 */
         .field-error {
           color: #ef4444;
           font-size: 0.85rem;

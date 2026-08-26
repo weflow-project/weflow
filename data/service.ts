@@ -16,7 +16,7 @@ export interface Step {
 export const steps: Step[] = [
   {
     num: "01",
-    title: "상담·진단",
+    title: "상담·견적",
     desc: "업종 및 제작 방향 확인",
     detail:
       "고객의 업종, 타겟 고객, 경쟁사 분석을 통해 최적의 제작 방향을 설정합니다.",

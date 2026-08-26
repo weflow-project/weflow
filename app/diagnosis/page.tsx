@@ -6,15 +6,15 @@ import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
 
 const CHECKS = [
-  { icon: FileSearch, title: '문의 구조 진단', desc: '방문자가 문의로 이어지지 않는 이유를 분석합니다' },
+  { icon: FileSearch, title: '문의 구조 분석', desc: '방문자가 문의로 이어지지 않는 이유를 분석합니다' },
   { icon: MessageSquare, title: '디자인 점검', desc: '업종에 맞는 디자인 방향과 개선 포인트를 제안합니다' },
   { icon: Lightbulb, title: '맞춤 제작 방향 제안', desc: '업종·예산에 맞는 최적의 제작 방향을 안내합니다' },
 ]
 
 const PROCESS = [
   { num: '01', text: '간편한 신청서 작성' },
-  { num: '02', text: '전문가의 정밀 사이트 진단' },
-  { num: '03', text: '24시간 이내, 진단 결과 안내' },
+  { num: '02', text: '전문가의 정밀 사이트 분석' },
+  { num: '03', text: '24시간 이내, 견적 안내' },
 ]
 
 const TRUST = [
@@ -115,7 +115,7 @@ export default function DiagnosisPage() {
             <Check size={34} color="#16a34a" strokeWidth={2.5} />
           </div>
           <h2 className="title-1 emphasized" style={{ marginBottom: '1rem' }}>
-            무료 진단 신청 완료!
+            무료 견적 신청 완료!
           </h2>
           <p className="c-muted" style={{ lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '1.1rem' }}>
             담당자가 확인 후 <strong style={{ color: 'var(--text)' }}>24시간 내</strong>에 연락드리겠습니다.<br />
@@ -148,7 +148,7 @@ export default function DiagnosisPage() {
       <section style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <Reveal variant="up">
-            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE DIAGNOSIS</span>
+            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE ESTIMATE</span>
           </Reveal>
           <SplitText
             as="h1"
@@ -156,13 +156,13 @@ export default function DiagnosisPage() {
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
               { text: '무료 ' },
-              { text: '진단', className: 'c-accent' },
+              { text: '견적', className: 'c-accent' },
               { text: ' 받기' },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
             <p className="subhead c-muted" style={{ margin: 0 }}>
-              무료로 진단받고 맞춤 제작 방향을 안내받으세요
+              무료로 견적받고 맞춤 제작 방향을 안내받으세요
             </p>
           </Reveal>
         </div>
@@ -216,7 +216,7 @@ export default function DiagnosisPage() {
               {/* 진단 과정 */}
               <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
                 <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>HOW IT WORKS</p>
-                <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>진단 과정</h3>
+                <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>진행 과정</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                   {PROCESS.map((p, i) => (
                     <div key={p.num} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
@@ -296,7 +296,7 @@ export default function DiagnosisPage() {
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
-                  {loading ? '제출 중...' : '진단 결과 확인하기 →'}
+                  {loading ? '제출 중...' : '견적 확인하기 →'}
                 </button>
                 {submitError && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>

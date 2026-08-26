@@ -45,7 +45,7 @@ export default function PromoBanner() {
           특별 프로모션
         </span>
         <strong className="subhead emphasized" style={{ letterSpacing: '-0.01em',color: 'rgba(255,255,255,0.88)' }}>
-          제작비 <span style={{ color: 'var(--on-accent-strong)' }}>50% 할인</span> + 무료 진단 제공!
+          제작비 <span style={{ color: 'var(--on-accent-strong)' }}>50% 할인</span> + 무료 견적 제공!
         </strong>
         <span className="hide-sm footnote medium" style={{ color: 'rgba(255,255,255,0.75)' }}>
           (선착순 마감 · 지금 바로 신청하세요)

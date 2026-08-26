@@ -19,7 +19,7 @@ function KakaoIcon({ size = 24 }: { size?: number }) {
 const ITEMS = [
   { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, bg: '#2563eb', fg: '#fff', tel: true },
   { href: KAKAO_URL, label: '카카오톡 문의', icon: KakaoIcon, bg: '#FEE500', fg: '#3C1E1E', external: true },
-  { href: '/diagnosis', label: '3초 진단', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
+  { href: '/diagnosis', label: '3초 견적', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
 ]
 
 /**

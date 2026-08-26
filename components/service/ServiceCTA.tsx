@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
 
-/** 서비스 페이지 맨 아래 전환 유도 섹션 — 전화상담 · 무료 진단 신청 두 버튼으로 보낸다 */
+/** 서비스 페이지 맨 아래 전환 유도 섹션 — 전화상담 · 무료 견적 신청 두 버튼으로 보낸다 */
 export default function ServiceCTA() {
   return (
     <section
@@ -55,7 +55,7 @@ export default function ServiceCTA() {
             lineHeight: 1.7,
           }}
         >
-          무료 진단을 통해 내 사이트의 문제를 파악하고,
+          무료 견적으로 제작 방향과 비용을 확인하고,
           <br className="br-mobile" /> 찾아오는 고객을 늘려보세요.
         </p>
 
@@ -80,7 +80,7 @@ export default function ServiceCTA() {
             className="btn-primary"
             style={CTA_BTN_FILLED}
           >
-            무료 진단 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </div>
       </Reveal>

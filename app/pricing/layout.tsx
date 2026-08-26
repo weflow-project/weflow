@@ -18,7 +18,9 @@ export const metadata: Metadata = {
 /** "390,000원" → 390000. 표시용 문자열 하나만 고치면 아래 구조화 데이터도 같이 따라오게 한다 */
 const won = (s: string) => Number(s.replace(/[^0-9]/g, ''))
 
-const prices = makePlans.map(p => won(p.price))
+// 판매가를 숨긴 플랜(price: "?")은 숫자가 안 나오므로 걸러낸다 —
+// 전부 숨김이면 구조화 데이터에 금액을 아예 싣지 않는다
+const prices = makePlans.map(p => won(p.price)).filter(n => Number.isFinite(n) && n > 0)
 
 /**
  * 제작 플랜을 검색엔진·AI 답변엔진이 읽을 수 있는 형태로 내보낸다.
@@ -42,26 +44,26 @@ const PRICING_JSON_LD = {
   offers: {
     '@type': 'AggregateOffer',
     priceCurrency: 'KRW',
-    lowPrice: Math.min(...prices),
-    highPrice: Math.max(...prices),
+    ...(prices.length > 0 ? { lowPrice: Math.min(...prices), highPrice: Math.max(...prices) } : {}),
     offerCount: makePlans.length,
     offers: makePlans.map(p => ({
       '@type': 'Offer',
       name: p.sub,
       category: p.name,
-      description: [
-        p.features.join(' · '),
-        `월 유지보수 ${p.maintenance}`,
-        `관리자 페이지 옵션 ${p.adminPrice} (월 ${p.adminMaintenance})`,
-      ].join(' / '),
+      // 가격을 숨긴 상태라 금액이 들어가던 자리는 견적 안내로 둔다
+      description: [p.features.join(' · '), '가격·유지보수·관리자 페이지 옵션은 견적 문의'].join(' / '),
       url: 'https://weflowlab.kr/pricing',
       availability: 'https://schema.org/InStock',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: won(p.price),
-        priceCurrency: 'KRW',
-        valueAddedTaxIncluded: false,
-      },
+      ...(Number.isFinite(won(p.price)) && won(p.price) > 0
+        ? {
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: won(p.price),
+              priceCurrency: 'KRW',
+              valueAddedTaxIncluded: false,
+            },
+          }
+        : {}),
     })),
   },
 }

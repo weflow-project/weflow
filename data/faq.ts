@@ -12,7 +12,6 @@
  * 플랜 차이와 관리자 페이지는 여기 넣지 않는다 — /guide 의 본문 섹션이 이미 자세히 다루고 있어,
  * FAQ에 또 적으면 같은 페이지 안에서 같은 말이 두 번 나온다.
  */
-import { makePlans } from './pricing'
 
 export interface Faq {
   q: string
@@ -20,16 +19,13 @@ export interface Faq {
   a: string[]
 }
 
-/** "랜딩페이지 390,000원 · 랜딩형 홈페이지 590,000원 · 홈페이지 990,000원" 꼴로 늘어놓는다 */
-const byPlan = (pick: (p: (typeof makePlans)[number]) => string) =>
-  makePlans.map(p => `${p.sub} ${pick(p)}`).join(' · ')
-
 export const faqs: Faq[] = [
   // 비용
   {
     q: '홈페이지 제작 비용이 얼마인가요?',
+    // 판매가를 숨긴 상태라 금액 대신 견적 안내로 답한다 — 공개로 돌아오면 byPlan 조합으로 복구
     a: [
-      `${byPlan(p => p.price)}부터 시작합니다. (VAT 별도)`,
+      '플랜(랜딩페이지 · 랜딩형 홈페이지 · 홈페이지)과 구성에 따라 달라집니다. 무료 견적을 신청하시면 24시간 이내에 맞춤 금액을 안내드립니다. (VAT 별도)',
     ],
   },
   {

@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
-  // 예약 신청(/booking)은 메뉴에서 내리고 그 자리에 사이트 진단을 뒀다 — 페이지 자체는 남아 있다
+  // 예약 신청(/booking)은 메뉴에서 내리고 그 자리에 사이트 점검을 뒀다 — 페이지 자체는 남아 있다
   { href: "/check", label: "사이트 점검" },
 ];
 
@@ -29,7 +29,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // 예약·진단 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
+  // 예약·견적 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
   const handleClick =
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (pathname === href && RESETTABLE.has(href)) {
@@ -130,7 +130,7 @@ export default function Navbar() {
           {/* 데스크탑 견적 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
           <Link
             href="/diagnosis"
-            aria-label="지금 바로 진단 받기"
+            aria-label="지금 바로 견적 받기"
             className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
@@ -140,7 +140,7 @@ export default function Navbar() {
             }}
           >
             <span className="cta-marquee-track">
-              {["지금 바로 진단 받기", "지금 바로 진단 받기", "지금 바로 진단 받기", "지금 바로 진단 받기"].map((t, i) => (
+              {["지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>
@@ -293,7 +293,7 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 진단 신청
+            무료 견적 신청
           </Link>
         </div>
       </div>

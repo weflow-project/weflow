@@ -12,7 +12,8 @@ const BASE = 'https://weflowlab.kr'
 const planLines = makePlans
   .map(
     p =>
-      `- ${p.sub} (${p.name}): ${p.price} (정가 ${p.originalPrice}) · 월 유지보수 ${p.maintenance} · 관리자 페이지 옵션 ${p.adminPrice}(월 ${p.adminMaintenance}) · ${p.note}`,
+      // 가격 전체를 숨김(?) 상태 — 금액 대신 견적 안내로 적는다. 공개로 돌아오면 원래 문구로 복구.
+      `- ${p.sub} (${p.name}): 가격·월 유지보수·관리자 페이지 옵션 모두 견적 문의 · ${p.note}`,
   )
   .join('\n')
 
@@ -42,8 +43,8 @@ ${planLines}
 - [이용 가이드](${BASE}/guide): 제작 의뢰 전에 알아 두면 좋은 내용
 - [혜택 안내](${BASE}/benefits): 제작 시 함께 제공하는 항목
 - [회사 소개](${BASE}/about): 사업자 정보와 소개
-- [사이트 자동 진단](${BASE}/check): 주소를 입력하면 로딩 속도·검색 노출·모바일 대응·문의 동선을 바로 분석
-- [무료 진단 신청](${BASE}/diagnosis): 홈페이지 진단과 제작 방향 안내
+- [사이트 자동 점검](${BASE}/check): 주소를 입력하면 로딩 속도·검색 노출·모바일 대응·문의 동선을 바로 분석
+- [무료 견적 신청](${BASE}/diagnosis): 홈페이지 견적과 제작 방향 안내
 
 ## 참고
 
