@@ -173,11 +173,12 @@ export default function CheckPage() {
     }
   }
 
-  // "다른 사이트 점검하기" — 맨 위 입력칸으로 올라가 바로 새 주소를 넣게 한다
+  // 입력칸으로 되돌아가기 — 맨 위(0)로 보내면 모바일 키보드가 입력칸을 가리므로
+  // 입력칸 자체를 화면 위쪽에 오도록 스크롤한다 (scroll-margin 으로 헤더 높이만큼 띄움)
   const checkAnother = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
     inputRef.current?.focus({ preventScroll: true })
     inputRef.current?.select()
+    setTimeout(() => inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
   }
 
   return (
@@ -205,11 +206,11 @@ export default function CheckPage() {
             </p>
             <h1
               className="emphasized"
-              style={{ margin: '0 0 1rem', fontSize: 'clamp(1.9rem, 5vw, 3rem)', lineHeight: 1.3, wordBreak: 'keep-all' }}
+              style={{ margin: '0 0 1.25rem', fontSize: 'clamp(1.9rem, 5vw, 3rem)', lineHeight: 1.3, wordBreak: 'keep-all' }}
             >
               내 홈페이지,<br className="ck-br-mobile" /> 지금 몇 점일까요?
             </h1>
-            <p className="c-muted" style={{ margin: '0 0 2rem', fontSize: 'clamp(1rem, 2.6vw, 1.15rem)', lineHeight: 1.7, wordBreak: 'keep-all' }}>
+            <p className="c-muted" style={{ margin: '0 0 1.25rem', fontSize: 'clamp(1rem, 2.6vw, 1.15rem)', lineHeight: 1.7, wordBreak: 'keep-all' }}>
               주소만 입력하면<br className="ck-br-mobile" /> 로딩 속도 · 검색엔진 노출 · 모바일 대응 · 문의 동선을
               <br className="hide-mobile" /> 바로 분석해 드립니다.
             </p>
@@ -226,7 +227,7 @@ export default function CheckPage() {
                     <input
                       ref={inputRef}
                       className="form-input"
-                      style={{ paddingLeft: '2.6rem', height: '54px' }}
+                      style={{ paddingLeft: '2.6rem', height: '54px', scrollMarginTop: '140px' }}
                       placeholder="사이트 주소 (예: example.co.kr)"
                       value={url}
                       onChange={e => setUrl(e.target.value)}
@@ -295,10 +296,8 @@ export default function CheckPage() {
             <button
               onClick={() => {
                 setPhase('idle')
-                // 입력칸이 있는 맨 위로 되돌아가 바로 다시 입력하게 한다
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-                inputRef.current?.focus({ preventScroll: true })
-                inputRef.current?.select()
+                // 입력칸이 보이는 위치로 되돌아가 바로 다시 입력하게 한다
+                checkAnother()
               }}
               className="btn-outline"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
@@ -456,8 +455,9 @@ export default function CheckPage() {
           max-width: 620px;
           margin: 0 auto;
         }
+        /* 세로로 쌓일 땐 위 글 간격과 같은 1.25rem 으로 — 리듬을 맞춘다 */
         @media (max-width: 560px) {
-          .ck-inputrow { flex-direction: column; }
+          .ck-inputrow { flex-direction: column; gap: 1.25rem; }
         }
 
         /* 분석 단계 — 입력칸 높이만큼 최소 높이를 잡아 화면이 덜컹거리지 않게 한다 */
