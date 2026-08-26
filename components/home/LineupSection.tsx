@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 
 /**
@@ -71,15 +70,20 @@ export default function LineupSection() {
             onBlur={() => setActive(null)}
             aria-label={`${it.name} 설명 보기`}
           >
-            <Image
+            {/* Vercel 이미지 최적화를 꺼 둔 상태라(한도 초과 방지) next/image 는 srcset 을 못 만든다.
+                미리 만들어 둔 720px 판을 수동 srcset 으로 걸어 모바일은 작은 쪽을 받게 한다 */}
+            <img
               src={it.img}
-              alt=""
-              fill
+              srcSet={`${it.img.replace('.webp', '-720.webp')} 720w, ${it.img} 1588w`}
               sizes="(max-width: 1024px) 50vw, 60vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
               className="lineup-img"
-              placeholder="blur"
-              blurDataURL={BLUR[it.no]}
-              style={{ objectFit: 'cover' }}
+              style={{
+                position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+                backgroundImage: `url(${BLUR[it.no]})`, backgroundSize: 'cover',
+              }}
             />
             <span className="lineup-veil" aria-hidden="true" />
 
@@ -101,15 +105,18 @@ export default function LineupSection() {
       <div className="lineup-grid">
         {ITEMS.map(it => (
           <Link key={it.anchor} href={`/guide#${it.anchor}`} className="lineup-card">
-            <Image
+            <img
               src={it.img}
-              alt=""
-              fill
+              srcSet={`${it.img.replace('.webp', '-720.webp')} 720w, ${it.img} 1588w`}
               sizes="50vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
               className="lineup-img"
-              placeholder="blur"
-              blurDataURL={BLUR[it.no]}
-              style={{ objectFit: 'cover' }}
+              style={{
+                position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+                backgroundImage: `url(${BLUR[it.no]})`, backgroundSize: 'cover',
+              }}
             />
             <span className="lineup-veil" aria-hidden="true" />
             <span className="lineup-card-text">

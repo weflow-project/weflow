@@ -228,11 +228,13 @@ export async function POST(req: Request) {
     {
       weight: 1,
       item: {
+        // 요즘 사이트는 코드를 여러 조각으로 나눠 보내는 게 정상이라(그게 더 빠르다)
+        // 개수 자체는 넉넉히 보고, 과도하게 많은 경우만 짚는다
         label: '스크립트 개수',
-        status: pick(scriptCount <= 15, scriptCount <= 30),
+        status: pick(scriptCount <= 25, scriptCount <= 45),
         value: `${scriptCount}개`,
         advice:
-          scriptCount <= 15
+          scriptCount <= 25
             ? '스크립트가 절제되어 있습니다.'
             : '스크립트가 많습니다. 하나하나가 화면 표시를 늦추는 요인입니다.',
       },
@@ -375,6 +377,10 @@ export async function POST(req: Request) {
   const hasKakao = /(pf\.kakao\.com|open\.kakao\.com|kakao\.com\/channel)/i.test(lower)
   const hasForm = /<form[\s>]/i.test(lower)
   const hasContactWord = /(문의|상담|견적|예약|contact)/i.test(html)
+  // 첫 화면엔 양식 대신 문의 페이지로 보내는 버튼만 두는 사이트가 많다 — 그 동선도 창구로 인정
+  const hasContactLink =
+    /<a[^>]+href=["'][^"']*(contact|inquir|diagnos|consult|estimate|booking|apply)[^"']*["']/i.test(html) ||
+    /<a[^>]*>[^<]{0,30}(문의|상담|견적|신청)[^<]{0,30}<\/a>/i.test(html)
 
   const contact = score([
     {
@@ -391,12 +397,13 @@ export async function POST(req: Request) {
     {
       weight: 2,
       item: {
-        label: '문의 접수 양식',
-        status: pick(hasForm, hasContactWord),
-        value: hasForm ? '있음' : '없음',
-        advice: hasForm
-          ? '사이트 안에서 바로 문의를 남길 수 있습니다.'
-          : '문의 양식이 없습니다. 영업시간 밖의 방문자는 연락할 방법이 없어 그대로 떠납니다.',
+        label: '문의 접수 창구',
+        status: pick(hasForm || hasContactLink, hasContactWord),
+        value: hasForm ? '접수 양식 있음' : hasContactLink ? '문의 페이지 연결' : '없음',
+        advice:
+          hasForm || hasContactLink
+            ? '방문자가 문의를 남길 길이 마련되어 있습니다.'
+            : '문의를 남길 창구가 없습니다. 영업시간 밖의 방문자는 연락할 방법이 없어 그대로 떠납니다.',
       },
     },
     {
