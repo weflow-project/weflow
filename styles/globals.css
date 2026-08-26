@@ -517,6 +517,13 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(106, 146, 215, 0.2);
   }
+  /* iOS는 16px 미만 입력칸을 탭하면 화면을 자동 확대하고, 입력이 끝나도 풀리지 않는다.
+     모바일에서만 16px로 올려 확대 자체를 막는다. */
+  @media (max-width: 768px) {
+    .form-input {
+      font-size: 16px;
+    }
+  }
   .form-input::placeholder {
     color: var(--text-muted);
   }

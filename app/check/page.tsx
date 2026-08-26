@@ -199,7 +199,7 @@ export default function CheckPage() {
               className="emphasized"
               style={{ margin: '0 0 1rem', fontSize: 'clamp(1.9rem, 5vw, 3rem)', lineHeight: 1.3, wordBreak: 'keep-all' }}
             >
-              내 홈페이지, 지금 몇 점일까요?
+              내 홈페이지,<br className="ck-br-mobile" /> 지금 몇 점일까요?
             </h1>
             <p className="c-muted" style={{ margin: '0 0 2rem', fontSize: 'clamp(1rem, 2.6vw, 1.15rem)', lineHeight: 1.7, wordBreak: 'keep-all' }}>
               주소만 입력하면 로딩 속도 · 검색엔진 노출 · 모바일 대응 · 문의 동선을
@@ -396,11 +396,12 @@ export default function CheckPage() {
                   전담 매니저가 빠르게 연락드려 항목별 개선 방향을 안내드리겠습니다.
                   <br className="hide-mobile" /> 급하시면 지금 바로 전화 주셔도 됩니다.
                 </p>
-                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  <button onClick={checkAnother} className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                {/* 두 버튼을 같은 폭으로 — PC 에선 나란히 반반, 좁은 화면에선 쌓이며 전체 폭 */}
+                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', maxWidth: '560px', margin: '0 auto' }}>
+                  <button onClick={checkAnother} className="btn-outline" style={{ flex: '1 1 200px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                     <RotateCcw size={16} strokeWidth={2.2} /> 다른 사이트 점검하기
                   </button>
-                  <a href="tel:010-2971-7280" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <a href="tel:010-2971-7280" className="btn-outline" style={{ flex: '1 1 200px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                     <Phone size={16} strokeWidth={2.2} /> 010-2971-7280
                   </a>
                 </div>
@@ -411,6 +412,11 @@ export default function CheckPage() {
       )}
 
       <style>{`
+        /* 모바일에서만 제목을 두 줄로 나눈다 */
+        .ck-br-mobile { display: none; }
+        @media (max-width: 560px) {
+          .ck-br-mobile { display: inline; }
+        }
         .ck-inputrow {
           display: flex;
           gap: 0.9rem;
