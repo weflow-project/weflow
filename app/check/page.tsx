@@ -196,7 +196,8 @@ export default function CheckPage() {
           justifyContent: 'center',
         }}
       >
-        <div style={{ maxWidth: '720px', width: '100%', margin: '0 auto', textAlign: 'center' }}>
+        {/* 수학적 정중앙은 아래로 처져 보인다 — 시각 보정으로 살짝 올린다 */}
+        <div style={{ maxWidth: '720px', width: '100%', margin: '0 auto', textAlign: 'center', translate: '0 -4vh' }}>
           <Reveal variant="up">
             <p
               className="caption-1 emphasized c-accent"

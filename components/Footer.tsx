@@ -12,7 +12,7 @@ const YOUTUBE_URL = 'https://www.youtube.com/channel/UCc3SKVxpHSLeIoZJ5IE6fcA'
 const SERVICE_LINKS = [
   { label: '회사소개',        href: '/about' },
   { label: '서비스',          href: '/service' },
-  { label: '가격',            href: '/pricing' },
+  { label: '가격 안내',        href: '/pricing' },
   { label: '제작 라인업',       href: '/guide' },
   { label: 'WEFLOW 혜택',     href: '/benefits' },
 ]
