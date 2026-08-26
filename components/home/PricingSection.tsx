@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import PlanCard from '@/components/PlanCard'
 import { makePlans, renewPlan } from '@/data/pricing'
@@ -25,7 +26,24 @@ const detailCta = (highlight: boolean) => (
     style={CTA_STYLE}
   >
     자세히 보기
+    {/* btn 클래스의 기본 gap(0.5rem)을 빼서 견적 버튼과 같은 0.35rem 간격으로 맞춘다 */}
+    <ArrowRight size={16} strokeWidth={2.6} className="pcta-arrow" style={{ marginLeft: '-0.15rem' }} />
   </Link>
+)
+
+/* 모바일에서 카드마다 버튼 밑에 붙는 안내 — CTA 와 한 덩어리로 넘긴다.
+   링크 색은 PC 공용 안내와 동일 (일반 파랑 · 리뉴얼 보라) */
+const detailCtaWithNote = (highlight: boolean, noteColor = 'var(--accent)') => (
+  <>
+    {detailCta(highlight)}
+    <p className="plan-cta-note">
+      상세한 금액은{' '}
+      <Link href="/diagnosis" className="semibold" style={{ color: noteColor, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+        무료 견적 신청
+      </Link>
+      {' '}후 안내드립니다.
+    </p>
+  </>
 )
 
 export default function PricingSection() {
@@ -54,17 +72,14 @@ export default function PricingSection() {
               foot={`유지보수 월 ${plan.maintenance} · ${plan.note}`}
               features={plan.features}
               highlight={plan.highlight}
-              cta={detailCta(plan.highlight)}
+              cta={detailCtaWithNote(plan.highlight)}
             />
           ))}
         </Reveal>
 
-        {/* 가격을 가려 둔 이유와 다음 행동 — 물음표만 보고 떠나지 않게 카드 바로 밑에서 안내한다 */}
-        <p
-          className="callout c-secondary"
-          style={{ textAlign: 'center', margin: '1.75rem 0 0', wordBreak: 'keep-all' }}
-        >
-          정확한 금액은{' '}
+        {/* PC 에서만 — 카드 3장 아래 공용 안내 */}
+        <p className="callout c-secondary price-note-pc">
+          상세한 금액은{' '}
           <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
             무료 견적 신청
           </Link>
@@ -82,14 +97,23 @@ export default function PricingSection() {
             title={renewPlan.sub}
             subtitle={renewPlan.tagline}
             price={renewPlan.price}
-            foot={`유지보수 ${renewPlan.maintenance} · ${renewPlan.note}`}
+            foot={`유지보수 월 ${renewPlan.maintenance} · ${renewPlan.note}`}
             features={renewPlan.features}
             highlight
             tone="violet"
             tagLabel="추천"
-            cta={detailCta(true)}
+            cta={detailCtaWithNote(true, '#c4b5fd')}
           />
         </Reveal>
+
+        {/* PC 에서만 — 리뉴얼 카드 아래 공용 안내. 링크는 리뉴얼 카드 테두리색으로 맞춘다 */}
+        <p className='callout c-secondary price-note-pc'>
+          상세한 금액은{' '}
+          <Link href='/diagnosis' className='semibold' style={{ color: '#c4b5fd', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+            무료 견적 신청
+          </Link>
+          {' '}후 안내드립니다.
+        </p>
 
         {/* 전체 플랜 링크 */}
         <div style={{ marginTop: 'clamp(2.5rem, 5vw, 3.25rem)', textAlign: 'center' }}>
@@ -100,6 +124,31 @@ export default function PricingSection() {
       </div>
 
       <style>{`
+        /* 화살표가 옆으로 살짝살짝 — 눌러야 다음이 있다는 신호 */
+        .pcta-arrow { animation: pctaNudge 1.3s ease-in-out infinite; }
+        @keyframes pctaNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(4px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pcta-arrow { animation: none; }
+        }
+        /* 견적 안내 — PC 는 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
+        .price-note-pc { text-align: center; margin: 1.75rem 0 0; word-break: keep-all; }
+        .plan-cta-note { display: none; }
+        @media (max-width: 860px) {
+          .price-note-pc { display: none; }
+          .plan-cta-note {
+            display: block;
+            /* 카드 아래 패딩(1.6rem)을 감안해 위·아래 여백이 같아 보이게 */
+            margin: 1.1rem 0 -0.5rem;
+            text-align: center;
+            /* 336px 폭에서도 한 줄에 들어가는 크기 */
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            word-break: keep-all;
+          }
+        }
         .pricing-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
