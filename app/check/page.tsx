@@ -188,9 +188,14 @@ export default function CheckPage() {
           background: 'var(--section-b)',
           borderBottom: '1px solid var(--border)',
           padding: 'clamp(3rem, 7vw, 5rem) 1.5rem',
+          // 첫 화면에서 푸터가 보이지 않도록 상단 고정 헤더를 뺀 화면 높이만큼 채운다
+          minHeight: 'calc(100svh - 110px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <div style={{ maxWidth: '720px', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: '720px', width: '100%', margin: '0 auto', textAlign: 'center' }}>
           <Reveal variant="up">
             <p
               className="caption-1 emphasized c-accent"
@@ -205,7 +210,7 @@ export default function CheckPage() {
               내 홈페이지,<br className="ck-br-mobile" /> 지금 몇 점일까요?
             </h1>
             <p className="c-muted" style={{ margin: '0 0 2rem', fontSize: 'clamp(1rem, 2.6vw, 1.15rem)', lineHeight: 1.7, wordBreak: 'keep-all' }}>
-              주소만 입력하면 로딩 속도 · 검색엔진 노출 · 모바일 대응 · 문의 동선을
+              주소만 입력하면<br className="ck-br-mobile" /> 로딩 속도 · 검색엔진 노출 · 모바일 대응 · 문의 동선을
               <br className="hide-mobile" /> 바로 분석해 드립니다.
             </p>
 
@@ -235,12 +240,9 @@ export default function CheckPage() {
                     className="btn-primary"
                     style={{ height: '54px', padding: '0 1.8rem', fontSize: '1.05rem', whiteSpace: 'nowrap', justifyContent: 'center' }}
                   >
-                    사이트 점검하기
+                    무료 점검하기
                   </button>
                 </div>
-                <p className="footnote c-muted" style={{ marginTop: '0.85rem' }}>
-                  회원가입 없음 · 빠른 결과
-                </p>
               </>
             ) : (
               /* 분석 중 — 입력칸이 있던 자리에서 단계가 한 줄씩 나타난다 */

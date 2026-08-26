@@ -12,5 +12,5 @@ export const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 export const projectTypes = [
   '신규 제작',
   '리뉴얼',
-  '기타',
+  '기타 (관리자 페이지)',
 ]

@@ -174,7 +174,7 @@ export default function HeroBanner() {
             className="btn-primary hero-btn hero-btn--ghost"
             style={{ width: "min(240px, 80vw)" }}
           >
-            지금 사이트 점검하기
+            내 사이트 점검하기
           </Link>
         </div>
 
