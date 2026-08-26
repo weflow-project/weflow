@@ -173,12 +173,17 @@ export default function CheckPage() {
     }
   }
 
-  // 입력칸으로 되돌아가기 — 맨 위(0)로 보내면 모바일 키보드가 입력칸을 가리므로
-  // 입력칸 자체를 화면 위쪽에 오도록 스크롤한다 (scroll-margin 으로 헤더 높이만큼 띄움)
+  // 입력칸으로 되돌아가기.
+  // PC 는 화면이 넉넉해 맨 위로 올려도 입력칸이 보이지만,
+  // 모바일은 키보드가 올라와 입력칸을 가리므로 입력칸 자체를 화면 위쪽으로 맞춘다.
   const checkAnother = () => {
     inputRef.current?.focus({ preventScroll: true })
     inputRef.current?.select()
-    setTimeout(() => inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      setTimeout(() => inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -434,6 +439,44 @@ export default function CheckPage() {
                 </div>
               </div>
             )}
+
+            {/* 점수 산정 기준 — 궁금한 사람만 펼쳐 본다. 기준을 공개해야 점수가 신뢰를 얻는다 */}
+            <details className="ck-criteria">
+              <summary>점수 산정 기준</summary>
+              <div className="ck-criteria__body">
+                <p>
+                  구글 검색 노출 가이드와 웹 성능 업계 표준을 바탕으로 WEFLOW가 구성한
+                  4개 영역 17개 항목을 점검합니다. 항목마다 통과·주의·미흡을 매기고,
+                  중요한 항목일수록 큰 가중치를 곱해 영역별 점수를 냅니다. 종합 점수는{' '}
+                  <strong>로딩 속도 30% · 검색엔진 노출 30% · 모바일 대응 20% ·
+                  문의 동선 20%</strong>의 가중 평균입니다.
+                </p>
+                <ul>
+                  <li>
+                    <strong>로딩 속도</strong> — 서버 응답 0.8초 이하, 첫 화면 수신
+                    2초 이하, 페이지 무게 300KB 이하, WebP 등 최적화 이미지 사용,
+                    스크립트 25개 이하
+                  </li>
+                  <li>
+                    <strong>검색엔진 노출</strong> — 보안 연결(HTTPS), 제목 10~60자,
+                    설명 50~160자(검색 결과에 온전히 보이는 길이), 대표 제목(H1) 1개,
+                    SNS 공유(OG) 태그, robots·sitemap 파일
+                  </li>
+                  <li>
+                    <strong>모바일 대응</strong> — 모바일 화면 설정(viewport), 기기별
+                    이미지 제공, 화면 크기별 스타일
+                  </li>
+                  <li>
+                    <strong>문의 동선</strong> — 전화 연결 버튼, 문의 접수 창구(양식
+                    또는 문의 페이지 연결), 카카오톡 상담, 문의 안내 문구
+                  </li>
+                </ul>
+                <p>
+                  ※ 속도는 입력한 페이지를 실제로 받아 측정한 값이라 서버 상태에 따라
+                  조금씩 달라질 수 있습니다.
+                </p>
+              </div>
+            </details>
           </div>
         </section>
       )}
@@ -615,6 +658,46 @@ export default function CheckPage() {
           flex-wrap: wrap;
           max-width: 560px;
           margin: 0 auto;
+        }
+
+        /* 점수 산정 기준 — 접이식 안내. 상자 없이 글로만 조용히 둔다 */
+        .ck-criteria {
+          margin-top: 0.5rem;
+        }
+        .ck-criteria summary {
+          padding: 0.5rem 0;
+          cursor: pointer;
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          list-style: none;
+        }
+        .ck-criteria summary::-webkit-details-marker { display: none; }
+        /* 펼침 표시 — 화살표가 열림 상태를 따라 돈다 */
+        .ck-criteria summary::before {
+          content: '▸';
+          display: inline-block;
+          margin-right: 0.5rem;
+          color: var(--accent);
+          transition: transform 0.2s;
+        }
+        .ck-criteria[open] summary::before { transform: rotate(90deg); }
+        .ck-criteria__body {
+          padding: 0.4rem 0 0;
+          font-size: 0.88rem;
+          line-height: 1.75;
+          color: var(--text-muted);
+          word-break: keep-all;
+        }
+        .ck-criteria__body p { margin: 0 0 0.8rem; }
+        .ck-criteria__body p:last-child { margin-bottom: 0; }
+        .ck-criteria__body strong { color: var(--text-secondary); font-weight: 700; }
+        .ck-criteria__body ul {
+          margin: 0 0 0.8rem;
+          padding-left: 1.1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.45rem;
         }
       `}</style>
     </div>
