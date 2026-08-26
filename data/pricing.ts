@@ -55,7 +55,7 @@ export const makePlans: MakePlan[] = [
     emoji: "🚀",
     img: "/images/3d-icon/image-3.svg",
     highlight: false,
-    discount: "??%",
+    discount: "50%",
     features: [
       "랜딩페이지 1섹션 ~",
       "반응형 PC & 모바일 최적화",
@@ -77,7 +77,7 @@ export const makePlans: MakePlan[] = [
     emoji: "🌱",
     img: "/images/3d-icon/image-4.svg",
     highlight: false,
-    discount: "??%",
+    discount: "50%",
     features: [
       "원페이지 형식 홈페이지 1섹션 & 페이지 ~",
       "반응형 PC & 모바일 최적화",
@@ -100,7 +100,7 @@ export const makePlans: MakePlan[] = [
     emoji: "👑",
     img: "/images/3d-icon/image-5.svg",
     highlight: true,
-    discount: "??%",
+    discount: "50%",
     features: [
       "홈페이지 1페이지 ~",
       "반응형 PC & 모바일 최적화",
@@ -155,11 +155,11 @@ export const renewPlan: MakePlan = {
     "각 페이지별 URL 생성",
   ],
   originalPrice: "",
-  price: "가격 협의",
-  maintenance: "협의",
-  adminPrice: "가격 협의",
+  price: "?????원",
+  maintenance: "?????원",
+  adminPrice: "?????원",
   adminOriginalPrice: "",
-  adminMaintenance: "협의",
+  adminMaintenance: "?????원",
   note: "VAT 별도",
 };
 
