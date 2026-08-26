@@ -471,11 +471,13 @@ export default function CheckPage() {
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 1rem;
         }
+        /* minmax(0,1fr) 이어야 긴 측정값이 칸을 화면보다 넓게 밀어내지 않는다 */
         @media (max-width: 768px) {
-          .ck-grid { grid-template-columns: 1fr; }
+          .ck-grid { grid-template-columns: minmax(0, 1fr); }
         }
         .ck-card {
           position: relative;
+          min-width: 0;
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-xl);
           background: var(--surface);
