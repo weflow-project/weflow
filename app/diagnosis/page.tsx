@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle, User } from 'lucide-react'
 import { projectTypes } from '@/data/common'
+import { attributionLine } from '@/lib/attribution'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
 
@@ -77,10 +78,15 @@ export default function DiagnosisPage() {
     setLoading(true)
     setSubmitError(false)
     try {
+      // 유입 경로(광고 키워드·검색·리퍼러)를 메모에 붙여 관리자에서 문의별로 보이게 한다
+      const attr = attributionLine()
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          note: [form.note, attr && `유입: ${attr}`].filter(Boolean).join('\n'),
+        }),
       })
       if (!res.ok) throw new Error('request failed')
       setLoading(false)

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { captureAttribution } from '@/lib/attribution'
 
 // 방문자 ID — 기기당 하루 1회만 카운트 (영구 기기ID[localStorage] + 한국시간 날짜)
 // 같은 기기·같은 날의 여러 방문/탭은 하나로 묶여 방문자 1명으로 집계된다.
@@ -58,6 +59,10 @@ export default function PageTracker() {
 
   useEffect(() => {
     if (isAdmin) return
+
+    // 유입 경로(광고 파라미터·리퍼러)를 첫 방문에 저장 — 문의 제출 시 메모에 붙는다.
+    // 방문 통계 opt-out 과 무관하게 문의 맥락용이므로 먼저 잡아 둔다.
+    captureAttribution()
 
     // 개발/본인 방문 제외: URL 플래그(?notrack=1 / ?track=1)로 opt-out 토글
     const params = new URLSearchParams(window.location.search)

@@ -5,6 +5,7 @@ import {
   Lock, ArrowRight, Phone, Globe, RotateCcw, Check,
 } from 'lucide-react'
 import Reveal from '@/components/Reveal'
+import { attributionLine } from '@/lib/attribution'
 
 /**
  * 자동 점검 도구 — 방문자가 자기 사이트 주소를 넣으면
@@ -157,7 +158,11 @@ export default function CheckPage() {
           phone: lead.phone,
           type: '사이트 점검',
           industry: '',
-          note: `점검 사이트: ${result.finalUrl}\n종합 ${result.overall}점 (속도 ${c.speed.score} · 검색 ${c.seo.score} · 모바일 ${c.mobile.score} · 문의동선 ${c.contact.score})`,
+          note: [
+            `점검 사이트: ${result.finalUrl}`,
+            `종합 ${result.overall}점 (속도 ${c.speed.score} · 검색 ${c.seo.score} · 모바일 ${c.mobile.score} · 문의동선 ${c.contact.score})`,
+            attributionLine() && `유입: ${attributionLine()}`,
+          ].filter(Boolean).join('\n'),
           agree: true,
           source: 'auto-diagnosis',
         }),
