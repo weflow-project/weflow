@@ -1,6 +1,7 @@
 'use client'
 // 실시간 홈페이지 문의 보드 (연출용 데이터).
-// 8~15초 간격으로 새 문의가 맨 위로 슬라이드 인, 기존 행은 시간이 밀려 내려가고 마지막 행 제거.
+// 8~15초 간격으로 새 문의가 맨 위로 슬라이드 인, 기존 행은 밀려 내려가고 마지막 행 제거.
+// 시간 라벨은 행마다 제각각(서로 겹치지 않는 분 단위)이며, 새 행이 들어올 때 불규칙하게 벌어지고 1분마다 실제로 1씩 늘어난다.
 import { useEffect, useRef, useState } from 'react'
 import {
   LIVE_INDUSTRIES,
@@ -8,10 +9,19 @@ import {
   LIVE_SURNAMES,
 } from '@/data/solution'
 
-type Row = { id: number; industry: string; name: string; inquiry: string }
+type Row = { id: number; industry: string; name: string; inquiry: string; minutes: number } // minutes: 'N분 전' (0 = 방금 전)
 
-// 표시 시간 — 행 위치별 고정 라벨 (위에서부터)
-const AGE_LABELS = ['방금 전', '1분 전', '3분 전', '9분 전', '14분 전']
+const VISIBLE = 5 // 동시에 보이는 행 수
+const INITIAL_MINUTES = [1, 8, 13, 17, 26] // 첫 화면 시간 (위에서부터, 전부 다르게)
+
+function ageLabel(m: number) {
+  if (m <= 0) return '방금 전'
+  if (m < 60) return `${m}분 전`
+  return `${Math.floor(m / 60)}시간 전`
+}
+
+// 2~9분 사이 불규칙한 간격 — 행마다 다르게 벌어지도록
+const randomGap = () => 2 + Math.floor(Math.random() * 8)
 
 // 마스킹 이름 뒷글자 후보 — 성 + '*' + 한 글자
 const NAME_TAILS = [
@@ -23,12 +33,13 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function makeRow(id: number): Row {
+function makeRow(id: number, minutes = 0): Row {
   return {
     id,
     industry: pick(LIVE_INDUSTRIES),
     name: `${pick(LIVE_SURNAMES)}*${pick(NAME_TAILS)}`,
     inquiry: pick(LIVE_INQUIRY_TYPES),
+    minutes,
   }
 }
 
@@ -40,12 +51,20 @@ export default function LiveInquiries() {
   const nextId = useRef(0)
 
   useEffect(() => {
-    setRows(Array.from({ length: 5 }, () => makeRow(nextId.current++)))
+    setRows(INITIAL_MINUTES.slice(0, VISIBLE).map((m) => makeRow(nextId.current++, m)))
 
     let timer: ReturnType<typeof setTimeout>
     const tick = () => {
       if (!document.hidden) {
-        setRows((prev) => [makeRow(nextId.current++), ...prev].slice(0, 5))
+        setRows((prev) => {
+          // 새 행은 '방금 전', 기존 행은 위 행보다 2~9분씩 불규칙하게 뒤로 밀려 전부 다른 시간이 되게
+          const next: Row[] = [makeRow(nextId.current++, 0)]
+          for (const r of prev) {
+            const above = next[next.length - 1].minutes
+            next.push({ ...r, minutes: Math.max(above + randomGap(), r.minutes + 1) })
+          }
+          return next.slice(0, VISIBLE)
+        })
         setSpinning(true)
         setTimeout(() => setSpinning(false), 700)
       }
@@ -53,6 +72,15 @@ export default function LiveInquiries() {
     }
     timer = setTimeout(tick, 6000)
     return () => clearTimeout(timer)
+  }, [])
+
+  // 1분마다 모든 행의 시간이 실제로 1분씩 흐른다 ('방금 전' → '1분 전' → …)
+  useEffect(() => {
+    const t = setInterval(
+      () => setRows((prev) => prev.map((r) => ({ ...r, minutes: r.minutes + 1 }))),
+      60_000,
+    )
+    return () => clearInterval(t)
   }, [])
 
   return (
@@ -114,7 +142,7 @@ export default function LiveInquiries() {
             </span>
             <span className="live-name">{r.name}</span>
             <span className="live-inquiry">{r.inquiry}</span>
-            <span className="live-age">{AGE_LABELS[i]}</span>
+            <span className="live-age">{ageLabel(r.minutes)}</span>
           </li>
         ))}
         {/* 마운트 전에는 높이만 잡아둬 레이아웃이 튀지 않게 한다 */}
