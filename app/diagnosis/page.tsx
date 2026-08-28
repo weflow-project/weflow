@@ -382,11 +382,11 @@ export default function DiagnosisPage() {
           background: var(--surface);
           border: 1.5px solid var(--border);
           border-radius: 16px;
-          /* 아래는 버튼이 딱 떨어져 위(제목 행간 여백 포함)보다 좁아 보여서 살짝 더 준다 */
-          padding: 1.5rem 1.5rem 1.85rem;
+          /* 위(CALL TO ACTION)와 아래(전화 안내) 여백이 같게 */
+          padding: 1.75rem 1.5rem;
         }
         @media (max-width: 640px) {
-          .dg-card { padding: 1.1rem 1.1rem 1.4rem; border-radius: 12px; }
+          .dg-card { padding: 1.35rem 1.1rem; border-radius: 12px; }
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
