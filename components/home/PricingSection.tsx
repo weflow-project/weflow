@@ -11,7 +11,7 @@ import { makePlans, renewPlan } from '@/data/pricing'
  * highlight 플랜은 테두리 강조 + 별 배지 + 반짝이 애니메이션.
  */
 
-// 메인에서는 아직 결정 단계가 아니라 견적 폼 대신 가격 페이지로 넘긴다
+// 메인에서는 아직 결정 단계가 아니라 상담 폼 대신 가격 페이지로 넘긴다
 const CTA_STYLE = {
   justifyContent: 'center',
   width: '100%',
@@ -26,7 +26,7 @@ const detailCta = (highlight: boolean) => (
     style={CTA_STYLE}
   >
     자세히 보기
-    {/* btn 클래스의 기본 gap(0.5rem)을 빼서 견적 버튼과 같은 0.35rem 간격으로 맞춘다 */}
+    {/* btn 클래스의 기본 gap(0.5rem)을 빼서 상담 버튼과 같은 0.35rem 간격으로 맞춘다 */}
     <ArrowRight size={16} strokeWidth={2.6} className="pcta-arrow" style={{ marginLeft: '-0.15rem' }} />
   </Link>
 )
@@ -39,7 +39,7 @@ const detailCtaWithNote = (highlight: boolean, noteColor = 'var(--accent)') => (
     <p className="plan-cta-note">
       상세한 금액은{' '}
       <Link href="/diagnosis" className="semibold" style={{ color: noteColor, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-        무료 견적 신청
+        무료 상담 신청
       </Link>
       {' '}후 안내드립니다.
     </p>
@@ -81,7 +81,7 @@ export default function PricingSection() {
         <p className="callout c-secondary price-note-pc">
           상세한 금액은{' '}
           <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            무료 견적 신청
+            무료 상담 신청
           </Link>
           {' '}후 안내드립니다.
         </p>
@@ -110,7 +110,7 @@ export default function PricingSection() {
         <p className='callout c-secondary price-note-pc'>
           상세한 금액은{' '}
           <Link href='/diagnosis' className='semibold' style={{ color: '#c4b5fd', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            무료 견적 신청
+            무료 상담 신청
           </Link>
           {' '}후 안내드립니다.
         </p>
@@ -133,7 +133,7 @@ export default function PricingSection() {
         @media (prefers-reduced-motion: reduce) {
           .pcta-arrow { animation: none; }
         }
-        /* 견적 안내 — PC 는 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
+        /* 상담 안내 — PC 는 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
         .price-note-pc { text-align: center; margin: 1.75rem 0 0; word-break: keep-all; }
         .plan-cta-note { display: none; }
         @media (max-width: 860px) {

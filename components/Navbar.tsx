@@ -22,14 +22,14 @@ const NAV_LINKS = [
 const RESETTABLE = new Set(["/booking", "/diagnosis", "/check"]);
 
 /**
- * 모든 페이지 상단의 헤더 — 로고 · 메뉴 · 견적 CTA.
+ * 모든 페이지 상단의 헤더 — 로고 · 메뉴 · 상담 CTA.
  * 모바일에선 메뉴가 햄버거 버튼 → 왼쪽 드로어로 바뀐다.
  */
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // 예약·견적 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
+  // 예약·상담 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
   const handleClick =
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (pathname === href && RESETTABLE.has(href)) {
@@ -127,10 +127,10 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* 데스크탑 견적 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
+          {/* 데스크탑 상담 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
           <Link
             href="/diagnosis"
-            aria-label="지금 바로 견적 받기"
+            aria-label="지금 바로 상담 받기"
             className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
@@ -140,7 +140,7 @@ export default function Navbar() {
             }}
           >
             <span className="cta-marquee-track">
-              {["지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기", "지금 바로 견적 받기"].map((t, i) => (
+              {["지금 바로 상담 받기", "지금 바로 상담 받기", "지금 바로 상담 받기", "지금 바로 상담 받기"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>
@@ -293,7 +293,7 @@ export default function Navbar() {
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 견적 신청
+            무료 상담 신청
           </Link>
         </div>
       </div>

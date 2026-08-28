@@ -1,5 +1,5 @@
 // /privacy — 개인정보처리방침.
-// 견적·예약 폼과 메타 리드 광고(인스턴트 양식)가 이 페이지 주소를 요구한다.
+// 상담·예약 폼과 메타 리드 광고(인스턴트 양식)가 이 페이지 주소를 요구한다.
 // 내용은 사이트가 실제로 수집하는 항목(이름·연락처·문의 내용·방문 기록)만 다룬다.
 import type { Metadata } from "next";
 
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
         <Section title="1. 수집하는 개인정보와 수집 방법">
           <p style={{ margin: 0 }}>
-            홈페이지의 무료 견적 신청·상담 예약 폼, 그리고 SNS 광고의 신청 양식을 통해 이용자가 직접 입력한 정보를 수집합니다.
+            홈페이지의 무료 상담 신청·상담 예약 폼, 그리고 SNS 광고의 신청 양식을 통해 이용자가 직접 입력한 정보를 수집합니다.
           </p>
           <ul style={ul}>
             <li>필수: 이름, 연락처</li>
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
 
         <Section title="2. 수집 목적">
           <ul style={{ ...ul, marginTop: 0 }}>
-            <li>견적·상담 요청에 대한 연락과 안내</li>
+            <li>상담 요청에 대한 연락과 안내</li>
             <li>서비스 이용 통계 분석과 품질 개선</li>
           </ul>
         </Section>

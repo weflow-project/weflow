@@ -17,7 +17,7 @@ const STEPS: { num: string; Icon: LucideIcon; title: string; desc: string }[] =
     {
       num: "01",
       Icon: MessageCircle,
-      title: "상담·견적",
+      title: "상담",
       desc: "업종·제작 방향 확인",
     },
     {

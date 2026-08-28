@@ -650,7 +650,7 @@ export default function CheckPage() {
           background: var(--surface);
           padding: clamp(1.4rem, 4vw, 2rem);
         }
-        /* 입력 오류 안내 — 견적·예약 페이지와 같은 스타일 */
+        /* 입력 오류 안내 — 상담·예약 페이지와 같은 스타일 */
         .field-error {
           color: #ef4444;
           font-size: 0.85rem;

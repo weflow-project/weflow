@@ -683,11 +683,48 @@
       transform 0.35s ease,
       opacity 0.35s ease;
   }
-  /* 모바일 스크롤 멈춤 시 우측으로 숨김 (JS로 토글) */
-  .floating-cta.is-hidden {
-    transform: translateX(calc(100% + 16px));
-    opacity: 0;
-    pointer-events: none;
+  /* 모바일에선 원형 버튼 대신 하단 바를 쓴다 */
+  @media (max-width: 768px) {
+    .floating-cta { display: none; }
+  }
+
+  /* ── 모바일 하단 고정 바 — 바로전화 · 무료상담신청 두 칸 ── */
+  .mobile-cta-bar {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.25);
+    /* 홈 인디케이터가 있는 폰에서 바가 가려지지 않게 */
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--surface);
+  }
+  @media (max-width: 768px) {
+    .mobile-cta-bar { display: flex; }
+  }
+  .mobile-cta-bar__btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 60px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .mobile-cta-bar__btn--call {
+    background: var(--surface);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+  }
+  .mobile-cta-bar__btn--call svg { color: #22c55e; }
+  .mobile-cta-bar__btn--form {
+    background: var(--accent-strong);
+    color: #fff;
   }
   .fab {
     display: flex;

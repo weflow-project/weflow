@@ -33,7 +33,7 @@ const LINE2A = "우리만의 플로우를 담다,";
 const LINE2B = "WEFLOW";
 
 /**
- * 메인 페이지 최상단 히어로 — 배경 영상 위에 타이틀·CTA 두 개(견적/혜택)를 얹고,
+ * 메인 페이지 최상단 히어로 — 배경 영상 위에 타이틀·CTA 두 개(상담/혜택)를 얹고,
  * 아래에 대표 이미지 캐러셀을 붙인다.
  */
 export default function HeroBanner() {

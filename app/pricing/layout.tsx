@@ -50,8 +50,8 @@ const PRICING_JSON_LD = {
       '@type': 'Offer',
       name: p.sub,
       category: p.name,
-      // 가격을 숨긴 상태라 금액이 들어가던 자리는 견적 안내로 둔다
-      description: [p.features.join(' · '), '가격·유지보수·관리자 페이지 옵션은 견적 문의'].join(' / '),
+      // 가격을 숨긴 상태라 금액이 들어가던 자리는 상담 안내로 둔다
+      description: [p.features.join(' · '), '가격·유지보수·관리자 페이지 옵션은 상담 문의'].join(' / '),
       url: 'https://weflowlab.kr/pricing',
       availability: 'https://schema.org/InStock',
       ...(Number.isFinite(won(p.price)) && won(p.price) > 0

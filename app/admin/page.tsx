@@ -1151,7 +1151,7 @@ const PAGE_KO: Record<string, string> = {
   "/booking": "예약",
   "/cases": "제작 사례",
   "/check": "사이트 점검",
-  "/diagnosis": "무료 견적",
+  "/diagnosis": "무료 상담",
   "/guide": "제작 라인업",
   "/pricing": "가격 안내",
   "/reviews": "고객 인터뷰",

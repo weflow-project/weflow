@@ -1,6 +1,6 @@
 // 문의 접수 엔드포인트 — /api/inquiries
 // GET: 관리자 인증 필요 (문의 목록 조회)
-// POST: 공개 — 견적·상담 폼에서 호출
+// POST: 공개 — 상담 폼에서 호출
 
 import { NextResponse } from 'next/server'
 import { inquiryStore } from '@/lib/store'

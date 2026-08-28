@@ -29,7 +29,7 @@ const MAKE_ICONS = [
 const quoteCta = (noteColor: string) => (
   <>
     <Link href="/diagnosis" className="plan-cta">
-      무료 견적 신청
+      무료 상담 신청
       <ArrowRight size={16} strokeWidth={2.6} className="plan-cta__arrow" style={{ marginLeft: "0.35rem" }} />
     </Link>
     {/* 모바일에서만 — 카드가 세로로 쌓여 공용 안내가 멀어지므로 카드마다 붙인다.
@@ -37,7 +37,7 @@ const quoteCta = (noteColor: string) => (
     <p className="plan-cta-note">
       상세한 금액은{" "}
       <Link href="/diagnosis" className="semibold" style={{ color: noteColor, textDecoration: "underline", textUnderlineOffset: "3px" }}>
-        무료 견적 신청
+        무료 상담 신청
       </Link>
       {" "}후 안내드립니다.
     </p>
@@ -153,7 +153,7 @@ export default function PricingPage() {
           <p className="callout c-secondary price-note-pc">
             상세한 금액은{" "}
             <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 견적 신청
+              무료 상담 신청
             </Link>
             {" "}후 안내드립니다.
           </p>
@@ -182,7 +182,7 @@ export default function PricingPage() {
           <p className="callout c-secondary price-note-pc">
             상세한 금액은{" "}
             <Link href="/diagnosis" className="semibold" style={{ color: "#c4b5fd", textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 견적 신청
+              무료 상담 신청
             </Link>
             {" "}후 안내드립니다.
           </p>
@@ -248,7 +248,7 @@ export default function PricingPage() {
           <p className="callout c-secondary price-note-pc">
             상세한 금액은{" "}
             <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 견적 신청
+              무료 상담 신청
             </Link>
             {" "}후 안내드립니다.
           </p>
@@ -276,7 +276,7 @@ export default function PricingPage() {
           <p className="callout c-secondary price-note-pc">
             상세한 금액은{" "}
             <Link href="/diagnosis" className="semibold" style={{ color: "#c4b5fd", textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 견적 신청
+              무료 상담 신청
             </Link>
             {" "}후 안내드립니다.
           </p>
@@ -422,7 +422,7 @@ export default function PricingPage() {
             <ul>
               {[
                 "섹션은 랜딩페이지 1개 분량을, 페이지는 홈페이지 1개 분량을 의미합니다.",
-                "제작 완료 이후에 섹션·페이지를 추가하실 경우, 해당 업종별 페이지 기준에 따라 별도로 견적이 산정되오니 참고 부탁드립니다.",
+                "제작 완료 이후에 섹션·페이지를 추가하실 경우, 해당 업종별 페이지 기준에 따라 별도로 비용이 산정되오니 참고 부탁드립니다.",
                 "도메인은 고객 요청 시 언제든 소유권을 이전해 드립니다.",
                 "WEFLOW에서 등록 및 연결 세팅은 무료 지원해 드립니다.",
                 "도메인 연결 지원 · 도메인 등록 대행 가능 · 도메인 비용 별도",
@@ -494,7 +494,7 @@ export default function PricingPage() {
           >
             업종과 목표를 알려주시면 필요한 구성과{" "}
             <br className="br-mobile" />
-            예상 견적을 함께 정리해 드립니다.
+            예상 비용을 함께 정리해 드립니다.
           </p>
 
           <div
@@ -517,7 +517,7 @@ export default function PricingPage() {
               className="btn-primary"
               style={CTA_BTN_FILLED}
             >
-              무료 견적 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              무료 상담 신청 <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>
@@ -562,7 +562,7 @@ export default function PricingPage() {
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
                   <Link href="/diagnosis" className={`pcard-cta${plan.highlight ? ' pcard-cta--inv' : ''}`}>
-                    무료 견적 신청 →
+                    무료 상담 신청 →
                   </Link>
                 </div>
               </div>
@@ -608,7 +608,7 @@ export default function PricingPage() {
                   </div>
                   <p className="pcard-price">{plan.price}</p>
                   <p className="pcard-note">{plan.note}</p>
-                  <Link href="/diagnosis" className="pcard-cta">무료 견적 신청 →</Link>
+                  <Link href="/diagnosis" className="pcard-cta">무료 상담 신청 →</Link>
                 </div>
               </div>
             ))}
@@ -783,7 +783,7 @@ export default function PricingPage() {
         @media (prefers-reduced-motion: reduce) {
           .plan-cta__arrow { animation: none; }
         }
-        /* 견적 안내 — PC 는 카드 3장 아래 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
+        /* 상담 안내 — PC 는 카드 3장 아래 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
         .price-note-pc { text-align: center; margin: 1.75rem 0 0; word-break: keep-all; }
         .plan-cta-note { display: none; }
         @media (max-width: 860px) {

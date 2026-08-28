@@ -1,8 +1,7 @@
 'use client'
 import type { CSSProperties } from 'react'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Phone, ClipboardCheck } from 'lucide-react'
+import { Phone, ClipboardCheck, CalendarCheck } from 'lucide-react'
 
 const KAKAO_URL = 'http://pf.kakao.com/_xntCbX'
 
@@ -15,73 +14,69 @@ function KakaoIcon({ size = 24 }: { size?: number }) {
   )
 }
 
-// 우측 세로 플로팅 3칸 — 전화·카톡·견적. bg/fg는 버튼 색.
+// PC 우측 세로 플로팅 3칸 — 전화·카톡·상담. bg/fg는 버튼 색.
 const ITEMS = [
   { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, bg: '#2563eb', fg: '#fff', tel: true },
   { href: KAKAO_URL, label: '카카오톡 문의', icon: KakaoIcon, bg: '#FEE500', fg: '#3C1E1E', external: true },
-  { href: '/diagnosis', label: '3초 견적', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
+  { href: '/diagnosis', label: '3초 상담', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
 ]
 
 /**
- * 화면 우측에 세로로 고정되는 원형 CTA 버튼 — 전화·카카오톡·견적 바로가기.
- * 평소엔 원형 아이콘만, hover 하면 라벨이 왼쪽으로 펼쳐진다(터치 기기는 아이콘만).
+ * 고정 CTA — 화면 크기에 따라 모양이 다르다.
+ * · PC: 우측 세로 원형 버튼 3개(전화·카톡·상담). hover 하면 라벨이 왼쪽으로 펼쳐진다.
+ * · 모바일: 화면 맨 아래에 붙는 두 칸 바(바로전화 · 무료상담신청).
+ *   원형 버튼이 스크롤을 따라다니며 내용을 가리는 것보다, 늘 같은 자리의 큰 바가 누르기 쉽다.
  * 전화/외부 링크는 <a>, 내부 경로는 <Link>로 나눠 그린다.
  */
 export default function FloatingButtons() {
-  // 모바일에서만: 스크롤 중엔 보이고, 멈춘 뒤 2초가 지나면 숨긴다.
-  const [hidden, setHidden] = useState(false)
-
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)')
-    if (!mq.matches) return
-
-    let timer: ReturnType<typeof setTimeout>
-    const onScroll = () => {
-      setHidden(false)
-      clearTimeout(timer)
-      timer = setTimeout(() => setHidden(true), 2000)
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      clearTimeout(timer)
-    }
-  }, [])
-
   return (
-    <div className={`floating-cta${hidden ? ' is-hidden' : ''}`}>
-      {ITEMS.map(({ href, label, icon: Icon, bg, fg, external, tel, wiggle }) => {
-        const style = { '--fab-bg': bg, '--fab-fg': fg } as CSSProperties
-        const className = wiggle ? 'fab fab-wiggle' : 'fab'
-        const inner = (
-          <>
-            <span className="fab-label">{label}</span>
-            <span className="fab-icon"><Icon size={24} /></span>
-          </>
-        )
-
-        if (external || tel) {
-          return (
-            <a
-              key={label}
-              href={href}
-              aria-label={label}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener noreferrer' : undefined}
-              className={className}
-              style={style}
-            >
-              {inner}
-            </a>
+    <>
+      {/* PC — 우측 세로 원형 버튼 (모바일에선 CSS 로 숨김) */}
+      <div className="floating-cta">
+        {ITEMS.map(({ href, label, icon: Icon, bg, fg, external, tel, wiggle }) => {
+          const style = { '--fab-bg': bg, '--fab-fg': fg } as CSSProperties
+          const className = wiggle ? 'fab fab-wiggle' : 'fab'
+          const inner = (
+            <>
+              <span className="fab-label">{label}</span>
+              <span className="fab-icon"><Icon size={24} /></span>
+            </>
           )
-        }
-        return (
-          <Link key={label} href={href} aria-label={label} className={className} style={style}>
-            {inner}
-          </Link>
-        )
-      })}
-    </div>
+
+          if (external || tel) {
+            return (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className={className}
+                style={style}
+              >
+                {inner}
+              </a>
+            )
+          }
+          return (
+            <Link key={label} href={href} aria-label={label} className={className} style={style}>
+              {inner}
+            </Link>
+          )
+        })}
+      </div>
+
+      {/* 모바일 — 화면 맨 아래 두 칸 바 (PC 에선 CSS 로 숨김) */}
+      <div className="mobile-cta-bar">
+        <a href="tel:010-2971-7280" className="mobile-cta-bar__btn mobile-cta-bar__btn--call">
+          <Phone size={19} strokeWidth={2.2} />
+          바로전화
+        </a>
+        <Link href="/diagnosis" className="mobile-cta-bar__btn mobile-cta-bar__btn--form">
+          <CalendarCheck size={19} strokeWidth={2.2} />
+          무료상담신청
+        </Link>
+      </div>
+    </>
   )
 }

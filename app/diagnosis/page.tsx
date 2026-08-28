@@ -16,7 +16,7 @@ const CHECKS = [
 const PROCESS = [
   { num: '01', text: '간편한 신청서 작성' },
   { num: '02', text: '전문가의 정밀 사이트 분석' },
-  { num: '03', text: '24시간 이내, 견적 안내' },
+  { num: '03', text: '24시간 이내, 상담 안내' },
 ]
 
 const TRUST = [
@@ -129,7 +129,7 @@ export default function DiagnosisPage() {
             <Check size={34} color="#16a34a" strokeWidth={2.5} />
           </div>
           <h2 className="title-1 emphasized" style={{ marginBottom: '1rem' }}>
-            무료 견적 신청 완료!
+            무료 상담 신청 완료!
           </h2>
           <p className="c-muted" style={{ lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '1.1rem' }}>
             담당자가 확인 후 <strong style={{ color: 'var(--text)' }}>24시간 내</strong>에 연락드리겠습니다.<br />
@@ -162,7 +162,7 @@ export default function DiagnosisPage() {
       <section style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <Reveal variant="up">
-            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE ESTIMATE</span>
+            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE CONSULTING</span>
           </Reveal>
           <SplitText
             as="h1"
@@ -170,13 +170,13 @@ export default function DiagnosisPage() {
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
               { text: '무료 ' },
-              { text: '견적', className: 'c-accent' },
+              { text: '상담', className: 'c-accent' },
               { text: ' 받기' },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
             <p className="subhead c-muted" style={{ margin: 0 }}>
-              무료로 견적받고 맞춤 제작 방향을 안내받으세요
+              무료로 상담받고 맞춤 제작 방향을 안내받으세요
             </p>
           </Reveal>
         </div>
@@ -299,6 +299,20 @@ export default function DiagnosisPage() {
                   {showErrors && !form.type && <p className="field-error">제작 종류를 선택해 주세요</p>}
                 </div>
 
+                {/* 자유 입력 — 원하는 것을 미리 적어 두면 상담이 빨라진다 (선택) */}
+                <div>
+                  <label className="form-label">추가 요청 사항</label>
+                  <textarea
+                    id="dg-note"
+                    className="form-input"
+                    rows={4}
+                    placeholder="자유롭게 입력해주세요"
+                    value={form.note}
+                    onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
+                    style={{ resize: 'vertical', lineHeight: 1.6, minHeight: '6.5rem' }}
+                  />
+                </div>
+
                 <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
                   <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
                     style={{ marginTop: '3px', width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
@@ -310,7 +324,7 @@ export default function DiagnosisPage() {
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
-                  {loading ? '제출 중...' : '견적 확인하기 →'}
+                  {loading ? '제출 중...' : '상담 신청하기 →'}
                 </button>
                 {submitError && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>
@@ -326,7 +340,7 @@ export default function DiagnosisPage() {
 
       <style>{`
         .diag-heading { font-size: clamp(1.93rem, 4.33vw, 2.87rem); line-height: 1.2; }
-        /* 견적 폼은 예약 페이지(/booking)의 .booking-card 와 같은 여백·글씨 크기를 쓴다 */
+        /* 상담 폼은 예약 페이지(/booking)의 .booking-card 와 같은 여백·글씨 크기를 쓴다 */
         .dg-card {
           background: var(--surface);
           border: 1.5px solid var(--border);
@@ -369,6 +383,9 @@ export default function DiagnosisPage() {
         }
         @media (max-width: 900px) {
           .diag-grid { grid-template-columns: 1fr; }
+          /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다 */
+          .diag-left { display: none; }
+          .dg-card { position: static !important; }
         }
       `}</style>
     </div>
