@@ -93,15 +93,11 @@ export default function HomePage() {
           flex: 1 1 0;
           min-height: 0;
         }
-        /* 모바일: 하단 고정 바(56px)가 화면 아래를 덮으므로, 히어로 높이를 직접 잡아
-           신뢰 밴드는 첫 줄("N년차 홈페이지 제작")까지만 바 위로 보이고
-           둘째 줄("누적 제작 N건 이상")은 스크롤해야 나오게 한다.
-           150px = 밴드 위 여백 + 안내 문구 + 첫 줄 높이(여유 포함) */
+        /* 모바일: 하단 고정 바(56px)가 화면 아래를 덮으므로 그만큼 뺀 높이를 첫 화면으로 잡는다 —
+           신뢰 밴드 두 줄이 바에 가리지 않고 통째로 보인다.
+           (첫 줄만 보이고 둘째 줄은 숨기는 건 두 줄 사이 10px 틈에 바 끝이 와야 해서 기종마다 어긋난다) */
         @media (max-width: 768px) {
-          .first-screen > .hero-section {
-            flex: 0 0 auto;
-            min-height: calc(100svh - 110px - 56px - 150px);
-          }
+          .first-screen { min-height: calc(100svh - 110px - 56px); }
         }
       `}</style>
     </>
