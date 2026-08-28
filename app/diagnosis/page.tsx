@@ -173,7 +173,7 @@ export default function DiagnosisPage() {
             segments={[
               { text: '무료 ' },
               { text: '상담', className: 'c-accent' },
-              { text: ' 받기' },
+              { text: ' 신청' },
             ]}
           />
           <Reveal variant="up" delay={0.1}>
@@ -354,7 +354,7 @@ export default function DiagnosisPage() {
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
-                  {loading ? '제출 중...' : '상담 신청하기 →'}
+                  {loading ? '제출 중...' : '무료 상담 신청'}
                 </button>
                 {submitError && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#ef4444', fontSize: '0.95rem', fontWeight: 500 }}>
