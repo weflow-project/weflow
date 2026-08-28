@@ -272,9 +272,10 @@ export default function HeroBanner() {
              신뢰 밴드와 첫 화면을 나눠 갖게 한다. 여백은 좁혀 자리를 만든다 */
           .hero-section {
             min-height: 0;
-            /* 하단 바(56px) 위로 신뢰 밴드까지 들어와야 하므로 여백을 좁힌다 */
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            /* 첫 화면 하단이 신뢰 밴드 첫 줄("N년차 홈페이지 제작") 직후에서 끊기도록
+               위아래를 조금 더 벌린다 — 둘째 줄이 반쯤 걸쳐 보이는 것보다 낫다 */
+            padding-top: 2.1rem;
+            padding-bottom: 2.1rem;
           }
           /* 칩·타이틀에 걸려 있던 translateY 보정은 걷어냈다 — 타이틀만 내려가 있으면
              위 간격은 그만큼 벌어지고 아래 간격은 좁아져, CSS 값과 실제가 어긋난다.
@@ -302,7 +303,7 @@ export default function HeroBanner() {
           /* WEFLOW ↔ 버튼 = 24.8px + line-height 가 글자 아래 남기는 2.3px ≒ 27px
              (위 칩 간격과 같은 값) */
           .hero-cta {
-            margin-top: 1.3rem !important;
+            margin-top: 1.55rem !important;
             /* 가로 폭이 넉넉해져도(가로 모드·큰 모바일) 두 버튼을 세로로 쌓는다 */
             flex-direction: column;
           }
