@@ -69,11 +69,11 @@ export default function FloatingButtons() {
       {/* 모바일 — 화면 맨 아래 두 칸 바 (PC 에선 CSS 로 숨김) */}
       <div className="mobile-cta-bar">
         <a href="tel:010-2971-7280" className="mobile-cta-bar__btn mobile-cta-bar__btn--call">
-          <Phone size={19} strokeWidth={2.2} />
+          <Phone size={20} strokeWidth={1.8} />
           바로전화
         </a>
         <Link href="/diagnosis" className="mobile-cta-bar__btn mobile-cta-bar__btn--form">
-          <CalendarCheck size={19} strokeWidth={2.2} />
+          <CalendarCheck size={20} strokeWidth={1.8} />
           무료상담신청
         </Link>
       </div>

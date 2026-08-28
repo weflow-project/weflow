@@ -698,23 +698,24 @@
     z-index: 200;
     box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.25);
     /* 홈 인디케이터가 있는 폰에서 바가 가려지지 않게 */
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(0px, calc(env(safe-area-inset-bottom) - 0.75rem));
     background: var(--surface);
   }
   @media (max-width: 768px) {
     .mobile-cta-bar { display: flex; }
   }
+  /* 크기·글씨는 커튼장인 하단 바와 동일하게 (min-h 56px · 15px · 600) */
   .mobile-cta-bar__btn {
     flex: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    height: 60px;
-    font-size: 1.05rem;
-    font-weight: 700;
+    min-height: 56px;
+    padding: 0.75rem;
+    font-size: 15px;
+    font-weight: 600;
     text-decoration: none;
-    letter-spacing: -0.01em;
   }
   .mobile-cta-bar__btn--call {
     background: var(--surface);

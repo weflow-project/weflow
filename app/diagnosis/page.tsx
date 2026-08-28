@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle, User } from 'lucide-react'
+import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
 import { attributionLine, getEntryKeyword } from '@/lib/attribution'
 import { matchKeyword } from '@/lib/keywords'
@@ -31,6 +31,8 @@ export default function DiagnosisPage() {
   const [loading, setLoading] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
   const [submitError, setSubmitError] = useState(false)
+  // 개인정보 동의 안내문 펼침 — 커튼장인 폼과 같은 '내용 보기 / 닫기' 토글
+  const [privacyOpen, setPrivacyOpen] = useState(false)
 
   // 폼 자동 채움 — ① 맞춤 플랜 위젯에서 넘어온 값 (우선) ② 없으면 유입 키워드(파워링크·UTM·?kw=)로 제작 종류·업종
   useEffect(() => {
@@ -233,8 +235,8 @@ export default function DiagnosisPage() {
                 <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>진행 과정</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                   {PROCESS.map((p, i) => (
-                    <div key={p.num} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div key={p.num} className="diag-step" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', alignSelf: 'stretch' }}>
                         <div style={{
                           width: 32, height: 32, borderRadius: '50%',
                           background: 'var(--accent)', color: 'var(--on-accent)',
@@ -242,7 +244,7 @@ export default function DiagnosisPage() {
                           flexShrink: 0,
                         }} className="caption-1 emphasized">{p.num}</div>
                         {i < PROCESS.length - 1 && (
-                          <div style={{ width: '2px', height: '28px', background: 'var(--border)', margin: '3px 0' }} />
+                          <div style={{ width: '2px', height: '48px', background: 'var(--border)', margin: '3px 0' }} />
                         )}
                       </div>
                       <p className="subhead semibold c-primary" style={{ margin: '0.45rem 0 0' }}>{p.text}</p>
@@ -276,7 +278,14 @@ export default function DiagnosisPage() {
               className="dg-card"
               style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
             >
-              <p className="dg-section-title"><User size={15} color="var(--accent)" strokeWidth={2} /> 정보 입력</p>
+              {/* 카드 헤더 — 무엇을 신청하는지와 부담이 없다는 것을 먼저 말한다 */}
+              <div style={{ textAlign: 'center' }}>
+                <p className="caption-1 emphasized c-accent" style={{ letterSpacing: '0.25em', textTransform: 'uppercase', margin: 0 }}>CALL TO ACTION</p>
+                <h2 className="dg-form-title">무료 상담 신청</h2>
+                <p className="c-muted" style={{ margin: '0.6rem 0 0', lineHeight: 1.6, fontSize: '1.02rem', wordBreak: 'keep-all' }}>
+                  이름 · 전화번호만 남겨주시면<br /> 확인 후 빠르게 연락드립니다.
+                </p>
+              </div>
 
                 <div>
                   <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
@@ -301,26 +310,47 @@ export default function DiagnosisPage() {
 
                 {/* 자유 입력 — 원하는 것을 미리 적어 두면 상담이 빨라진다 (선택) */}
                 <div>
-                  <label className="form-label">추가 요청 사항</label>
+                  <label className="form-label">추가 문의 사항</label>
                   <textarea
                     id="dg-note"
                     className="form-input"
                     rows={4}
-                    placeholder="자유롭게 입력해주세요"
+                    placeholder="추가 문의사항이 있다면 작성해 주세요."
                     value={form.note}
                     onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
                     style={{ resize: 'vertical', lineHeight: 1.6, minHeight: '6.5rem' }}
                   />
                 </div>
 
-                <label className="subhead c-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer', lineHeight: 1.5, fontSize: '1.05rem' }}>
-                  <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
-                    style={{ marginTop: '3px', width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
-                  개인정보 수집 및 상담 동의 <span style={{ color: '#ef4444' }}>*</span>
-                </label>
-                {showErrors && !form.agree && (
-                  <p className="field-error" style={{ marginTop: '-0.5rem' }}>개인정보 수집에 동의해 주세요</p>
-                )}
+                {/* 개인정보 동의 — 체크 한 줄 + '내용 보기'로 펼치는 안내문 (커튼장인 폼과 같은 구조) */}
+                <div className="dg-consent">
+                  <label className="dg-consent__label">
+                    <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
+                      style={{ width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
+                    <span>개인정보 수집 및 이용에 동의합니다. <span style={{ color: '#ef4444', whiteSpace: 'nowrap' }}>(필수)</span></span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setPrivacyOpen(v => !v)}
+                    aria-expanded={privacyOpen}
+                    aria-controls="dg-privacy-text"
+                    className="dg-consent__toggle"
+                  >
+                    {privacyOpen ? '닫기' : '내용 보기'}
+                  </button>
+                  {/* grid-rows 0fr ↔ 1fr 로 높이 애니메이션 */}
+                  <div id="dg-privacy-text" className={`dg-consent__body${privacyOpen ? ' is-open' : ''}`}>
+                    <div style={{ overflow: 'hidden' }}>
+                      <div className="dg-consent__text">
+                        <p>1. 수집 항목 및 목적: 성함, 연락처, 제작 종류, 문의 내용을 무료 상담 및 확인 전화 안내를 위해 수집하며, 명시된 목적 외의 용도로 이용하지 않습니다.</p>
+                        <p>2. 보유 및 이용 기간: 상담 종료 후 1년까지</p>
+                      </div>
+                    </div>
+                  </div>
+                  {showErrors && !form.agree && (
+                    <p className="field-error">개인정보 수집에 동의해 주세요</p>
+                  )}
+                </div>
 
                 <button type="submit" className="btn-primary" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
@@ -332,6 +362,13 @@ export default function DiagnosisPage() {
                     전송에 실패했어요. 잠시 후 다시 시도해 주세요.
                   </div>
                 )}
+                {/* 대체 연락 수단 — 폼이 부담스러우면 전화로 */}
+                <p className="c-muted" style={{ textAlign: 'center', margin: '-0.5rem 0 0', fontSize: '0.98rem' }}>
+                  또는 전화{' '}
+                  <a href="tel:010-2971-7280" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}>
+                    010-2971-7280
+                  </a>
+                </p>
 
             </form>
           </div>
@@ -353,6 +390,69 @@ export default function DiagnosisPage() {
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
+
+        /* 카드 헤더 제목 */
+        .dg-form-title {
+          margin: 0.6rem 0 0;
+          font-size: clamp(1.7rem, 5vw, 2.1rem);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .br-mobile { display: none; }
+        @media (max-width: 640px) { .br-mobile { display: inline; } }
+
+        /* 개인정보 동의 박스 */
+        .dg-consent {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          border: 1.5px solid var(--border);
+          border-radius: 12px;
+          background: var(--bg);
+          padding: 0.9rem 1rem;
+        }
+        .dg-consent__label {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          cursor: pointer;
+          font-size: 1.02rem;
+          line-height: 1.5;
+          color: var(--text);
+          word-break: keep-all;
+        }
+        .dg-consent__toggle {
+          align-self: flex-end;
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 0.92rem;
+          color: var(--text-muted);
+          text-decoration: underline;
+          text-underline-offset: 4px;
+        }
+        .dg-consent__toggle:hover { color: var(--text); }
+        .dg-consent__body {
+          display: grid;
+          grid-template-rows: 0fr;
+          transition: grid-template-rows 0.3s ease-out;
+        }
+        .dg-consent__body.is-open { grid-template-rows: 1fr; }
+        .dg-consent__text {
+          margin-top: 0.6rem;
+          padding-top: 0.7rem;
+          border-top: 1px solid var(--border);
+          font-size: 0.9rem;
+          line-height: 1.65;
+          color: var(--text-muted);
+          word-break: keep-all;
+        }
+        .dg-consent__text p { margin: 0 0 0.5rem; }
+        .dg-consent__text p:last-child { margin-bottom: 0; }
 
         /* 예약 페이지의 .bk-section-title 과 같은 서식 */
         .dg-section-title {
@@ -379,8 +479,25 @@ export default function DiagnosisPage() {
           display: grid;
           grid-template-columns: 1fr 420px;
           gap: 1.25rem;
-          align-items: start;
+          /* 왼쪽 안내 칸이 오른쪽 폼 높이만큼 늘어나게 — 폼은 인라인 align-self:start 로 sticky 유지 */
+          align-items: stretch;
         }
+        /* 늘어난 높이는 간격이 아니라 안내 카드 두 장이 나눠 갖는다 —
+           카드 안 내용은 세로 가운데로 두어 위아래 여백이 고르게 보이게 */
+        .diag-left > :nth-child(2),
+        .diag-left > :nth-child(3) {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+        /* 제목은 위에 두고, 항목 목록이 남는 높이를 받아 사이가 고르게 벌어진다 */
+        .diag-left > :nth-child(2) > div:last-child {
+          flex: 1;
+          /* 항목 사이만 벌리고 마지막 항목 아래엔 여분을 두지 않는다 — 위(제목) 여백과 아래 여백이 같아진다 */
+          justify-content: space-between;
+        }
+        /* 진행 과정은 01·02·03 을 붙여 두고, 남는 높이는 카드 안에서 가운데로만 잡는다 */
+        .diag-left > :nth-child(3) { justify-content: center; }
         @media (max-width: 900px) {
           .diag-grid { grid-template-columns: 1fr; }
           /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다.
