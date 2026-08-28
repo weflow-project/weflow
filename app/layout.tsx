@@ -8,6 +8,7 @@ import Analytics from '@/components/Analytics'
 import PageTracker from '@/components/PageTracker'
 import FontLoader from '@/components/FontLoader'
 import { makePlans } from '@/data/pricing'
+import { SEO_KEYWORDS } from '@/lib/keywords'
 
 /**
  * 리뉴얼 미리보기 사이트(weflow-pied.vercel.app)를 검색에서 가린다.
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   ...(isNoindex && { robots: { index: false, follow: false } }),
   title: '위플로우(WEFLOW) — 내가 진짜 원하는 페이지, 우리만의 플로우를 담다',
   description: '위플로우(WEFLOW)는 홈페이지 제작부터 광고 연동·운영 관리까지, 단순 제작이 아닌 문의 구조까지 설계합니다.',
-  keywords: '위플로우, WEFLOW, 홈페이지 제작, 랜딩페이지 제작, 광고 운영, 검색 상단 노출, 웹사이트 제작',
+  keywords: SEO_KEYWORDS.join(', '),
   // 쿼리스트링·www 변형이 별개 URL로 색인되지 않도록 대표 주소를 지정한다.
   // './' 는 각 페이지 경로에 맞춰 자동으로 해석된다.
   alternates: { canonical: './' },

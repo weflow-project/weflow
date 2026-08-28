@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react'
 import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle, User } from 'lucide-react'
 import { projectTypes } from '@/data/common'
-import { attributionLine } from '@/lib/attribution'
+import { attributionLine, getEntryKeyword } from '@/lib/attribution'
+import { matchKeyword } from '@/lib/keywords'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
 
@@ -31,20 +32,27 @@ export default function DiagnosisPage() {
   const [showErrors, setShowErrors] = useState(false)
   const [submitError, setSubmitError] = useState(false)
 
-  // 맞춤 플랜 위젯에서 넘어온 경우 폼 자동 채움 (제작 종류·업종·상황 메모)
+  // 폼 자동 채움 — ① 맞춤 플랜 위젯에서 넘어온 값 (우선) ② 없으면 유입 키워드(파워링크·UTM·?kw=)로 제작 종류·업종
   useEffect(() => {
     const raw = sessionStorage.getItem('weflow_quiz_prefill')
-    if (!raw) return
-    try {
-      const p = JSON.parse(raw)
-      setForm(f => ({
-        ...f,
-        type: p.type || f.type,
-        industry: p.industry || f.industry,
-        note: p.note || f.note,
-      }))
-    } catch {}
-    sessionStorage.removeItem('weflow_quiz_prefill')
+    if (raw) {
+      try {
+        const p = JSON.parse(raw)
+        // sessionStorage(외부 상태) → 클라이언트 전용 프리필
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setForm(f => ({
+          ...f,
+          type: p.type || f.type,
+          industry: p.industry || f.industry,
+          note: p.note || f.note,
+        }))
+      } catch {}
+      sessionStorage.removeItem('weflow_quiz_prefill')
+      return
+    }
+    const m = matchKeyword(getEntryKeyword())
+    if (!m.type && !m.industry) return
+    setForm(f => ({ ...f, type: f.type || m.type || '', industry: f.industry || m.industry || '' }))
   }, [])
 
   // 작성 "중간"인 사람만 이탈 모달 대상: 뭔가 입력했지만 필수항목은 아직 미완성

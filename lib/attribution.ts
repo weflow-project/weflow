@@ -52,6 +52,19 @@ export function getAttribution(): Attribution | null {
   }
 }
 
+/**
+ * 유입 키워드 — 저장된 첫 방문 정보(파워링크 n_keyword → n_query → utm_term → kw) 를 먼저 보고,
+ * 아직 저장 전(같은 렌더에서 폼이 먼저 마운트된 경우)이면 현재 URL 에서 직접 읽는다.
+ */
+export function getEntryKeyword(): string {
+  if (typeof window === 'undefined') return ''
+  const a = getAttribution()
+  const stored = a?.n_keyword || a?.n_query || a?.utm_term || a?.kw
+  if (stored) return stored
+  const sp = new URLSearchParams(window.location.search)
+  return sp.get('n_keyword') || sp.get('n_query') || sp.get('utm_term') || sp.get('kw') || ''
+}
+
 /** 리퍼러 호스트를 아는 채널 이름으로 */
 function referrerChannel(referrer: string): string {
   let host = ''
