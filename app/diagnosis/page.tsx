@@ -383,8 +383,9 @@ export default function DiagnosisPage() {
         }
         @media (max-width: 900px) {
           .diag-grid { grid-template-columns: 1fr; }
-          /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다 */
-          .diag-left { display: none; }
+          /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다.
+             요소에 인라인 display:flex 가 있어 !important 로 눌러야 먹는다 */
+          .diag-left { display: none !important; }
           .dg-card { position: static !important; }
         }
       `}</style>
