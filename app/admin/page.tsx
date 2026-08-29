@@ -1543,7 +1543,8 @@ function TrafficView({
     const exit = views[views.length - 1];
     // 세션(기기당 하루)은 첫 페이지 기준이지만, 그날 광고를 클릭한 적이 있으면 광고 유입으로 친다
     // — 아침에 직접 들어왔다가 오후에 광고로 다시 온 사람이 '직접 유입'에 묻히지 않게
-    const adView = views.find((v) => v.medium === "cpc" || v.medium === "paid");
+    // 같은 날 광고를 여러 번 눌렀으면 마지막 클릭 기준
+    const adView = [...views].reverse().find((v) => v.medium === "cpc" || v.medium === "paid");
     const src = adView ? `${normSource(adView.source)}-ad` : normSource(entry.source);
     sourceCount[src] = (sourceCount[src] || 0) + 1;
     if (adView?.campaign) {
