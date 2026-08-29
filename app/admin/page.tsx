@@ -1516,11 +1516,13 @@ function TrafficView({
   sessionList.forEach((views) => {
     const entry = views[0];
     const exit = views[views.length - 1];
-    const paid = entry.medium === "cpc" || entry.medium === "paid";
-    const src = paid ? `${normSource(entry.source)}-ad` : normSource(entry.source);
+    // 세션(기기당 하루)은 첫 페이지 기준이지만, 그날 광고를 클릭한 적이 있으면 광고 유입으로 친다
+    // — 아침에 직접 들어왔다가 오후에 광고로 다시 온 사람이 '직접 유입'에 묻히지 않게
+    const adView = views.find((v) => v.medium === "cpc" || v.medium === "paid");
+    const src = adView ? `${normSource(adView.source)}-ad` : normSource(entry.source);
     sourceCount[src] = (sourceCount[src] || 0) + 1;
-    if (paid && entry.campaign) {
-      keywordCount[entry.campaign] = (keywordCount[entry.campaign] || 0) + 1;
+    if (adView?.campaign) {
+      keywordCount[adView.campaign] = (keywordCount[adView.campaign] || 0) + 1;
     }
     deviceCount[entry.device] = (deviceCount[entry.device] || 0) + 1;
     exitCount[exit.path] = (exitCount[exit.path] || 0) + 1;
