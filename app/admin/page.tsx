@@ -7,6 +7,7 @@
  */
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback, Fragment } from "react";
+import { SITE_LABEL } from "@/lib/site";
 import {
   LogOut,
   Menu,
@@ -78,6 +79,7 @@ interface Booking {
   note: string;
   date: string;
   time: string;
+  site?: string; // 어느 사이트에서 접수됐나 (weflow / landingpage / landinghomepage)
   createdAt: string;
 }
 // /api/inquiries 응답 한 건 — 일반 문의(일시 없음, 유입 소스가 붙기도 함)
@@ -90,6 +92,7 @@ interface Inquiry {
   industry: string;
   note: string;
   source?: string;
+  site?: string;
   createdAt: string;
 }
 // /api/analytics 응답 한 건 — 방문자가 페이지 하나를 본 기록 (sessionId로 한 방문을 묶는다)
@@ -480,6 +483,24 @@ function RequestTable({
                       }}
                     >
                       {row.name}
+                      {/* 본 사이트가 아닌 곳(랜딩페이지 등)에서 온 접수는 출처 배지 */}
+                      {row.site && row.site !== "weflow" && (
+                        <span
+                          style={{
+                            marginLeft: "0.5rem",
+                            padding: "0.15rem 0.5rem",
+                            borderRadius: "6px",
+                            fontSize: "0.72rem",
+                            fontWeight: 600,
+                            background: "var(--accent-light)",
+                            color: "var(--accent)",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {SITE_LABEL[row.site] || row.site}
+                        </span>
+                      )}
                     </td>
                     <td
                       style={{
