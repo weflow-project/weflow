@@ -1540,9 +1540,7 @@ function TrafficView({
 
   const sourceRows = Object.entries(sourceCount).sort((a, b) => b[1] - a[1]);
   const maxSource = Math.max(1, ...sourceRows.map((r) => r[1]));
-  const keywordRows = Object.entries(keywordCount)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10);
+  const keywordRows = Object.entries(keywordCount).sort((a, b) => b[1] - a[1]);
   const maxKeyword = Math.max(1, ...keywordRows.map((r) => r[1]));
   const deviceRows = Object.entries(deviceCount).sort((a, b) => b[1] - a[1]);
   const exitRows = Object.entries(exitCount)
@@ -1789,7 +1787,7 @@ function TrafficView({
             Icon={LogIn}
             tint="#15803d"
             title="어떤 키워드로 왔나요?"
-            desc="광고를 클릭해 들어온 검색어 (많은 순 10개)"
+            desc="광고를 클릭해 들어온 검색어 (많은 순)"
           />
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
