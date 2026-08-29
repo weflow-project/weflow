@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import '../styles/globals.css'
 import ClientLayout from '@/components/ClientLayout'
 import Analytics from '@/components/Analytics'
+import NaverAds from '@/components/NaverAds'
 import PageTracker from '@/components/PageTracker'
 import FontLoader from '@/components/FontLoader'
 import { makePlans } from '@/data/pricing'
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
+        <NaverAds />
         <PageTracker />
       </body>
     </html>

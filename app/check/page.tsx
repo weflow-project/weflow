@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import { attributionLine } from '@/lib/attribution'
+import { trackNaverLead } from '@/lib/naverConversion'
 
 /**
  * 자동 점검 도구 — 방문자가 자기 사이트 주소를 넣으면
@@ -168,6 +169,8 @@ export default function CheckPage() {
         }),
       })
       setUnlocked(true)
+      // 네이버 광고에 "신청 완료" 전환을 알린다 (광고 스크립트가 켜져 있을 때만 동작)
+      trackNaverLead()
     } catch {
       // 저장이 실패해도 방문자 경험을 막지 않는다 — 리포트는 열어 준다
       setUnlocked(true)
