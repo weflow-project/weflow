@@ -1200,6 +1200,8 @@ const SOURCE_KO: Record<string, string> = {
   "naver-ad": "네이버 광고",
   "google-ad": "구글 광고",
   "facebook-ad": "메타 광고",
+  "instagram-ad": "인스타 광고",
+  "kakao-ad": "카카오 광고",
 };
 const SOURCE_COLOR: Record<string, string> = {
   kakao: "#fae100",
@@ -1207,6 +1209,8 @@ const SOURCE_COLOR: Record<string, string> = {
   "naver-ad": "#15803d",
   "google-ad": "#b91c1c",
   "facebook-ad": "#1e40af",
+  "instagram-ad": "#be185d",
+  "kakao-ad": "#a16207",
   instagram: "#f06595",
   facebook: "#1877f2",
   google: "#ea4335",
