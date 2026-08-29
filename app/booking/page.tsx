@@ -2,9 +2,8 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Check, CalendarDays, Clock, User, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
-import { getEntryKeyword, attributionLine } from '@/lib/attribution'
+import { attributionLine } from '@/lib/attribution'
 import { trackNaverLead } from '@/lib/naverConversion'
-import { matchKeyword } from '@/lib/keywords'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
 
@@ -29,15 +28,6 @@ export default function BookingPage() {
   const [loading, setLoading] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
   const [submitError, setSubmitError] = useState(false)
-
-  // 유입 키워드(파워링크·UTM·?kw=)로 제작 종류·업종 자동 채움 (마운트 1회)
-  useEffect(() => {
-    const m = matchKeyword(getEntryKeyword())
-    if (!m.type && !m.industry) return
-    // URL/sessionStorage(외부 상태) → 클라이언트 전용 프리필
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setForm(f => ({ ...f, type: f.type || m.type || '', industry: f.industry || m.industry || '' }))
-  }, [])
 
   // 작성 "중간"인 사람만 이탈 모달 대상: 뭔가 건드렸지만 필수항목은 아직 미완성
   useEffect(() => {
