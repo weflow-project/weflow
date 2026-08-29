@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Check, CalendarDays, Clock, User, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
-import { getEntryKeyword } from '@/lib/attribution'
+import { getEntryKeyword, attributionLine } from '@/lib/attribution'
+import { trackNaverLead } from '@/lib/naverConversion'
 import { matchKeyword } from '@/lib/keywords'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
@@ -103,14 +104,22 @@ export default function BookingPage() {
     const date = `${year}-${pad(month + 1)}-${pad(selectedDay)}`
     const time = customTime || selectedSlot
     try {
+      // 유입 경로(광고 키워드·검색·리퍼러)를 메모에 붙여 관리자에서 예약별로 보이게 한다
+      const attr = attributionLine()
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, phone: form.phone, type: form.type, industry: form.industry, note: form.note, date, time }),
+        body: JSON.stringify({
+          name: form.name, phone: form.phone, type: form.type, industry: form.industry,
+          note: [form.note, attr && `유입: ${attr}`].filter(Boolean).join('\n'),
+          date, time,
+        }),
       })
       if (!res.ok) throw new Error('request failed')
       setLoading(false)
       setShowErrors(false)
+      // 네이버 광고에 "예약 완료" 전환을 알린다 (광고 스크립트가 켜져 있을 때만 동작)
+      trackNaverLead()
       // 완료 화면이 그려지기 전에 미리 상단으로 (스크롤이 움직이는 게 안 보이도록)
       window.scrollTo(0, 0)
       setSubmitted(true)

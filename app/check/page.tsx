@@ -151,7 +151,7 @@ export default function CheckPage() {
     setSubmitting(true)
     try {
       const c = result.categories
-      await fetch('/api/inquiries', {
+      const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -169,8 +169,8 @@ export default function CheckPage() {
         }),
       })
       setUnlocked(true)
-      // 네이버 광고에 "신청 완료" 전환을 알린다 (광고 스크립트가 켜져 있을 때만 동작)
-      trackNaverLead()
+      // 저장이 실제로 됐을 때만 네이버 광고에 "신청 완료" 전환을 알린다
+      if (res.ok) trackNaverLead()
     } catch {
       // 저장이 실패해도 방문자 경험을 막지 않는다 — 리포트는 열어 준다
       setUnlocked(true)

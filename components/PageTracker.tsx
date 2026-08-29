@@ -74,13 +74,18 @@ export default function PageTracker() {
     flush()
     maxScroll.current = 0
 
+    // 광고 클릭은 UTM 이 없어도 소스·매체를 채워 준다 (네이버 파워링크 n_*, 구글 gclid, 메타 fbclid)
+    const isNaverAd = !!(params.get('n_media') || params.get('n_keyword') || params.get('n_query') || params.get('n_ad'))
+    const adSource = isNaverAd ? 'naver' : params.get('gclid') ? 'google' : params.get('fbclid') ? 'facebook' : ''
+    const keyword = params.get('n_keyword') || params.get('n_query') || params.get('utm_term') || params.get('kw') || ''
     const body = {
       sessionId: getSessionId(),
       path: pathname,
       referrer: document.referrer,
-      utmSource: params.get('utm_source') || '',
-      utmMedium: params.get('utm_medium') || '',
-      utmCampaign: params.get('utm_campaign') || '',
+      utmSource: params.get('utm_source') || adSource,
+      utmMedium: params.get('utm_medium') || (adSource ? 'cpc' : ''),
+      // 광고 키워드는 캠페인 칸에 함께 남겨 관리자에서 "어떤 키워드로 왔는지" 집계한다
+      utmCampaign: params.get('utm_campaign') || keyword,
     }
 
     let active = true

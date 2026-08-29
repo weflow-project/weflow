@@ -281,6 +281,18 @@ function StatCard({
   );
 }
 
+// 메모에서 자동 첨부된 "유입: …" 줄을 분리한다 — 상세 펼침에서 업종 아래에 따로 보여주기 위해
+// "네이버 광고 · 키워드: 카페홈페이지제작" → 채널 / 키워드 로 나눈다
+function splitNote(note: string): { entry: string; keyword: string; body: string } {
+  const lines = (note || "").split("\n");
+  const idx = lines.findIndex((l) => l.startsWith("유입: "));
+  if (idx < 0) return { entry: "", keyword: "", body: note || "" };
+  const raw = lines[idx].slice("유입: ".length);
+  const [entry, kw] = raw.split(" · 키워드: ");
+  const body = lines.filter((_, i) => i !== idx).join("\n").trim();
+  return { entry: entry || "", keyword: kw || "", body };
+}
+
 /**
  * 예약·문의 목록 표 — 두 탭이 같이 쓴다.
  * 행마다 상태 변경·삭제 버튼, 화살표를 누르면 업종·요청사항 상세가 아래로 펼쳐진다.
@@ -596,6 +608,30 @@ function RequestTable({
                             >
                               {row.industry || "-"}
                             </dd>
+                            {/* 유입 경로 — 메모에 자동으로 붙은 "유입: …" 줄을 업종 아래로 뺀다 */}
+                            {splitNote(row.note).entry && (
+                              <>
+                                <dt
+                                  className="emphasized"
+                                  style={{
+                                    color: "var(--text-muted)",
+                                    marginTop: "1rem",
+                                    marginBottom: "0.3rem",
+                                    fontSize: "0.85rem",
+                                  }}
+                                >
+                                  유입
+                                </dt>
+                                <dd
+                                  style={{
+                                    color: "var(--text-secondary)",
+                                    margin: 0,
+                                  }}
+                                >
+                                  {splitNote(row.note).entry}
+                                </dd>
+                              </>
+                            )}
                           </div>
                           <div>
                             <dt
@@ -615,8 +651,32 @@ function RequestTable({
                                 whiteSpace: "pre-wrap",
                               }}
                             >
-                              {row.note || "-"}
+                              {splitNote(row.note).body || "-"}
                             </dd>
+                            {/* 광고 키워드 — 왼쪽 '유입'과 같은 줄에 맞춘다 */}
+                            {splitNote(row.note).keyword && (
+                              <>
+                                <dt
+                                  className="emphasized"
+                                  style={{
+                                    color: "var(--text-muted)",
+                                    marginTop: "1rem",
+                                    marginBottom: "0.3rem",
+                                    fontSize: "0.85rem",
+                                  }}
+                                >
+                                  키워드
+                                </dt>
+                                <dd
+                                  style={{
+                                    color: "var(--text-secondary)",
+                                    margin: 0,
+                                  }}
+                                >
+                                  {splitNote(row.note).keyword}
+                                </dd>
+                              </>
+                            )}
                           </div>
                         </dl>
                       </td>
@@ -1115,10 +1175,17 @@ const SOURCE_KO: Record<string, string> = {
   youtube: "유튜브",
   band: "밴드",
   direct: "직접 유입",
+  // 유료 광고 클릭은 같은 채널의 검색·SNS 유입과 따로 센다
+  "naver-ad": "네이버 광고",
+  "google-ad": "구글 광고",
+  "facebook-ad": "메타 광고",
 };
 const SOURCE_COLOR: Record<string, string> = {
   kakao: "#fae100",
   naver: "#03c75a",
+  "naver-ad": "#15803d",
+  "google-ad": "#b91c1c",
+  "facebook-ad": "#1e40af",
   instagram: "#f06595",
   facebook: "#1877f2",
   google: "#ea4335",
@@ -1440,6 +1507,7 @@ function TrafficView({
 
   // 유입 소스별 세션 (첫 페이지 기준)
   const sourceCount: Record<string, number> = {};
+  const keywordCount: Record<string, number> = {}; // 광고 키워드별 세션 (파워링크 n_keyword 등)
   const deviceCount: Record<string, number> = {};
   const exitCount: Record<string, number> = {};
   let bounced = 0;
@@ -1448,8 +1516,12 @@ function TrafficView({
   sessionList.forEach((views) => {
     const entry = views[0];
     const exit = views[views.length - 1];
-    const src = normSource(entry.source);
+    const paid = entry.medium === "cpc" || entry.medium === "paid";
+    const src = paid ? `${normSource(entry.source)}-ad` : normSource(entry.source);
     sourceCount[src] = (sourceCount[src] || 0) + 1;
+    if (paid && entry.campaign) {
+      keywordCount[entry.campaign] = (keywordCount[entry.campaign] || 0) + 1;
+    }
     deviceCount[entry.device] = (deviceCount[entry.device] || 0) + 1;
     exitCount[exit.path] = (exitCount[exit.path] || 0) + 1;
     if (views.length === 1) bounced++;
@@ -1466,6 +1538,10 @@ function TrafficView({
 
   const sourceRows = Object.entries(sourceCount).sort((a, b) => b[1] - a[1]);
   const maxSource = Math.max(1, ...sourceRows.map((r) => r[1]));
+  const keywordRows = Object.entries(keywordCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+  const maxKeyword = Math.max(1, ...keywordRows.map((r) => r[1]));
   const deviceRows = Object.entries(deviceCount).sort((a, b) => b[1] - a[1]);
   const exitRows = Object.entries(exitCount)
     .sort((a, b) => b[1] - a[1])
@@ -1703,6 +1779,32 @@ function TrafficView({
           </div>
         </section>
       </div>
+
+      {/* 광고 키워드별 유입 — 광고 클릭이 한 건이라도 있을 때만 보인다 */}
+      {keywordRows.length > 0 && (
+        <section style={card}>
+          <SectionHead
+            Icon={LogIn}
+            tint="#15803d"
+            title="어떤 키워드로 왔나요?"
+            desc="광고를 클릭해 들어온 검색어 (많은 순 10개)"
+          />
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
+          >
+            {keywordRows.map(([kw, cnt]) => (
+              <BarRow
+                key={kw}
+                label={kw}
+                color="#15803d"
+                value={cnt}
+                max={maxKeyword}
+                right={`${cnt}명`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* 일별 방문 추이 */}
       <section style={card}>

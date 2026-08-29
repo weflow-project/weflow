@@ -1,10 +1,15 @@
 /**
  * 유입 경로 캡처 — 어떤 광고·검색·링크로 들어온 방문자가 문의까지 왔는지 잇는다.
  *
- * 첫 방문(랜딩) 때 URL 파라미터(네이버 파워링크 n_*, UTM, gclid, fbclid)와
- * 리퍼러를 sessionStorage 에 한 번 저장해 두고, 문의 제출 시 사람이 읽는
- * 한 줄("네이버 광고 · 키워드: 거실커튼")로 만들어 문의 메모에 붙인다.
- * 아뜰리에 사이트에서 실제 광고 문의를 잡아낸 것과 같은 방식이다.
+ * 랜딩 때 URL 파라미터(네이버 파워링크 n_*, UTM, gclid, fbclid)와 리퍼러를 저장해 두고,
+ * 문의 제출 시 사람이 읽는 한 줄("네이버 광고 · 키워드: 거실커튼")로 만들어 메모에 붙인다.
+ *
+ * 저장 규칙
+ * - localStorage 에 30일 보관 → 낮에 광고 클릭하고 며칠 뒤 다시 와서 문의해도 광고로 잡힌다.
+ * - 광고 파라미터가 있는 방문은 기존 값을 덮어쓴다(마지막 광고 클릭 기준).
+ *   파라미터 없는 방문은 이미 저장된 값을 건드리지 않는다.
+ * - 히어로 문구·폼 프리필용 키워드는 sessionStorage 에 따로 두어 같은 탭 안에서만 쓴다
+ *   (며칠 뒤 직접 들어온 사람에게 예전 키워드 문구를 보여주지 않기 위해).
  */
 
 const ATTR_KEYS = [
@@ -19,50 +24,83 @@ const ATTR_KEYS = [
 export type Attribution = Partial<Record<(typeof ATTR_KEYS)[number], string>> & {
   landing?: string
   referrer?: string
+  ts?: number
 }
 
 const STORAGE_KEY = 'weflow_attr'
+const SESSION_KW_KEY = 'weflow_attr_kw'
+const TTL_MS = 30 * 24 * 60 * 60 * 1000
 
-/** 첫 방문 시 1회 저장 — 이미 있으면 덮어쓰지 않는다 (최초 유입 기준) */
+/** URL 에서 광고·UTM 파라미터만 추려낸다 (없으면 빈 객체) */
+function readParams(): Attribution {
+  const sp = new URLSearchParams(window.location.search)
+  const attr: Attribution = {}
+  ATTR_KEYS.forEach(k => {
+    const v = sp.get(k)
+    if (v) attr[k] = v
+  })
+  return attr
+}
+
+function pickKeyword(a: Attribution): string {
+  return a.n_keyword || a.n_query || a.utm_term || a.kw || ''
+}
+
+/** 랜딩마다 호출 — 광고 파라미터가 있으면 덮어쓰고, 없으면 기존 값을 유지한다 */
 export function captureAttribution(): void {
   if (typeof window === 'undefined') return
   try {
-    if (sessionStorage.getItem(STORAGE_KEY)) return
-    const sp = new URLSearchParams(window.location.search)
-    const attr: Attribution = {}
-    ATTR_KEYS.forEach(k => {
-      const v = sp.get(k)
-      if (v) attr[k] = v
-    })
-    attr.landing = window.location.pathname
-    attr.referrer = document.referrer || undefined
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(attr))
+    const params = readParams()
+    const hasAd = Object.keys(params).length > 0
+    const existing = getAttribution()
+
+    if (!hasAd && existing) return
+
+    const attr: Attribution = {
+      ...params,
+      landing: window.location.pathname,
+      referrer: document.referrer || undefined,
+      ts: Date.now(),
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(attr))
+
+    const kw = pickKeyword(params)
+    if (kw) sessionStorage.setItem(SESSION_KW_KEY, kw)
   } catch {
     /* 프라이빗 모드 등 접근 불가면 그냥 넘어간다 */
   }
 }
 
+/** 저장된 유입 정보 — 30일 지났으면 없는 것으로 본다 */
 export function getAttribution(): Attribution | null {
   if (typeof window === 'undefined') return null
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY)
-    return raw ? (JSON.parse(raw) as Attribution) : null
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const a = JSON.parse(raw) as Attribution
+    if (a.ts && Date.now() - a.ts > TTL_MS) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+    return a
   } catch {
     return null
   }
 }
 
 /**
- * 유입 키워드 — 저장된 첫 방문 정보(파워링크 n_keyword → n_query → utm_term → kw) 를 먼저 보고,
- * 아직 저장 전(같은 렌더에서 폼이 먼저 마운트된 경우)이면 현재 URL 에서 직접 읽는다.
+ * 유입 키워드(히어로 문구·폼 프리필용) — 현재 URL 의 파워링크 n_keyword → n_query → utm_term → kw,
+ * 없으면 같은 탭에서 랜딩 때 저장한 값. 탭이 바뀌면 비어 있다.
  */
 export function getEntryKeyword(): string {
   if (typeof window === 'undefined') return ''
-  const a = getAttribution()
-  const stored = a?.n_keyword || a?.n_query || a?.utm_term || a?.kw
-  if (stored) return stored
-  const sp = new URLSearchParams(window.location.search)
-  return sp.get('n_keyword') || sp.get('n_query') || sp.get('utm_term') || sp.get('kw') || ''
+  const fromUrl = pickKeyword(readParams())
+  if (fromUrl) return fromUrl
+  try {
+    return sessionStorage.getItem(SESSION_KW_KEY) || ''
+  } catch {
+    return ''
+  }
 }
 
 /** 리퍼러 호스트를 아는 채널 이름으로 */
@@ -92,7 +130,7 @@ function referrerChannel(referrer: string): string {
 export function attributionLine(): string {
   const a = getAttribution()
   if (!a) return ''
-  const keyword = a.n_keyword || a.n_query || a.utm_term || a.kw || ''
+  const keyword = pickKeyword(a)
 
   let channel = ''
   if (a.n_media || a.n_keyword || a.n_query || a.n_ad) channel = '네이버 광고'
