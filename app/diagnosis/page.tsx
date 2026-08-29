@@ -158,14 +158,14 @@ export default function DiagnosisPage() {
   return (
     <div style={{ background: 'var(--section-a)' }}>
 
-      {/* ── 헤더 ── */}
-      <section style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
+      {/* ── 헤더 — 모바일에서는 숨기고 폼부터 보인다 (h1 은 폼 제목이 맡는다) ── */}
+      <section className="diag-header" style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <Reveal variant="up">
             <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE CONSULTING</span>
           </Reveal>
           <SplitText
-            as="h1"
+            as="h2"
             className="title-1 diag-heading"
             style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
             segments={[
@@ -279,7 +279,7 @@ export default function DiagnosisPage() {
               {/* 카드 헤더 — 무엇을 신청하는지와 부담이 없다는 것을 먼저 말한다 */}
               <div style={{ textAlign: 'center' }}>
                 <p className="caption-1 emphasized c-accent" style={{ letterSpacing: '0.25em', textTransform: 'uppercase', margin: 0 }}>CALL TO ACTION</p>
-                <h2 className="dg-form-title">무료 상담 신청</h2>
+                <h1 className="dg-form-title">무료 상담 신청</h1>
                 <p className="c-muted" style={{ margin: '0.6rem 0 0', lineHeight: 1.6, fontSize: '1.02rem', wordBreak: 'keep-all' }}>
                   이름 · 전화번호만 남겨주시면<br /> 확인 후 빠르게 연락드립니다.
                 </p>
@@ -385,6 +385,8 @@ export default function DiagnosisPage() {
         }
         @media (max-width: 640px) {
           .dg-card { padding: 1.35rem 1.1rem; border-radius: 12px; }
+          /* 모바일은 상단 헤더 없이 폼 카드부터 */
+          .diag-header { display: none; }
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
