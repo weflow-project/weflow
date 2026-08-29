@@ -1543,12 +1543,19 @@ function TrafficView({
     const exit = views[views.length - 1];
     // 세션(기기당 하루)은 첫 페이지 기준이지만, 그날 광고를 클릭한 적이 있으면 광고 유입으로 친다
     // — 아침에 직접 들어왔다가 오후에 광고로 다시 온 사람이 '직접 유입'에 묻히지 않게
-    // 같은 날 광고를 여러 번 눌렀으면 마지막 클릭 기준
-    const adView = [...views].reverse().find((v) => v.medium === "cpc" || v.medium === "paid");
-    const src = adView ? `${normSource(adView.source)}-ad` : normSource(entry.source);
-    sourceCount[src] = (sourceCount[src] || 0) + 1;
-    if (adView?.campaign) {
-      keywordCount[adView.campaign] = (keywordCount[adView.campaign] || 0) + 1;
+    // 같은 날 광고를 여러 매체에서 눌렀으면 매체마다 따로 센다 (같은 매체 반복은 한 번).
+    // 광고 클릭이 없을 때만 첫 페이지의 유입 소스를 쓴다
+    const paidViews = views.filter((v) => v.medium === "cpc" || v.medium === "paid");
+    if (paidViews.length) {
+      new Set(paidViews.map((v) => `${normSource(v.source)}-ad`)).forEach((src) => {
+        sourceCount[src] = (sourceCount[src] || 0) + 1;
+      });
+      new Set(paidViews.map((v) => v.campaign).filter(Boolean)).forEach((kw) => {
+        keywordCount[kw] = (keywordCount[kw] || 0) + 1;
+      });
+    } else {
+      const src = normSource(entry.source);
+      sourceCount[src] = (sourceCount[src] || 0) + 1;
     }
     deviceCount[entry.device] = (deviceCount[entry.device] || 0) + 1;
     exitCount[exit.path] = (exitCount[exit.path] || 0) + 1;
