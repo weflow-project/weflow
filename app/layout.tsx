@@ -28,8 +28,18 @@ export const metadata: Metadata = {
   // 쿼리스트링·www 변형이 별개 URL로 색인되지 않도록 대표 주소를 지정한다.
   // './' 는 각 페이지 경로에 맞춰 자동으로 해석된다.
   alternates: { canonical: './' },
-  // 탭 제목 글자와 나란히 놓이므로 로고를 살짝 내려 그린 전용 파일을 쓴다
-  icons: { icon: '/favicon.png' },
+  // 탭 제목 글자와 나란히 놓이므로 로고를 살짝 내려 그린 전용 파일을 쓴다.
+  // 구글 검색은 48px 배수 규격이 있어야 결과 목록의 원을 꽉 채워 그리므로 48/96/192를 함께 올린다.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48' },
+      { url: '/favicon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: '/favicon-192.png',
+  },
   // 카톡·SNS 링크 미리보기 — 제목은 짧게, 설명에 히어로 문구를 그대로 싣는다
   openGraph: {
     title: '위플로우 WEFLOW',
