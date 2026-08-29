@@ -214,7 +214,7 @@ export default function DiagnosisPage() {
                 <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>
                   이런 걸 확인해드립니다
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                   {CHECKS.map(({ icon: Icon, title, desc }) => (
                     <div key={title} style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
                       <div style={{
@@ -485,22 +485,16 @@ export default function DiagnosisPage() {
           /* 왼쪽 안내 칸이 오른쪽 폼 높이만큼 늘어나게 — 폼은 인라인 align-self:start 로 sticky 유지 */
           align-items: stretch;
         }
-        /* 늘어난 높이는 간격이 아니라 안내 카드 두 장이 나눠 갖는다 —
-           카드 안 내용은 세로 가운데로 두어 위아래 여백이 고르게 보이게 */
+        /* 늘어난 높이는 안내 카드 두 장이 나눠 갖는다 —
+           카드 안 내용은 항목 간격을 유지한 채 세로 가운데로 두어, 남는 높이가
+           항목 사이가 아니라 박스 위아래 여백으로 똑같이 나뉘게 한다 */
         .diag-left > :nth-child(2),
         .diag-left > :nth-child(3) {
           flex: 1;
           display: flex;
           flex-direction: column;
+          justify-content: center;
         }
-        /* 제목은 위에 두고, 항목 목록이 남는 높이를 받아 사이가 고르게 벌어진다 */
-        .diag-left > :nth-child(2) > div:last-child {
-          flex: 1;
-          /* 항목 사이만 벌리고 마지막 항목 아래엔 여분을 두지 않는다 — 위(제목) 여백과 아래 여백이 같아진다 */
-          justify-content: space-between;
-        }
-        /* 진행 과정은 01·02·03 을 붙여 두고, 남는 높이는 카드 안에서 가운데로만 잡는다 */
-        .diag-left > :nth-child(3) { justify-content: center; }
         @media (max-width: 900px) {
           .diag-grid { grid-template-columns: 1fr; }
           /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다.
