@@ -101,8 +101,8 @@ export default function PcPromoWidgets() {
         /* ── 우측 상단 신뢰 카드 ── */
         .pc-side-widget {
           position: fixed;
-          /* 화면 세로 중앙 — px 고정(210px)은 모니터가 클수록 위로 붙어 보였다 */
-          top: 50%;
+          /* 세로 중앙보다 살짝 위 — px 고정(210px)은 모니터가 클수록 위로 붙어 보였다 */
+          top: 46%;
           transform: translateY(-50%);
           right: 16px;
           z-index: 150;

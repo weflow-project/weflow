@@ -1,5 +1,4 @@
-// 히어로 바로 아래 신뢰 밴드 — 좌우 월계수 장식 + 경력·누적 제작 강조 한 줄.
-import { CAREER_YEARS, TOTAL_PROJECTS } from '@/data/solution'
+// 히어로 바로 아래 신뢰 밴드 — 좌우 월계수 장식 + 강조 문구 한 줄.
 
 // 월계수 잎 금장 — 사이트 파랑 대신 이 장식에만 쓰는 포인트 골드.
 const GOLD = '#b8976b'
@@ -66,9 +65,9 @@ export default function TrustBand() {
             수많은 고객이 선택한 WEFLOW_위플로우
           </p>
           <p className="trustband-headline">
-            {CAREER_YEARS}년차 홈페이지 제작 ·{' '}
+            최신 기술 활용 ·{' '}
             <br className="br-mobile" />
-            누적 제작 {TOTAL_PROJECTS}건 이상
+            희망 오픈일 맞춤
           </p>
           <p className="body trustband-sub">
             고객의 브랜드를 가장 효과적으로 완성합니다

@@ -187,18 +187,13 @@ export default function SolutionSection() {
           color: var(--accent);
         }
         /* 문자 값 — 제목 굵기, 항상 한 줄.
-           값 상자를 숫자 글자 높이(폰트 × line-height 1.1)만큼 잡고 바닥 정렬해서
-           옆 % 숫자와 아랫라인이 맞고, 별은 그 상자 안 문구 바로 위에 붙는다 */
+           별·문구·라벨이 한 덩어리로 칸 세로 중앙에 오도록 흐름 안에 쌓는다 */
         .trust-num--text {
-          /* 옆 % 숫자에 최대한 가깝게 — 단 '희망 오픈일 맞춤'이 칸 안에서 한 줄로 들어가는 크기까지만.
-             값 상자를 % 숫자 글자 높이만큼 잡고 "세로 중앙" 정렬 — % 숫자와 같은 중앙 라인에 놓인다 */
           font-size: clamp(1.3rem, 3.4vw, 1.6rem);
           font-weight: 700;
           letter-spacing: normal;
           line-height: 1.2;
           white-space: nowrap;
-          min-height: calc(clamp(1.75rem, 4.5vw, 2.5rem) * 1.1);
-          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -211,12 +206,9 @@ export default function SolutionSection() {
           letter-spacing: 0.12em;
           color: #ffd166;
         }
-        /* 별점 — 문구 위에 겹쳐 띄운다(레이아웃 밖) — 문구가 % 숫자 중앙 라인을 지키게 */
+        /* 별점 — 문구 바로 위 한 줄 (레이아웃 안에 두어 그룹 전체가 중앙 정렬) */
         .trust-stars {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: calc(50% + 1.25em);
+          margin-bottom: 0.35rem;
           font-size: clamp(0.7rem, 1.8vw, 0.82rem);
           letter-spacing: 0.12em;
           color: #ffd166;
