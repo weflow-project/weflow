@@ -1,29 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Check, MessageSquare, FileSearch, Lightbulb, Phone, XCircle } from 'lucide-react'
+import { Check, Phone, XCircle } from 'lucide-react'
 import { projectTypes } from '@/data/common'
 import { attributionLine } from '@/lib/attribution'
 import { trackNaverLead } from '@/lib/naverConversion'
-import Reveal from '@/components/Reveal'
-import SplitText from '@/components/SplitText'
-
-const CHECKS = [
-  { icon: FileSearch, title: '문의 구조 분석', desc: '방문자가 문의로 이어지지 않는 이유를 분석합니다' },
-  { icon: MessageSquare, title: '디자인 점검', desc: '업종에 맞는 디자인 방향과 개선 포인트를 제안합니다' },
-  { icon: Lightbulb, title: '맞춤 제작 방향 제안', desc: '업종·예산에 맞는 최적의 제작 방향을 안내합니다' },
-]
-
-const PROCESS = [
-  { num: '01', text: '간편한 신청서 작성' },
-  { num: '02', text: '전문가의 정밀 사이트 분석' },
-  { num: '03', text: '24시간 이내, 상담 안내' },
-]
-
-const TRUST = [
-  { label: '완전 무료', sub: '비용 없음' },
-  { label: '24시간 내', sub: '빠른 회신' },
-  { label: '부담 없음', sub: '강요 없는 상담' },
-]
 
 export default function DiagnosisPage() {
   const [form, setForm] = useState({ name: '', phone: '', type: '', industry: '', note: '', agree: false })
@@ -158,123 +138,17 @@ export default function DiagnosisPage() {
   return (
     <div style={{ background: 'var(--section-a)' }}>
 
-      {/* ── 헤더 — 모바일에서는 숨기고 폼부터 보인다 (h1 은 폼 제목이 맡는다) ── */}
-      <section className="diag-header" style={{ background: 'var(--section-b)', borderBottom: '1px solid var(--border)', padding: '2.5rem 1.5rem 2rem' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <Reveal variant="up">
-            <span className="footnote emphasized c-accent" style={{ letterSpacing: '0.12em' }}>FREE CONSULTING</span>
-          </Reveal>
-          <SplitText
-            as="h2"
-            className="title-1 diag-heading"
-            style={{ margin: '0.6rem 0 0.4rem', wordBreak: 'keep-all' }}
-            segments={[
-              { text: '무료 ' },
-              { text: '상담', className: 'c-accent' },
-              { text: ' 받기' },
-            ]}
-          />
-          <Reveal variant="up" delay={0.1}>
-            <p className="subhead c-muted" style={{ margin: 0 }}>
-              무료로 상담받고 맞춤 제작 방향을 안내받으세요
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── 본문 ── */}
-      <section style={{ padding: '2rem 1.5rem clamp(2rem, 5vw, 3rem)' }}>
+      {/* ── 본문 — PC·모바일 모두 폼만 보인다 (h1 은 폼 제목 '무료 상담 신청') ── */}
+      <section style={{ padding: 'clamp(2rem, 5vw, 3rem) 1.5rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="diag-grid">
 
-            {/* ── 왼쪽: 신뢰 요소 ── */}
-            <div className="diag-left" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-
-              {/* 무료 신뢰 뱃지 */}
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                {TRUST.map(t => (
-                  <div key={t.label} style={{
-                    flex: 1, background: 'var(--surface)', border: '1.5px solid var(--border)',
-                    borderRadius: '12px', padding: '0.9rem 0.75rem', textAlign: 'center',
-                  }}>
-                    <p className="subhead emphasized c-accent" style={{ margin: '0 0 0.15rem' }}>{t.label}</p>
-                    <p className="caption-1 c-muted" style={{ margin: 0 }}>{t.sub}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* 진단 항목 */}
-              <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
-                <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>WHAT WE CHECK</p>
-                <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>
-                  이런 걸 확인해드립니다
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                  {CHECKS.map(({ icon: Icon, title, desc }) => (
-                    <div key={title} style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
-                      <div style={{
-                        width: 36, height: 36, borderRadius: '9px', background: 'var(--accent-light)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                      }}>
-                        <Icon size={16} color="var(--accent)" strokeWidth={1.75} />
-                      </div>
-                      <div>
-                        <p className="subhead emphasized c-primary" style={{ margin: '0 0 0.15rem' }}>{title}</p>
-                        <p className="footnote c-muted" style={{ margin: 0, lineHeight: 1.6, wordBreak: 'keep-all' }}>{desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 진단 과정 */}
-              <div style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
-                <p className="caption-2 emphasized c-accent" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>HOW IT WORKS</p>
-                <h3 className="headline emphasized c-primary" style={{ margin: '0 0 1.25rem' }}>진행 과정</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-                  {PROCESS.map((p, i) => (
-                    <div key={p.num} className="diag-step" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', alignSelf: 'stretch' }}>
-                        <div style={{
-                          width: 32, height: 32, borderRadius: '50%',
-                          background: 'var(--accent)', color: 'var(--on-accent)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          flexShrink: 0,
-                        }} className="caption-1 emphasized">{p.num}</div>
-                        {i < PROCESS.length - 1 && (
-                          <div style={{ width: '2px', height: '48px', background: 'var(--border)', margin: '3px 0' }} />
-                        )}
-                      </div>
-                      <p className="subhead semibold c-primary" style={{ margin: '0.45rem 0 0' }}>{p.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 전화 CTA */}
-              <a href="tel:010-2971-7280" style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem',
-                background: 'var(--surface)', border: '1.5px solid var(--border)',
-                borderRadius: '12px', padding: '1rem',
-                textDecoration: 'none', color: 'var(--text)',
-                transition: 'border-color 0.18s',
-              }}>
-                <Phone size={16} color="var(--accent)" strokeWidth={2} />
-                <div>
-                  <p className="subhead emphasized c-primary" style={{ margin: 0 }}>바로 전화 상담</p>
-                  <p className="footnote emphasized c-accent" style={{ margin: 0 }}>탭하면 바로 연결됩니다</p>
-                </div>
-                <span className="footnote c-muted" style={{ marginLeft: 'auto' }}>연중무휴 24시간</span>
-              </a>
-            </div>
-
-            {/* ── 오른쪽: 폼 ── */}
             {/* 예약 페이지(/booking)의 예약 정보 카드와 구조까지 같게 맞춘다 —
                 제목과 입력칸이 같은 flex 상자 안에 있어야 간격이 똑같이 떨어진다 */}
             <form
               onSubmit={handleSubmit}
               className="dg-card"
-              style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '96px', alignSelf: 'start' }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
             >
               {/* 카드 헤더 — 무엇을 신청하는지와 부담이 없다는 것을 먼저 말한다 */}
               <div style={{ textAlign: 'center' }}>
@@ -374,7 +248,6 @@ export default function DiagnosisPage() {
       </section>
 
       <style>{`
-        .diag-heading { font-size: clamp(1.93rem, 4.33vw, 2.87rem); line-height: 1.2; }
         /* 상담 폼은 예약 페이지(/booking)의 .booking-card 와 같은 여백·글씨 크기를 쓴다 */
         .dg-card {
           background: var(--surface);
@@ -385,8 +258,6 @@ export default function DiagnosisPage() {
         }
         @media (max-width: 640px) {
           .dg-card { padding: 1.35rem 1.1rem; border-radius: 12px; }
-          /* 모바일은 상단 헤더 없이 폼 카드부터 */
-          .diag-header { display: none; }
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
@@ -463,42 +334,15 @@ export default function DiagnosisPage() {
         /* 폼 글씨 확대 (diagnosis 전용) */
         .diag-grid .form-input { font-size: 1.05rem; }
         .diag-grid .form-label { font-size: 1rem; }
-        /* 왼쪽 카드 텍스트 확대 (폼과 균형) */
-        .diag-left .headline { font-size: 1.2rem; }
-        .diag-left .subhead { font-size: 1rem; }
-        .diag-left .footnote { font-size: 0.9rem; }
-        .diag-left .caption-1 { font-size: 0.85rem; }
-        .diag-left .caption-2 { font-size: 0.78rem; }
         .field-error {
           color: #ef4444;
           font-size: 0.9rem;
           font-weight: 500;
           margin: 0.4rem 0 0;
         }
-        .diag-grid {
-          display: grid;
-          grid-template-columns: 1fr 420px;
-          gap: 1.25rem;
-          /* 왼쪽 안내 칸이 오른쪽 폼 높이만큼 늘어나게 — 폼은 인라인 align-self:start 로 sticky 유지 */
-          align-items: stretch;
-        }
-        /* 늘어난 높이는 안내 카드 두 장이 나눠 갖는다 —
-           카드 안 내용은 항목 간격을 유지한 채 세로 가운데로 두어, 남는 높이가
-           항목 사이가 아니라 박스 위아래 여백으로 똑같이 나뉘게 한다 */
-        .diag-left > :nth-child(2),
-        .diag-left > :nth-child(3) {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-        @media (max-width: 900px) {
-          .diag-grid { grid-template-columns: 1fr; }
-          /* 모바일은 폼만 — 신뢰 요소·과정 설명은 접어서 바로 입력하게 한다.
-             요소에 인라인 display:flex 가 있어 !important 로 눌러야 먹는다 */
-          .diag-left { display: none !important; }
-          .dg-card { position: static !important; }
-        }
+        /* PC·모바일 모두 폼 하나만 가운데 */
+        .diag-grid { display: flex; justify-content: center; }
+        .dg-card { width: 100%; max-width: 480px; }
       `}</style>
     </div>
   )
