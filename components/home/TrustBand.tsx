@@ -66,7 +66,8 @@ export default function TrustBand() {
           </p>
           <p className="trustband-headline">
             최신 기술 활용<span className="hide-mobile"> · </span>
-            <br className="br-mobile" />
+            {/* 모바일: 가운뎃점을 두 줄 사이 제 줄에 놓는다 */}
+            <span className="trustband-headline__dot" aria-hidden="true">·</span>
             희망 오픈일 맞춤
           </p>
           <p className="body trustband-sub">
@@ -93,8 +94,9 @@ export default function TrustBand() {
         .laurel-wrap { flex-shrink: 0; display: block; }
         .laurel {
           display: block;
-          width: clamp(1.6rem, 4vw, 2.5rem);
-          height: clamp(4.5rem, 11vw, 7rem);
+          /* SVG 는 32:80 비율을 유지하므로 세로를 키우려면 가로도 함께 키운다 */
+          width: clamp(1.9rem, 4.7vw, 3rem);
+          height: clamp(5.4rem, 12.9vw, 8.2rem);
         }
         .trustband-sub {
           margin: 0.75rem 0 0;
@@ -110,8 +112,8 @@ export default function TrustBand() {
           /* 월계수를 크게. SVG 는 비율(32:80)을 유지하며 맞춰지므로
              세로만 늘리면 가로에 걸려 안 커진다 — 가로·세로를 2.5:1 로 함께 키운다 */
           .laurel {
-            width: clamp(2.13rem, 8.7vw, 2.5rem);
-            height: clamp(5.32rem, 21.75vw, 6.25rem);
+            width: clamp(2.5rem, 10.2vw, 2.95rem);
+            height: clamp(6.25rem, 25.5vw, 7.4rem);
           }
         }
         /* 아주 좁은 화면(SE 등)은 월계수가 커진 만큼 글씨를 한 단계 더 줄인다 */
@@ -125,6 +127,14 @@ export default function TrustBand() {
           line-height: 1.4;
           color: var(--text);
           word-break: keep-all;
+        }
+        /* 모바일 전용 가운뎃점 줄 — PC 에선 숨긴다 */
+        .trustband-headline__dot { display: none; }
+        @media (max-width: 768px) {
+          .trustband-headline__dot {
+            display: block;
+            line-height: 0.9;
+          }
         }
       `}</style>
     </section>
