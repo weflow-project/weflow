@@ -107,6 +107,26 @@ export default function HeroBanner() {
         }}
       />
 
+      {/* 고객만족도 1위 엠블럼 — 원형 월계수 리스 + 보석 왕관, 히어로 좌상단 고정 */}
+      <span className="hero-award" aria-hidden="true">
+        <AwardWreath />
+        <svg viewBox="0 0 32 26" className="hero-award__crown">
+          {/* 본체 — 세 봉우리 */}
+          <path d="M4 18 L7 7.5 L12 12.5 L16 4.5 L20 12.5 L25 7.5 L28 18 Z" fill="currentColor" />
+          {/* 꼭짓점 보석 — 가운데가 가장 크고 밝게 */}
+          <circle cx="7" cy="5.6" r="1.7" fill="#edd9ae" />
+          <circle cx="16" cy="2.6" r="2" fill="#f5e6c4" />
+          <circle cx="25" cy="5.6" r="1.7" fill="#edd9ae" />
+          {/* 밑단 밴드 + 박힌 보석 */}
+          <rect x="3.4" y="19.6" width="25.2" height="3.4" rx="1.7" fill="currentColor" />
+          <circle cx="9.5" cy="21.3" r="1" fill="#6d5427" />
+          <circle cx="16" cy="21.3" r="1" fill="#6d5427" />
+          <circle cx="22.5" cy="21.3" r="1" fill="#6d5427" />
+        </svg>
+        <span className="hero-award__label">고객만족도</span>
+        <strong className="hero-award__rank">1위</strong>
+      </span>
+
       <div
         className="hero-inner"
         style={{
@@ -141,30 +161,8 @@ export default function HeroBanner() {
               fontSize: "clamp(1.4rem, 4.8vw, 2.9rem)",
             }}
           >
-            {/* 첫 줄을 인라인 박스로 감싸 엠블럼을 '내' 바로 왼쪽에 앵커한다 */}
-            <span className="hero-line1-box">
-              {/* 고객만족도 1위 엠블럼 — 원형 월계수 리스 + 보석 왕관 */}
-              <span className="hero-award" aria-hidden="true">
-                <AwardWreath />
-                <svg viewBox="0 0 32 26" className="hero-award__crown">
-                  {/* 본체 — 세 봉우리 */}
-                  <path d="M4 18 L7 7.5 L12 12.5 L16 4.5 L20 12.5 L25 7.5 L28 18 Z" fill="currentColor" />
-                  {/* 꼭짓점 보석 — 가운데가 가장 크고 밝게 */}
-                  <circle cx="7" cy="5.6" r="1.7" fill="#edd9ae" />
-                  <circle cx="16" cy="2.6" r="2" fill="#f5e6c4" />
-                  <circle cx="25" cy="5.6" r="1.7" fill="#edd9ae" />
-                  {/* 밑단 밴드 + 박힌 보석 */}
-                  <rect x="3.4" y="19.6" width="25.2" height="3.4" rx="1.7" fill="currentColor" />
-                  <circle cx="9.5" cy="21.3" r="1" fill="#6d5427" />
-                  <circle cx="16" cy="21.3" r="1" fill="#6d5427" />
-                  <circle cx="22.5" cy="21.3" r="1" fill="#6d5427" />
-                </svg>
-                <span className="hero-award__label">고객만족도</span>
-                <strong className="hero-award__rank">1위</strong>
-              </span>
-              {/* 유입 키워드가 있으면 클라이언트에서 맞춤 문구로 교체 (예: "인테리어 홈페이지 제작") */}
-              <HeroLine1 fallback={LINE1} />
-            </span>
+            {/* 유입 키워드가 있으면 클라이언트에서 맞춤 문구로 교체 (예: "인테리어 홈페이지 제작") */}
+            <HeroLine1 fallback={LINE1} />
           </span>
           <span
             className="hero-line2"
@@ -291,15 +289,13 @@ export default function HeroBanner() {
           padding: clamp(1rem, 3vh, 2.5rem) 1.25rem;
         }
 
-        /* 고객만족도 1위 엠블럼 — 타이틀 첫 줄('내') 바로 왼쪽에 붙어
-           글자 크기가 달라져도 같이 따라간다. 원형 리스는 배경으로 깔고
-           왕관·문구를 그 중앙에 쌓는다 */
-        .hero-line1-box { position: relative; display: inline-block; }
+        /* 고객만족도 1위 엠블럼 — 히어로 좌상단 고정, 다른 요소보다 맨 앞.
+           원형 리스는 배경으로 깔고 왕관·문구를 그 중앙에 쌓는다 */
         .hero-award {
           position: absolute;
-          right: calc(100% + 14px);
-          top: calc(50% - 4px); /* 옆 글자 라인에 맞춰 살짝 위로 */
-          transform: translateY(-50%);
+          top: clamp(0.9rem, 3vh, 1.8rem);
+          left: clamp(1.2rem, 3vw, 2.6rem);
+          z-index: 5;
           width: 108px;
           height: 108px;
           display: flex;
@@ -340,12 +336,13 @@ export default function HeroBanner() {
           line-height: 1;
           color: #e3c99e;
         }
-        /* 모바일 — 작게 줄여 첫 줄 왼쪽에 유지 */
+        /* 모바일 — 작게 줄여 좌상단 유지, 맨 앞(z-index 5)이라 안 가려진다 */
         @media (max-width: 768px) {
           .hero-award {
-            width: 64px;
-            height: 64px;
-            right: calc(100% + 6px);
+            width: 68px;
+            height: 68px;
+            top: 0.6rem;
+            left: 0.8rem;
           }
           .hero-award__crown { width: 16px; height: 13px; top: 0; }
           .hero-award__label { margin-top: 3px; font-size: 0.48rem; }
