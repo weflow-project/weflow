@@ -20,10 +20,12 @@ export type TrustStat = {
   highlight?: boolean
   /** 값 위에 별점(★★★★★) 한 줄 */
   stars?: boolean
+  /** 숫자 뒤에 붙는 문구 — 카운트업과 같은 속도로 글자가 드러난다 (예: '할인') */
+  tail?: string
 }
 
 export const TRUST: TrustStat[] = [
-  { end: 50, suffix: '%', label: '특별 프로모션 할인', animate: true },
+  { end: 50, suffix: '%', tail: '할인', label: '특별 프로모션', animate: true },
   { end: 100, suffix: '%', label: 'PC·모바일 최적화', animate: true },
   { end: '희망 오픈일 맞춤', suffix: '', label: '제작 시기', animate: true, highlight: true, stars: true },
   { end: '최신 기술 활용', suffix: '', label: '위플로우를 선택해야 하는 이유', animate: true, highlight: true, stars: true },

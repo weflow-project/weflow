@@ -3,6 +3,24 @@
 // 월계수 잎 금장 — 사이트 파랑 대신 이 장식에만 쓰는 포인트 골드.
 const GOLD = '#b8976b'
 
+// 헤드라인 글자를 한 자씩 감싼다 — 광택·물결 애니메이션이 글자 순서대로
+// (왼쪽 → 오른쪽) 지나가도록 자 인덱스만큼 지연을 준다.
+function WaveChars({ text, start = 0 }: { text: string; start?: number }) {
+  return (
+    <>
+      {Array.from(text).map((ch, i) => (
+        <span
+          key={i}
+          className="tb-ch"
+          style={{ animationDelay: `${((start + i) * 0.09).toFixed(2)}s, ${((start + i) * 0.09).toFixed(2)}s` }}
+        >
+          {ch === ' ' ? ' ' : ch}
+        </span>
+      ))}
+    </>
+  )
+}
+
 // 스타일라이즈드 월계수 가지 (줄기 + 잎). flip 으로 좌우 대칭.
 const LEAVES: [number, number, number][] = [
   [11, 66, -40], [24, 60, 30], [9, 52, -45], [22, 45, 25],
@@ -65,9 +83,10 @@ export default function TrustBand() {
             수많은 고객이 선택한 WEFLOW_위플로우
           </p>
           <p className="trustband-headline">
-            최신 기술 활용<span className="hide-mobile"> · </span>
+            <WaveChars text="최신 기술 활용" />
+            <span className="hide-mobile"><WaveChars text=" · " start={7} /></span>
             <br className="br-mobile" />
-            희망 오픈일 맞춤
+            <WaveChars text="희망 오픈일 맞춤" start={10} />
           </p>
           <p className="body trustband-sub">
             고객의 브랜드를 가장 효과적으로 완성합니다
@@ -122,10 +141,39 @@ export default function TrustBand() {
         .trustband-headline {
           margin: 0.7rem 0 0;
           font-size: clamp(1.15rem, 3.6vw, 1.9rem);
-          font-weight: 700;
+          font-weight: 800;
           line-height: 1.4;
-          color: var(--text);
           word-break: keep-all;
+          color: #c9a262; /* 클립 미지원 브라우저 대비 기본 금색 */
+          filter: drop-shadow(0 1px 8px rgba(201, 162, 98, 0.3));
+        }
+        /* 글자 하나하나 — 금장 그라데이션 + 광택 훑기 + 물결.
+           두 애니메이션이 같은 주기(3.5s)·같은 글자별 지연을 쓰므로
+           밝은 광택 플래시와 물결 마루가 함께 왼쪽 → 오른쪽으로 흐른다 */
+        .tb-ch {
+          display: inline-block;
+          background: linear-gradient(115deg, #b8976b 0%, #c9a262 38%, #fff6da 50%, #c9a262 62%, #b8976b 100%);
+          background-size: 250% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          /* 광택과 물결을 같은 주기로 — 주기가 다르면 위상이 밀려 어긋나 보인다 */
+          animation:
+            tbSheen 2.8s linear infinite,
+            tbWave 2.8s ease-in-out infinite;
+        }
+        /* 배경 위치가 줄어들수록 광택 띠는 왼쪽 → 오른쪽으로 이동한다
+           (타일 양 끝 색이 같아 반복 이음새 없음) */
+        @keyframes tbSheen {
+          from { background-position: 250% center; }
+          to { background-position: 0% center; }
+        }
+        @keyframes tbWave {
+          0%, 55%, 100% { transform: translateY(0); }
+          27% { transform: translateY(-0.16em); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .tb-ch { animation: none; }
         }
       `}</style>
     </section>

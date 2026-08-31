@@ -12,6 +12,7 @@ import Reveal from '@/components/Reveal'
 import CountUp from '@/components/CountUp'
 import CharReveal from '@/components/CharReveal'
 import LiveInquiries from './LiveInquiries'
+import TrustTailStamp from './TrustTailStamp'
 import { STRENGTH, TRUST, type StrengthIconName } from '@/data/solution'
 
 // 모바일에서 색 부각 칸을 앞으로 끌어올린 시각 순서 (배열 순서는 PC 배치 그대로 둔다)
@@ -92,7 +93,12 @@ export default function SolutionSection() {
                 )}
                 {/* 숫자 + animate 는 카운트업, 문자 + animate 는 같은 속도의 글자 드러내기 */}
                 {t.animate && typeof t.end === 'number' ? (
-                  <CountUp end={t.end} suffix={t.suffix} format={t.format} />
+                  <>
+                    {/* 스탬프 딸린 칸은 숫자를 빨리(0.7s) 끝내고 남은 시간에 테두리·글자를
+                        이어 그려, 전체가 옆 100% 카운트업(1.6s)과 같이 끝난다 */}
+                    <CountUp end={t.end} suffix={t.suffix} format={t.format} duration={t.tail ? 700 : undefined} />
+                    {t.tail && <TrustTailStamp text={t.tail} />}
+                  </>
                 ) : t.animate && t.end === '★★★★★' ? (
                   // 별점 값 — 하이라이트 없이 노란 별만
                   <CharReveal text={t.end + t.suffix} />
@@ -213,6 +219,43 @@ export default function SolutionSection() {
           letter-spacing: 0.12em;
           color: #ffd166;
         }
+        /* 숫자 뒤 스탬프('할인') — 노란 쿠폰 도장. 테두리는 SVG 선으로 먼저 그려지고
+           (dashoffset 100→0), 글자는 그 뒤에 한 자씩 나타난다 */
+        .trust-tail {
+          position: relative;
+          display: inline-block;
+          margin-left: 0.22em; /* 숫자와의 간격 — 공백 문자 대신 여백으로 좁게 */
+          font-size: 0.5em;
+          font-weight: 700;
+          padding: 0.1em 0.32em;
+          color: #ffd166; /* 별점과 같은 노랑 */
+          vertical-align: 0.2em;
+        }
+        .trust-tail__box {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        .trust-tail__box rect {
+          x: 1px;
+          y: 1px;
+          width: calc(100% - 2px);
+          height: calc(100% - 2px);
+          rx: 5px;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 2;
+          /* 102 로 살짝 겹치게 — 정확히 100 이면 끝점이 시작점에 닿지 못해 이음새가 보인다 */
+          stroke-dasharray: 102;
+          stroke-dashoffset: 102;
+          /* 숫자(0.7s)가 끝난 뒤 그려지기 시작 → 1.25s 에 완성 */
+          transition: stroke-dashoffset 0.55s ease-in-out 0.7s;
+        }
+        .trust-tail--on .trust-tail__box rect { stroke-dashoffset: 0; }
+        .trust-tail__ch { opacity: 0; transition: opacity 0.25s; }
+        .trust-tail--on .trust-tail__ch { opacity: 1; }
         /* 형광펜 밑줄 — 전역 tilt-hl 과 같은 색·두께, 사선 없이 직선 */
         .trust-hl { position: relative; z-index: 0; display: inline-block; }
         .trust-hl::before {
