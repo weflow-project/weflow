@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import CountUp from '@/components/CountUp'
+import CharReveal from '@/components/CharReveal'
 import LiveInquiries from './LiveInquiries'
 import { STRENGTH, TRUST, type StrengthIconName } from '@/data/solution'
 
@@ -83,9 +84,11 @@ export default function SolutionSection() {
             <li key={t.label} className={`trust-cell${t.highlight ? ' trust-cell--hl' : ''}${mpos < 4 ? ' trust-cell--mtop' : ''}${mpos % 2 === 1 ? ' trust-cell--mleft' : ''}`}>
               {/* 문자 값(희망 오픈일·별점)은 숫자보다 길어서 한 단계 작은 크기로 */}
               <span className={`trust-num${typeof t.end === 'string' ? ' trust-num--text' : ''}`}>
-                {/* 숫자 + animate 일 때만 카운트업, 'N' 이나 정적 값은 그대로 */}
+                {/* 숫자 + animate 는 카운트업, 문자 + animate 는 같은 속도의 글자 드러내기 */}
                 {t.animate && typeof t.end === 'number' ? (
                   <CountUp end={t.end} suffix={t.suffix} format={t.format} />
+                ) : t.animate && typeof t.end === 'string' ? (
+                  <CharReveal text={t.end + t.suffix} />
                 ) : (
                   <>
                     {typeof t.end === 'number' && t.format
