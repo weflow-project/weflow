@@ -339,14 +339,14 @@ export default function HeroBanner() {
         /* 모바일 — 작게 줄여 좌상단 유지, 맨 앞(z-index 5)이라 안 가려진다 */
         @media (max-width: 768px) {
           .hero-award {
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             top: 0.6rem;
             left: 0.8rem;
           }
-          .hero-award__crown { width: 12px; height: 9.7px; top: 0; }
-          .hero-award__label { margin-top: 2px; font-size: 0.37rem; }
-          .hero-award__rank { font-size: 0.73rem; }
+          .hero-award__crown { width: 13px; height: 10.5px; top: 0; }
+          .hero-award__label { margin-top: 2px; font-size: 0.4rem; }
+          .hero-award__rank { font-size: 0.78rem; }
         }
 
         /* 아이브로우 배지 — 데스크탑은 가로 배치(신규 칩이 오른쪽), 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
