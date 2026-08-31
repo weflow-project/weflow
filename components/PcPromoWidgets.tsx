@@ -8,7 +8,7 @@ const TRUST_ROWS: { label: string; img?: string }[] = [
   { label: 'KPSC', img: '/images/trust/emblem-kpsc.png' },
   { label: '새두레', img: '/images/trust/emblem-saedure.png' },
   { label: '커튼장인 아뜰리에', img: '/images/trust/emblem-curtainjangin.png' },
-  { label: 'H렌트카', img: '/images/trust/emblem-hrentcar.svg' },
+  { label: 'H 렌트카', img: '/images/trust/emblem-hrentcar.svg' },
   { label: '특장맨', img: '/images/trust/emblem-teukjangman.svg' },
 ]
 
