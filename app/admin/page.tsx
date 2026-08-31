@@ -483,6 +483,24 @@ function RequestTable({
                       }}
                     >
                       {row.name}
+                      {/* 예약 폼(/booking)으로 들어온 신청은 칩으로 구분 */}
+                      {"source" in row && row.source === "booking" && (
+                        <span
+                          style={{
+                            marginLeft: "0.5rem",
+                            padding: "0.15rem 0.5rem",
+                            borderRadius: "6px",
+                            fontSize: "0.72rem",
+                            fontWeight: 600,
+                            background: "rgba(139, 92, 246, 0.15)",
+                            color: "#8b5cf6",
+                            whiteSpace: "nowrap",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          예약 신청
+                        </span>
+                      )}
                       {/* 본 사이트가 아닌 곳(랜딩페이지 등)에서 온 접수는 출처 배지 */}
                       {row.site && row.site !== "weflow" && (
                         <span

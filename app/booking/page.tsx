@@ -94,15 +94,17 @@ export default function BookingPage() {
     const date = `${year}-${pad(month + 1)}-${pad(selectedDay)}`
     const time = customTime || selectedSlot
     try {
-      // 유입 경로(광고 키워드·검색·리퍼러)를 메모에 붙여 관리자에서 예약별로 보이게 한다
+      // 예약도 문의로 저장한다 — 관리자 문의 관리 한곳에서 '예약 신청' 칩으로 구분해 보이게.
+      // 희망 일시는 메모 첫 줄, 유입 경로(광고 키워드·검색·리퍼러)는 마지막 줄에 붙인다
       const attr = attributionLine()
-      const res = await fetch('/api/bookings', {
+      const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name, phone: form.phone, type: form.type, industry: form.industry,
-          note: [form.note, attr && `유입: ${attr}`].filter(Boolean).join('\n'),
-          date, time,
+          note: [`희망 일시: ${date} ${time}`, form.note, attr && `유입: ${attr}`].filter(Boolean).join('\n'),
+          agree: true,
+          source: 'booking',
         }),
       })
       if (!res.ok) throw new Error('request failed')
