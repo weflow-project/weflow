@@ -130,7 +130,7 @@ export default function Navbar() {
           {/* 데스크탑 상담 CTA — 문구가 위로 흐르는 마퀴 + 그라데이션 애니메이션 */}
           <Link
             href="/diagnosis"
-            aria-label="지금 바로 상담 받기"
+            aria-label="지금 바로 무료 상담 받기"
             className="btn-primary cta-marquee cta-gradient hide-mobile"
             style={{
               width: "132px",
@@ -140,7 +140,7 @@ export default function Navbar() {
             }}
           >
             <span className="cta-marquee-track">
-              {["지금 바로 상담 받기", "지금 바로 상담 받기", "지금 바로 상담 받기", "지금 바로 상담 받기"].map((t, i) => (
+              {["지금 바로 무료 상담 받기", "지금 바로 무료 상담 받기", "지금 바로 무료 상담 받기", "지금 바로 무료 상담 받기"].map((t, i) => (
                 <span key={i} className="cta-marquee-item">
                   {t}
                 </span>

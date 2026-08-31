@@ -16,10 +16,9 @@ const POP_HIDE_KEY = 'weflow_pc_promo_hide' // 닫으면 이번 탭(세션) 동�
 const SIDE_HIDE_KEY = 'weflow_pc_side_hide' // 신뢰 카드도 닫으면 이번 탭 동안 안 뜸
 
 /**
- * 플로팅 두 개 —
- * · 우측 상단: 신뢰 항목 세로 카드 + "빠른 상담 문의" 버튼 (PC 전용, 항상 표시)
+ * PC 전용 플로팅 두 개 — 모바일에선 CSS 로 통째로 숨긴다.
+ * · 우측 상단: 신뢰 항목 세로 카드 + "빠른 상담 문의" 버튼 (항상 표시)
  * · 우측 하단: "30초만에 …" 상담 유도 팝업 (X/닫기 → 이번 탭 동안 안 뜸)
- *   PC 는 1.2초 뒤, 모바일은 스크롤을 반 화면쯤 내리면 등장한다.
  * 우측 하단 원형 버튼(FloatingButtons)과 겹치지 않게 팝업은 그 왼쪽에 둔다.
  */
 export default function PcPromoWidgets() {
@@ -32,16 +31,6 @@ export default function PcPromoWidgets() {
       if (sessionStorage.getItem(POP_HIDE_KEY)) return
     } catch {
       setSideOpen(true) /* 접근 불가면 그냥 노출 */
-    }
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      const onScroll = () => {
-        if (window.scrollY > window.innerHeight * 0.5) {
-          setPopOpen(true)
-          window.removeEventListener('scroll', onScroll)
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true })
-      return () => window.removeEventListener('scroll', onScroll)
     }
     const t = setTimeout(() => setPopOpen(true), 1200)
     return () => clearTimeout(t)
@@ -112,7 +101,9 @@ export default function PcPromoWidgets() {
         /* ── 우측 상단 신뢰 카드 ── */
         .pc-side-widget {
           position: fixed;
-          top: 210px;
+          /* 화면 세로 중앙 — px 고정(210px)은 모니터가 클수록 위로 붙어 보였다 */
+          top: 50%;
+          transform: translateY(-50%);
           right: 16px;
           z-index: 150;
           width: 148px;
@@ -255,17 +246,9 @@ export default function PcPromoWidgets() {
           cursor: pointer;
         }
 
-        /* 태블릿 이하에선 둘 다 숨김 */
+        /* 모바일에선 둘 다 숨김 — PC 전용 */
         @media (max-width: 1023px) {
           .pc-side-widget, .pc-promo-pop { display: none; }
-        }
-        /* 모바일에선 팝업만 되살린다 — 하단 두 칸 바 바로 위, 오른쪽에 붙인다 */
-        @media (max-width: 768px) {
-          .pc-promo-pop {
-            display: block;
-            right: 12px;
-            bottom: calc(68px + max(0px, calc(env(safe-area-inset-bottom) - 0.75rem)));
-          }
         }
       `}</style>
     </>
