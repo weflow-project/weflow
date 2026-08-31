@@ -7,7 +7,7 @@ import { BadgeCheck, FileText } from 'lucide-react'
 const TRUST_ROWS: { label: string; img?: string }[] = [
   { label: 'KPSC', img: '/images/trust/emblem-kpsc.png' },
   { label: '새두레', img: '/images/trust/emblem-saedure.png' },
-  { label: '커튼장인', img: '/images/trust/emblem-curtainjangin.png' },
+  { label: '커튼장인 아뜰리에', img: '/images/trust/emblem-curtainjangin.png' },
   { label: 'H렌트카', img: '/images/trust/emblem-hrentcar.svg' },
   { label: '특장맨', img: '/images/trust/emblem-teukjangman.svg' },
 ]
@@ -16,9 +16,10 @@ const POP_HIDE_KEY = 'weflow_pc_promo_hide' // 닫으면 이번 탭(세션) 동�
 const SIDE_HIDE_KEY = 'weflow_pc_side_hide' // 신뢰 카드도 닫으면 이번 탭 동안 안 뜸
 
 /**
- * PC 전용 플로팅 두 개 — 모바일에선 CSS 로 통째로 숨긴다.
- * · 우측 상단: 신뢰 항목 세로 카드 + "빠른 상담 문의" 버튼 (항상 표시)
+ * 플로팅 두 개 —
+ * · 우측 상단: 신뢰 항목 세로 카드 + "빠른 상담 문의" 버튼 (PC 전용, 항상 표시)
  * · 우측 하단: "30초만에 …" 상담 유도 팝업 (X/닫기 → 이번 탭 동안 안 뜸)
+ *   PC 는 1.2초 뒤, 모바일은 스크롤을 반 화면쯤 내리면 등장한다.
  * 우측 하단 원형 버튼(FloatingButtons)과 겹치지 않게 팝업은 그 왼쪽에 둔다.
  */
 export default function PcPromoWidgets() {
@@ -31,6 +32,16 @@ export default function PcPromoWidgets() {
       if (sessionStorage.getItem(POP_HIDE_KEY)) return
     } catch {
       setSideOpen(true) /* 접근 불가면 그냥 노출 */
+    }
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const onScroll = () => {
+        if (window.scrollY > window.innerHeight * 0.5) {
+          setPopOpen(true)
+          window.removeEventListener('scroll', onScroll)
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true })
+      return () => window.removeEventListener('scroll', onScroll)
     }
     const t = setTimeout(() => setPopOpen(true), 1200)
     return () => clearTimeout(t)
@@ -70,7 +81,7 @@ export default function PcPromoWidgets() {
           ))}
         </div>
         <Link href="/diagnosis" className="pc-side-widget__btn">
-          <FileText size={16} strokeWidth={2} />
+          <FileText size={14} strokeWidth={2} />
           빠른 견적 문의
         </Link>
       </div>
@@ -101,20 +112,20 @@ export default function PcPromoWidgets() {
         /* ── 우측 상단 신뢰 카드 ── */
         .pc-side-widget {
           position: fixed;
-          top: 170px;
+          top: 210px;
           right: 16px;
           z-index: 150;
-          width: 186px;
+          width: 148px;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 8px;
         }
         .pc-side-widget__x {
           position: absolute;
-          top: -12px;
-          right: -10px;
-          width: 26px;
-          height: 26px;
+          top: -10px;
+          right: -8px;
+          width: 22px;
+          height: 22px;
           border-radius: 50%;
           background: var(--surface);
           border: 1.5px solid var(--border);
@@ -130,24 +141,24 @@ export default function PcPromoWidgets() {
         .pc-side-widget__card {
           background: var(--surface);
           border: 1.5px solid var(--border);
-          border-radius: 14px;
-          padding: 0.4rem 0.9rem;
+          border-radius: 12px;
+          padding: 0.3rem 0.7rem;
           box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
         }
         .pc-side-widget__row {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.62rem 0;
-          font-size: 0.83rem;
+          gap: 0.4rem;
+          padding: 0.45rem 0;
+          font-size: 0.75rem;
           font-weight: 600;
           color: var(--text);
           word-break: keep-all;
         }
         .pc-side-widget__row + .pc-side-widget__row { border-top: 1px solid var(--border); }
         .pc-side-widget__thumb {
-          width: 19px;
-          height: 19px;
+          width: 16px;
+          height: 16px;
           object-fit: contain;
           flex-shrink: 0;
         }
@@ -155,12 +166,12 @@ export default function PcPromoWidgets() {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.45rem;
+          gap: 0.35rem;
           background: var(--accent);
           color: var(--on-accent);
-          border-radius: 12px;
-          padding: 0.85rem 0;
-          font-size: 0.92rem;
+          border-radius: 10px;
+          padding: 0.65rem 0;
+          font-size: 0.82rem;
           font-weight: 700;
           text-decoration: none;
           box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
@@ -244,9 +255,17 @@ export default function PcPromoWidgets() {
           cursor: pointer;
         }
 
-        /* 모바일에선 둘 다 숨김 — PC 전용 */
+        /* 태블릿 이하에선 둘 다 숨김 */
         @media (max-width: 1023px) {
           .pc-side-widget, .pc-promo-pop { display: none; }
+        }
+        /* 모바일에선 팝업만 되살린다 — 하단 두 칸 바 바로 위, 오른쪽에 붙인다 */
+        @media (max-width: 768px) {
+          .pc-promo-pop {
+            display: block;
+            right: 12px;
+            bottom: calc(68px + max(0px, calc(env(safe-area-inset-bottom) - 0.75rem)));
+          }
         }
       `}</style>
     </>

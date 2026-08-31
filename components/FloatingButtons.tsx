@@ -5,7 +5,7 @@ import { Phone, ClipboardCheck, CalendarCheck } from 'lucide-react'
 
 // PC 우측 세로 플로팅 — 전화·상담. bg/fg는 버튼 색.
 const ITEMS = [
-  { href: '/diagnosis', label: '3초 상담', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
+  { href: '/diagnosis', label: '무료 상담', icon: ClipboardCheck, bg: '#7c3aed', fg: '#fff', wiggle: true },
   { href: 'tel:010-2971-7280', label: '24시간 상담', icon: Phone, bg: '#2563eb', fg: '#fff', tel: true },
 ]
 
@@ -48,14 +48,14 @@ export default function FloatingButtons() {
 
       {/* 모바일 — 화면 맨 아래 두 칸 바 (PC 에선 CSS 로 숨김) */}
       <div className="mobile-cta-bar">
-        <Link href="/diagnosis" className="mobile-cta-bar__btn mobile-cta-bar__btn--form">
-          <CalendarCheck size={20} strokeWidth={1.8} />
-          무료상담신청
-        </Link>
         <a href="tel:010-2971-7280" className="mobile-cta-bar__btn mobile-cta-bar__btn--call">
           <Phone size={20} strokeWidth={1.8} />
           바로전화
         </a>
+        <Link href="/diagnosis" className="mobile-cta-bar__btn mobile-cta-bar__btn--form">
+          <CalendarCheck size={20} strokeWidth={1.8} />
+          무료상담신청
+        </Link>
       </div>
     </>
   )

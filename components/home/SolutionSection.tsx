@@ -81,14 +81,24 @@ export default function SolutionSection() {
             // 구분선은 시각 위치 기준이라 order 로 섞인 뒤의 자리를 미리 계산해 클래스를 단다.
             const mpos = MOBILE_SEQ.indexOf(i)
             return (
-            <li key={t.label} className={`trust-cell${t.highlight ? ' trust-cell--hl' : ''}${mpos < 4 ? ' trust-cell--mtop' : ''}${mpos % 2 === 1 ? ' trust-cell--mleft' : ''}`}>
-              {/* 문자 값(희망 오픈일·별점)은 숫자보다 길어서 한 단계 작은 크기로 */}
-              <span className={`trust-num${typeof t.end === 'string' ? ' trust-num--text' : ''}`}>
+            <li key={t.label || String(t.end)} className={`trust-cell${t.highlight ? ' trust-cell--hl' : ''}${mpos < 4 ? ' trust-cell--mtop' : ''}${mpos % 2 === 1 ? ' trust-cell--mleft' : ''}`}>
+              {/* 문자 값(희망 오픈일 등)은 숫자보다 길어서 한 단계 작은 크기로, 별점 값은 더 작게.
+                  별 한 줄은 값 상자 안(문구 바로 위)에 넣어 다른 칸과 값·라벨 라인이 맞는다 */}
+              <span className={`trust-num${typeof t.end === 'string' ? ' trust-num--text' : ''}${t.end === '★★★★★' ? ' trust-num--stars' : ''}`}>
+                {t.stars && (
+                  <span className="trust-stars" aria-hidden="true">
+                    <CharReveal text="★★★★★" />
+                  </span>
+                )}
                 {/* 숫자 + animate 는 카운트업, 문자 + animate 는 같은 속도의 글자 드러내기 */}
                 {t.animate && typeof t.end === 'number' ? (
                   <CountUp end={t.end} suffix={t.suffix} format={t.format} />
-                ) : t.animate && typeof t.end === 'string' ? (
+                ) : t.animate && t.end === '★★★★★' ? (
+                  // 별점 값 — 하이라이트 없이 노란 별만
                   <CharReveal text={t.end + t.suffix} />
+                ) : t.animate && typeof t.end === 'string' ? (
+                  // 형광펜 밑줄 — 사이트 공통 하이라이트의 직선 버전
+                  <span className="trust-hl"><CharReveal text={t.end + t.suffix} /></span>
                 ) : (
                   <>
                     {typeof t.end === 'number' && t.format
@@ -98,7 +108,7 @@ export default function SolutionSection() {
                   </>
                 )}
               </span>
-              <span className="trust-label">{t.label}</span>
+              {t.label && <span className="trust-label">{t.label}</span>}
             </li>
             )
           })}
@@ -176,16 +186,52 @@ export default function SolutionSection() {
           letter-spacing: -0.02em;
           color: var(--accent);
         }
+        /* 문자 값 — 제목 굵기, 항상 한 줄.
+           값 상자를 숫자 글자 높이(폰트 × line-height 1.1)만큼 잡고 바닥 정렬해서
+           옆 % 숫자와 아랫라인이 맞고, 별은 그 상자 안 문구 바로 위에 붙는다 */
         .trust-num--text {
-          font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-          line-height: 1.3;
-          word-break: keep-all;
-          /* 숫자 칸의 글자 높이(폰트 크기 × line-height 1.1)와 같게 맞춰
-             문자 칸도 값·라벨이 다른 칸과 같은 라인에 놓인다 */
+          /* 옆 % 숫자에 최대한 가깝게 — 단 '희망 오픈일 맞춤'이 칸 안에서 한 줄로 들어가는 크기까지만.
+             값 상자를 % 숫자 글자 높이만큼 잡고 "세로 중앙" 정렬 — % 숫자와 같은 중앙 라인에 놓인다 */
+          font-size: clamp(1.3rem, 3.4vw, 1.6rem);
+          font-weight: 700;
+          letter-spacing: normal;
+          line-height: 1.2;
+          white-space: nowrap;
           min-height: calc(clamp(1.75rem, 4.5vw, 2.5rem) * 1.1);
+          position: relative;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
+        }
+        /* 별점 값 칸(최신 기술 활용) — 문구 값과 같은 크기의 노란 별.
+           .trust-cell--hl .trust-num 의 흰색보다 우선해야 하므로 셀 클래스까지 붙인다 */
+        .trust-num--stars,
+        .trust-cell--hl .trust-num--stars {
+          letter-spacing: 0.12em;
+          color: #ffd166;
+        }
+        /* 별점 — 문구 위에 겹쳐 띄운다(레이아웃 밖) — 문구가 % 숫자 중앙 라인을 지키게 */
+        .trust-stars {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: calc(50% + 1.25em);
+          font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+          letter-spacing: 0.12em;
+          color: #ffd166;
+        }
+        /* 형광펜 밑줄 — 전역 tilt-hl 과 같은 색·두께, 사선 없이 직선 */
+        .trust-hl { position: relative; z-index: 0; display: inline-block; }
+        .trust-hl::before {
+          content: '';
+          position: absolute;
+          z-index: -1;
+          left: -4px;
+          right: -4px;
+          bottom: 0.06em;
+          height: 42%;
+          background: rgba(245, 179, 1, 0.3);
         }
         .trust-label {
           margin-top: 0.5rem;

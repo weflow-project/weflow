@@ -274,8 +274,8 @@ export default function HeroBanner() {
             min-height: 0;
             /* 첫 화면 하단이 신뢰 밴드 첫 줄("N년차 홈페이지 제작") 직후에서 끊기도록
                위아래를 조금 더 벌린다 — 둘째 줄이 반쯤 걸쳐 보이는 것보다 낫다 */
-            padding-top: calc(1.78rem + 0.5cm);
-            padding-bottom: calc(1.78rem + 0.5cm);
+            padding-top: calc(1.78rem + 0.75cm);
+            padding-bottom: calc(1.78rem + 0.75cm);
           }
           /* 칩·타이틀에 걸려 있던 translateY 보정은 걷어냈다 — 타이틀만 내려가 있으면
              위 간격은 그만큼 벌어지고 아래 간격은 좁아져, CSS 값과 실제가 어긋난다.
