@@ -67,8 +67,6 @@ export default function TrustBand() {
           <p className="trustband-headline">
             최신 기술 활용<span className="hide-mobile"> · </span>
             <br className="br-mobile" />
-            {/* 모바일: 가운뎃점을 줄 차지 없이 두 줄 사이 정중앙에 겹쳐 찍는다 */}
-            <span className="trustband-headline__dot" aria-hidden="true">·</span>
             희망 오픈일 맞춤
           </p>
           <p className="body trustband-sub">
@@ -128,26 +126,6 @@ export default function TrustBand() {
           line-height: 1.4;
           color: var(--text);
           word-break: keep-all;
-        }
-        /* 모바일 전용 가운뎃점 — 줄을 차지하지 않고 두 줄 경계 정중앙에 겹쳐 찍는다.
-           PC 에선 숨긴다 */
-        .trustband-headline__dot { display: none; }
-        @media (max-width: 768px) {
-          .trustband-headline { position: relative; }
-          /* '·' 글리프는 폰트 박스 안에서 치우쳐 있어 CSS 원으로 그린다 —
-             font-size 0 으로 글자를 숨기고 5px 원을 정확히 중앙에 놓는다 */
-          .trustband-headline__dot {
-            display: block;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 3.2px;
-            height: 3.2px;
-            border-radius: 50%;
-            background: currentColor;
-            font-size: 0;
-          }
         }
       `}</style>
     </section>
