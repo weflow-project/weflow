@@ -199,7 +199,7 @@ export default function DiagnosisPage() {
                   <label className="dg-consent__label">
                     <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
                       style={{ width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
-                    <span>개인정보 수집 및 이용에 동의합니다. <span style={{ color: '#fb7185', whiteSpace: 'nowrap' }}>(필수)</span></span>
+                    <span>개인정보 수집 및 이용에 동의합니다. <span style={{ color: '#f55a64', whiteSpace: 'nowrap' }}>(필수)</span></span>
                   </label>
                   <button
                     type="button"
