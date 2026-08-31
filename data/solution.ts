@@ -25,7 +25,7 @@ export type TrustStat = {
 }
 
 export const TRUST: TrustStat[] = [
-  { end: 50, suffix: '%', tail: '할인', label: '특별 프로모션', animate: true },
+  { end: 50, suffix: '%', tail: '할인', label: '특별 프로모션', animate: true, highlight: true, stars: true },
   { end: 100, suffix: '%', label: 'PC·모바일 최적화', animate: true },
   { end: '희망 오픈일 맞춤', suffix: '', label: '제작 시기', animate: true, highlight: true, stars: true },
   { end: '최신 기술 활용', suffix: '', label: '위플로우를 선택해야 하는 이유', animate: true, highlight: true, stars: true },

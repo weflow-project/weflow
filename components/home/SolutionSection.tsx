@@ -95,16 +95,23 @@ export default function SolutionSection() {
                 {t.animate && typeof t.end === 'number' ? (
                   <>
                     {/* 스탬프 딸린 칸은 숫자를 빨리(0.7s) 끝내고 남은 시간에 테두리·글자를
-                        이어 그려, 전체가 옆 100% 카운트업(1.6s)과 같이 끝난다 */}
-                    <CountUp end={t.end} suffix={t.suffix} format={t.format} duration={t.tail ? 700 : undefined} />
-                    {t.tail && <TrustTailStamp text={t.tail} />}
+                        이어 그려, 전체가 옆 100% 카운트업(1.6s)과 같이 끝난다.
+                        값 전체(50% 할인)에는 형광펜 밑줄을 깐다 */}
+                    {t.tail ? (
+                      <span className="trust-hl">
+                        <CountUp end={t.end} suffix={t.suffix} format={t.format} duration={700} />
+                        <TrustTailStamp text={t.tail} />
+                      </span>
+                    ) : (
+                      <CountUp end={t.end} suffix={t.suffix} format={t.format} />
+                    )}
                   </>
                 ) : t.animate && t.end === '★★★★★' ? (
                   // 별점 값 — 하이라이트 없이 노란 별만
                   <CharReveal text={t.end + t.suffix} />
                 ) : t.animate && typeof t.end === 'string' ? (
-                  // 형광펜 밑줄 — 사이트 공통 하이라이트의 직선 버전
-                  <span className="trust-hl"><CharReveal text={t.end + t.suffix} /></span>
+                  // 월계수 밴드 헤드라인과 같은 금장 그라데이션 + 광택
+                  <span className="trust-gold"><CharReveal text={t.end + t.suffix} /></span>
                 ) : (
                   <>
                     {typeof t.end === 'number' && t.format
@@ -186,12 +193,16 @@ export default function SolutionSection() {
         .trust-cell--hl .trust-num { color: #fff; }
         .trust-cell--hl .trust-label { color: rgba(255,255,255,0.8); }
         .trust-num {
+          display: block;
+          text-align: center;
           font-size: clamp(1.75rem, 4.5vw, 2.5rem);
           font-weight: 500;
           line-height: 1.1;
           letter-spacing: -0.02em;
           color: var(--accent);
         }
+        /* 별점 줄 — 숫자 칸(50% 할인)에서도 값 위에 제 줄로 올라간다 */
+        .trust-num .trust-stars { display: block; }
         /* 문자 값 — 제목 굵기, 항상 한 줄.
            별·문구·라벨이 한 덩어리로 칸 세로 중앙에 오도록 흐름 안에 쌓는다 */
         .trust-num--text {
@@ -267,6 +278,24 @@ export default function SolutionSection() {
           bottom: 0.06em;
           height: 42%;
           background: rgba(245, 179, 1, 0.3);
+        }
+        /* 금장 그라데이션 + 좌→우 광택 — 월계수 밴드 헤드라인(TrustBand)과 동일 */
+        .trust-gold {
+          display: inline-block;
+          background: linear-gradient(115deg, #b8976b 0%, #c9a262 38%, #fff6da 50%, #c9a262 62%, #b8976b 100%);
+          background-size: 250% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 1px 8px rgba(201, 162, 98, 0.3));
+          animation: trustGoldSheen 2.8s linear infinite;
+        }
+        @keyframes trustGoldSheen {
+          from { background-position: 250% center; }
+          to { background-position: 0% center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .trust-gold { animation: none; }
         }
         .trust-label {
           margin-top: 0.5rem;
