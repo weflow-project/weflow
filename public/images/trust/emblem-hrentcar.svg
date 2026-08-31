@@ -6,5 +6,5 @@
     </linearGradient>
   </defs>
   <!-- 이탤릭 H — 속도감 있는 컷 -->
-  <path d="M38 14h14l-5.2 26h16L68 14h14L67 82H53l5.4-28h-16L37 82H23z" fill="url(#hg)" transform="skewX(-8) translate(8 0)"/>
+  <path d="M38 14h14l-5.2 26h16L68 14h14L67 82H53l5.4-28h-16L37 82H23z" fill="url(#hg)" transform="skewX(-8) translate(2 0)"/>
 </svg>

@@ -290,6 +290,11 @@ export default function SolutionSection() {
         }
         .strength-card--hl .strength-desc { color: rgba(255,255,255,0.78); }
 
+        /* 모바일 2열: '무료 홈페이지 상담'처럼 긴 제목이 두 줄로 꺾이면
+           옆 카드와 본문 시작 위치가 어긋나 글씨가 내려와 보인다 — 한 줄에 들어가게 줄인다 */
+        @media (max-width: 640px) {
+          .strength-title { font-size: clamp(0.78rem, 3.6vw, 0.95rem); white-space: nowrap; }
+        }
         @media (min-width: 641px) {
           .strength-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
         }

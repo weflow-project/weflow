@@ -160,6 +160,7 @@ export default function LiveInquiries() {
 
       <style>{`
         .live-card {
+          --live-row-h: 2.6rem; /* 행 높이 고정 — 목록 전체 높이(5행)를 못 박아 페이지가 안 움직이게 */
           max-width: 900px;
           margin: 0 auto;
           overflow: hidden;
@@ -214,16 +215,25 @@ export default function LiveInquiries() {
         }
         .live-spin { animation: liveSpin 0.7s linear; }
 
-        .live-list { margin: 0; padding: 0; list-style: none; }
+        /* 목록 높이를 5행으로 고정 — 새 행이 들어오고 나가는 동안(잠시 6행)에도
+           바깥 레이아웃은 그대로라 스크롤 위치가 흔들리지 않는다 */
+        .live-list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          height: calc(var(--live-row-h) * 5);
+          overflow: hidden;
+        }
         .live-row {
           display: flex;
           align-items: center;
           gap: 1.1rem;
-          padding: 0.7rem 1.25rem;
+          height: var(--live-row-h);
+          padding: 0 1.25rem;
           border-top: 1px solid var(--border-subtle);
           font-size: 0.8rem;
         }
-        .live-row--skeleton { height: 2.9rem; }
+        .live-row--skeleton { height: var(--live-row-h); }
         /* 새 행 — 높이가 0에서 펴지며 아래 행들을 밀고 내려오고,
            자리를 잡는 순간 배경이 노랗게 반짝였다가 1초에 걸쳐 원래 색으로 */
         .live-row--in {
@@ -265,18 +275,19 @@ export default function LiveInquiries() {
         .live-age { flex-shrink: 0; font-size: 0.7rem; color: var(--text-muted); }
 
         @media (min-width: 769px) {
+          .live-card { --live-row-h: 3rem; }
           .live-head { padding: 1rem 1.5rem; }
           .live-title { font-size: 1rem; }
           .live-updated { font-size: 0.75rem; }
-          .live-row { gap: 2.25rem; padding: 0.85rem 1.5rem; font-size: 0.875rem; }
+          .live-row { gap: 2.25rem; padding: 0 1.5rem; font-size: 0.875rem; }
           .live-industry { width: 8rem; }
           .live-name { width: 4rem; }
         }
 
         @keyframes liveRowIn {
-          from { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; transform: translateY(-6px); }
+          from { height: 0; opacity: 0; transform: translateY(-6px); }
           60% { opacity: 0.35; }
-          to { max-height: 3.5rem; opacity: 1; transform: none; }
+          to { height: var(--live-row-h); opacity: 1; transform: none; }
         }
         /* 등장 플래시 — 사이트 형광펜 색(245,179,1) 계열의 옅은 노랑 */
         @keyframes liveRowFlash {
@@ -284,8 +295,8 @@ export default function LiveInquiries() {
           to { background-color: transparent; }
         }
         @keyframes liveRowOut {
-          from { max-height: 3.5rem; opacity: 1; }
-          to { max-height: 0; padding-top: 0; padding-bottom: 0; border-top-width: 0; opacity: 0; }
+          from { height: var(--live-row-h); opacity: 1; }
+          to { height: 0; border-top-width: 0; opacity: 0; }
         }
         @keyframes livePing {
           75%, 100% { transform: scale(2); opacity: 0; }

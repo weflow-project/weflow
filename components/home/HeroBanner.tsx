@@ -27,6 +27,48 @@ function Chars({
   );
 }
 
+// 좌상단 '고객만족도 1위' 엠블럼 — 텍스트를 둥글게 감싸는 원형 월계수 리스.
+// 줄기(반지름 40 호)를 따라 잎을 원 바깥·안쪽에 번갈아 ±34° 기울여 깃털처럼 단다
+// (줄기 위에 겹쳐 놓으면 그냥 동그라미로 보인다). 오른쪽 가지는 좌우 반전.
+const WREATH_LEAVES: [number, number, number][] = [
+  [30.5, 92.0, -8], [34.4, 83.9, 60], [17.1, 82.0, 14], [23.8, 75.9, 82],
+  [8.4, 67.7, 35], [16.8, 64.5, 103], [5.5, 51.2, 57], [14.5, 51.4, 125],
+  [8.9, 34.9, 79], [17.2, 38.3, 147], [18.2, 20.9, 100], [24.6, 27.2, 168],
+  [31.9, 11.3, 122], [35.6, 19.6, 190],
+];
+
+function AwardWreath() {
+  const branch = (
+    <>
+      {/* 줄기 — 원둘레(268°→108°)를 따라 도는 얇은 호 */}
+      <path
+        d="M48.6 91.98 A40 40 0 0 1 34.5 15.4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        fill="none"
+      />
+      {WREATH_LEAVES.map(([x, y, a]) => (
+        <ellipse
+          key={`${x}-${y}`}
+          cx={x}
+          cy={y}
+          rx="5.6"
+          ry="2.2"
+          fill="currentColor"
+          transform={`rotate(${a} ${x} ${y})`}
+        />
+      ))}
+    </>
+  );
+  return (
+    <svg viewBox="0 0 100 100" aria-hidden="true" className="hero-award__wreath">
+      {branch}
+      <g transform="scale(-1 1) translate(-100 0)">{branch}</g>
+    </svg>
+  );
+}
+
 // 히어로 타이틀 문구 — 세 토막을 이어 한 문장으로 등장시킨다
 const LINE1 = "내가 진짜 원하는 페이지";
 const LINE2A = "우리만의 플로우를 담다,";
@@ -64,6 +106,26 @@ export default function HeroBanner() {
           zIndex: 1,
         }}
       />
+
+      {/* 좌상단 고객만족도 1위 엠블럼 — 원형 월계수 리스 안에 왕관 + 문구 (PC 전용) */}
+      <div className="hero-award" aria-hidden="true">
+        <AwardWreath />
+        <svg viewBox="0 0 32 26" className="hero-award__crown">
+          {/* 본체 — 세 봉우리 */}
+          <path d="M4 18 L7 7.5 L12 12.5 L16 4.5 L20 12.5 L25 7.5 L28 18 Z" fill="currentColor" />
+          {/* 꼭짓점 보석 — 가운데가 가장 크고 밝게 */}
+          <circle cx="7" cy="5.6" r="1.7" fill="#edd9ae" />
+          <circle cx="16" cy="2.6" r="2" fill="#f5e6c4" />
+          <circle cx="25" cy="5.6" r="1.7" fill="#edd9ae" />
+          {/* 밑단 밴드 + 박힌 보석 */}
+          <rect x="3.4" y="19.6" width="25.2" height="3.4" rx="1.7" fill="currentColor" />
+          <circle cx="9.5" cy="21.3" r="1" fill="#6d5427" />
+          <circle cx="16" cy="21.3" r="1" fill="#6d5427" />
+          <circle cx="22.5" cy="21.3" r="1" fill="#6d5427" />
+        </svg>
+        <span className="hero-award__label">고객만족도</span>
+        <strong className="hero-award__rank">1위</strong>
+      </div>
 
       <div
         className="hero-inner"
@@ -225,6 +287,57 @@ export default function HeroBanner() {
         .hero-section {
           justify-content: center;
           padding: clamp(1rem, 3vh, 2.5rem) 1.25rem;
+        }
+
+        /* 좌상단 고객만족도 1위 엠블럼 — 영상 위 금장 톤, 타이틀을 안 가리게 구석에.
+           원형 리스는 배경으로 깔고 왕관·문구를 그 중앙에 쌓는다 */
+        .hero-award {
+          position: absolute;
+          top: clamp(0.9rem, 3vh, 1.8rem);
+          left: clamp(1.2rem, 3vw, 2.6rem);
+          z-index: 2;
+          width: 108px;
+          height: 108px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2px;
+          color: #c9a878;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        .hero-award__wreath {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+        /* 왕관 — 리스가 열려 있는 원 상단 중앙에 얹는다 (글씨는 원 정중앙) */
+        .hero-award__crown {
+          position: absolute;
+          top: -1px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 27px;
+          height: 22px;
+          filter: drop-shadow(0 0 4px rgba(227, 201, 158, 0.45));
+        }
+        .hero-award__label {
+          margin-top: 6px; /* 글씨 묶음을 원 중앙에서 살짝 아래로 */
+          font-size: 0.76rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          color: #d7bd94;
+        }
+        .hero-award__rank {
+          font-size: 1.5rem;
+          font-weight: 800;
+          line-height: 1;
+          color: #e3c99e;
+        }
+        @media (max-width: 768px) {
+          .hero-award { display: none; }
         }
 
         /* 아이브로우 배지 — 데스크탑은 가로 배치(신규 칩이 오른쪽), 아래 여백 (모바일에서 축소 → 타이틀 세 줄 위로) */
