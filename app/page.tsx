@@ -100,7 +100,8 @@ export default function HomePage() {
         @media (max-width: 768px) {
           .first-screen > .hero-section {
             flex: 0 0 auto;
-            min-height: calc(100svh - 110px - 56px - 150px);
+            /* + 1cm = 위·아래 0.5cm 씩 늘린 히어로 패딩 몫 */
+            min-height: calc(100svh - 110px - 56px - 150px + 1cm);
           }
         }
       `}</style>

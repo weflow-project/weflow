@@ -24,27 +24,14 @@ const MAKE_ICONS = [
 ];
 
 
-// 모든 카드가 같은 CTA 를 쓴다 — 가격을 물음표로 가렸으니
-// 화살표를 움직여 눌러야 금액이 열린다는 걸 알린다
-const quoteCta = (noteColor: string) => (
-  <>
-    <Link href="/diagnosis" className="plan-cta">
-      무료 상담 신청
-      <ArrowRight size={16} strokeWidth={2.6} className="plan-cta__arrow" style={{ marginLeft: "0.35rem" }} />
-    </Link>
-    {/* 모바일에서만 — 카드가 세로로 쌓여 공용 안내가 멀어지므로 카드마다 붙인다.
-        링크 색은 PC 공용 안내와 동일 (일반 파랑 · 리뉴얼 보라) */}
-    <p className="plan-cta-note">
-      상세한 금액은{" "}
-      <Link href="/diagnosis" className="semibold" style={{ color: noteColor, textDecoration: "underline", textUnderlineOffset: "3px" }}>
-        무료 상담 신청
-      </Link>
-      {" "}후 안내드립니다.
-    </p>
-  </>
+// 모든 카드가 같은 CTA 를 쓴다 — 가격을 본 직후엔 상담 폼이 다음 행동이다
+const CTA_QUOTE = (
+  <Link href="/diagnosis" className="plan-cta">
+    무료 상담 신청
+    <ArrowRight size={19} strokeWidth={2.6} className="plan-cta__arrow" style={{ marginLeft: "0.35rem" }} />
+  </Link>
 );
-const CTA_QUOTE = quoteCta("var(--accent)");
-const CTA_QUOTE_RENEW = quoteCta("#c4b5fd");
+const CTA_QUOTE_RENEW = CTA_QUOTE;
 
 export default function PricingPage() {
   // 제작 플랜 섹션 — 닷 네비의 스크롤 목적지 겸 활성 감지 대상
@@ -149,15 +136,6 @@ export default function PricingPage() {
             ))}
           </Reveal>
 
-          {/* PC 에서만 — 카드 3장이 한 줄일 땐 공용 안내 한 줄이면 충분하다 */}
-          <p className="callout c-secondary price-note-pc">
-            상세한 금액은{" "}
-            <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 상담 신청
-            </Link>
-            {" "}후 안내드립니다.
-          </p>
-
           {/* 리뉴얼 — 신규 제작과 성격이 다른 상품이라 3장과 한 줄에 섞지 않고
               구분선 아래에 한 장으로 떨어뜨린다 (가운데 칸 정렬) */}
           <div className="pricing-solo-head">
@@ -177,15 +155,6 @@ export default function PricingPage() {
               cta={CTA_QUOTE_RENEW}
             />
           </Reveal>
-
-          {/* PC 에서만 — 리뉴얼 카드 아래 공용 안내. 링크는 리뉴얼 카드 테두리색으로 맞춘다 */}
-          <p className="callout c-secondary price-note-pc">
-            상세한 금액은{" "}
-            <Link href="/diagnosis" className="semibold" style={{ color: "#c4b5fd", textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 상담 신청
-            </Link>
-            {" "}후 안내드립니다.
-          </p>
         </div>
       </section>
 
@@ -244,15 +213,6 @@ export default function PricingPage() {
             ))}
           </Reveal>
 
-          {/* PC 에서만 — 카드 3장이 한 줄일 땐 공용 안내 한 줄이면 충분하다 */}
-          <p className="callout c-secondary price-note-pc">
-            상세한 금액은{" "}
-            <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 상담 신청
-            </Link>
-            {" "}후 안내드립니다.
-          </p>
-
           {/* 리뉴얼 관리자 페이지 — 위 제작 플랜과 동일한 3+1 배치 */}
           <div className="pricing-solo-head">
             <span className="footnote emphasized">기존 홈페이지가 있다면</span>
@@ -271,15 +231,6 @@ export default function PricingPage() {
               cta={CTA_QUOTE_RENEW}
             />
           </Reveal>
-
-          {/* PC 에서만 — 리뉴얼 카드 아래 공용 안내. 링크는 리뉴얼 카드 테두리색으로 맞춘다 */}
-          <p className="callout c-secondary price-note-pc">
-            상세한 금액은{" "}
-            <Link href="/diagnosis" className="semibold" style={{ color: "#c4b5fd", textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              무료 상담 신청
-            </Link>
-            {" "}후 안내드립니다.
-          </p>
         </div>
       </section>
 
@@ -765,9 +716,9 @@ export default function PricingPage() {
         .plan-cta {
           display: inline-flex; align-items: center; justify-content: center;
           width: 100%; margin-top: 1.5rem;
-          padding: 0.8rem 1rem;
+          padding: 1rem 1.2rem;
           background: var(--accent); color: var(--on-accent);
-          font-size: 0.95rem; font-weight: 700;
+          font-size: 1.15rem; font-weight: 700;
           border: 2.5px solid var(--accent);
           border-radius: 9999px;
           text-decoration: none;
@@ -782,22 +733,6 @@ export default function PricingPage() {
         }
         @media (prefers-reduced-motion: reduce) {
           .plan-cta__arrow { animation: none; }
-        }
-        /* 상담 안내 — PC 는 카드 3장 아래 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
-        .price-note-pc { text-align: center; margin: 1.75rem 0 0; word-break: keep-all; }
-        .plan-cta-note { display: none; }
-        @media (max-width: 860px) {
-          .price-note-pc { display: none; }
-          .plan-cta-note {
-            display: block;
-            /* 카드 아래 패딩(1.6rem)을 감안해 위·아래 여백이 같아 보이게 */
-            margin: 1.1rem 0 -0.5rem;
-            text-align: center;
-            /* 336px 폭에서도 한 줄에 들어가는 크기 */
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            word-break: keep-all;
-          }
         }
         /* 리뉴얼 단독 카드 — 위 3장과 폭·간격을 정확히 맞추려고 같은 3열 그리드를 깔고
            가운데 칸에만 카드를 놓는다 (고정 px 로 계산하면 중간 화면폭에서 어긋난다) */

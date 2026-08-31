@@ -8,19 +8,23 @@ export const CAREER_YEARS: number | 'N' = 'N' // 홈페이지 제작 연차
 export const TOTAL_PROJECTS: number | 'N' = 'N' // 누적 제작 건수
 
 export type TrustStat = {
-  /** 'N' 이면 플레이스홀더 그대로 노출 */
-  end: number | 'N'
+  /** 숫자가 아니면('N'·'AI' 등) 플레이스홀더·문자 그대로 노출 */
+  end: number | string
   suffix: string
   label: string
   /** 천 단위 콤마 */
   format?: boolean
   /** 뷰포트 진입 시 카운트업 (숫자일 때만 동작) */
   animate?: boolean
+  /** 색 부각 칸 — 파란 배경, 모바일에서는 첫 줄로 끌어올린다 */
+  highlight?: boolean
 }
 
 export const TRUST: TrustStat[] = [
-  { end: CAREER_YEARS, suffix: '년+', label: '홈페이지 제작 경력' },
-  { end: TOTAL_PROJECTS, suffix: '건+', label: '누적 제작 사례', format: true },
+  { end: 50, suffix: '%', label: '특별 프로모션 할인', animate: true },
+  { end: 100, suffix: '%', label: 'PC·모바일 최적화', animate: true },
+  { end: 100, suffix: '%', label: '희망 오픈일 맞춤', animate: true, highlight: true },
+  { end: 100, suffix: '%', label: '최신 기술 활용', animate: true, highlight: true },
   { end: 100, suffix: '%', label: '맞춤 제작', animate: true },
   { end: 0, suffix: '원', label: '무료 상담 비용' },
 ]

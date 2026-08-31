@@ -46,7 +46,9 @@ export default async function CaseDetailPage({
 
   const d = p.detail!
   // 같은 업종 사례를 아래에 붙인다 — 다 읽은 뒤 다음으로 넘어갈 곳
-  const related = portfolios.filter(x => x.slug !== p.slug && x.category === p.category).slice(0, 3)
+  const related = portfolios
+    .filter(x => !x.placeholder && x.slug !== p.slug && x.category === p.category)
+    .slice(0, 3)
 
   // 상단과 본문 슬라이드쇼의 시작 사진을 벌린다 — 같은 사진이 동시에 보이지 않게
   const n = p.images.length

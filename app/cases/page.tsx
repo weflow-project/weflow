@@ -30,8 +30,10 @@ const CASES_JSON_LD = {
   "@type": "ItemList",
   name: "WEFLOW 제작 사례",
   description: "WEFLOW가 직접 제작한 홈페이지 사례 목록.",
-  numberOfItems: portfolios.length,
-  itemListElement: portfolios.map((p, i) => ({
+  numberOfItems: portfolios.filter((p) => !p.placeholder).length,
+  itemListElement: portfolios
+    .filter((p) => !p.placeholder) // 참고용 샘플은 검색엔진 구조화 데이터에서 제외
+    .map((p, i) => ({
     "@type": "ListItem",
     position: i + 1,
     item: {

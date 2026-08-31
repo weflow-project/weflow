@@ -17,6 +17,9 @@ const CTA_STYLE = {
   width: '100%',
   marginTop: '1.5rem',
   borderRadius: '9999px',
+  // /pricing 플랜 카드 버튼(.plan-cta)과 같은 크기
+  padding: '1rem 1.2rem',
+  fontSize: '1.15rem',
 } as const
 
 const detailCta = (highlight: boolean) => (
@@ -27,23 +30,8 @@ const detailCta = (highlight: boolean) => (
   >
     자세히 보기
     {/* btn 클래스의 기본 gap(0.5rem)을 빼서 상담 버튼과 같은 0.35rem 간격으로 맞춘다 */}
-    <ArrowRight size={16} strokeWidth={2.6} className="pcta-arrow" style={{ marginLeft: '-0.15rem' }} />
+    <ArrowRight size={19} strokeWidth={2.6} className="pcta-arrow" style={{ marginLeft: '-0.15rem' }} />
   </Link>
-)
-
-/* 모바일에서 카드마다 버튼 밑에 붙는 안내 — CTA 와 한 덩어리로 넘긴다.
-   링크 색은 PC 공용 안내와 동일 (일반 파랑 · 리뉴얼 보라) */
-const detailCtaWithNote = (highlight: boolean, noteColor = 'var(--accent)') => (
-  <>
-    {detailCta(highlight)}
-    <p className="plan-cta-note">
-      상세한 금액은{' '}
-      <Link href="/diagnosis" className="semibold" style={{ color: noteColor, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-        무료 상담 신청
-      </Link>
-      {' '}후 안내드립니다.
-    </p>
-  </>
 )
 
 export default function PricingSection() {
@@ -72,19 +60,10 @@ export default function PricingSection() {
               foot={`유지보수 월 ${plan.maintenance} · ${plan.note}`}
               features={plan.features}
               highlight={plan.highlight}
-              cta={detailCtaWithNote(plan.highlight)}
+              cta={detailCta(plan.highlight)}
             />
           ))}
         </Reveal>
-
-        {/* PC 에서만 — 카드 3장 아래 공용 안내 */}
-        <p className="callout c-secondary price-note-pc">
-          상세한 금액은{' '}
-          <Link href="/diagnosis" className="c-accent semibold" style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            무료 상담 신청
-          </Link>
-          {' '}후 안내드립니다.
-        </p>
 
         {/* 리뉴얼 — 신규 제작과 성격이 다른 상품이라 3장과 한 줄에 섞지 않고
             구분선 아래에 한 장으로 떨어뜨린다 (가운데 칸 정렬) */}
@@ -102,18 +81,9 @@ export default function PricingSection() {
             highlight
             tone="violet"
             tagLabel="추천"
-            cta={detailCtaWithNote(true, '#c4b5fd')}
+            cta={detailCta(true)}
           />
         </Reveal>
-
-        {/* PC 에서만 — 리뉴얼 카드 아래 공용 안내. 링크는 리뉴얼 카드 테두리색으로 맞춘다 */}
-        <p className='callout c-secondary price-note-pc'>
-          상세한 금액은{' '}
-          <Link href='/diagnosis' className='semibold' style={{ color: '#c4b5fd', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            무료 상담 신청
-          </Link>
-          {' '}후 안내드립니다.
-        </p>
 
         {/* 전체 플랜 링크 */}
         <div style={{ marginTop: 'clamp(2.5rem, 5vw, 3.25rem)', textAlign: 'center' }}>
@@ -132,22 +102,6 @@ export default function PricingSection() {
         }
         @media (prefers-reduced-motion: reduce) {
           .pcta-arrow { animation: none; }
-        }
-        /* 상담 안내 — PC 는 공용 한 줄, 모바일은 카드마다 버튼 밑 한 줄 */
-        .price-note-pc { text-align: center; margin: 1.75rem 0 0; word-break: keep-all; }
-        .plan-cta-note { display: none; }
-        @media (max-width: 860px) {
-          .price-note-pc { display: none; }
-          .plan-cta-note {
-            display: block;
-            /* 카드 아래 패딩(1.6rem)을 감안해 위·아래 여백이 같아 보이게 */
-            margin: 1.1rem 0 -0.5rem;
-            text-align: center;
-            /* 336px 폭에서도 한 줄에 들어가는 크기 */
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            word-break: keep-all;
-          }
         }
         .pricing-grid {
           display: grid;

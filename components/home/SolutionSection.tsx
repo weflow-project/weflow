@@ -13,6 +13,11 @@ import CountUp from '@/components/CountUp'
 import LiveInquiries from './LiveInquiries'
 import { STRENGTH, TRUST, type StrengthIconName } from '@/data/solution'
 
+// 모바일에서 색 부각 칸을 앞으로 끌어올린 시각 순서 (배열 순서는 PC 배치 그대로 둔다)
+const MOBILE_SEQ = TRUST.map((_, i) => i).sort(
+  (a, b) => Number(!!TRUST[b].highlight) - Number(!!TRUST[a].highlight),
+)
+
 const ICONS: Record<StrengthIconName, typeof Ruler> = {
   ruler: Ruler,
   userCheck: UserRoundCheck,
@@ -24,7 +29,7 @@ const ICONS: Record<StrengthIconName, typeof Ruler> = {
 
 export default function SolutionSection() {
   return (
-    <section id="solution" style={{ background: 'var(--section-a)', padding: 'clamp(3rem, 6vw, 5rem) 0' }}>
+    <section id="solution" style={{ background: 'var(--section-a)', padding: 'clamp(2.25rem, 4.5vw, 3.75rem) 0' }}>
       {/* 섹션 헤더 */}
       <div style={{ padding: '0 clamp(1.25rem, 4vw, 3rem)' }}>
         <Reveal variant="up" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -69,8 +74,12 @@ export default function SolutionSection() {
         }}
       >
         <ul className="trust-grid">
-          {TRUST.map((t, i) => (
-            <li key={t.label} className={`trust-cell${i < 2 ? ' trust-cell--toprow' : ''}${i % 2 === 1 ? ' trust-cell--right' : ''}`}>
+          {TRUST.map((t, i) => {
+            // 모바일(2열 3행) 시각 순서 — 색 부각 칸이 첫 줄로 온다 (CSS order 와 같은 규칙).
+            // 구분선은 시각 위치 기준이라 order 로 섞인 뒤의 자리를 미리 계산해 클래스를 단다.
+            const mpos = MOBILE_SEQ.indexOf(i)
+            return (
+            <li key={t.label} className={`trust-cell${t.highlight ? ' trust-cell--hl' : ''}${mpos < 4 ? ' trust-cell--mtop' : ''}${mpos % 2 === 1 ? ' trust-cell--mleft' : ''}`}>
               <span className="trust-num">
                 {/* 숫자 + animate 일 때만 카운트업, 'N' 이나 정적 값은 그대로 */}
                 {t.animate && typeof t.end === 'number' ? (
@@ -86,7 +95,8 @@ export default function SolutionSection() {
               </span>
               <span className="trust-label">{t.label}</span>
             </li>
-          ))}
+            )
+          })}
         </ul>
       </Reveal>
 
@@ -130,7 +140,7 @@ export default function SolutionSection() {
           word-break: keep-all;
         }
 
-        /* 통계 밴드 — 모바일 2열, PC 4열 */
+        /* 통계 밴드 — 모바일 2열 3행, PC 6열 한 줄 */
         .trust-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -143,11 +153,17 @@ export default function SolutionSection() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: clamp(1.5rem, 3vw, 2.25rem) 1rem;
+          justify-content: center;
+          padding: clamp(1.5rem, 3vw, 2.25rem) 0.5rem;
           text-align: center;
         }
-        .trust-cell--toprow { border-bottom: 1px solid var(--border-subtle); }
-        .trust-cell--right { border-left: 1px solid var(--border-subtle); }
+        /* 모바일 구분선 — 1·2번째 줄 아래, 2열 왼쪽 */
+        .trust-cell--mtop { border-bottom: 1px solid var(--border-subtle); }
+        .trust-cell--mleft { border-left: 1px solid var(--border-subtle); }
+        /* 색 부각 칸 — 강점 카드와 같은 파란 면, 모바일에서는 첫 줄로 */
+        .trust-cell--hl { order: -1; background: var(--accent-strong); }
+        .trust-cell--hl .trust-num { color: #fff; }
+        .trust-cell--hl .trust-label { color: rgba(255,255,255,0.8); }
         .trust-num {
           font-size: clamp(1.75rem, 4.5vw, 2.5rem);
           font-weight: 500;
@@ -224,10 +240,12 @@ export default function SolutionSection() {
           .strength-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
         }
         @media (min-width: 1025px) {
-          .trust-grid { grid-template-columns: repeat(4, 1fr); max-width: 1320px; }
-          .trust-cell--toprow { border-bottom: none; }
-          .trust-cell--right { border-left: none; }
+          .trust-grid { grid-template-columns: repeat(6, 1fr); max-width: 1320px; }
+          .trust-cell--mtop { border-bottom: none; }
+          .trust-cell--mleft { border-left: none; }
           .trust-cell + .trust-cell { border-left: 1px solid var(--border-subtle); }
+          /* PC: 배열 순서 그대로 — 색 부각 두 칸이 3·4번째(가운데)에 온다 */
+          .trust-cell--hl { order: 0; }
           /* 6열은 카드가 좁아진다 — 그리드 폭을 넓히고 간격을 줄여 카드 가로를 키운다.
              (통계 밴드도 같은 1320px 를 써서 좌우 선이 맞는다) */
           .strength-grid { grid-template-columns: repeat(6, 1fr); gap: 0.65rem; max-width: 1320px; }

@@ -155,23 +155,23 @@ export default function DiagnosisPage() {
                 <p className="caption-1 emphasized c-accent" style={{ letterSpacing: '0.25em', textTransform: 'uppercase', margin: 0 }}>CALL TO ACTION</p>
                 <h1 className="dg-form-title">무료 상담 신청</h1>
                 <p className="c-muted" style={{ margin: '0.6rem 0 0', lineHeight: 1.6, fontSize: '1.02rem', wordBreak: 'keep-all' }}>
-                  이름 · 전화번호만 남겨주시면<br /> 확인 후 빠르게 연락드립니다.
+                  이름 · 전화번호만 남겨주시면 확인 후 빠르게 연락드립니다.
                 </p>
               </div>
 
-                <div>
+                <div className="dg-field">
                   <label className="form-label">이름 <span style={{ color: '#ef4444' }}>*</span></label>
                   <input id="dg-name" className="form-input" placeholder="홍길동" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
                   {showErrors && !form.name && <p className="field-error">이름을 입력해 주세요</p>}
                 </div>
 
-                <div>
+                <div className="dg-field">
                   <label className="form-label">연락처 <span style={{ color: '#ef4444' }}>*</span></label>
                   <input id="dg-phone" className="form-input" placeholder="010-0000-0000" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
                   {showErrors && !form.phone && <p className="field-error">연락처를 입력해 주세요</p>}
                 </div>
 
-                <div>
+                <div className="dg-field">
                   <label className="form-label">제작 종류 <span style={{ color: '#ef4444' }}>*</span></label>
                   <select id="dg-type" className="form-input" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} style={{ cursor: 'pointer' }}>
                     <option value="">선택해 주세요</option>
@@ -181,7 +181,7 @@ export default function DiagnosisPage() {
                 </div>
 
                 {/* 자유 입력 — 원하는 것을 미리 적어 두면 상담이 빨라진다 (선택) */}
-                <div>
+                <div className="dg-field">
                   <label className="form-label">추가 문의 사항</label>
                   <textarea
                     id="dg-note"
@@ -195,7 +195,7 @@ export default function DiagnosisPage() {
                 </div>
 
                 {/* 개인정보 동의 — 체크 한 줄 + '내용 보기'로 펼치는 안내문 (커튼장인 폼과 같은 구조) */}
-                <div className="dg-consent">
+                <div className="dg-consent dg-wide">
                   <label className="dg-consent__label">
                     <input id="dg-agree" type="checkbox" checked={form.agree} onChange={e => setForm(f => ({ ...f, agree: e.target.checked }))}
                       style={{ width: '17px', height: '17px', accentColor: 'var(--accent)', flexShrink: 0 }} />
@@ -224,7 +224,7 @@ export default function DiagnosisPage() {
                   )}
                 </div>
 
-                <button type="submit" className="btn-primary" disabled={loading}
+                <button type="submit" className="btn-primary dg-wide" disabled={loading}
                   style={{ fontSize: '1.15rem', padding: '1.1rem', justifyContent: 'center', width: '100%' }}>
                   {loading ? '제출 중...' : '무료 상담 신청 →'}
                 </button>
@@ -261,6 +261,8 @@ export default function DiagnosisPage() {
         }
         .dg-card .form-input { font-size: 1.08rem; }
         .dg-card .form-label { font-size: 1.02rem; }
+        /* 입력칸·동의 체크줄·신청 버튼 — 카드보다 좁게, 가운데 정렬 */
+        .dg-field, .dg-wide { width: 100%; max-width: 480px; margin-left: auto; margin-right: auto; }
 
         /* 카드 헤더 제목 */
         .dg-form-title {
@@ -331,9 +333,6 @@ export default function DiagnosisPage() {
           letter-spacing: -0.01em;
           margin: 0 0 -0.4rem; display: flex; align-items: center; gap: 0.4rem;
         }
-        /* 폼 글씨 확대 (diagnosis 전용) */
-        .diag-grid .form-input { font-size: 1.05rem; }
-        .diag-grid .form-label { font-size: 1rem; }
         .field-error {
           color: #ef4444;
           font-size: 0.9rem;
@@ -342,7 +341,7 @@ export default function DiagnosisPage() {
         }
         /* PC·모바일 모두 폼 하나만 가운데 */
         .diag-grid { display: flex; justify-content: center; }
-        .dg-card { width: 100%; max-width: 480px; }
+        .dg-card { width: 100%; max-width: 550px; }
       `}</style>
     </div>
   )

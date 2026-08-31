@@ -103,8 +103,9 @@ function PortfolioCard({ p }: { p: Portfolio }) {
 
       {/* 카드 전체를 링크로 덮는다 — 사진 넘기는 점은 위(zIndex 3)에 있어 안 가로챈다.
           상세 내용이 있으면 상세 페이지로 보내 사이트 안에 머물게 하고,
-          아직 없는 사례는 예전처럼 실제 사이트를 새 창으로 연다. */}
-      {p.detail ? (
+          아직 없는 사례는 예전처럼 실제 사이트를 새 창으로 연다.
+          참고용 샘플(placeholder)은 링크를 덮지 않아 눌리지 않는다. */}
+      {p.placeholder ? null : p.detail ? (
         <Link
           href={`/cases/${p.slug}`}
           aria-label={`${p.name} 제작 사례 자세히 보기`}
@@ -123,7 +124,7 @@ function PortfolioCard({ p }: { p: Portfolio }) {
   )
 }
 
-// 업종 칩 — '전체' + 사례에 실제로 있는 업종들 (사례가 늘면 업종도 따라 늘어난다)
+// 업종 칩 — '전체' + categoryOrder 전체 (사례가 아직 없는 업종도 노출) + 목록에 없는 업종이 사례에 있으면 뒤에 붙인다
 const ALL = '전체'
 const rank = (c: string) => {
   const i = categoryOrder.indexOf(c)
@@ -131,7 +132,9 @@ const rank = (c: string) => {
 }
 const CATEGORIES = [
   ALL,
-  ...Array.from(new Set(portfolios.map(p => p.category))).sort((a, b) => rank(a) - rank(b)),
+  ...Array.from(new Set([...categoryOrder, ...portfolios.map(p => p.category)])).sort(
+    (a, b) => rank(a) - rank(b)
+  ),
 ]
 
 /** 실제 제작 사례 — 업종 칩으로 거르고, 한 줄에 두 칸(화면 반)씩 채운다 */
@@ -169,11 +172,31 @@ export default function PortfolioShowcase() {
         })}
       </div>
 
-      <div className="portfolio-grid">
-        {filtered.map(p => (
-          <PortfolioCard key={p.slug} p={p} />
-        ))}
-      </div>
+      {filtered.length > 0 ? (
+        <div className="portfolio-grid">
+          {filtered.map(p => (
+            <PortfolioCard key={p.slug} p={p} />
+          ))}
+        </div>
+      ) : (
+        /* 아직 공개 사례가 없는 업종 — 빈 화면 대신 상담으로 잇는다 */
+        <div
+          style={{
+            background: 'var(--surface)',
+            border: '1.5px solid var(--border)',
+            borderRadius: '16px',
+            padding: '3rem 1.5rem',
+            textAlign: 'center',
+          }}
+        >
+          <p className="headline emphasized c-primary" style={{ margin: '0 0 0.5rem' }}>
+            {active} 사례는 공개 준비 중입니다
+          </p>
+          <p className="footnote c-muted" style={{ margin: 0, lineHeight: 1.7, wordBreak: 'keep-all' }}>
+            상담을 남겨주시면 유사 업종 시안과 함께 안내드릴게요.
+          </p>
+        </div>
+      )}
 
       <style>{`
         .portfolio-chips {

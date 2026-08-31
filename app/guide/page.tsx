@@ -59,7 +59,7 @@ export default function GuidePage() {
             style={{ margin: "0 0 1.75rem", maxWidth: "560px", wordBreak: "keep-all" }}
           >
             홈페이지와 랜딩형 홈페이지·랜딩페이지는 뭐가 다른지, 관리자 페이지는 왜 필요한지
-            <br />— 제작을 결정하기 전에 알아두면 좋은 것들을 정리했습니다.
+            <br />제작을 결정하기 전에 알아두면 좋은 것들을 정리했습니다.
           </p>
           <Link
             href="/cases"

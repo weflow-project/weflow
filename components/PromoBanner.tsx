@@ -21,7 +21,7 @@ export default function PromoBanner() {
           maxWidth: '1200px',
           margin: '0 auto',
           padding: '0 1.25rem',
-          minHeight: '46px',
+          minHeight: '40px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
