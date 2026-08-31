@@ -97,10 +97,10 @@ export default function SolutionSection() {
                     {/* 스탬프 딸린 칸은 숫자를 빨리(0.7s) 끝내고 남은 시간에 테두리·글자를
                         이어 그려, 전체가 옆 100% 카운트업(1.6s)과 같이 끝난다.
                         값 전체(50% 할인)에는 형광펜 밑줄을 깐다 */}
-                    {t.tail ? (
+                    {t.tail || t.pen ? (
                       <span className="trust-hl">
-                        <CountUp end={t.end} suffix={t.suffix} format={t.format} duration={700} />
-                        <TrustTailStamp text={t.tail} />
+                        <CountUp end={t.end} suffix={t.suffix} format={t.format} duration={t.tail ? 700 : undefined} />
+                        {t.tail && <TrustTailStamp text={t.tail} />}
                       </span>
                     ) : (
                       <CountUp end={t.end} suffix={t.suffix} format={t.format} />
@@ -236,7 +236,7 @@ export default function SolutionSection() {
           position: relative;
           display: inline-block;
           margin-left: 0.22em; /* 숫자와의 간격 — 공백 문자 대신 여백으로 좁게 */
-          font-size: 0.5em;
+          font-size: 0.58em;
           font-weight: 700;
           padding: 0.1em 0.32em;
           color: #ffd166; /* 별점과 같은 노랑 */
