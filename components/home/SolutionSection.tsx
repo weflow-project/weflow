@@ -29,7 +29,8 @@ const ICONS: Record<StrengthIconName, typeof Ruler> = {
 
 export default function SolutionSection() {
   return (
-    <section id="solution" style={{ background: 'var(--section-a)', padding: 'clamp(2.25rem, 4.5vw, 3.75rem) 0' }}>
+    // 위·아래 패딩 동일 — 모바일(clamp 최소값)은 살짝 여유 있게
+    <section id="solution" style={{ background: 'var(--section-a)', padding: 'clamp(2.75rem, 4.5vw, 3.75rem) 0' }}>
       {/* 섹션 헤더 */}
       <div style={{ padding: '0 clamp(1.25rem, 4vw, 3rem)' }}>
         <Reveal variant="up" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -80,7 +81,8 @@ export default function SolutionSection() {
             const mpos = MOBILE_SEQ.indexOf(i)
             return (
             <li key={t.label} className={`trust-cell${t.highlight ? ' trust-cell--hl' : ''}${mpos < 4 ? ' trust-cell--mtop' : ''}${mpos % 2 === 1 ? ' trust-cell--mleft' : ''}`}>
-              <span className="trust-num">
+              {/* 문자 값(희망 오픈일·별점)은 숫자보다 길어서 한 단계 작은 크기로 */}
+              <span className={`trust-num${typeof t.end === 'string' ? ' trust-num--text' : ''}`}>
                 {/* 숫자 + animate 일 때만 카운트업, 'N' 이나 정적 값은 그대로 */}
                 {t.animate && typeof t.end === 'number' ? (
                   <CountUp end={t.end} suffix={t.suffix} format={t.format} />
@@ -170,6 +172,17 @@ export default function SolutionSection() {
           line-height: 1.1;
           letter-spacing: -0.02em;
           color: var(--accent);
+        }
+        .trust-num--text {
+          font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+          line-height: 1.3;
+          word-break: keep-all;
+          /* 숫자 칸의 글자 높이(폰트 크기 × line-height 1.1)와 같게 맞춰
+             문자 칸도 값·라벨이 다른 칸과 같은 라인에 놓인다 */
+          min-height: calc(clamp(1.75rem, 4.5vw, 2.5rem) * 1.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .trust-label {
           margin-top: 0.5rem;

@@ -101,7 +101,7 @@ export default function PcPromoWidgets() {
         /* ── 우측 상단 신뢰 카드 ── */
         .pc-side-widget {
           position: fixed;
-          top: 140px;
+          top: 170px;
           right: 16px;
           z-index: 150;
           width: 186px;

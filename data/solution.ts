@@ -23,8 +23,8 @@ export type TrustStat = {
 export const TRUST: TrustStat[] = [
   { end: 50, suffix: '%', label: '특별 프로모션 할인', animate: true },
   { end: 100, suffix: '%', label: 'PC·모바일 최적화', animate: true },
-  { end: 100, suffix: '%', label: '희망 오픈일 맞춤', animate: true, highlight: true },
-  { end: 100, suffix: '%', label: '최신 기술 활용', animate: true, highlight: true },
+  { end: '희망 오픈일 맞춤', suffix: '', label: '제작 시기', highlight: true },
+  { end: '★★★★★', suffix: '', label: '최신 기술 활용', highlight: true },
   { end: 100, suffix: '%', label: '맞춤 제작', animate: true },
   { end: 0, suffix: '원', label: '무료 상담 비용' },
 ]
