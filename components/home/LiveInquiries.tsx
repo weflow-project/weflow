@@ -1,6 +1,7 @@
 'use client'
 // 실시간 홈페이지 문의 보드 (연출용 데이터).
-// 8~15초 간격으로 새 문의가 맨 위로 슬라이드 인, 기존 행은 밀려 내려가고 마지막 행 제거.
+// 3~7초 불규칙 간격으로 새 문의가 맨 위에서 밀고 내려오고(높이가 펴지며 아래 행들을 자연스럽게 밀어냄),
+// 맨 아래 행은 접히며 페이드 아웃. 새 행은 등장 순간 배경이 노랗게 1초쯤 반짝인 뒤 원래 색으로 돌아온다.
 // 시간 라벨은 행마다 제각각(서로 겹치지 않는 분 단위)이며, 새 행이 들어올 때 불규칙하게 벌어지고 1분마다 실제로 1씩 늘어난다.
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -49,6 +50,7 @@ export default function LiveInquiries() {
   const [rows, setRows] = useState<Row[]>([])
   const [spinning, setSpinning] = useState(false)
   const nextId = useRef(0)
+  const trimTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setRows(INITIAL_MINUTES.slice(0, VISIBLE).map((m) => makeRow(nextId.current++, m)))
@@ -57,21 +59,28 @@ export default function LiveInquiries() {
     const tick = () => {
       if (!document.hidden) {
         setRows((prev) => {
-          // 새 행은 '방금 전', 기존 행은 위 행보다 2~9분씩 불규칙하게 뒤로 밀려 전부 다른 시간이 되게
+          // 새 행은 '방금 전', 기존 행은 위 행보다 2~9분씩 불규칙하게 뒤로 밀려 전부 다른 시간이 되게.
+          // 마지막 행은 바로 지우지 않고 VISIBLE+1 개로 두어 접힘(퇴장) 애니메이션을 보여준 뒤 아래에서 잘라낸다.
           const next: Row[] = [makeRow(nextId.current++, 0)]
-          for (const r of prev) {
+          for (const r of prev.slice(0, VISIBLE)) {
             const above = next[next.length - 1].minutes
             next.push({ ...r, minutes: Math.max(above + randomGap(), r.minutes + 1) })
           }
-          return next.slice(0, VISIBLE)
+          return next
         })
         setSpinning(true)
         setTimeout(() => setSpinning(false), 700)
+        if (trimTimer.current) clearTimeout(trimTimer.current)
+        trimTimer.current = setTimeout(() => setRows((p) => p.slice(0, VISIBLE)), 650)
       }
-      timer = setTimeout(tick, 8000 + Math.random() * 7000)
+      // 딱딱 떨어지는 고정 주기보다 3~7초 랜덤이 실제 문의처럼 보인다
+      timer = setTimeout(tick, 3000 + Math.random() * 4000)
     }
-    timer = setTimeout(tick, 6000)
-    return () => clearTimeout(timer)
+    timer = setTimeout(tick, 3500)
+    return () => {
+      clearTimeout(timer)
+      if (trimTimer.current) clearTimeout(trimTimer.current)
+    }
   }, [])
 
   // 1분마다 모든 행의 시간이 실제로 1분씩 흐른다 ('방금 전' → '1분 전' → …)
@@ -117,7 +126,7 @@ export default function LiveInquiries() {
       {/* 목록 — 지역 / 이름(마스킹) / 문의 내용 / 시간 */}
       <ul aria-label="실시간 홈페이지 문의 목록" className="live-list">
         {rows.map((r, i) => (
-          <li key={r.id} className={`live-row ${i === 0 ? 'live-row--in' : ''}`}>
+          <li key={r.id} className={`live-row${i === 0 ? ' live-row--in' : ''}${i === VISIBLE ? ' live-row--out' : ''}`}>
             <span className="live-industry">
               {/* 업종 — 차양 달린 상점 아이콘 (lucide store) */}
               <svg
@@ -191,6 +200,7 @@ export default function LiveInquiries() {
           height: 8px;
           border-radius: 9999px;
           background: #ef4444;
+          animation: liveBreath 1.4s ease-in-out infinite;
         }
         .live-badge { color: #f87171; letter-spacing: 0.12em; font-weight: 800; }
         .live-updated {
@@ -214,7 +224,19 @@ export default function LiveInquiries() {
           font-size: 0.8rem;
         }
         .live-row--skeleton { height: 2.9rem; }
-        .live-row--in { animation: liveRowIn 0.5s ease; }
+        /* 새 행 — 높이가 0에서 펴지며 아래 행들을 밀고 내려오고,
+           자리를 잡는 순간 배경이 노랗게 반짝였다가 1초에 걸쳐 원래 색으로 */
+        .live-row--in {
+          overflow: hidden;
+          animation:
+            liveRowIn 0.55s cubic-bezier(0.25, 0.8, 0.4, 1),
+            liveRowFlash 1.1s ease-out 0.25s backwards;
+        }
+        /* 마지막 행 — 접히며 페이드 아웃 (650ms 뒤 목록에서 실제 제거) */
+        .live-row--out {
+          overflow: hidden;
+          animation: liveRowOut 0.55s cubic-bezier(0.55, 0, 0.75, 0.6) forwards;
+        }
         /* 업종 칸 — 가장 긴 "역사 관련 업종"이 들어갈 만큼만.
            넓게 잡으면 오른쪽 "랜딩형 홈페이지 문의"가 잘린다 */
         .live-industry {
@@ -252,18 +274,33 @@ export default function LiveInquiries() {
         }
 
         @keyframes liveRowIn {
-          from { opacity: 0; transform: translateY(-8px); }
-          to { opacity: 1; transform: none; }
+          from { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; transform: translateY(-6px); }
+          60% { opacity: 0.35; }
+          to { max-height: 3.5rem; opacity: 1; transform: none; }
+        }
+        /* 등장 플래시 — 사이트 형광펜 색(245,179,1) 계열의 옅은 노랑 */
+        @keyframes liveRowFlash {
+          from { background-color: rgba(245, 179, 1, 0.2); }
+          to { background-color: transparent; }
+        }
+        @keyframes liveRowOut {
+          from { max-height: 3.5rem; opacity: 1; }
+          to { max-height: 0; padding-top: 0; padding-bottom: 0; border-top-width: 0; opacity: 0; }
         }
         @keyframes livePing {
           75%, 100% { transform: scale(2); opacity: 0; }
+        }
+        /* 붉은 점 — 퍼지는 링에 더해 점 자체도 숨쉬듯 커졌다 작아진다 */
+        @keyframes liveBreath {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.3); }
         }
         @keyframes liveSpin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .live-row--in, .live-dot__ping, .live-spin { animation: none !important; }
+          .live-row--in, .live-row--out, .live-dot__ping, .live-dot__core, .live-spin { animation: none !important; }
         }
       `}</style>
     </div>
