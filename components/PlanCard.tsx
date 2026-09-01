@@ -108,11 +108,15 @@ export default function PlanCard({
             </span>
           </div>
         )}
-        {/* 가격 오른쪽에 단서(· VAT 별도)를 작게, 가격 세로 중앙에 맞춰 붙인다 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.28rem' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
           <span className="title-2 emphasized">{price}</span>
-          {foot && <span className="caption-1 c-muted">· {foot}</span>}
         </div>
+        {/* 가격 아래 단서 줄 (VAT 별도) */}
+        {foot && (
+          <p className="caption-1 c-muted" style={{ margin: '0.35rem 0 0' }}>
+            {foot}
+          </p>
+        )}
       </div>
 
       {/* 기능 */}
