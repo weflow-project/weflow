@@ -35,7 +35,8 @@ export default function PlanCard({
   discount?: string
   originalPrice?: string
   price: string
-  foot: string
+  /** 가격 오른쪽 단서 문구 (예: 'VAT 별도') */
+  foot?: string
   features: string[]
   highlight?: boolean
   tone?: 'accent' | 'violet'
@@ -107,12 +108,11 @@ export default function PlanCard({
             </span>
           </div>
         )}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+        {/* 가격 오른쪽에 단서(· VAT 별도)를 작게, 가격 세로 중앙에 맞춰 붙인다 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.28rem' }}>
           <span className="title-2 emphasized">{price}</span>
+          {foot && <span className="caption-1 c-muted">· {foot}</span>}
         </div>
-        <p className="caption-1 c-muted" style={{ margin: '0.4rem 0 0' }}>
-          {foot}
-        </p>
       </div>
 
       {/* 기능 */}

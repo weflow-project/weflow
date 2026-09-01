@@ -57,7 +57,7 @@ export default function PricingSection() {
               discount={plan.discount}
               originalPrice={plan.originalPrice}
               price={plan.price}
-              foot={`유지보수 월 ${plan.maintenance} · ${plan.note}`}
+              foot={plan.note}
               features={plan.features}
               highlight={plan.highlight}
               cta={detailCta(plan.highlight)}
@@ -76,7 +76,7 @@ export default function PricingSection() {
             title={renewPlan.sub}
             subtitle={renewPlan.tagline}
             price={renewPlan.price}
-            foot={`유지보수 월 ${renewPlan.maintenance} · ${renewPlan.note}`}
+            foot={renewPlan.note}
             features={renewPlan.features}
             highlight
             tone="violet"

@@ -128,7 +128,7 @@ export default function PricingPage() {
                 discount={plan.discount}
                 originalPrice={plan.originalPrice}
                 price={plan.price}
-                foot={`유지보수 월 ${plan.maintenance} · ${plan.note}`}
+                foot={plan.note}
                 features={plan.features}
                 highlight={plan.highlight}
                 cta={CTA_QUOTE}
@@ -147,7 +147,7 @@ export default function PricingPage() {
               title={renewPlan.sub}
               subtitle={renewPlan.tagline}
               price={renewPlan.price}
-              foot={`유지보수 월 ${renewPlan.maintenance} · ${renewPlan.note}`}
+              foot={renewPlan.note}
               features={renewPlan.features}
               highlight
               tone="violet"
@@ -205,7 +205,7 @@ export default function PricingPage() {
                 discount={plan.discount}
                 originalPrice={plan.adminOriginalPrice}
                 price={plan.adminPrice}
-                foot={`유지보수 월 ${plan.adminMaintenance} · ${plan.note}`}
+                foot={plan.note}
                 features={adminFeatures}
                 highlight={plan.highlight}
                 cta={CTA_QUOTE}
@@ -223,7 +223,7 @@ export default function PricingPage() {
               title={renewPlan.sub}
               subtitle="관리자 페이지"
               price={renewPlan.adminPrice}
-              foot={`유지보수 월 ${renewPlan.adminMaintenance} · ${renewPlan.note}`}
+              foot={renewPlan.note}
               features={adminFeatures}
               highlight
               tone="violet"
