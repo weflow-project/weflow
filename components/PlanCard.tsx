@@ -111,10 +111,10 @@ export default function PlanCard({
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
           <span className="title-2 emphasized">{price}</span>
         </div>
-        {/* 가격 아래 단서 줄 (VAT 별도) */}
+        {/* 가격 아래 단서 줄 (· VAT 별도) */}
         {foot && (
           <p className="caption-1 c-muted" style={{ margin: '0.35rem 0 0' }}>
-            {foot}
+            · {foot}
           </p>
         )}
       </div>
