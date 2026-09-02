@@ -77,7 +77,8 @@ export default function PageTracker() {
     // 광고 클릭은 UTM 이 없어도 소스·매체를 채워 준다 (네이버 파워링크 n_*, 구글 gclid, 메타 fbclid)
     const isNaverAd = !!(params.get('n_media') || params.get('n_keyword') || params.get('n_query') || params.get('n_ad'))
     const adSource = isNaverAd ? 'naver' : params.get('gclid') ? 'google' : params.get('fbclid') ? 'facebook' : ''
-    const keyword = params.get('n_keyword') || params.get('n_query') || params.get('utm_term') || params.get('kw') || ''
+    // n_query(사용자가 실제 친 검색어)를 우선 — n_keyword 는 캠페인에 따라 숫자 ID 로만 온다
+    const keyword = params.get('n_query') || params.get('n_keyword') || params.get('utm_term') || params.get('kw') || ''
     const body = {
       sessionId: getSessionId(),
       path: pathname,

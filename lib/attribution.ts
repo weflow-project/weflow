@@ -43,7 +43,8 @@ function readParams(): Attribution {
 }
 
 function pickKeyword(a: Attribution): string {
-  return a.n_keyword || a.n_query || a.utm_term || a.kw || ''
+  // n_query(사용자가 실제 친 검색어)를 우선 — n_keyword 는 캠페인에 따라 숫자 ID 로만 온다
+  return a.n_query || a.n_keyword || a.utm_term || a.kw || ''
 }
 
 /** 랜딩마다 호출 — 광고 파라미터가 있으면 덮어쓰고, 없으면 기존 값을 유지한다 */

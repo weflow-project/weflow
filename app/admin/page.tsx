@@ -1827,21 +1827,35 @@ function BarRow({
   value,
   max,
   right,
+  labelWidth = 92,
+  wrapLabel = false,
 }: {
   label: string;
   color: string;
   value: number;
   max: number;
   right: string;
+  /** 라벨 칸 너비(px) — 키워드처럼 긴 라벨은 넓힌다 */
+  labelWidth?: number;
+  /** true 면 말줄임 대신 줄바꿈으로 글자를 전부 보여준다 */
+  wrapLabel?: boolean;
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+      {/* 라벨 칸 너비를 고정해 막대 시작선이 전부 같은 자리에 온다 */}
       <span
+        title={label}
         style={{
-          flex: "0 0 92px",
+          flex: `0 0 ${labelWidth}px`,
           fontSize: "0.86rem",
           color: "var(--text-secondary)",
-          wordBreak: "keep-all",
+          ...(wrapLabel
+            ? { wordBreak: "break-all", lineHeight: 1.35 }
+            : {
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }),
         }}
       >
         {label}
@@ -1931,6 +1945,7 @@ function TrafficView({
   const keywordCount: Record<string, number> = {}; // 광고 키워드별 세션 (파워링크 n_keyword 등)
   const deviceCount: Record<string, number> = {};
   const exitCount: Record<string, number> = {};
+  const adExitCount: Record<string, number> = {}; // 광고 유입 세션의 이탈 페이지
   let bounced = 0;
   let durSum = 0,
     durN = 0;
@@ -1949,6 +1964,8 @@ function TrafficView({
       new Set(paidViews.map((v) => v.campaign).filter(Boolean)).forEach((kw) => {
         keywordCount[kw] = (keywordCount[kw] || 0) + 1;
       });
+      // 광고를 보고 온 세션은 이탈 페이지를 따로 센다
+      adExitCount[exit.path] = (adExitCount[exit.path] || 0) + 1;
     } else {
       const src = normSource(entry.source);
       sourceCount[src] = (sourceCount[src] || 0) + 1;
@@ -1976,6 +1993,11 @@ function TrafficView({
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6);
   const maxExit = Math.max(1, ...exitRows.map((r) => r[1]));
+  const adExitTotal = Object.values(adExitCount).reduce((a, b) => a + b, 0);
+  const adExitRows = Object.entries(adExitCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6);
+  const maxAdExit = Math.max(1, ...adExitRows.map((r) => r[1]));
 
   // 일별 방문(세션 수) — 최근 14일
   const DAYS = 14;
@@ -2185,7 +2207,7 @@ function TrafficView({
           </div>
         </section>
 
-        <section style={card}>
+        <section style={card} className="dev-card">
           <SectionHead
             Icon={Smartphone}
             tint="#8b5cf6"
@@ -2207,11 +2229,11 @@ function TrafficView({
             ))}
           </div>
         </section>
-      </div>
 
-      {/* 광고 키워드별 유입 — 광고 클릭이 한 건이라도 있을 때만 보인다 */}
-      {keywordRows.length > 0 && (
-        <section style={card}>
+        {/* 광고 키워드별 유입 — 광고 클릭이 한 건이라도 있을 때만 보인다.
+            PC 는 두 카드 아래 한 줄 전체, 모바일은 기기 카드보다 위(order)로 온다 */}
+        {keywordRows.length > 0 && (
+        <section style={card} className="kw-span">
           <SectionHead
             Icon={LogIn}
             tint="#15803d"
@@ -2221,19 +2243,53 @@ function TrafficView({
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
           >
-            {keywordRows.map(([kw, cnt]) => (
+            {(() => {
+              // 퍼센트는 키워드 유입끼리의 비중 — 합치면 100% 가 되게
+              const keywordTotal = keywordRows.reduce((s, r) => s + r[1], 0);
+              return keywordRows.map(([kw, cnt]) => (
+                <BarRow
+                  key={kw}
+                  // 검색어 대신 네이버 키워드 ID(숫자)만 넘어온 세션은 짧게 표기
+                  label={/^\d{12,}$/.test(kw) ? `ID …${kw.slice(-6)}` : kw}
+                  color="#15803d"
+                  value={cnt}
+                  max={maxKeyword}
+                  right={`${cnt}명 (${keywordTotal ? Math.round((cnt / keywordTotal) * 100) : 0}%)`}
+                  labelWidth={128}
+                  wrapLabel
+                />
+              ));
+            })()}
+          </div>
+        </section>
+        )}
+
+        {/* 광고 유입 이탈 페이지 — 광고를 보고 온 세션이 마지막으로 본 곳 */}
+        {adExitRows.length > 0 && (
+        <section style={card} className="kw-span">
+          <SectionHead
+            Icon={DoorOpen}
+            tint="#f59e0b"
+            title="광고로 온 고객은 어느 페이지에서 나갔나요?"
+            desc="광고를 클릭해 들어온 고객이 마지막으로 보고 떠난 페이지"
+          />
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
+          >
+            {adExitRows.map(([path, cnt]) => (
               <BarRow
-                key={kw}
-                label={kw}
-                color="#15803d"
+                key={path}
+                label={pageName(path)}
+                color="#f59e0b"
                 value={cnt}
-                max={maxKeyword}
-                right={`${cnt}명`}
+                max={maxAdExit}
+                right={`${cnt}명 (${adExitTotal ? Math.round((cnt / adExitTotal) * 100) : 0}%)`}
               />
             ))}
           </div>
         </section>
-      )}
+        )}
+      </div>
 
       {/* 일별 방문 추이 */}
       <section style={card}>
@@ -3324,7 +3380,13 @@ export default function AdminPage() {
         @keyframes spin { to { transform: rotate(360deg); } }
         .detail-dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.95rem; }
         .analytics-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-        @media (max-width: 900px) { .analytics-2col { grid-template-columns: 1fr; } }
+        /* 키워드·광고 이탈 카드 — PC 는 두 칸 전체 폭 한 줄 */
+        .kw-span { grid-column: 1 / -1; }
+        @media (max-width: 900px) {
+          .analytics-2col { grid-template-columns: 1fr; }
+          /* 모바일: 기기 카드를 광고 카드들 뒤로 — 유입 경로 → 키워드 → 광고 이탈 → 기기 순 */
+          .analytics-2col .dev-card { order: 1; }
+        }
         .traffic-metric-grid { grid-template-columns: repeat(4, 1fr); }
         @media (max-width: 900px) { .traffic-metric-grid { grid-template-columns: repeat(2, 1fr); } }
         /* 320px급 초소형 화면 — 2열이면 큰 숫자가 카드를 밀어내 가로로 넘친다 */
