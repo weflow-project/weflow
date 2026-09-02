@@ -2231,9 +2231,9 @@ function TrafficView({
         </section>
 
         {/* 광고 키워드별 유입 — 광고 클릭이 한 건이라도 있을 때만 보인다.
-            PC 는 두 카드 아래 한 줄 전체, 모바일은 기기 카드보다 위(order)로 온다 */}
+            PC 는 광고 이탈 카드와 나란히 두 칸, 모바일은 기기 카드보다 위(order)로 온다 */}
         {keywordRows.length > 0 && (
-        <section style={card} className="kw-span">
+        <section style={card}>
           <SectionHead
             Icon={LogIn}
             tint="#15803d"
@@ -2266,7 +2266,7 @@ function TrafficView({
 
         {/* 광고 유입 이탈 페이지 — 광고를 보고 온 세션이 마지막으로 본 곳 */}
         {adExitRows.length > 0 && (
-        <section style={card} className="kw-span">
+        <section style={card}>
           <SectionHead
             Icon={DoorOpen}
             tint="#f59e0b"
@@ -3380,8 +3380,6 @@ export default function AdminPage() {
         @keyframes spin { to { transform: rotate(360deg); } }
         .detail-dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.95rem; }
         .analytics-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-        /* 키워드·광고 이탈 카드 — PC 는 두 칸 전체 폭 한 줄 */
-        .kw-span { grid-column: 1 / -1; }
         @media (max-width: 900px) {
           .analytics-2col { grid-template-columns: 1fr; }
           /* 모바일: 기기 카드를 광고 카드들 뒤로 — 유입 경로 → 키워드 → 광고 이탈 → 기기 순 */
