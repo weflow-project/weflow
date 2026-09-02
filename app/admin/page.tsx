@@ -26,6 +26,7 @@ import {
   DoorOpen,
   TrendingUp,
   ChevronsDown,
+  CalendarDays,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -122,68 +123,452 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "traffic", label: "유입 관리" },
 ];
 
-// 통계 기간 선택 (days=null 이면 전체)
-const ANALYTICS_PERIODS: { key: string; label: string; days: number | null }[] =
-  [
-    { key: "today", label: "오늘", days: 1 },
-    { key: "7d", label: "최근 7일", days: 7 },
-    { key: "14d", label: "최근 14일", days: 14 },
-    { key: "30d", label: "최근 30일", days: 30 },
-    { key: "all", label: "전체", days: null },
-  ];
+// ── 기간 선택 — 왼쪽 프리셋(오늘·어제·최근 7일·이번달·지난달·전체) + 오른쪽 달력 범위 지정 ──
+const DAY_MS = 86400000;
 
-// 기간 → 집계 시작 시각(ms). '오늘'은 로컬 자정부터(달력상 오늘),
-// 그 외 '최근 N일'은 현재 시각 기준 롤링. days=null(전체)이면 0 반환.
-function periodCutoff(periodKey: string): number {
-  const days = ANALYTICS_PERIODS.find((p) => p.key === periodKey)?.days;
-  if (days == null) return 0;
-  if (periodKey === "today") {
-    const d = new Date();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
-  }
-  return Date.now() - days * 86400000;
+// 프리셋 키 하나 또는 달력으로 지정한 범위(s~e, 'YYYY-MM-DD')
+type PeriodSel = { key: string; s?: string; e?: string };
+
+const PERIOD_PRESETS: { key: string; label: string }[] = [
+  { key: "today", label: "오늘" },
+  { key: "yesterday", label: "어제" },
+  { key: "7d", label: "최근 7일" },
+  { key: "month", label: "이번달" },
+  { key: "lastMonth", label: "지난달" },
+  { key: "all", label: "전체" },
+];
+
+function dayFloor(ms: number): number {
+  const d = new Date(ms);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+}
+function parseDay(s: string): number {
+  const [y, m, d] = s.split("-").map(Number);
+  return new Date(y, m - 1, d).getTime();
+}
+function isoDay(ms: number): string {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+function fmtDayDot(ms: number): string {
+  const d = new Date(ms);
+  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())}.`;
 }
 
-// createdAt 기준으로 선택 기간 내 항목만 반환
+// 선택 → [start, end) ms 구간. '오늘'은 로컬 자정부터, '최근 7일'은 현재 시각 기준 롤링.
+function periodRange(
+  p: PeriodSel,
+  now: number,
+): { start: number; end: number } {
+  const t0 = dayFloor(now);
+  switch (p.key) {
+    case "today":
+      return { start: t0, end: t0 + DAY_MS };
+    case "yesterday":
+      return { start: t0 - DAY_MS, end: t0 };
+    case "7d":
+      return { start: now - 7 * DAY_MS, end: t0 + DAY_MS };
+    case "month": {
+      const d = new Date(now);
+      return {
+        start: new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
+        end: t0 + DAY_MS,
+      };
+    }
+    case "lastMonth": {
+      const d = new Date(now);
+      return {
+        start: new Date(d.getFullYear(), d.getMonth() - 1, 1).getTime(),
+        end: new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
+      };
+    }
+    case "custom": {
+      const s = p.s ? parseDay(p.s) : t0;
+      const e = p.e ? parseDay(p.e) : s;
+      return { start: s, end: e + DAY_MS };
+    }
+    default:
+      return { start: 0, end: t0 + DAY_MS }; // 전체
+  }
+}
+
+function periodLabelOf(p: PeriodSel, now: number): string {
+  if (p.key === "custom") {
+    const r = periodRange(p, now);
+    return `${fmtDayDot(r.start)} ~ ${fmtDayDot(r.end - DAY_MS)}`;
+  }
+  return PERIOD_PRESETS.find((x) => x.key === p.key)?.label ?? "기간";
+}
+
+// createdAt 기준으로 선택 구간 내 항목만 반환
 function withinPeriod<T extends { createdAt: string }>(
   rows: T[],
-  periodKey: string,
+  p: PeriodSel,
 ): T[] {
-  const cutoff = periodCutoff(periodKey);
-  if (cutoff === 0) return rows;
-  return rows.filter((r) => new Date(r.createdAt).getTime() >= cutoff);
+  if (p.key === "all") return rows;
+  const { start, end } = periodRange(p, Date.now());
+  return rows.filter((r) => {
+    const t = new Date(r.createdAt).getTime();
+    return t >= start && t < end;
+  });
 }
 
-// 재사용 기간 드롭다운
+// 기간 선택 버튼 — 누르면 네이버 광고 스타일 팝오버(프리셋 + 달력)가 열린다
 function PeriodSelect({
   value,
   onChange,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  value: PeriodSel;
+  onChange: (v: PeriodSel) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const [viewY, setViewY] = useState(0); // 달력에 보이는 연·월
+  const [viewM, setViewM] = useState(0);
+  const [dS, setDS] = useState<number | null>(null); // 드래프트 시작·종료일(자정 ms)
+  const [dE, setDE] = useState<number | null>(null);
+
+  const now = Date.now();
+  const todayMs = dayFloor(now);
+
+  const openPanel = () => {
+    // 현재 선택을 드래프트로 미리 채워둔다 ('전체'는 범위가 없으니 비움)
+    if (value.key === "all") {
+      setDS(null);
+      setDE(null);
+      const d = new Date(now);
+      setViewY(d.getFullYear());
+      setViewM(d.getMonth());
+    } else {
+      const r = periodRange(value, now);
+      const s = dayFloor(r.start);
+      const e = Math.max(s, dayFloor(Math.min(r.end - DAY_MS, now)));
+      setDS(s);
+      setDE(e);
+      const d = new Date(e);
+      setViewY(d.getFullYear());
+      setViewM(d.getMonth());
+    }
+    setOpen(true);
+  };
+
+  // 날짜 클릭 — 시작 → 종료 순서로 고르고, 시작보다 앞을 누르면 시작을 옮긴다
+  const pickDay = (ms: number) => {
+    if (dS != null && dE == null) {
+      if (ms < dS) setDS(ms);
+      else setDE(ms);
+    } else {
+      setDS(ms);
+      setDE(null);
+    }
+  };
+
+  const apply = () => {
+    if (dS == null) return;
+    const e = dE ?? dS;
+    onChange({ key: "custom", s: isoDay(dS), e: isoDay(e) });
+    setOpen(false);
+  };
+
+  const moveMonth = (delta: number) => {
+    const d = new Date(viewY, viewM + delta, 1);
+    setViewY(d.getFullYear());
+    setViewM(d.getMonth());
+  };
+
+  // 달력 한 달 치 데이터
+  const firstDow = new Date(viewY, viewM, 1).getDay();
+  const daysInMonth = new Date(viewY, viewM + 1, 0).getDate();
+  const inDraft = (ms: number) => dS != null && ms >= dS && ms <= (dE ?? dS);
+  const isEdge = (ms: number) => ms === dS || ms === (dE ?? dS);
+
+  const navBtn: React.CSSProperties = {
+    background: "none",
+    border: "none",
+    color: "var(--text-muted)",
+    fontSize: "0.95rem",
+    cursor: "pointer",
+    padding: "0.15rem 0.4rem",
+  };
+  const dateBox: React.CSSProperties = {
+    flex: 1,
+    textAlign: "center",
+    border: "1px solid var(--border)",
+    borderRadius: "8px",
+    padding: "0.4rem 0.3rem",
+    fontSize: "0.85rem",
+    fontWeight: 700,
+    color: "var(--text)",
+    whiteSpace: "nowrap",
+  };
+
   return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: "10px",
-        padding: "0.5rem 0.9rem",
-        fontSize: "0.9rem",
-        fontWeight: 700,
-        color: "var(--text)",
-        cursor: "pointer",
-        fontFamily: "inherit",
-      }}
-    >
-      {ANALYTICS_PERIODS.map((p) => (
-        <option key={p.key} value={p.key}>
-          {p.label}
-        </option>
-      ))}
-    </select>
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={() => (open ? setOpen(false) : openPanel())}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.45rem",
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+          borderRadius: "10px",
+          padding: "0.5rem 0.9rem",
+          fontSize: "0.9rem",
+          fontWeight: 700,
+          color: "var(--text)",
+          cursor: "pointer",
+          fontFamily: "inherit",
+        }}
+      >
+        <CalendarDays size={15} strokeWidth={2.2} />
+        {periodLabelOf(value, now)}
+        <ChevronDown size={14} strokeWidth={2.2} />
+      </button>
+
+      {open && (
+        <>
+          {/* 팝오버 반응형 — PC 는 버튼 아래 좌우 배치, 좁은 화면은 중앙 모달 + 프리셋 가로 칩 */}
+          <style>{`
+            .pp-backdrop { position: fixed; inset: 0; z-index: 80; }
+            .pp-panel {
+              position: absolute;
+              top: calc(100% + 6px);
+              left: 0;
+              z-index: 81;
+              display: flex;
+              gap: 0.9rem;
+              width: min(460px, calc(100vw - 2rem));
+              background: var(--surface);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 0.9rem;
+              box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35);
+            }
+            .pp-presets {
+              display: flex;
+              flex-direction: column;
+              gap: 0.1rem;
+              min-width: 88px;
+              border-right: 1px solid var(--border);
+              padding-right: 0.7rem;
+            }
+            .pp-preset {
+              background: none;
+              border: none;
+              border-radius: 8px;
+              padding: 0.45rem 0.6rem;
+              text-align: left;
+              font-size: 0.86rem;
+              font-weight: 600;
+              color: var(--text);
+              cursor: pointer;
+              font-family: inherit;
+              white-space: nowrap;
+            }
+            .pp-preset.is-on {
+              background: rgba(37, 99, 235, 0.16);
+              color: var(--accent);
+              font-weight: 800;
+            }
+            @media (max-width: 640px) {
+              .pp-backdrop { background: rgba(0, 0, 0, 0.5); }
+              .pp-panel {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                flex-direction: column;
+                gap: 0.7rem;
+                width: min(330px, calc(100vw - 1.25rem));
+                max-height: calc(100vh - 1.5rem);
+                overflow-y: auto;
+              }
+              .pp-presets {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.35rem;
+                min-width: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding-right: 0;
+                padding-bottom: 0.65rem;
+              }
+              .pp-preset {
+                border: 1px solid var(--border);
+                border-radius: 9999px;
+                padding: 0.32rem 0.75rem;
+                font-size: 0.8rem;
+              }
+              .pp-preset.is-on { border-color: var(--accent); }
+            }
+          `}</style>
+          {/* 바깥 클릭 시 닫기 */}
+          <div className="pp-backdrop" onClick={() => setOpen(false)} />
+          <div className="pp-panel">
+            {/* 프리셋 — PC 는 세로 목록, 모바일은 가로 칩 */}
+            <div className="pp-presets">
+              {PERIOD_PRESETS.map((p) => (
+                <button
+                  key={p.key}
+                  className={`pp-preset${value.key === p.key ? " is-on" : ""}`}
+                  onClick={() => {
+                    onChange({ key: p.key });
+                    setOpen(false);
+                  }}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+
+            {/* 오른쪽 — 달력 범위 지정 */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {/* 선택 중인 시작 → 종료 */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.45rem",
+                  marginBottom: "0.7rem",
+                }}
+              >
+                <span style={dateBox}>{dS != null ? fmtDayDot(dS) : "시작일"}</span>
+                <span style={{ color: "var(--text-muted)", flexShrink: 0 }}>→</span>
+                <span style={dateBox}>
+                  {dE != null ? fmtDayDot(dE) : dS != null ? fmtDayDot(dS) : "종료일"}
+                </span>
+              </div>
+
+              {/* 연·월 이동 */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "0.35rem",
+                }}
+              >
+                <span>
+                  <button onClick={() => setViewY(viewY - 1)} style={navBtn} aria-label="1년 전">«</button>
+                  <button onClick={() => moveMonth(-1)} style={navBtn} aria-label="1달 전">‹</button>
+                </span>
+                <strong style={{ fontSize: "0.9rem", color: "var(--text)", whiteSpace: "nowrap" }}>
+                  {viewY}년 {pad(viewM + 1)}월
+                </strong>
+                <span>
+                  <button onClick={() => moveMonth(1)} style={navBtn} aria-label="1달 뒤">›</button>
+                  <button onClick={() => setViewY(viewY + 1)} style={navBtn} aria-label="1년 뒤">»</button>
+                </span>
+              </div>
+
+              {/* 요일 + 날짜 그리드 */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(7, 1fr)",
+                  gap: "1px",
+                  textAlign: "center",
+                }}
+              >
+                {["일", "월", "화", "수", "목", "금", "토"].map((w) => (
+                  <span
+                    key={w}
+                    style={{ fontSize: "0.72rem", color: "var(--text-muted)", padding: "0.2rem 0" }}
+                  >
+                    {w}
+                  </span>
+                ))}
+                {Array.from({ length: firstDow }).map((_, i) => (
+                  <span key={`b${i}`} />
+                ))}
+                {Array.from({ length: daysInMonth }).map((_, i) => {
+                  const ms = new Date(viewY, viewM, i + 1).getTime();
+                  const future = ms > todayMs;
+                  const sel = inDraft(ms);
+                  const edge = isEdge(ms);
+                  return (
+                    <button
+                      key={i}
+                      disabled={future}
+                      onClick={() => pickDay(ms)}
+                      style={{
+                        border: "none",
+                        borderRadius: edge ? "8px" : 0,
+                        padding: "0.34rem 0",
+                        fontSize: "0.82rem",
+                        fontWeight: edge ? 800 : 500,
+                        fontFamily: "inherit",
+                        cursor: future ? "default" : "pointer",
+                        color: future
+                          ? "var(--text-muted)"
+                          : edge
+                            ? "#fff"
+                            : sel
+                              ? "var(--accent)"
+                              : "var(--text)",
+                        opacity: future ? 0.35 : 1,
+                        background: edge
+                          ? "var(--accent)"
+                          : sel
+                            ? "var(--accent-light, rgba(37,99,235,0.16))"
+                            : "none",
+                      }}
+                    >
+                      {i + 1}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* 취소 · 확인 */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "0.5rem",
+                  marginTop: "0.7rem",
+                }}
+              >
+                <button
+                  onClick={() => setOpen(false)}
+                  style={{
+                    background: "none",
+                    border: "1px solid var(--border)",
+                    borderRadius: "8px",
+                    padding: "0.45rem 1.1rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 700,
+                    color: "var(--text)",
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                  }}
+                >
+                  취소
+                </button>
+                <button
+                  onClick={apply}
+                  disabled={dS == null}
+                  style={{
+                    background: "var(--accent)",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "0.45rem 1.3rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 800,
+                    color: "#fff",
+                    cursor: dS == null ? "default" : "pointer",
+                    opacity: dS == null ? 0.5 : 1,
+                    fontFamily: "inherit",
+                  }}
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -827,46 +1212,39 @@ function AnalyticsView({
   inquiries: Inquiry[];
 }) {
   // 기간 선택
-  const [period, setPeriod] = useState("today");
+  const [period, setPeriod] = useState<PeriodSel>({ key: "today" });
   // 현재 시각 — 자정을 지나면 '오늘' 집계가 다음 날로 넘어가야 하므로
   // 마운트에 고정하지 않고 매 렌더(폴링·포커스 갱신 시) 다시 읽는다
   const now = Date.now();
-  const periodDays =
-    ANALYTICS_PERIODS.find((p) => p.key === period)?.days ?? 14;
-  const periodLabel =
-    ANALYTICS_PERIODS.find((p) => p.key === period)?.label ?? "최근 14일";
+  const range = periodRange(period, now);
+  const periodLabel = periodLabelOf(period, now);
 
   // 선택 기간만 집계 ('오늘'은 달력상 오늘 자정부터)
-  const cutoff = periodCutoff(period);
-  const checks = cutoff
-    ? allB.filter((b) => new Date(b.createdAt).getTime() >= cutoff)
-    : allB;
-  const inquiries = cutoff
-    ? allI.filter((i) => new Date(i.createdAt).getTime() >= cutoff)
-    : allI;
+  const checks = withinPeriod(allB, period);
+  const inquiries = withinPeriod(allI, period);
 
-  // ── 일별 접수 추이 (차트 일수는 기간에 맞춤) ──
-  let DAYS = periodDays ?? 14;
-  if (periodDays == null) {
+  // ── 일별 접수 추이 (차트 구간은 선택 범위의 첫날~끝날) ──
+  const chartEnd = dayFloor(Math.min(range.end - DAY_MS, now)); // 마지막 버킷 날짜
+  let chartStart = dayFloor(range.start);
+  if (period.key === "all") {
+    // 전체: 데이터가 시작된 날부터 (없으면 최근 14일)
+    chartStart = chartEnd - 13 * DAY_MS;
     const all = [...allB, ...allI];
     if (all.length) {
-      const earliest = Math.min(
-        ...all.map((r) => new Date(r.createdAt).getTime()),
+      const earliest = dayFloor(
+        Math.min(...all.map((r) => new Date(r.createdAt).getTime())),
       );
-      DAYS = Math.min(
-        90,
-        Math.max(14, Math.ceil((now - earliest) / 86400000) + 1),
-      );
+      chartStart = Math.min(chartStart, earliest);
     }
   }
-  const today = new Date();
+  // 범위가 너무 길면 차트만 최근 92일로 자른다 (집계 숫자는 전체 범위 기준)
+  if ((chartEnd - chartStart) / DAY_MS + 1 > 92) {
+    chartStart = chartEnd - 91 * DAY_MS;
+  }
+  const DAYS = Math.max(1, Math.round((chartEnd - chartStart) / DAY_MS) + 1);
   const buckets: { key: string; label: string; b: number; i: number }[] = [];
-  for (let n = DAYS - 1; n >= 0; n--) {
-    const d = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - n,
-    );
+  for (let n = 0; n < DAYS; n++) {
+    const d = new Date(chartStart + n * DAY_MS);
     buckets.push({
       key: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`,
       label: `${d.getMonth() + 1}/${d.getDate()}`,
@@ -1515,8 +1893,8 @@ function TrafficView({
     padding: "1.4rem 1.5rem",
   };
 
-  // 기간 선택 (최근 30일 범위 내에서 필터)
-  const [period, setPeriod] = useState("today");
+  // 기간 선택
+  const [period, setPeriod] = useState<PeriodSel>({ key: "today" });
   const pageViews = withinPeriod(allPageViews, period);
 
   // 날짜별 방문자 차트(가로 스크롤)를 진입 시 맨 오른쪽(최근)으로 이동
@@ -2123,7 +2501,7 @@ export default function AdminPage() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
   const [pvLoading, setPvLoading] = useState(false);
-  const [listPeriod, setListPeriod] = useState("today");
+  const [listPeriod, setListPeriod] = useState<PeriodSel>({ key: "today" });
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -2949,6 +3327,8 @@ export default function AdminPage() {
         @media (max-width: 900px) { .analytics-2col { grid-template-columns: 1fr; } }
         .traffic-metric-grid { grid-template-columns: repeat(4, 1fr); }
         @media (max-width: 900px) { .traffic-metric-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* 320px급 초소형 화면 — 2열이면 큰 숫자가 카드를 밀어내 가로로 넘친다 */
+        @media (max-width: 359px) { .traffic-metric-grid { grid-template-columns: 1fr; } }
 
         @media (max-width: 768px) {
           .admin-wrap { flex-direction: column; }
