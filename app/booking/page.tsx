@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight, Check, CalendarDays, Clock, User, XCircle } 
 import { projectTypes } from '@/data/common'
 import { attributionLine } from '@/lib/attribution'
 import { trackNaverLead } from '@/lib/naverConversion'
-import { trackSmartlogInquiry } from '@/lib/smartlogConversion'
 import Reveal from '@/components/Reveal'
 import SplitText from '@/components/SplitText'
 
@@ -113,7 +112,6 @@ export default function BookingPage() {
       setShowErrors(false)
       // 네이버 광고에 "예약 완료" 전환을 알린다 (광고 스크립트가 켜져 있을 때만 동작)
       trackNaverLead()
-      trackSmartlogInquiry()
       // 완료 화면이 그려지기 전에 미리 상단으로 (스크롤이 움직이는 게 안 보이도록)
       window.scrollTo(0, 0)
       setSubmitted(true)
