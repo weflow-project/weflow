@@ -86,7 +86,7 @@ export interface Portfolio {
  */
 // 칩 목록 — 아직 사례가 없는 업종도 포함해 보여준다 (사례는 채워지는 대로 추가)
 export const categoryOrder = [
-  '기업/비즈니스', '인테리어', '차량', '캠핑/레저', '보험',
+  '기업/비즈니스', '쇼핑몰/결제', '인테리어', '차량', '캠핑/레저', '보험',
   '의료/병원', '뷰티/미용', '학원/교육', '음식점/카페', '법률/세무', '부동산',
   '펜션/숙박', '헬스/피트니스', '반려동물', '제조/공장', '웨딩/스튜디오', '청소/이사',
 ]
@@ -621,6 +621,26 @@ export const portfolios: Portfolio[] = [
   },
 
   // ── 참고용 샘플 사례 — 실제 계약 사례가 아니며 카드가 눌리지 않는다 ──
+  {
+    slug: 'sample-shop-1',
+    name: 'OO스토어',
+    category: '쇼핑몰/결제',
+    plan: '홈페이지',
+    desc: '상품 판매와 온라인 결제 중심의 쇼핑몰',
+    url: '',
+    images: ['/images/cases/samples/sample-shop-1.webp'],
+    placeholder: true,
+  },
+  {
+    slug: 'sample-shop-2',
+    name: 'OO파츠',
+    category: '쇼핑몰/결제',
+    plan: '홈페이지',
+    desc: '규격 부품 실시간 견적·카드 결제 주문 홈페이지',
+    url: '',
+    images: ['/images/cases/samples/sample-shop-2.webp'],
+    placeholder: true,
+  },
   {
     slug: 'sample-interior-1',
     name: 'OO인테리어',
