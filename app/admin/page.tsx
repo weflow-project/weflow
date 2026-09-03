@@ -1961,11 +1961,13 @@ function TrafficView({
       new Set(paidViews.map((v) => `${normSource(v.source)}-ad`)).forEach((src) => {
         sourceCount[src] = (sourceCount[src] || 0) + 1;
       });
-      new Set(paidViews.map((v) => v.campaign).filter(Boolean)).forEach((kw) => {
+      const kws = new Set(paidViews.map((v) => v.campaign).filter(Boolean));
+      kws.forEach((kw) => {
         keywordCount[kw] = (keywordCount[kw] || 0) + 1;
       });
-      // 광고를 보고 온 세션은 이탈 페이지를 따로 센다
-      adExitCount[exit.path] = (adExitCount[exit.path] || 0) + 1;
+      // 광고 유입 이탈 페이지 — 키워드 카드와 같은 단위(키워드당 1회)로 세서
+      // 두 카드의 합계가 항상 일치한다 (한 기기가 키워드 2개로 오면 이탈도 2로)
+      adExitCount[exit.path] = (adExitCount[exit.path] || 0) + kws.size;
     } else {
       const src = normSource(entry.source);
       sourceCount[src] = (sourceCount[src] || 0) + 1;

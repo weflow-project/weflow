@@ -373,10 +373,17 @@ export default function SolutionSection() {
         @media (min-width: 1025px) {
           .trust-grid { grid-template-columns: repeat(6, 1fr); max-width: 1320px; }
           .trust-cell--mtop { border-bottom: none; }
-          .trust-cell--mleft { border-left: none; }
-          .trust-cell + .trust-cell { border-left: 1px solid var(--border-subtle); }
-          /* PC: 배열 순서 그대로 — 색 부각 두 칸이 3·4번째(가운데)에 온다 */
-          .trust-cell--hl { order: 0; }
+          /* PC 전용 배치 — 최적화 · 프로모션 · 선택 이유 · 제작 시기 · 맞춤 제작 · 상담 비용.
+             배열(=모바일 순서)은 그대로 두고 order 로만 재배치한다 */
+          .trust-cell:nth-child(1) { order: 2; } /* 50% 특별 프로모션 */
+          .trust-cell:nth-child(2) { order: 5; } /* 100% 고객 맞춤 제작 */
+          .trust-cell:nth-child(3) { order: 3; } /* 최신 기술 활용 */
+          .trust-cell:nth-child(4) { order: 4; } /* 희망 오픈일 맞춤 */
+          .trust-cell:nth-child(5) { order: 1; } /* 100% PC·모바일 최적화 */
+          .trust-cell:nth-child(6) { order: 6; } /* 0원 무료 상담 비용 */
+          /* 구분선 — order 로 섞였으니 DOM 이웃 대신 전 칸에 긋고 시각상 첫 칸만 뺀다 */
+          .trust-cell { border-left: 1px solid var(--border-subtle); }
+          .trust-cell:nth-child(5) { border-left: none; }
           /* 6열은 카드가 좁아진다 — 그리드 폭을 넓히고 간격을 줄여 카드 가로를 키운다.
              (통계 밴드도 같은 1320px 를 써서 좌우 선이 맞는다) */
           .strength-grid { grid-template-columns: repeat(6, 1fr); gap: 0.65rem; max-width: 1320px; }
