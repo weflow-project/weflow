@@ -112,6 +112,10 @@ const byLength = (a: string, b: string) => b.length - a.length
 const SERVICE_TERMS = SERVICES.flatMap(s => s.match.map(m => ({ m, s }))).sort((a, b) => byLength(a.m, b.m))
 const INDUSTRY_TERMS = [...INDUSTRIES, ...Object.keys(INDUSTRY_ALIASES)].sort(byLength)
 
+// 범용 사업체 단어 — "건설회사"처럼 구체 업종과 붙어 오면 구체 쪽('건설')이 이겨야 한다.
+// 이 단어들은 다른 업종이 하나도 안 잡혔을 때만 쓴다.
+const GENERIC_INDUSTRIES = new Set(['회사', '기업', '법인', '브랜드'])
+
 /** 키워드 → 업종·서비스·폼 종류·헤드라인. 아무것도 안 잡히면 빈 객체 */
 export function matchKeyword(kw?: string | null): KeywordMatch {
   if (!kw) return {}
@@ -119,7 +123,10 @@ export function matchKeyword(kw?: string | null): KeywordMatch {
   if (!k) return {}
 
   const svc = SERVICE_TERMS.find(t => k.includes(t.m))?.s
-  const rawInd = INDUSTRY_TERMS.find(t => k.includes(t))
+  // 구체 업종 우선 — 없을 때만 범용 단어(회사·기업 등)로 잡는다
+  const rawInd =
+    INDUSTRY_TERMS.find(t => !GENERIC_INDUSTRIES.has(t) && k.includes(t)) ??
+    INDUSTRY_TERMS.find(t => k.includes(t))
   const industry = rawInd ? (INDUSTRY_ALIASES[rawInd] ?? rawInd) : undefined
 
   if (!svc && !industry) return {}
