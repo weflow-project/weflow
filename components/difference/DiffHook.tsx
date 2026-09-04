@@ -56,7 +56,8 @@ export default function DiffHook() {
             className="body c-muted"
             style={{ margin: "1rem auto 0", maxWidth: "600px", wordBreak: "keep-all" }}
           >
-            이미 만들어진 틀 안에서는 틀에 없는 기능을 넣을 수 없습니다.
+            이미 만들어진 틀 안에서는 <br className="br-mobile" />
+            틀에 없는 기능을 넣을 수 없습니다.
             <br />
             그게 무슨 뜻인지, 아래에서 짧게 설명드릴게요.
           </p>
