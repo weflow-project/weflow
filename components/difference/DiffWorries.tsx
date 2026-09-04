@@ -149,8 +149,10 @@ export default function DiffWorries() {
         }
         .dw-label--we { color: var(--accent); }
         @media (max-width: 860px) {
-          /* 세로로 쌓여도 줄끼리 높이는 그대로 맞추고(위 grid-auto-rows: 1fr),
-             한 줄 안의 템플릿·WEFLOW 두 박스도 1fr 1fr 로 같은 높이 — 결국 박스 6개가 전부 같은 높이 */
+          /* 모바일 — 줄끼리는 높이를 맞추지 않고 각 줄이 자기 내용만큼만 쓴다.
+             대신 한 줄 안의 템플릿·WEFLOW 두 박스는 1fr 1fr 로 그 줄에서 긴 쪽 높이에 맞춘다
+             (내 요구사항 3줄 / 보안·속도 4줄 / 고객 인상 3줄 기준) */
+          .dw-rows { grid-auto-rows: auto; }
           .dw-row { grid-template-columns: 1fr; grid-template-rows: auto 1fr 1fr; gap: 0.75rem; }
         }
       `}</style>
