@@ -7,16 +7,21 @@ import { Menu, X } from "lucide-react";
 
 // 상단 메뉴 목록 (데스크탑 가로 메뉴 / 모바일 드로어가 같이 쓴다).
 // 헤더는 이정표라 짧게 — 자세한 이름은 푸터에 그대로 남겨뒀다.
-const NAV_LINKS = [
+const NAV_LINKS: { href: string; label: string; gold?: boolean }[] = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
+  // WEFLOW만의 차별점(/difference)은 메뉴에서 빼고 메인 히어로 버튼으로 보낸다 — 페이지·푸터 링크는 남아 있다
   { href: "/pricing", label: "가격 안내" },
   { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
   // 예약 신청(/booking)은 메뉴에서 내리고 그 자리에 사이트 점검을 뒀다 — 페이지 자체는 남아 있다
-  { href: "/check", label: "사이트 점검" },
+  // gold: 다른 메뉴보다 눈에 띄게 굵은 금색으로 그린다 (PC·모바일 공통)
+  { href: "/check", label: "사이트 점검", gold: true },
 ];
+
+// 강조 메뉴 색 — 히어로 '고객만족도 1위' 엠블럼과 같은 금색
+const NAV_GOLD = "#e3c99e";
 
 // 같은 페이지에서 다시 눌렀을 때 폼을 새로 시작해야 하는 경로
 const RESETTABLE = new Set(["/booking", "/diagnosis", "/check"]);
@@ -114,9 +119,12 @@ export default function Navbar() {
                 style={{
                   padding: "0.4rem 0.6rem",
                   borderRadius: "6px",
-                  fontWeight: pathname === l.href ? 700 : 500,
-                  color:
-                    pathname === l.href ? "var(--accent)" : "var(--text-muted)",
+                  fontWeight: pathname === l.href || l.gold ? 700 : 500,
+                  color: l.gold
+                    ? NAV_GOLD
+                    : pathname === l.href
+                      ? "var(--accent)"
+                      : "var(--text-muted)",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                   transition: "color 0.15s",
@@ -263,9 +271,13 @@ export default function Navbar() {
               style={{
                 display: "block",
                 padding: "0.9rem 1.5rem",
-                color: pathname === l.href ? "var(--accent)" : "var(--text)",
+                color: l.gold
+                  ? NAV_GOLD
+                  : pathname === l.href
+                    ? "var(--accent)"
+                    : "var(--text)",
                 textDecoration: "none",
-                fontWeight: pathname === l.href ? 700 : 500,
+                fontWeight: pathname === l.href || l.gold ? 700 : 500,
                 borderLeft:
                   pathname === l.href
                     ? "3px solid var(--accent)"

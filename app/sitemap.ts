@@ -24,6 +24,7 @@ const paths: {
 }[] = [
   { path: '', updated: '2026-07-31', priority: 1.0, freq: 'weekly' },
   { path: '/service', updated: '2026-07-22', priority: 0.9, freq: 'weekly' },
+  { path: '/difference', updated: '2026-09-04', priority: 0.8, freq: 'monthly' },
   { path: '/guide', updated: '2026-07-22', priority: 0.8, freq: 'monthly' },
   { path: '/pricing', updated: '2026-07-22', priority: 0.9, freq: 'weekly' },
   { path: '/cases', updated: '2026-07-31', priority: 0.8, freq: 'weekly' },
