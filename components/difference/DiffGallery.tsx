@@ -59,7 +59,7 @@ export default function DiffGallery() {
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
             템플릿이 아닌, <br className="br-mobile" />
-            <span className="c-accent">처음부터 만든 홈페이지</span>
+            <span className="c-gold">처음부터 만든 홈페이지</span>
           </h2>
           <p
             className="body c-muted"

@@ -22,10 +22,9 @@ export default function DiffHook() {
             01 · 템플릿 제작 업체와, 무엇이 다를까요?
           </span>
           <h1 className="title-1 emphasized" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            요청했더니 <br className="br-mobile" />
-            <span className="c-accent">“그 기능은 안 됩니다”</span>
+            내 홈페이지인데,
             <br />
-            이런 답, 들어보셨나요?
+            왜 <span className="c-gold">내 마음대로</span> 안 될까요?
           </h1>
           <p
             className="body c-muted"
@@ -50,7 +49,8 @@ export default function DiffHook() {
             className="title-1 emphasized"
             style={{ margin: 0, wordBreak: "keep-all", lineHeight: 1.3 }}
           >
-            <span className="c-accent tilt-hl tilt-hl-red">템플릿</span>이라서 안 되는 겁니다.
+            <span className="c-gold">템플릿(예전기술)</span>이라서 <br className="br-mobile" />
+            안 되는 겁니다.
           </p>
           <p
             className="body c-muted"

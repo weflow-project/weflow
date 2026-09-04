@@ -13,7 +13,7 @@ const POINTS: { Icon: LucideIcon; title: string; desc: ReactNode }[] = [
       <>
         완성된 디자인에 사진과 문구만 갈아 끼웁니다.
         <br />
-        구조와 기능은 예전 기술로 만든 틀 그대로입니다.
+        구조·기능은 물론 모바일 반응형까지 예전 기술의 틀 그대로입니다.
       </>
     ),
   },
@@ -44,7 +44,7 @@ const POINTS: { Icon: LucideIcon; title: string; desc: ReactNode }[] = [
 /**
  * 02 · 템플릿이란? — 흔한 템플릿 홈페이지 화면(직접 만든 예시 캡처)을 옆에 두고
  * 틀에 사진·글만 끼우는 방식, 공용 관리자 페이지, 저렴한 이유를 설명한다.
- * 템플릿 자체를 깎아내리기보다 "빌린 틀"이라는 성격을 알고 고르라는 톤으로 마무리한다.
+ * 마무리는 "저렴하다고 좋은 게 아니다" — 예전 기술이라 보안·속도·색인·요구사항에서 밀린다는 한 줄.
  */
 export default function DiffTemplate() {
   return (
@@ -57,11 +57,11 @@ export default function DiffTemplate() {
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         <Reveal variant="up" style={{ maxWidth: "760px" }}>
           <span className="footnote emphasized c-accent" style={{ letterSpacing: "0.04em" }}>
-            02 · 템플릿이란?
+            02 · 템플릿(예전기술)이란?
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            템플릿 홈페이지는 <br className="br-mobile" />
-            <span className="c-accent">왜 저렴할까요?</span>
+            템플릿(예전기술) 홈페이지는 <br className="br-mobile" />
+            <span className="c-gold">왜 저렴할까요?</span>
           </h2>
           <p className="body c-muted" style={{ margin: "1rem 0 0", maxWidth: "560px", wordBreak: "keep-all" }}>
             템플릿은 ‘미리 만들어 둔 홈페이지’입니다.
@@ -115,14 +115,17 @@ export default function DiffTemplate() {
           </Reveal>
         </div>
 
-        {/* 마무리 한 줄 — 템플릿을 깎지 않고 성격을 짚는다 */}
+        {/* 마무리 한 줄 — 저렴함의 대가를 짚는다 */}
         <Reveal variant="fade" delay={0.15} className="dt-note">
           <p className="title-2 emphasized" style={{ margin: "0 0 0.5rem", wordBreak: "keep-all" }}>
-            저렴한 게 나쁜 건 아닙니다.
+            <span className="c-gold">저렴하다고 좋은 게 아닙니다.</span>
           </p>
           <p className="body c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
-            다만 그건 ‘내 홈페이지’가 아니라 <strong style={{ color: "var(--text)" }}>‘빌린 틀’</strong>입니다.
-            <br className="br-mobile" /> 그걸 알고 선택하셔야 나중에 후회가 없습니다.
+            템플릿은 예전 기술입니다.
+            <br className="br-mobile" />
+            아무리 잘 이용해도 보안·속도·검색 색인에서 <strong style={{ color: "var(--text)" }}>최신 기술을 따라올 수 없고</strong>,
+            <br />
+            내가 원하는 요구사항도 들어줄 수 없습니다.
           </p>
         </Reveal>
       </div>

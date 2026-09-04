@@ -42,11 +42,11 @@ export default function DiffWorries() {
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         <Reveal variant="up" style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto" }}>
           <span className="footnote emphasized c-accent" style={{ letterSpacing: "0.04em" }}>
-            05 · 템플릿 대신 최신 기술을 써야 하는 이유
+            05 · 템플릿(예전기술) 대신 최신 기술을 써야 하는 이유
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            템플릿을 고르면 <br className="br-mobile" />
-            <span className="c-accent">이런 걱정이 따라옵니다</span>
+            템플릿(예전기술)을 고르면 <br className="br-mobile" />
+            <span className="c-gold">이런 걱정이 따라옵니다</span>
           </h2>
           <p
             className="body c-muted"
@@ -75,7 +75,7 @@ export default function DiffWorries() {
               </div>
               <div className="dw-cell dw-cell--tpl">
                 <span className="dw-label">
-                  <X size={13} strokeWidth={3} /> 템플릿
+                  <X size={13} strokeWidth={3} /> 템플릿(예전기술)
                 </span>
                 <p className="callout c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
                   {template}

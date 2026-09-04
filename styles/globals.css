@@ -308,6 +308,25 @@
   .c-accent {
     color: var(--accent);
   }
+  /* 사이트 금색 — 월계수 밴드·신뢰 라인(trust-gold)과 같은 금장 그라데이션 + 좌→우 광택.
+     제목 안의 강조 구절에 c-accent 대신 쓴다 */
+  .c-gold {
+    display: inline-block;
+    background: linear-gradient(115deg, #b8976b 0%, #c9a262 38%, #fff6da 50%, #c9a262 62%, #b8976b 100%);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 1px 8px rgba(201, 162, 98, 0.3));
+    animation: cGoldSheen 2.8s linear infinite;
+  }
+  @keyframes cGoldSheen {
+    from { background-position: 250% center; }
+    to { background-position: 0% center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .c-gold { animation: none; }
+  }
 
   /* 레거시 별칭 — 기존 섹션 제목은 Title 1 / Subhead 로 매핑 */
   .section-title {
