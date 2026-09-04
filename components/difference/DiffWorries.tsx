@@ -149,7 +149,10 @@ export default function DiffWorries() {
         }
         .dw-label--we { color: var(--accent); }
         @media (max-width: 860px) {
-          .dw-row { grid-template-columns: 1fr; gap: 0.75rem; }
+          /* 세로로 쌓이면 줄끼리 높이를 맞추지 않고(빈칸이 생긴다) 내용만큼만 쓴다.
+             대신 한 줄 안의 템플릿·WEFLOW 두 박스는 1fr 1fr 로 같은 높이가 되게 */
+          .dw-rows { grid-auto-rows: auto; }
+          .dw-row { grid-template-columns: 1fr; grid-template-rows: auto 1fr 1fr; gap: 0.75rem; }
         }
       `}</style>
     </section>

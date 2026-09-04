@@ -91,7 +91,8 @@ export default function DiffTemplate() {
             </div>
             <p className="dt-shot-note">
               흔히 볼 수 있는 <strong>템플릿 홈페이지</strong>의 모습
-              <br className="br-mobile" /> — 어디서 본 듯하지 않나요?
+              <span className="hide-mobile"> →</span>
+              <br className="br-mobile" /> 어디서 본 듯하지 않나요?
             </p>
           </Reveal>
 
@@ -119,7 +120,7 @@ export default function DiffTemplate() {
         <Reveal variant="fade" delay={0.15} className="dt-note">
           {/* title-1 과 title-2 사이 크기 — title-1 은 컸고 title-2 는 작았다 */}
           <p
-            className="title-1 emphasized"
+            className="title-1 emphasized dt-note-title"
             style={{ margin: "0 0 0.75rem", wordBreak: "keep-all", fontSize: "clamp(1.55rem, 3.5vw, 1.9rem)" }}
           >
             <span className="c-gold">저렴하다고 좋은 게 아닙니다.</span>
@@ -214,6 +215,10 @@ export default function DiffTemplate() {
         }
         @media (max-width: 860px) {
           .dt-split { grid-template-columns: 1fr; }
+        }
+        /* 모바일 — 박스 위 여백이 좁아 제목이 떠 보여서 살짝 내린다 */
+        @media (max-width: 768px) {
+          .dt-note-title { margin-top: 0.6rem !important; }
         }
       `}</style>
     </section>

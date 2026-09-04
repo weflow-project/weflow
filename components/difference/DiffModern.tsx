@@ -45,7 +45,7 @@ export default function DiffModern() {
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
             <span className="c-gold">최신 기술을 쓰면,</span> <br className="br-mobile" />
-            <span className="title-lead">어떤 사이트가 나올까요?</span>
+            어떤 사이트가 나올까요?
           </h2>
           <p
             className="body c-muted"

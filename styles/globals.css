@@ -788,7 +788,6 @@
     font-weight: 600;
     text-decoration: none;
   }
-  /* 글씨는 금장 광택(c-gold span) — 아이콘 색만 여기서 정한다: 전화 초록, 달력 흰색 */
   .mobile-cta-bar__btn--call {
     background: var(--surface);
     color: var(--text);
