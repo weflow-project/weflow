@@ -22,6 +22,7 @@ import {
   MousePointerClick,
   Clock,
   Smartphone,
+  Monitor,
   LogIn,
   DoorOpen,
   TrendingUp,
@@ -669,16 +670,17 @@ function StatCard({
   );
 }
 
-// 메모에서 자동 첨부된 "유입: …" 줄을 분리한다 — 상세 펼침에서 업종 아래에 따로 보여주기 위해
-// "네이버 광고 · 키워드: 카페홈페이지제작" → 채널 / 키워드 로 나눈다
-function splitNote(note: string): { entry: string; keyword: string; body: string } {
+// 메모에서 자동 첨부된 "유입: …" · "기기: …" 줄을 분리한다 — 상세 펼침에서 업종 아래에 따로 보여주기 위해
+// "네이버 광고 · 키워드: 카페홈페이지제작" → 채널 / 키워드 로 나누고, "기기: 모바일" 은 device 로
+function splitNote(note: string): { entry: string; keyword: string; device: string; body: string } {
   const lines = (note || "").split("\n");
   const idx = lines.findIndex((l) => l.startsWith("유입: "));
-  if (idx < 0) return { entry: "", keyword: "", body: note || "" };
-  const raw = lines[idx].slice("유입: ".length);
+  const devIdx = lines.findIndex((l) => l.startsWith("기기: "));
+  const raw = idx >= 0 ? lines[idx].slice("유입: ".length) : "";
   const [entry, kw] = raw.split(" · 키워드: ");
-  const body = lines.filter((_, i) => i !== idx).join("\n").trim();
-  return { entry: entry || "", keyword: kw || "", body };
+  const device = devIdx >= 0 ? lines[devIdx].slice("기기: ".length).trim() : "";
+  const body = lines.filter((_, i) => i !== idx && i !== devIdx).join("\n").trim();
+  return { entry: entry || "", keyword: kw || "", device, body };
 }
 
 /**
@@ -1053,6 +1055,38 @@ function RequestTable({
                                   }}
                                 >
                                   {splitNote(row.note).entry}
+                                </dd>
+                              </>
+                            )}
+                            {/* 신청 기기 — 접수 시 서버가 브라우저 정보로 판별해 메모에 붙인 "기기: …" 줄 */}
+                            {splitNote(row.note).device && (
+                              <>
+                                <dt
+                                  className="emphasized"
+                                  style={{
+                                    color: "var(--text-muted)",
+                                    marginTop: "1rem",
+                                    marginBottom: "0.3rem",
+                                    fontSize: "0.85rem",
+                                  }}
+                                >
+                                  신청 기기
+                                </dt>
+                                <dd
+                                  style={{
+                                    color: "var(--text-secondary)",
+                                    margin: 0,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.35rem",
+                                  }}
+                                >
+                                  {splitNote(row.note).device === "데스크탑" ? (
+                                    <Monitor size={15} strokeWidth={2} />
+                                  ) : (
+                                    <Smartphone size={15} strokeWidth={2} />
+                                  )}
+                                  {splitNote(row.note).device}
                                 </dd>
                               </>
                             )}

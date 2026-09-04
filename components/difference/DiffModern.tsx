@@ -77,9 +77,11 @@ export default function DiffModern() {
       </div>
 
       <style>{`
+        /* 카드 4장 높이를 제일 긴 문장 기준으로 전부 맞춘다 — 2열·1열로 쌓여도 같은 높이 */
         .dm-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: 1fr;
           gap: 1.1rem;
         }
         .dm-card {

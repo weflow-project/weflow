@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server'
 import { inquiryStore } from '@/lib/store'
 import { isAdmin } from '@/lib/adminAuth'
+import { deviceNoteLine } from '@/lib/device'
 
 // 전체 문의 목록을 최신순으로 반환
 export async function GET() {
@@ -21,6 +22,8 @@ export async function POST(req: Request) {
   if (!name || !phone || !type) {
     return NextResponse.json({ error: '필수 항목이 누락되었습니다.' }, { status: 400 })
   }
-  const item = await inquiryStore.create({ name, phone, type, industry: industry || '', note: note || '', agree: !!agree, source: source || 'web' })
+  // 어떤 기기로 신청했는지 — 브라우저 정보로 판별해 메모 끝에 "기기: 모바일" 줄로 남긴다
+  const noteWithDevice = [note || '', deviceNoteLine(req.headers.get('user-agent') || '')].filter(Boolean).join('\n')
+  const item = await inquiryStore.create({ name, phone, type, industry: industry || '', note: noteWithDevice, agree: !!agree, source: source || 'web' })
   return NextResponse.json(item, { status: 201 })
 }

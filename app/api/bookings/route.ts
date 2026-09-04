@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server'
 import { bookingStore } from '@/lib/store'
 import { isAdmin } from '@/lib/adminAuth'
+import { deviceNoteLine } from '@/lib/device'
 
 // 전체 예약 목록을 최신순으로 반환
 export async function GET() {
@@ -21,6 +22,8 @@ export async function POST(req: Request) {
   if (!name || !phone || !type || !date || !time) {
     return NextResponse.json({ error: '필수 항목이 누락되었습니다.' }, { status: 400 })
   }
-  const item = await bookingStore.create({ name, phone, type, industry: industry || '', note: note || '', date, time })
+  // 어떤 기기로 신청했는지 — 문의와 같은 방식으로 메모 끝에 "기기: …" 줄로 남긴다
+  const noteWithDevice = [note || '', deviceNoteLine(req.headers.get('user-agent') || '')].filter(Boolean).join('\n')
+  const item = await bookingStore.create({ name, phone, type, industry: industry || '', note: noteWithDevice, date, time })
   return NextResponse.json(item, { status: 201 })
 }

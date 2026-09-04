@@ -4,14 +4,7 @@
 
 import { NextResponse } from 'next/server'
 import { pageViewStore } from '@/lib/store'
-
-// user-agent → mobile | tablet | desktop
-function detectDevice(ua: string): string {
-  const s = ua.toLowerCase()
-  if (/ipad|tablet|(android(?!.*mobile))/.test(s)) return 'tablet'
-  if (/mobile|iphone|ipod|android/.test(s)) return 'mobile'
-  return 'desktop'
-}
+import { detectDevice } from '@/lib/device'
 
 // referrer 도메인 → 유입 소스 정규화
 function normalizeSource(referrer: string, host: string): string {
