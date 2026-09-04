@@ -1,8 +1,9 @@
 'use client'
 // 실시간 홈페이지 문의 보드 (연출용 데이터).
-// 3~7초 불규칙 간격으로 새 문의가 맨 위에서 밀고 내려오고(높이가 펴지며 아래 행들을 자연스럽게 밀어냄),
-// 맨 아래 행은 접히며 페이드 아웃. 새 행은 등장 순간 배경이 노랗게 1초쯤 반짝인 뒤 원래 색으로 돌아온다.
-// 시간 라벨은 행마다 제각각(서로 겹치지 않는 분 단위)이며, 새 행이 들어올 때 불규칙하게 벌어지고 1분마다 실제로 1씩 늘어난다.
+// 새 문의는 방문자가 이 보드를 실제로 보고 있을 때(탭이 보이고 + 보드가 화면 안)만 '방금 전'으로 들어오고,
+// 시간 라벨은 실제 시계로만 흐른다 ('방금 전' → 1분 뒤 '1분 전' → …). 랜덤으로 시간을 밀어내지 않는다.
+// 첫 도착은 보드가 보인 뒤 5~10초, 그 뒤로는 40초~2분 간격. 안 보는 동안 밀린 건 쌓아두지 않고 건너뛴다.
+// 목록은 sessionStorage 에 남겨 같은 세션에서 다시 들어와도 아까 본 문의가 그만큼 나이 먹은 채로 이어진다.
 import { useEffect, useRef, useState } from 'react'
 import {
   LIVE_INDUSTRIES,
@@ -10,19 +11,22 @@ import {
   LIVE_SURNAMES,
 } from '@/data/solution'
 
-type Row = { id: number; industry: string; name: string; inquiry: string; minutes: number } // minutes: 'N분 전' (0 = 방금 전)
+type Row = { id: number; industry: string; name: string; inquiry: string; at: number } // at: 문의 시각(epoch ms)
 
 const VISIBLE = 5 // 동시에 보이는 행 수
-const INITIAL_MINUTES = [1, 8, 13, 17, 26] // 첫 화면 시간 (위에서부터, 전부 다르게)
+const INITIAL_AGES_MIN = [2, 9, 15, 27, 41] // 첫 화면 각 행의 나이(분) — 위에서부터, 전부 다르게
+const STORAGE_KEY = 'weflow-live-inquiries'
+const STALE_MS = 2 * 60 * 60 * 1000 // 저장된 목록의 맨 위가 2시간 넘게 오래됐으면 새로 만든다 (죽은 보드처럼 보이니까)
+const FIRST_ARRIVAL_MS = () => 5_000 + Math.random() * 5_000 // 보드가 보인 뒤 첫 도착
+const NEXT_ARRIVAL_MS = () => 40_000 + Math.random() * 80_000 // 그다음부터
+const CLOCK_TICK_MS = 20_000 // 라벨 갱신 주기 — 1분 경계를 20초 안에 잡는다
 
-function ageLabel(m: number) {
+function ageLabel(ageMs: number) {
+  const m = Math.floor(ageMs / 60_000)
   if (m <= 0) return '방금 전'
   if (m < 60) return `${m}분 전`
   return `${Math.floor(m / 60)}시간 전`
 }
-
-// 2~9분 사이 불규칙한 간격 — 행마다 다르게 벌어지도록
-const randomGap = () => 2 + Math.floor(Math.random() * 8)
 
 // 마스킹 이름 뒷글자 후보 — 성 + '*' + 한 글자
 const NAME_TAILS = [
@@ -34,66 +38,130 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function makeRow(id: number, minutes = 0): Row {
+function makeRow(id: number, at: number): Row {
   return {
     id,
     industry: pick(LIVE_INDUSTRIES),
     name: `${pick(LIVE_SURNAMES)}*${pick(NAME_TAILS)}`,
     inquiry: pick(LIVE_INQUIRY_TYPES),
-    minutes,
+    at,
+  }
+}
+
+function makeInitialRows(now: number): Row[] {
+  return INITIAL_AGES_MIN.slice(0, VISIBLE).map((m, i) => makeRow(i, now - m * 60_000))
+}
+
+// 세션 저장소 — 시크릿 창·차단 설정에서는 접근 자체가 터질 수 있어 전부 try 로 감싼다
+function loadRows(now: number): Row[] | null {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const rows = JSON.parse(raw) as Row[]
+    if (!Array.isArray(rows) || rows.length === 0) return null
+    if (now - rows[0].at > STALE_MS) return null
+    return rows.slice(0, VISIBLE)
+  } catch {
+    return null
+  }
+}
+function saveRows(rows: Row[]) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(rows.slice(0, VISIBLE)))
+  } catch {
+    /* 저장 못 해도 화면엔 지장 없다 */
   }
 }
 
 export default function LiveInquiries() {
   // 서버·클라이언트 렌더 결과가 달라지면 하이드레이션 경고가 나므로,
-  // 최초에는 비워두고 마운트 후 클라이언트에서만 무작위 행을 채운다.
+  // 최초에는 비워두고 마운트 후 클라이언트에서만 행을 채운다.
   const [rows, setRows] = useState<Row[]>([])
+  const [now, setNow] = useState(0)
   const [spinning, setSpinning] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
   const nextId = useRef(0)
   const trimTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const arrivedOnce = useRef(false) // 이 페이지에서 한 번이라도 도착했는지 — 첫 도착만 빠르게
 
+  // 처음 채우기 — 세션에 남아 있으면 이어서, 없으면 새로
   useEffect(() => {
-    setRows(INITIAL_MINUTES.slice(0, VISIBLE).map((m) => makeRow(nextId.current++, m)))
+    const t = Date.now()
+    const stored = loadRows(t)
+    const initial = stored ?? makeInitialRows(t)
+    nextId.current = initial.reduce((m, r) => Math.max(m, r.id), -1) + 1
+    setRows(initial)
+    setNow(t)
+    if (!stored) saveRows(initial)
+  }, [])
 
-    let timer: ReturnType<typeof setTimeout>
-    const tick = () => {
-      if (!document.hidden) {
-        setRows((prev) => {
-          // 새 행은 '방금 전', 기존 행은 위 행보다 2~9분씩 불규칙하게 뒤로 밀려 전부 다른 시간이 되게.
-          // 마지막 행은 바로 지우지 않고 VISIBLE+1 개로 두어 접힘(퇴장) 애니메이션을 보여준 뒤 아래에서 잘라낸다.
-          const next: Row[] = [makeRow(nextId.current++, 0)]
-          for (const r of prev.slice(0, VISIBLE)) {
-            const above = next[next.length - 1].minutes
-            next.push({ ...r, minutes: Math.max(above + randomGap(), r.minutes + 1) })
-          }
-          return next
-        })
-        setSpinning(true)
-        setTimeout(() => setSpinning(false), 700)
-        if (trimTimer.current) clearTimeout(trimTimer.current)
-        trimTimer.current = setTimeout(() => setRows((p) => p.slice(0, VISIBLE)), 650)
-      }
-      // 딱딱 떨어지는 고정 주기보다 3~7초 랜덤이 실제 문의처럼 보인다
-      timer = setTimeout(tick, 3000 + Math.random() * 4000)
+  // 시계 — 라벨만 실제 시간에 맞춰 갱신한다
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), CLOCK_TICK_MS)
+    return () => clearInterval(t)
+  }, [])
+
+  // 새 문의 도착 — 보드가 화면 안에 있고 탭이 보일 때만 예약한다
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    let timer: ReturnType<typeof setTimeout> | null = null
+    let inView = false
+
+    const arrive = () => {
+      timer = null
+      const t = Date.now()
+      setNow(t)
+      setRows((prev) => {
+        // 새 행은 맨 위에 '방금 전'. 마지막 행은 바로 지우지 않고 VISIBLE+1 개로 두어
+        // 접힘(퇴장) 애니메이션을 보여준 뒤 아래에서 잘라낸다.
+        const next = [makeRow(nextId.current++, t), ...prev.slice(0, VISIBLE)]
+        saveRows(next)
+        return next
+      })
+      setSpinning(true)
+      setTimeout(() => setSpinning(false), 700)
+      if (trimTimer.current) clearTimeout(trimTimer.current)
+      trimTimer.current = setTimeout(() => setRows((p) => p.slice(0, VISIBLE)), 650)
+      arrivedOnce.current = true
+      schedule()
     }
-    timer = setTimeout(tick, 3500)
+    const schedule = () => {
+      if (timer) clearTimeout(timer)
+      timer = null
+      if (!inView || document.hidden) return
+      timer = setTimeout(arrive, arrivedOnce.current ? NEXT_ARRIVAL_MS() : FIRST_ARRIVAL_MS())
+    }
+    const cancel = () => {
+      if (timer) clearTimeout(timer)
+      timer = null
+    }
+
+    const io = new IntersectionObserver(
+      ([e]) => {
+        inView = e.isIntersecting
+        if (inView) schedule()
+        else cancel() // 안 보는 동안 밀린 건 쌓아두지 않는다
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    const onVis = () => (document.hidden ? cancel() : schedule())
+    document.addEventListener('visibilitychange', onVis)
+
     return () => {
-      clearTimeout(timer)
+      cancel()
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVis)
       if (trimTimer.current) clearTimeout(trimTimer.current)
     }
   }, [])
 
-  // 1분마다 모든 행의 시간이 실제로 1분씩 흐른다 ('방금 전' → '1분 전' → …)
-  useEffect(() => {
-    const t = setInterval(
-      () => setRows((prev) => prev.map((r) => ({ ...r, minutes: r.minutes + 1 }))),
-      60_000,
-    )
-    return () => clearInterval(t)
-  }, [])
+  // 헤더의 '업데이트' 라벨도 맨 위 문의 시각을 그대로 따른다
+  const updatedLabel = rows.length ? ageLabel(now - rows[0].at) : '방금 전'
 
   return (
-    <div className="live-card">
+    <div ref={cardRef} className="live-card">
       {/* 헤더: LIVE 배지 + 업데이트 표시 */}
       <div className="live-head">
         <p className="live-title">
@@ -105,7 +173,7 @@ export default function LiveInquiries() {
           실시간 홈페이지 문의
         </p>
         <p className="live-updated">
-          방금 전 업데이트
+          {updatedLabel} 업데이트
           <svg
             width="12"
             height="12"
@@ -151,7 +219,7 @@ export default function LiveInquiries() {
             </span>
             <span className="live-name">{r.name}</span>
             <span className="live-inquiry">{r.inquiry}</span>
-            <span className="live-age">{ageLabel(r.minutes)}</span>
+            <span className="live-age">{ageLabel(now - r.at)}</span>
           </li>
         ))}
         {/* 마운트 전에는 높이만 잡아둬 레이아웃이 튀지 않게 한다 */}
