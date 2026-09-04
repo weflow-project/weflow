@@ -48,13 +48,14 @@ export default function FloatingButtons() {
 
       {/* 모바일 — 화면 맨 아래 두 칸 바 (PC 에선 CSS 로 숨김) */}
       <div className="mobile-cta-bar">
+        {/* 글씨는 금장 광택(c-gold, 왼쪽→오른쪽) · 아이콘은 전화 초록, 달력 흰색 */}
         <a href="tel:010-2971-7280" className="mobile-cta-bar__btn mobile-cta-bar__btn--call">
           <Phone size={20} strokeWidth={1.8} />
-          바로전화
+          <span className="c-gold">바로전화</span>
         </a>
         <Link href="/diagnosis" className="mobile-cta-bar__btn mobile-cta-bar__btn--form">
           <CalendarCheck size={20} strokeWidth={1.8} />
-          무료상담신청
+          <span className="c-gold">무료상담신청</span>
         </Link>
       </div>
     </>

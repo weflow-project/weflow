@@ -91,10 +91,10 @@ export default function CasesPage() {
           <div style={{ textAlign: "center", marginTop: "clamp(2.5rem, 5vw, 3.5rem)" }}>
             <Link
               href="/diagnosis"
-              className="btn-primary"
+              className="btn-gold btn-gold--fill"
               style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
             >
-              무료 상담 신청 →
+              <span className="btn-gold__label">무료 상담 신청 →</span>
             </Link>
           </div>
         </div>

@@ -51,8 +51,8 @@ export default function PageIntro({
               {body}
             </p>
           )}
-          <Link href={ctaHref} className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 2.2rem' }}>
-            {ctaLabel}
+          <Link href={ctaHref} className="btn-gold btn-gold--fill" style={{ fontSize: '1rem', padding: '0.85rem 2.2rem' }}>
+            <span className="btn-gold__label">{ctaLabel}</span>
           </Link>
         </Reveal>
       </div>

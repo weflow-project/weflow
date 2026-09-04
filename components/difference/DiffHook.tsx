@@ -19,7 +19,7 @@ export default function DiffHook() {
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         <Reveal variant="up" style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto" }}>
           <span className="footnote emphasized c-accent" style={{ letterSpacing: "0.04em" }}>
-            01 · 템플릿 제작 업체와, 무엇이 다를까요?
+            01 · 템플릿(예전기술) 제작 업체와, 무엇이 다를까요?
           </span>
           <h1 className="title-1 emphasized" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
             내 홈페이지인데,

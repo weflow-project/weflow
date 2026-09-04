@@ -227,19 +227,19 @@ export default function HeroBanner() {
         >
           <Link
             href="/cases"
-            className="btn-primary hero-btn hero-btn--ghost hero-btn--accent"
+            className="btn-primary hero-btn hero-btn--gold hero-btn--accent"
             style={{ width: "min(240px, 80vw)" }}
           >
-            제작 사례 바로가기
+            <span className="hero-btn__label">제작 사례 바로가기</span>
           </Link>
 
           {/* 사이트 점검은 헤더 메뉴(금색)로 보내고, 이 자리는 차별점 페이지로 쓴다 */}
           <Link
             href="/difference"
-            className="btn-primary hero-btn hero-btn--ghost"
+            className="btn-primary hero-btn hero-btn--gold"
             style={{ width: "min(240px, 80vw)" }}
           >
-            우리가 특별한 이유
+            <span className="hero-btn__label">우리가 특별한 이유</span>
           </Link>
         </div>
 
@@ -271,15 +271,37 @@ export default function HeroBanner() {
           border-color: #ffffff;
         }
 
-        /* 주 버튼 — 보조 버튼과 같은 유리 질감에 반투명 파랑(68%)을 얹는다
-           (솔리드 채움은 너무 튀고, 글로우도 과해서 뺌) */
-        .hero-btn--accent {
-          background: rgba(37, 99, 235, 0.68);
-          border-color: rgba(255, 255, 255, 0.8);
+        /* 금색 버튼 — 헤더 상담 버튼과 같은 처리: 유리 질감 바탕에 밝은 금색 테두리,
+           글씨는 금장 광택. (면을 금색으로 채우면 영상 위에서 탁해 보여 테두리·글씨에만 쓴다) */
+        .hero-btn--gold {
+          background: rgba(227, 201, 158, 0.10);
+          border-color: rgba(240, 220, 174, 0.95);
+          backdrop-filter: blur(4px);
+          box-shadow: 0 0 22px rgba(227, 201, 158, 0.22);
         }
-        .hero-btn--accent:hover {
+        .hero-btn--gold:hover {
+          background: rgba(227, 201, 158, 0.2);
+          border-color: #fff8e6;
+        }
+        /* 주 버튼(제작 사례) — 금색 테두리·글씨는 그대로 두고 바탕만 원래의 반투명 파랑(68%)으로 채운다.
+           금색 규칙 뒤에 선언해야 배경이 파랑으로 이긴다 */
+        .hero-btn--gold.hero-btn--accent {
+          background: rgba(37, 99, 235, 0.68);
+        }
+        .hero-btn--gold.hero-btn--accent:hover {
           background: rgba(37, 99, 235, 0.82);
-          border-color: #ffffff;
+        }
+        .hero-btn__label {
+          display: inline-block;
+          background: linear-gradient(115deg, #d9bc88 0%, #e9d3a6 38%, #fff8e6 50%, #e9d3a6 62%, #d9bc88 100%);
+          background-size: 250% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: cGoldSheen 2.8s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-btn__label { animation: none; }
         }
 
         /* 높이는 부모(.first-screen)가 정한다 — 히어로는 신뢰 밴드를 뺀 나머지를

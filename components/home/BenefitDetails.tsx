@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Check, ArrowRight, Crown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SplitText from "@/components/SplitText";
-import { CTA_BTN, CTA_BTN_FILLED } from "@/lib/ctaButton";
+import { CTA_BTN } from "@/lib/ctaButton";
 
 // 아이콘 배치 순서 (혜택 카드별) — 3-2-1-2-3-1
 const ICON_ORDER = [3, 2, 1, 2, 3, 1];
@@ -12,6 +12,8 @@ type Benefit = {
   title: string;
   points: string[];
   icon: string;
+  /** 오른쪽 큰 사진 번호(/images/benefits/benefits{img}.webp) — 카드 순서를 바꿔도 사진이 따라오게 */
+  img: number;
   cta?: { label: string; href: string };
 };
 
@@ -26,6 +28,16 @@ const BENEFITS: Benefit[] = [
       "원하시는 채널만 골라 제휴 업체와 연결",
     ],
     icon: "/images/3d-icon/benefit001.svg",
+    img: 1,
+  },
+  {
+    title: "고객의 소리 · 1:1 관리 시스템",
+    points: [
+      "충분한 소통으로 고객의 니즈 파악",
+      "전담 담당자가 고객 한 분을 1:1로 전담",
+    ],
+    icon: "/images/3d-icon/benefit004.svg",
+    img: 5,
   },
   {
     title: "통계 관리자 페이지",
@@ -35,6 +47,7 @@ const BENEFITS: Benefit[] = [
       "통계로 유입·전환 추이를 한눈에 파악",
     ],
     icon: "/images/3d-icon/benefit003.svg",
+    img: 2,
   },
   {
     title: "반응형 디자인 (PC / MO)",
@@ -43,6 +56,7 @@ const BENEFITS: Benefit[] = [
       "화면 잘림 없는 깔끔한 반응형 전환",
     ],
     icon: "/images/3d-icon/benefit006.svg",
+    img: 3,
   },
   {
     title: "합리적 가성비",
@@ -51,15 +65,8 @@ const BENEFITS: Benefit[] = [
       "필요한 기능만 구성한 합리적인 비용",
     ],
     icon: "/images/3d-icon/benefit002.svg",
+    img: 4,
     cta: { label: "제작 플랜 보기", href: "/pricing" },
-  },
-  {
-    title: "고객의 소리 · 1:1 관리 시스템",
-    points: [
-      "충분한 소통으로 고객의 니즈 파악",
-      "전담 담당자가 고객 한 분을 1:1로 전담",
-    ],
-    icon: "/images/3d-icon/benefit004.svg",
   },
   {
     title: "각 상품별 전용 유지보수",
@@ -69,6 +76,7 @@ const BENEFITS: Benefit[] = [
       "텍스트 문구 / 이미지 수정 지원",
     ],
     icon: "/images/3d-icon/benefit005.svg",
+    img: 6,
   },
 ];
 
@@ -200,7 +208,7 @@ export default function BenefitDetails() {
                 <div className="bd-img">
                   <div className="bd-img-inner">
                     <Image
-                      src={`/images/benefits/benefits${i + 1}.webp`}
+                      src={`/images/benefits/benefits${b.img}.webp`}
                       alt={b.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 520px"
@@ -284,27 +292,11 @@ export default function BenefitDetails() {
                 marginTop: "3rem",
               }}
             >
-              <a
-                href="tel:010-2971-7280"
-                style={{
-                  ...CTA_BTN,
-                  fontWeight: 700,
-                  borderRadius: "var(--radius-xl)",
-                  border: "2px solid var(--border)",
-                  background: "var(--surface)",
-                  color: "var(--text)",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              <a href="tel:010-2971-7280" className="btn-gold" style={CTA_BTN}>
+                <span className="btn-gold__label">전화 상담하기</span> <ArrowRight size={18} strokeWidth={2.5} />
               </a>
-              <Link
-                href="/diagnosis"
-                className="btn-white"
-                style={CTA_BTN_FILLED}
-              >
-                무료 상담 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              <Link href="/diagnosis" className="btn-gold" style={CTA_BTN}>
+                <span className="btn-gold__label">무료 상담 신청</span> <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
             </div>
           </Reveal>

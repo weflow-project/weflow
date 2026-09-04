@@ -295,11 +295,11 @@ export default async function CaseDetailPage({
           </p>
 
           <div className="case-cta__row">
-            <a href="tel:010-2971-7280" className="btn-outline" style={CTA_BTN}>
-              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            <a href="tel:010-2971-7280" className="btn-gold" style={CTA_BTN}>
+              <span className="btn-gold__label">전화 상담하기</span> <ArrowRight size={18} strokeWidth={2.5} />
             </a>
-            <Link href="/diagnosis" className="btn-primary" style={CTA_BTN_FILLED}>
-              무료 상담 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            <Link href="/diagnosis" className="btn-gold btn-gold--fill" style={CTA_BTN}>
+              <span className="btn-gold__label">무료 상담 신청</span> <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>

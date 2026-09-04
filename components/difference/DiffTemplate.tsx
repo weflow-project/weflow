@@ -117,10 +117,14 @@ export default function DiffTemplate() {
 
         {/* 마무리 한 줄 — 저렴함의 대가를 짚는다 */}
         <Reveal variant="fade" delay={0.15} className="dt-note">
-          <p className="title-1 emphasized" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
+          {/* title-1 과 title-2 사이 크기 — title-1 은 컸고 title-2 는 작았다 */}
+          <p
+            className="title-1 emphasized"
+            style={{ margin: "0 0 0.75rem", wordBreak: "keep-all", fontSize: "clamp(1.55rem, 3.5vw, 1.9rem)" }}
+          >
             <span className="c-gold">저렴하다고 좋은 게 아닙니다.</span>
           </p>
-          <p className="body c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
+          <p className="callout c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
             템플릿은 예전 기술입니다.
             <br className="br-mobile" />{" "}
             아무리 잘 이용해도 보안·속도·검색 색인에서

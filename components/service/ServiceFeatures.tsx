@@ -29,6 +29,11 @@ const FEATURES: {
     only: true,
   },
   {
+    Icon: Users,
+    title: "1:1 맞춤 시스템",
+    desc: "전담 담당자가 고객 한 분을 1:1로 전담 케어합니다.",
+  },
+  {
     Icon: LayoutDashboard,
     title: "관리자 페이지 제공 (선택형)",
     desc: "통계를 통해 문의·예약을 관리하고 관리자 DB를 확보합니다.",
@@ -42,11 +47,6 @@ const FEATURES: {
     Icon: Link2,
     title: "SNS 연동",
     desc: "카카오톡, 인스타그램 등 원하는 플랫폼을 자유롭게 연동합니다.",
-  },
-  {
-    Icon: Users,
-    title: "1:1 맞춤 시스템",
-    desc: "전담 담당자가 고객 한 분을 1:1로 전담 케어합니다.",
   },
   {
     Icon: MessageCircle,

@@ -90,7 +90,7 @@ export default function PcPromoWidgets() {
               <span className="pc-promo-pop__icon"><FileText size={52} strokeWidth={1.5} /></span>
             </div>
             <Link href="/diagnosis" className="pc-promo-pop__btn" onClick={closePop}>
-              견적 문의
+              <span className="btn-gold__label">견적 문의</span>
             </Link>
             <button onClick={closePop} className="pc-promo-pop__close">닫기</button>
           </div>
@@ -218,21 +218,23 @@ export default function PcPromoWidgets() {
         .pc-promo-pop__title strong { color: #60a5fa; }
         .pc-promo-pop__accent { color: #60a5fa; }
         .pc-promo-pop__icon { color: #60a5fa; margin-top: 2px; }
+        /* 견적 문의 버튼 — 사이트 CTA(btn-gold)와 같은 금색 테두리·광택 글씨 */
         .pc-promo-pop__btn {
           display: block;
           text-align: center;
           margin-top: 1.1rem;
-          background: rgba(96, 165, 250, 0.14);
-          border: 1px solid rgba(96, 165, 250, 0.35);
-          color: #93c5fd;
+          background: rgba(227, 201, 158, 0.10);
+          border: 1.5px solid rgba(240, 220, 174, 0.95);
+          color: #e3c99e;
           border-radius: 10px;
           padding: 0.55rem 0;
           font-size: 0.95rem;
           font-weight: 700;
           text-decoration: none;
+          box-shadow: 0 0 18px rgba(227, 201, 158, 0.2);
           transition: background 0.16s ease;
         }
-        .pc-promo-pop__btn:hover { background: rgba(96, 165, 250, 0.24); }
+        .pc-promo-pop__btn:hover { background: rgba(227, 201, 158, 0.2); }
         .pc-promo-pop__close {
           display: block;
           width: 100%;

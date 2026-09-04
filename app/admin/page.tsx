@@ -1640,7 +1640,7 @@ const PAGE_KO: Record<string, string> = {
   "/cases": "제작 사례",
   "/check": "사이트 점검",
   "/diagnosis": "무료 상담",
-  "/difference": "우리가 특별한 이유",
+  "/difference": "왜 WEFLOW?",
   "/guide": "제작 라인업",
   "/pricing": "가격 안내",
   "/reviews": "고객 인터뷰",
@@ -1768,7 +1768,8 @@ function SectionHead({
 }: {
   Icon: LucideIcon;
   title: string;
-  desc: string;
+  /** 설명 — 모바일 줄바꿈이 필요하면 <br className="br-mobile" /> 를 섞어 넘긴다 */
+  desc: React.ReactNode;
   tint: string;
 }) {
   return (
@@ -1817,6 +1818,59 @@ function SectionHead({
         >
           {desc}
         </p>
+      </div>
+    </div>
+  );
+}
+
+// 카드 안 칸 머리글 (전체 · 광고별 · 키워드별)
+function SubHead({ children }: { children: React.ReactNode }) {
+  return (
+    <p
+      style={{
+        margin: "0 0 0.7rem",
+        fontSize: "0.8rem",
+        fontWeight: 700,
+        letterSpacing: "0.04em",
+        color: "var(--text-muted)",
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
+// 한 항목(광고 매체·키워드)의 기기 구성 — 항목 이름 아래에 기기별로 한 줄씩,
+// 다른 카드와 같은 "라벨 · 막대 · n명 (nn%)" 형식. 퍼센트는 그 항목 안에서의 비중이다
+function DeviceSplitRow({ label, byDevice }: { label: string; byDevice: Record<string, number> }) {
+  const parts = Object.entries(byDevice).sort((a, b) => b[1] - a[1]);
+  const total = parts.reduce((s, r) => s + r[1], 0);
+  return (
+    <div>
+      <p
+        title={label}
+        style={{
+          margin: "0 0 0.45rem",
+          fontSize: "0.86rem",
+          fontWeight: 700,
+          color: "var(--text)",
+          wordBreak: "break-all",
+          lineHeight: 1.35,
+        }}
+      >
+        {label} <span style={{ fontWeight: 500, color: "var(--text-muted)" }}>· {total}명</span>
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        {parts.map(([dev, n]) => (
+          <BarRow
+            key={dev}
+            label={DEVICE_KO[dev] || dev}
+            color={DEVICE_COLOR[dev] || "var(--accent)"}
+            value={n}
+            max={total}
+            right={`${n}명 (${Math.round((n / total) * 100)}%)`}
+          />
+        ))}
       </div>
     </div>
   );
@@ -1945,6 +1999,10 @@ function TrafficView({
   const sourceCount: Record<string, number> = {};
   const keywordCount: Record<string, number> = {}; // 광고 키워드별 세션 (파워링크 n_keyword 등)
   const deviceCount: Record<string, number> = {};
+  // 광고로 온 세션의 기기 — 전체 / 광고 매체별 / 키워드별
+  const adDeviceCount: Record<string, number> = {};
+  const adDeviceBySource: Record<string, Record<string, number>> = {};
+  const adDeviceByKeyword: Record<string, Record<string, number>> = {};
   const exitCount: Record<string, number> = {};
   const adExitCount: Record<string, number> = {}; // 광고 유입 세션의 이탈 페이지
   let bounced = 0;
@@ -1965,6 +2023,15 @@ function TrafficView({
       const kws = new Set(paidViews.map((v) => v.campaign).filter(Boolean));
       kws.forEach((kw) => {
         keywordCount[kw] = (keywordCount[kw] || 0) + 1;
+      });
+      // 기기는 세션(기기당 하루) 단위라 하나뿐 — 광고 매체·키워드 카드와 같은 단위로 센다
+      const dev = entry.device || "desktop";
+      adDeviceCount[dev] = (adDeviceCount[dev] || 0) + 1;
+      new Set(paidViews.map((v) => `${normSource(v.source)}-ad`)).forEach((src) => {
+        (adDeviceBySource[src] ||= {})[dev] = (adDeviceBySource[src][dev] || 0) + 1;
+      });
+      kws.forEach((kw) => {
+        (adDeviceByKeyword[kw] ||= {})[dev] = (adDeviceByKeyword[kw][dev] || 0) + 1;
       });
       // 광고 유입 이탈 페이지 — 키워드 카드와 같은 단위(키워드당 1회)로 세서
       // 두 카드의 합계가 항상 일치한다 (한 기기가 키워드 2개로 오면 이탈도 2로)
@@ -1992,6 +2059,14 @@ function TrafficView({
   const keywordRows = Object.entries(keywordCount).sort((a, b) => b[1] - a[1]);
   const maxKeyword = Math.max(1, ...keywordRows.map((r) => r[1]));
   const deviceRows = Object.entries(deviceCount).sort((a, b) => b[1] - a[1]);
+  const adDeviceRows = Object.entries(adDeviceCount).sort((a, b) => b[1] - a[1]);
+  const adSessionTotal = adDeviceRows.reduce((s, r) => s + r[1], 0);
+  // 매체·키워드별은 세션 많은 순, 키워드는 상위 8개만
+  const sumDev = (m: Record<string, number>) => Object.values(m).reduce((a, b) => a + b, 0);
+  const adDeviceSourceRows = Object.entries(adDeviceBySource).sort((a, b) => sumDev(b[1]) - sumDev(a[1]));
+  const adDeviceKeywordRows = Object.entries(adDeviceByKeyword)
+    .sort((a, b) => sumDev(b[1]) - sumDev(a[1]))
+    .slice(0, 8);
   const exitRows = Object.entries(exitCount)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6);
@@ -2233,6 +2308,70 @@ function TrafficView({
           </div>
         </section>
 
+        {/* 광고로 온 고객의 기기 — 전체 → 광고 매체별 → 키워드별.
+            네이버 파워링크는 PC·모바일 입찰이 따로라 어디에 예산을 둘지 판단하는 근거가 된다.
+            광고 클릭이 한 건이라도 있을 때만 보인다 */}
+        {adSessionTotal > 0 && (
+        <section style={card} className="ad-dev-card">
+          <SectionHead
+            Icon={Smartphone}
+            tint="#15803d"
+            title="광고로 온 고객은 무엇으로 봤나요?"
+            desc={
+              <>
+                광고를 클릭해 들어온 고객의 접속 기기
+                <br className="br-mobile" /> — 광고별·키워드별
+              </>
+            }
+          />
+          {/* PC 는 두 칸 — 왼쪽에 전체(기기 3줄뿐이라 짧다)와 광고별을 위아래로, 오른쪽에 키워드별.
+              모바일은 세로로 쌓는다 */}
+          <div className="ad-dev-grid">
+            <div className="ad-dev-col">
+              <SubHead>전체</SubHead>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+                {adDeviceRows.map(([dev, cnt]) => (
+                  <BarRow
+                    key={dev}
+                    label={DEVICE_KO[dev] || dev}
+                    color={DEVICE_COLOR[dev] || "var(--accent)"}
+                    value={cnt}
+                    max={Math.max(1, ...adDeviceRows.map((r) => r[1]))}
+                    right={`${cnt}명 (${Math.round((cnt / adSessionTotal) * 100)}%)`}
+                  />
+                ))}
+              </div>
+
+              <div className="ad-dev-sub">
+                <SubHead>광고별</SubHead>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                  {adDeviceSourceRows.map(([src, byDev]) => (
+                    <DeviceSplitRow key={src} label={SOURCE_KO[src] || src} byDevice={byDev} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="ad-dev-col">
+              <SubHead>키워드별</SubHead>
+              {adDeviceKeywordRows.length === 0 ? (
+                <p className="c-muted" style={{ margin: 0, fontSize: "0.9rem" }}>키워드 기록 없음</p>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                  {adDeviceKeywordRows.map(([kw, byDev]) => (
+                    <DeviceSplitRow
+                      key={kw}
+                      label={/^\d{12,}$/.test(kw) ? `ID …${kw.slice(-6)}` : kw}
+                      byDevice={byDev}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+        )}
+
         {/* 광고 키워드별 유입 — 광고 클릭이 한 건이라도 있을 때만 보인다.
             PC 는 광고 이탈 카드와 나란히 두 칸, 모바일은 기기 카드보다 위(order)로 온다 */}
         {keywordRows.length > 0 && (
@@ -2241,7 +2380,7 @@ function TrafficView({
             Icon={LogIn}
             tint="#15803d"
             title="어떤 키워드로 왔나요?"
-            desc="광고를 클릭해 들어온 검색어 (많은 순)"
+            desc="광고를 클릭해 들어온 검색어"
           />
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
@@ -3383,10 +3522,22 @@ export default function AdminPage() {
         @keyframes spin { to { transform: rotate(360deg); } }
         .detail-dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.95rem; }
         .analytics-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        /* 광고 기기 카드 — 두 칸 그리드를 가로로 꽉 채우고 안은 전체·광고별·키워드별 3열 */
+        .analytics-2col .ad-dev-card { grid-column: 1 / -1; }
+        .ad-dev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .ad-dev-col { min-width: 0; }
+        /* 왼쪽 칸에서 전체 아래에 붙는 광고별 — 가로선으로 나눈다 */
+        .ad-dev-sub { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .ad-dev-col + .ad-dev-col { border-left: 1px solid var(--border); padding-left: 1.5rem; }
+        @media (max-width: 900px) {
+          .ad-dev-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+          .ad-dev-col + .ad-dev-col { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1rem; }
+        }
         @media (max-width: 900px) {
           .analytics-2col { grid-template-columns: 1fr; }
           /* 모바일: 기기 카드를 광고 카드들 뒤로 — 유입 경로 → 키워드 → 광고 이탈 → 기기 순 */
           .analytics-2col .dev-card { order: 1; }
+          .analytics-2col .ad-dev-card { order: 2; }
         }
         .traffic-metric-grid { grid-template-columns: repeat(4, 1fr); }
         @media (max-width: 900px) { .traffic-metric-grid { grid-template-columns: repeat(2, 1fr); } }

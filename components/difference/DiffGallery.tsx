@@ -12,17 +12,16 @@ const ROW_A = [
 ];
 const ROW_B = [
   { src: "/images/cases/cases-saedure/cases-saedure-01.webp", alt: "새두레 홈페이지 화면" },
-  { src: "/images/cases/cases-ruricompany/cases-ruricompany-01.webp", alt: "루리컴퍼니 홈페이지 화면" },
   { src: "/images/cases/cases-parknara/cases-parknara-01.webp", alt: "컨설턴트 홈페이지 화면" },
   { src: "/images/cases/cases-leesiyeon/cases-leesiyeon-01.webp", alt: "설계사 홈페이지 화면" },
 ];
 
-/** 한 줄 마퀴 — 같은 목록을 두 번 이어 붙여 끊김 없이 돈다. 마우스를 올리면 멈춘다. */
+/** 한 줄 마퀴 — 같은 목록을 세 번 이어 붙여 넓은 화면에서도 끊김 없이 돈다. 마우스를 올리면 멈춘다. */
 function MarqueeRow({ items, reverse = false }: { items: typeof ROW_A; reverse?: boolean }) {
   return (
     <div className="dg-marquee">
       <div className={`dg-track${reverse ? " reverse" : ""}`}>
-        {[...items, ...items].map(({ src, alt }, i) => (
+        {[...items, ...items, ...items].map(({ src, alt }, i) => (
           <div key={`${src}-${i}`} className="dg-shot" aria-hidden={i >= items.length}>
             <Image
               src={src}
@@ -115,10 +114,10 @@ export default function DiffGallery() {
           transition: transform 0.25s ease;
         }
         .dg-shot:hover { transform: translateY(-4px); }
-        /* 목록을 두 번 붙였으니 절반만큼 밀면 처음과 이어진다 (gap 만큼 보정) */
+        /* 목록을 세 번 붙였으니 1/3 만큼 밀면 처음과 이어진다 (gap 만큼 보정) */
         @keyframes dg-scroll {
           from { transform: translateX(0); }
-          to { transform: translateX(calc(-50% - 0.5rem)); }
+          to { transform: translateX(calc((-100% - 1rem) / 3)); }
         }
         @media (prefers-reduced-motion: reduce) {
           .dg-track { animation: none; }

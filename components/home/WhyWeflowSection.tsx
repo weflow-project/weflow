@@ -362,17 +362,17 @@ export default function WhyWeflowSection() {
           <div style={{ display: "flex", gap: "0.9rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a
               href="tel:010-2971-7280"
-              className="btn-outline"
+              className="btn-gold"
               style={CTA_BTN}
             >
-              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+              <span className="btn-gold__label">전화 상담하기</span> <ArrowRight size={18} strokeWidth={2.5} />
             </a>
             <Link
               href="/diagnosis"
-              className="btn-primary"
-              style={CTA_BTN_FILLED}
+              className="btn-gold btn-gold--fill"
+              style={CTA_BTN}
             >
-              무료 상담 신청 <ArrowRight size={18} strokeWidth={2.5} />
+              <span className="btn-gold__label">무료 상담 신청</span> <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </div>

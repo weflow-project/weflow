@@ -347,27 +347,11 @@ export default function AboutPage() {
             함께 흐르고, 더 크게 성장하다
           </p>
           <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <a
-              href="tel:010-2971-7280"
-              style={{
-                ...CTA_BTN,
-                fontWeight: 700,
-                borderRadius: "var(--radius-xl)",
-                border: "2px solid rgba(255,255,255,0.85)",
-                background: "rgba(255,255,255,0.12)",
-                color: "var(--text)",
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-              }}
-            >
-              전화 상담하기 <ArrowRight size={18} strokeWidth={2.5} />
+            <a href="tel:010-2971-7280" className="btn-gold" style={CTA_BTN}>
+              <span className="btn-gold__label">전화 상담하기</span> <ArrowRight size={18} strokeWidth={2.5} />
             </a>
-            <Link
-              href="/diagnosis"
-              className="btn-white"
-              style={CTA_BTN_FILLED}
-            >
-              무료 상담 신청 <ArrowRight size={18} strokeWidth={2.5} />
+            <Link href="/diagnosis" className="btn-gold" style={CTA_BTN}>
+              <span className="btn-gold__label">무료 상담 신청</span> <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </Reveal>

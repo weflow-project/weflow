@@ -11,10 +11,10 @@ const NAV_LINKS: { href: string; label: string; gold?: boolean }[] = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
   { href: "/pricing", label: "가격 안내" },
-  { href: "/difference", label: "우리가 특별한 이유" },
+  { href: "/difference", label: "왜 WEFLOW?" },
+  { href: "/benefits", label: "WEFLOW 혜택" },
   { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
-  { href: "/benefits", label: "WEFLOW 혜택" },
   // 예약 신청(/booking)은 메뉴에서 내리고 그 자리에 사이트 점검을 뒀다 — 페이지 자체는 남아 있다
   // gold: 다른 메뉴보다 눈에 띄게 굵은 금색으로 그린다 (PC·모바일 공통)
   { href: "/check", label: "사이트 점검", gold: true },
