@@ -44,8 +44,8 @@ export default function DiffModern() {
             03 · 최신 기술로 만든 홈페이지란?
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            최신 기술을 쓰면, <br className="br-mobile" />
-            <span className="c-gold">어떤 사이트가 나올까요?</span>
+            <span className="c-gold">최신 기술을 쓰면,</span> <br className="br-mobile" />
+            <span className="title-lead">어떤 사이트가 나올까요?</span>
           </h2>
           <p
             className="body c-muted"

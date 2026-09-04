@@ -45,7 +45,7 @@ export default function DiffWorries() {
             05 · 템플릿(예전기술) 대신 최신 기술을 써야 하는 이유
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            템플릿(예전기술)을 고르면 <br className="br-mobile" />
+            <span className="title-lead">템플릿(예전기술)을 고르면</span> <br className="br-mobile" />
             <span className="c-gold">이런 걱정이 따라옵니다</span>
           </h2>
           <p

@@ -15,7 +15,7 @@ const SERVICE_LINKS = [
   { label: '가격 안내',        href: '/pricing' },
   { label: '제작 라인업',       href: '/guide' },
   { label: 'WEFLOW 혜택',     href: '/benefits' },
-  { label: 'WEFLOW만의 차별점', href: '/difference' },
+  { label: '우리가 특별한 이유', href: '/difference' },
 ]
 
 const CARE_LINKS = [

@@ -239,7 +239,7 @@ export default function HeroBanner() {
             className="btn-primary hero-btn hero-btn--ghost"
             style={{ width: "min(240px, 80vw)" }}
           >
-            WEFLOW만의 차별점
+            우리가 특별한 이유
           </Link>
         </div>
 

@@ -327,6 +327,8 @@
   @media (prefers-reduced-motion: reduce) {
     .c-gold { animation: none; }
   }
+  /* 제목에서 금색 강조 옆에 붙는 흰 글씨 — 한 단계 작게 해서 금색이 앞에 서게 */
+  .title-lead { font-size: 0.78em; }
 
   /* 레거시 별칭 — 기존 섹션 제목은 Title 1 / Subhead 로 매핑 */
   .section-title {

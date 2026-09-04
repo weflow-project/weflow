@@ -10,8 +10,8 @@ import { Menu, X } from "lucide-react";
 const NAV_LINKS: { href: string; label: string; gold?: boolean }[] = [
   { href: "/about", label: "회사소개" },
   { href: "/service", label: "서비스" },
-  // WEFLOW만의 차별점(/difference)은 메뉴에서 빼고 메인 히어로 버튼으로 보낸다 — 페이지·푸터 링크는 남아 있다
   { href: "/pricing", label: "가격 안내" },
+  { href: "/difference", label: "우리가 특별한 이유" },
   { href: "/cases", label: "제작 사례" },
   { href: "/guide", label: "제작 라인업" },
   { href: "/benefits", label: "WEFLOW 혜택" },
@@ -33,6 +33,7 @@ const RESETTABLE = new Set(["/booking", "/diagnosis", "/check"]);
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
 
   // 예약·상담 메뉴를 이미 그 페이지에서 다시 누르면 통째로 새로고침 — 입력 중이던 폼이 초기화된다
   const handleClick =
@@ -301,26 +302,41 @@ export default function Navbar() {
         >
           <Link
             href="/diagnosis"
-            className="btn-primary"
+            className="btn-primary cta-gradient"
             style={{ justifyContent: "center", width: "100%" }}
             onClick={close}
           >
-            무료 상담 신청
+            <span className="cta-label">무료 상담 신청</span>
           </Link>
         </div>
       </div>
 
       <style>{`
         @media (max-width: 768px) { .show-mobile-flex { display: flex !important; } }
-        /* 어두운 헤더 위 CTA — 상단 띠·히어로 버튼과 같은 파랑(--accent-strong)에서
-           한 번 밝아졌다 돌아온다. 흰 글씨 최저 대비 5.11:1. */
+        /* 어두운 헤더 위 CTA — 바탕은 어둡게, 밝은 금색 테두리, 글씨는 금장 광택(c-gold 계열).
+           금색을 면으로 채우면 어두운 UI 위에서 탁해 보여 글씨·테두리에만 쓴다.
+           모바일 드로어의 상담 버튼도 같은 클래스를 쓴다. */
         .cta-gradient {
-          background: linear-gradient(120deg, #1b4ea7, #2a6ccb, #1b4ea7) !important;
-          background-size: 250% 100% !important;
-          color: #ffffff !important;
-          animation: cta-flow 2.4s linear infinite;
-          box-shadow: none !important;
+          position: relative;
+          overflow: hidden;
+          background: rgba(227, 201, 158, 0.14) !important;
+          border: 1.5px solid rgba(240, 220, 174, 0.95) !important;
+          color: #f0dcae !important;
+          box-shadow: 0 0 20px rgba(227, 201, 158, 0.28) !important;
         }
+        .cta-gradient:hover { background: rgba(227, 201, 158, 0.22) !important; }
+        /* 글씨 — 어두운 끝색 없이 밝은 금(#d9bc88~#fff8e6) 사이에서만 광택이 흐른다 */
+        .cta-gradient .cta-marquee-item,
+        .cta-gradient .cta-label {
+          display: inline-block;
+          background: linear-gradient(115deg, #d9bc88 0%, #e9d3a6 38%, #fff8e6 50%, #e9d3a6 62%, #d9bc88 100%);
+          background-size: 250% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: cGoldSheen 2.8s linear infinite;
+        }
+        /* 은은한 금빛 스윕이 버튼을 지나간다 */
         .cta-gradient::after {
           content: '';
           position: absolute;
@@ -328,16 +344,11 @@ export default function Navbar() {
           left: -70%;
           width: 48%;
           height: 100%;
-          background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+          background: linear-gradient(100deg, transparent, rgba(255,246,218,0.22), transparent);
           transform: skewX(-20deg);
           animation: cta-shine 2.4s ease-in-out infinite;
           pointer-events: none;
           z-index: 2;
-        }
-        @keyframes cta-flow {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
         }
         @keyframes cta-shine {
           0% { left: -70%; }
@@ -345,7 +356,7 @@ export default function Navbar() {
           100% { left: 130%; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .cta-gradient, .cta-gradient::after { animation: none; }
+          .cta-gradient::after, .cta-gradient .cta-marquee-item, .cta-gradient .cta-label { animation: none; }
         }
       `}</style>
     </>

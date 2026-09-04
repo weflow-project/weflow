@@ -60,7 +60,7 @@ export default function DiffTemplate() {
             02 · 템플릿(예전기술)이란?
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            템플릿(예전기술) 홈페이지는 <br className="br-mobile" />
+            <span className="title-lead">템플릿(예전기술) 홈페이지는</span> <br className="br-mobile" />
             <span className="c-gold">왜 저렴할까요?</span>
           </h2>
           <p className="body c-muted" style={{ margin: "1rem 0 0", maxWidth: "560px", wordBreak: "keep-all" }}>
@@ -117,13 +117,15 @@ export default function DiffTemplate() {
 
         {/* 마무리 한 줄 — 저렴함의 대가를 짚는다 */}
         <Reveal variant="fade" delay={0.15} className="dt-note">
-          <p className="title-2 emphasized" style={{ margin: "0 0 0.5rem", wordBreak: "keep-all" }}>
+          <p className="title-1 emphasized" style={{ margin: "0 0 0.75rem", wordBreak: "keep-all" }}>
             <span className="c-gold">저렴하다고 좋은 게 아닙니다.</span>
           </p>
           <p className="body c-muted" style={{ margin: 0, wordBreak: "keep-all" }}>
             템플릿은 예전 기술입니다.
-            <br className="br-mobile" />
-            아무리 잘 이용해도 보안·속도·검색 색인에서 <strong style={{ color: "var(--text)" }}>최신 기술을 따라올 수 없고</strong>,
+            <br className="br-mobile" />{" "}
+            아무리 잘 이용해도 보안·속도·검색 색인에서
+            <br className="br-mobile" />{" "}
+            <strong style={{ color: "var(--text)" }}>최신 기술을 따라올 수 없고</strong>,
             <br />
             내가 원하는 요구사항도 들어줄 수 없습니다.
           </p>
