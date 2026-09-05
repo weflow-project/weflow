@@ -7,7 +7,7 @@ const RESULTS: { Icon: LucideIcon; title: string; desc: string }[] = [
   {
     Icon: Calculator,
     title: "원하는 기능은 무엇이든",
-    desc: "자동 견적 계산기, 스마트스토어·네이버 플레이스로 이어지는 연결 구조 설계, 예약·결제까지. 틀이 없으니 필요한 기능을 코드로 직접 만듭니다.",
+    desc: "자동 견적 계산기, 스마트스토어·네이버 플레이스로 이어지는 연결 구조 설계, 예약·결제까지 틀이 없으니 필요한 기능을 코드로 직접 만듭니다.",
   },
   {
     Icon: Zap,
