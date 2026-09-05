@@ -67,7 +67,7 @@ export default function DiffCompare() {
 
         {/* 좌우 라벨 */}
         <span className="dc-tag dc-tag--tpl" style={{ opacity: pos > 18 ? 1 : 0 }}>
-          템플릿(예전기술)
+          템플릿(예전 기술)
         </span>
         <span className="dc-tag dc-tag--we" style={{ opacity: pos < 82 ? 1 : 0 }}>
           WEFLOW

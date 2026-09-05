@@ -20,8 +20,10 @@ const SCRIPT: Msg[] = [
 const TYPING_MS = 900; // 업체가 "…" 치는 시간
 const ME_DELAY_MS = 750; // 내가 다음 질문을 보내기까지
 const THEM_DELAY_MS = 350; // 내 질문 뒤 업체가 읽고 치기 시작하기까지
-// 모바일은 페이지에 들어오자마자 첫 문답(질문 1 + "안 됩니다" 1)이 이미 떠 있고, 그다음부터 평소 속도로 이어진다
-const MOBILE_PRESHOWN = 2;
+// 모바일은 화면 진입을 기다리지 않고 바로 시작하되, 첫 문답(질문 1 + "안 됩니다" 1)만 빠르게 치고
+// 그다음부터는 평소 속도로 이어진다 — 미리 떠 있는 게 아니라 '금방 나오는' 느낌
+const MOBILE_FAST_COUNT = 2;
+const FAST = { typing: 550, me: 300, them: 220 };
 const isMobile = () =>
   typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 
@@ -47,9 +49,8 @@ export default function DiffChat() {
       setStarted(true);
       return;
     }
-    // 모바일 — 화면에 들어오길 기다리지 않고 첫 문답을 바로 보여준 뒤 이어서 재생
+    // 모바일 — 화면에 들어오길 기다리지 않고 바로 재생 시작
     if (isMobile()) {
-      setShown(MOBILE_PRESHOWN);
       setStarted(true);
       return;
     }
@@ -70,6 +71,11 @@ export default function DiffChat() {
   useEffect(() => {
     if (!started || shown >= SCRIPT.length) return;
     const next = SCRIPT[shown];
+    // 모바일 첫 문답만 빠르게
+    const fast = isMobile() && shown < MOBILE_FAST_COUNT;
+    const typingMs = fast ? FAST.typing : TYPING_MS;
+    const meMs = fast ? FAST.me : ME_DELAY_MS;
+    const themMs = fast ? FAST.them : THEM_DELAY_MS;
     let t1: ReturnType<typeof setTimeout>;
     let t2: ReturnType<typeof setTimeout>;
     if (next.from === "them") {
@@ -78,10 +84,10 @@ export default function DiffChat() {
         t2 = setTimeout(() => {
           setTyping(false);
           setShown((n) => n + 1);
-        }, TYPING_MS);
-      }, THEM_DELAY_MS);
+        }, typingMs);
+      }, themMs);
     } else {
-      t1 = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 300 : ME_DELAY_MS);
+      t1 = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 300 : meMs);
     }
     return () => {
       clearTimeout(t1);
@@ -99,7 +105,7 @@ export default function DiffChat() {
   const done = shown >= SCRIPT.length;
 
   const replay = () => {
-    setShown(isMobile() ? MOBILE_PRESHOWN : 0);
+    setShown(0);
     setTyping(false);
     setRun((r) => r + 1);
   };

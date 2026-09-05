@@ -57,10 +57,10 @@ export default function DiffTemplate() {
       <div style={{ maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
         <Reveal variant="up" style={{ maxWidth: "760px" }}>
           <span className="footnote emphasized c-accent" style={{ letterSpacing: "0.04em" }}>
-            02 · 템플릿(예전기술)이란?
+            02 · 템플릿(예전 기술)이란?
           </span>
           <h2 className="title-1" style={{ margin: "0.9rem 0 0", wordBreak: "keep-all" }}>
-            <span className="title-lead">템플릿(예전기술) 홈페이지는</span> <br className="br-mobile" />
+            <span className="title-lead">템플릿(예전 기술) 홈페이지는</span> <br className="br-mobile" />
             <span className="c-gold">왜 저렴할까요?</span>
           </h2>
           <p className="body c-muted" style={{ margin: "1rem 0 0", maxWidth: "560px", wordBreak: "keep-all" }}>
