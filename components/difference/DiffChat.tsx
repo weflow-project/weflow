@@ -20,6 +20,10 @@ const SCRIPT: Msg[] = [
 const TYPING_MS = 900; // 업체가 "…" 치는 시간
 const ME_DELAY_MS = 750; // 내가 다음 질문을 보내기까지
 const THEM_DELAY_MS = 350; // 내 질문 뒤 업체가 읽고 치기 시작하기까지
+// 모바일은 페이지에 들어오자마자 첫 문답(질문 1 + "안 됩니다" 1)이 이미 떠 있고, 그다음부터 평소 속도로 이어진다
+const MOBILE_PRESHOWN = 2;
+const isMobile = () =>
+  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 
 /**
  * 01 · 도입 인터랙션 — 카톡처럼 생긴 채팅창에서 고객 요청과 "안 됩니다" 답변이
@@ -40,6 +44,12 @@ export default function DiffChat() {
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setShown(SCRIPT.length);
+      setStarted(true);
+      return;
+    }
+    // 모바일 — 화면에 들어오길 기다리지 않고 첫 문답을 바로 보여준 뒤 이어서 재생
+    if (isMobile()) {
+      setShown(MOBILE_PRESHOWN);
       setStarted(true);
       return;
     }
@@ -89,7 +99,7 @@ export default function DiffChat() {
   const done = shown >= SCRIPT.length;
 
   const replay = () => {
-    setShown(0);
+    setShown(isMobile() ? MOBILE_PRESHOWN : 0);
     setTyping(false);
     setRun((r) => r + 1);
   };
