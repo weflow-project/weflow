@@ -40,8 +40,13 @@ export default function DiffHook() {
           <DiffChat />
         </Reveal>
 
-        {/* 결론 한 줄 */}
-        <Reveal variant="fade" delay={0.2} style={{ textAlign: "center", marginTop: "clamp(2.5rem, 6vw, 4rem)" }}>
+        {/* 결론 한 줄 — 모바일은 스크롤 등장 효과 없이 처음부터 떠 있다 (아래 style) */}
+        <Reveal
+          variant="fade"
+          delay={0.2}
+          className="dh-conclusion"
+          style={{ textAlign: "center", marginTop: "clamp(2.5rem, 6vw, 4rem)" }}
+        >
           <p className="callout c-muted" style={{ margin: "0 0 0.6rem", wordBreak: "keep-all" }}>
             못 만들어서가 아닙니다. 이유는 하나입니다.
           </p>
@@ -64,6 +69,17 @@ export default function DiffHook() {
         </Reveal>
       </div>
 
+      <style>{`
+        /* 모바일 — 결론 문단은 채팅이 끝나기 전에 스크롤해도 바로 보이게 등장 효과를 끈다 */
+        @media (max-width: 768px) {
+          .dh-conclusion {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -71,7 +71,7 @@ export default function PcPromoWidgets() {
         </div>
         <Link href="/diagnosis" className="pc-side-widget__btn">
           <FileText size={14} strokeWidth={2} />
-          빠른 견적 문의
+          <span className="btn-gold__label">빠른 견적 문의</span>
         </Link>
       </div>
       )}
@@ -153,22 +153,28 @@ export default function PcPromoWidgets() {
           object-fit: contain;
           flex-shrink: 0;
         }
+        /* 빠른 견적 문의 — 도입부 CTA(btn-gold--fill)와 같은 파란 채움 + 금색 테두리·광택 글씨·글로우 */
         .pc-side-widget__btn {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 0.35rem;
-          background: var(--accent);
-          color: var(--on-accent);
+          background: rgba(37, 99, 235, 0.68);
+          color: #e3c99e;
+          border: 1.5px solid rgba(240, 220, 174, 0.95);
           border-radius: 10px;
           padding: 0.65rem 0;
           font-size: 0.82rem;
           font-weight: 700;
           text-decoration: none;
-          box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-          transition: transform 0.16s ease, box-shadow 0.16s ease;
+          box-shadow: 0 0 18px rgba(227, 201, 158, 0.25);
+          transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
         }
-        .pc-side-widget__btn:hover { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(37, 99, 235, 0.45); }
+        .pc-side-widget__btn:hover {
+          transform: translateY(-1px);
+          background: rgba(37, 99, 235, 0.82);
+          box-shadow: 0 0 24px rgba(227, 201, 158, 0.38);
+        }
 
         /* ── 우측 하단 상담 유도 팝업 ── */
         .pc-promo-pop {

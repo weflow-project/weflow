@@ -295,7 +295,7 @@ export default function BenefitDetails() {
               <a href="tel:010-2971-7280" className="btn-gold" style={CTA_BTN}>
                 <span className="btn-gold__label">전화 상담하기</span> <ArrowRight size={18} strokeWidth={2.5} />
               </a>
-              <Link href="/diagnosis" className="btn-gold" style={CTA_BTN}>
+              <Link href="/diagnosis" className="btn-gold btn-gold--fill" style={CTA_BTN}>
                 <span className="btn-gold__label">무료 상담 신청</span> <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
             </div>

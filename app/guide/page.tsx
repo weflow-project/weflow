@@ -63,10 +63,10 @@ export default function GuidePage() {
           </p>
           <Link
             href="/cases"
-            className="btn-primary"
+            className="btn-gold btn-gold--fill"
             style={{ fontSize: "1rem", padding: "0.85rem 2.2rem" }}
           >
-            실제 고객 제작 사례 →
+            <span className="btn-gold__label">실제 고객 제작 사례 →</span>
           </Link>
         </div>
       </section>
