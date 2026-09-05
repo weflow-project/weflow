@@ -17,13 +17,9 @@ const SCRIPT: Msg[] = [
   { from: "them", text: "죄송합니다. 그건 안 됩니다." },
 ];
 
-// 타이밍 — 모바일은 채팅창이 화면을 많이 차지해 기다리는 느낌이 커서 PC보다 빠르게 돌린다
-const TIMING = {
-  pc: { typing: 900, me: 750, them: 350 },
-  mobile: { typing: 550, me: 450, them: 220 },
-};
-const isMobile = () =>
-  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+const TYPING_MS = 900; // 업체가 "…" 치는 시간
+const ME_DELAY_MS = 750; // 내가 다음 질문을 보내기까지
+const THEM_DELAY_MS = 350; // 내 질문 뒤 업체가 읽고 치기 시작하기까지
 
 /**
  * 01 · 도입 인터랙션 — 카톡처럼 생긴 채팅창에서 고객 요청과 "안 됩니다" 답변이
@@ -64,7 +60,6 @@ export default function DiffChat() {
   useEffect(() => {
     if (!started || shown >= SCRIPT.length) return;
     const next = SCRIPT[shown];
-    const T = isMobile() ? TIMING.mobile : TIMING.pc;
     let t1: ReturnType<typeof setTimeout>;
     let t2: ReturnType<typeof setTimeout>;
     if (next.from === "them") {
@@ -73,10 +68,10 @@ export default function DiffChat() {
         t2 = setTimeout(() => {
           setTyping(false);
           setShown((n) => n + 1);
-        }, T.typing);
-      }, T.them);
+        }, TYPING_MS);
+      }, THEM_DELAY_MS);
     } else {
-      t1 = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 300 : T.me);
+      t1 = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 300 : ME_DELAY_MS);
     }
     return () => {
       clearTimeout(t1);
