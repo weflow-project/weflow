@@ -20,16 +20,14 @@ const SCRIPT: Msg[] = [
 const TYPING_MS = 900; // 업체가 "…" 치는 시간
 const ME_DELAY_MS = 750; // 내가 다음 질문을 보내기까지
 const THEM_DELAY_MS = 350; // 내 질문 뒤 업체가 읽고 치기 시작하기까지
-// 모바일은 화면 진입을 기다리지 않고 바로 시작하되, 첫 문답(질문 1 + "안 됩니다" 1)만 빠르게 치고
-// 그다음부터는 평소 속도로 이어진다 — 미리 떠 있는 게 아니라 '금방 나오는' 느낌
-const MOBILE_FAST_COUNT = 2;
+// 페이지에 들어오면 화면 진입을 기다리지 않고 바로 시작하되, 첫 문답(질문 1 + "안 됩니다" 1)만 빠르게 치고
+// 그다음부터는 평소 속도로 이어진다 — 미리 떠 있는 게 아니라 '금방 나오는' 느낌 (PC·모바일 동일)
+const FAST_COUNT = 2;
 const FAST = { typing: 550, me: 300, them: 220 };
-const isMobile = () =>
-  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 
 /**
  * 01 · 도입 인터랙션 — 카톡처럼 생긴 채팅창에서 고객 요청과 "안 됩니다" 답변이
- * 한 줄씩 자동으로 오간다. 화면에 들어오면 시작하고, 거절 횟수가 위에 쌓인다.
+ * 한 줄씩 자동으로 오간다. 페이지 진입과 동시에 시작하고, 거절 횟수가 위에 쌓인다.
  * 끝나면 다시 보기 버튼이 뜬다. 움직임 줄이기 설정에서는 대화를 한 번에 다 보여준다.
  */
 export default function DiffChat() {
@@ -40,39 +38,20 @@ export default function DiffChat() {
   const boxRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // 화면에 들어오면 시작 (한 번만)
+  // 페이지 진입과 동시에 시작 — 움직임 줄이기 설정이면 대화를 한 번에 다 보여준다
   useEffect(() => {
-    const el = boxRef.current;
-    if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setShown(SCRIPT.length);
-      setStarted(true);
-      return;
     }
-    // 모바일 — 화면에 들어오길 기다리지 않고 바로 재생 시작
-    if (isMobile()) {
-      setStarted(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setStarted(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.35 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    setStarted(true);
   }, []);
 
   // 한 줄씩 진행
   useEffect(() => {
     if (!started || shown >= SCRIPT.length) return;
     const next = SCRIPT[shown];
-    // 모바일 첫 문답만 빠르게
-    const fast = isMobile() && shown < MOBILE_FAST_COUNT;
+    // 첫 문답만 빠르게
+    const fast = shown < FAST_COUNT;
     const typingMs = fast ? FAST.typing : TYPING_MS;
     const meMs = fast ? FAST.me : ME_DELAY_MS;
     const themMs = fast ? FAST.them : THEM_DELAY_MS;
